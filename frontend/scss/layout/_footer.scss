@@ -1,0 +1,23 @@
+#footerB {
+  font-size: 16px;
+  //border-radius: 5px;
+  bottom: 0px;
+  // max-width: 1039px;
+  box-sizing: border-box;
+  margin: 0px;
+  display: block;
+  height: auto;
+  background: radial-gradient(circle, rgba(78, 149, 211, 0.1) 0%, rgba(49, 109, 194, 0.6) 0%, rgba(78, 149, 211, 0.1) 100%);
+  position: absolute;
+  width: 100%;
+  & p {
+    padding-top: 5px;
+    margin-top: 5px;
+    line-height: 16px;
+  }
+}
+
+footer{
+  font-size: 16px;
+  background: radial-gradient(circle, rgba(78, 149, 211, 0.1) 0%, rgba(49, 109, 194, 0.6) 0%, rgba(78, 149, 211, 0.1) 100%);
+}

@@ -1,0 +1,56 @@
+@import "../utilities/mixins";
+@import "../utilities/variables";
+
+body{
+  display: flex;
+  flex-flow: column wrap;
+  justify-content: center;
+  align-items: center stretch;
+  padding: 0;
+  font-family: "Trebuchet MS", sans-serif;
+  text-align: center;
+  box-sizing: border-box;
+  background-repeat: no-repeat;
+  background-image: radial-gradient(ellipse farthest-corner at 0 110%, #3c84cc 0%, #4e95d3 71.5%, #316dc2 70%);
+  background-color: rgba(74, 148, 214, 0.9);
+  background-attachment: fixed;
+  overflow-x: hidden;
+  overflow-y: auto;
+  min-height: 100%;
+  width: 100%;
+}
+
+#indexB {
+  & #divOnTop {
+    @include floatingDiv;
+    & #closeButton {
+      @include closeButton;
+    }
+  }
+  & #registerInfo {
+    display: flex;
+    flex-direction: column;
+    width: 600px;
+    background: $formBackground;
+    border-radius: 20px;
+    margin-top: -15vh;
+    padding: 20px;
+    & label {
+      margin-top: 10px;
+      margin-bottom: 10px;
+      font-size: 16px;
+    }
+    & input {
+      margin-bottom: 20px;
+      border-radius: 7px;
+    }
+    & button {
+      align-self: center;
+      margin-top: 30px;
+      margin-bottom: 30px;
+      width: 120px;
+      font-size: 18px;
+      border-radius: 10px;
+    }
+  }
+}
