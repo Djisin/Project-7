@@ -32,6 +32,7 @@ onload = async function submitCheckData() {
         }
         else {
             console.log(responseId)
+            window.location.replace("/frontend/index.html");
         }
 
     }

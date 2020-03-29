@@ -90,7 +90,7 @@ function getUserInfo() {
     }
 
     function inputAlphabet(inputtext, alertMsg) {
-        let alphaExp = /^(?=^[A-Za-z]+\s?[A-Za-z]+\s?[A-Za-z]+$).{3,30}$/;
+        let alphaExp = /^(?=^[A-Za-z]+\s?[A-Za-z]+\s?[A-Za-z]+$).{2,30}$/;
         if (inputtext.value.match(alphaExp)) {
             return true;
         } else {

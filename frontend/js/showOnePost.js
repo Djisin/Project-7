@@ -472,9 +472,6 @@ request.onload = function () {
 
             likesDiv.append(comLikes, comDislikes);
 
-            /*const comOnComHeader = document.createElement('h6');
-            comOnComHeader.setAttribute('class', 'comOnComHeader');
-            oneCommentDiv.appendChild(comOnComHeader);*/
             // COM ON COM START*****************************************************
             for (k = 0; k < data.commentOnComment.length; k++) {
                 if (data.comment[i].commentId === data.commentOnComment[k].commentId) {
@@ -517,7 +514,7 @@ request.onload = function () {
                     const comFooter2nd = document.createElement('div');
                     comFooter2nd.setAttribute('class', 'col-md-12 comFooter2nd');
                     oneCommentDiv2nd.appendChild(comFooter2nd);
-                    if (data.commentOnComment[k].userId !== data.userId) {
+                   /* if (data.commentOnComment[k].userId !== data.userId) {
                         const comReport2nd = document.createElement('button');
                         comReport2nd.setAttribute('class', 'btn btn-link')
                         comReport2nd.innerText = 'report';
@@ -557,12 +554,22 @@ request.onload = function () {
                                     'reportReason': repReasonData,
                                     'whoCreatedPost': data.comment[i].userId
                                 };
-                                submitReport(submitReportData);*/
+                                submitReport(submitReportData);
                             })
                         }, { once: true });
-                    }
-  //                  
-                    if (data.commentOnComment[k].userId === data.userId) {
+                    }*/
+  //             
+  const comDelete2nd = document.createElement('button');
+                        comDelete2nd.setAttribute('class', 'btn btn-link');
+                        comDelete2nd.innerText = 'delete2';
+                        comDelete2nd.addEventListener('click', ($event) => {
+                            $event.preventDefault();
+                            //console.log(k)y
+                            reqComId2nd = data.commentOnComment[k].comSecLevId  
+                               console.log(reqComId2nd)
+                        })
+                        comFooter2nd.append(comDelete2nd);
+                    /*if (data.commentOnComment[k].userId === data.userId) {
                         
                         const comEdit2nd = document.createElement('button');
                         comEdit2nd.setAttribute('class', 'btn btn-link');
@@ -608,7 +615,7 @@ request.onload = function () {
                         comDelete2nd.innerText = 'delete2';
                         comDelete2nd.addEventListener('click', ($event) => {
                             $event.preventDefault();
-                            //console.log(k)
+                            //console.log(k)y
                             reqComId2nd = data.commentOnComment[k].comSecLevId
                             
                             submitDeleteComment2nd()
@@ -616,7 +623,7 @@ request.onload = function () {
                         comFooter2nd.append(comEdit2nd, comDelete2nd);
 
 
-                    }
+                    }*/
                     if (data.commentOnComment[k].edited !== 0) {
                         const editedParag2nd = document.createElement('p');
                         editedParag2nd.innerText = 'Edited:' + countTime(data.commentOnComment[k].timeEdited);

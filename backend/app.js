@@ -3,16 +3,17 @@ const session = require('express-session');
 const bodyParser = require('body-parser');
 const path = require('path');
 const cors = require('cors')
-const cookieParser = require('cookie-parser')
 
-const connection = require('./connection');
+//const connection = require('./connection');
+
+const commentRoutes = require('./routes/comment')
 const postsRoutes = require('./routes/posts');
 const userRoutes = require('./routes/user')
 
 const app = express();
-
 app.use(bodyParser.json());
-//app.use(cookieParser('Groupomania'))
+app.use(bodyParser.urlencoded({ extended: true }))
+app.use(express.json())
 
 app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Credentials', 'true');
@@ -21,6 +22,8 @@ app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS');
     next();
 });
+
+app.use('/images',express.static(path.join(__dirname, 'images'))); 
 
 app.use(cors({
     origin:'http://127.0.0.1:5500',
@@ -34,14 +37,14 @@ app.use(session({
     secret: 'some_session_secret',
     unset:'destroy',
     cookie: {
-        maxAge: 600000,
+        maxAge: 3.6e+6,//1h
         sameSite: true,
         secure: false //kad se zavrsi aplikacija treba da sa promeni u true
     }
 }))
 
-
 app.use('/', userRoutes);
 app.use('/api/posts', postsRoutes);
+app.use('/api/posts', commentRoutes)
 
 module.exports = app;

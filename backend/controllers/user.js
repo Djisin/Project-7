@@ -26,7 +26,7 @@ exports.signup = (req, res, next) => {
                 'firstName':req.body.firstName,
                 'lastName':req.body.lastName,
                 'timeCreated': today,
-                'postsSeen':'{}'
+                'postsSeen':'{"seen":[]}'
             };
             connection.query('INSERT INTO user SET ?', users, (error, result) => {
                 if (!error) {

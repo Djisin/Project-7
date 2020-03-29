@@ -4,72 +4,134 @@ nav img {
   margin-top: -10px;
 }
 #createPostSection {
-  @include floatingDiv;
-  & #closeButton {
-    @include closeButton;
-    top: 45px;
+  @include postSection
+}
+#showAllPosts {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-self: center;
+  max-width: 1024px;
+
+  & #unreadPosts {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    max-width: 1024px;
+    margin-top: 100px;
+    background-color: rgba(208, 214, 232, 0.4);
+& #sectionTitle{
+  flex:0 0 100%;
+}
   }
-  & #createPostForm {
-    padding-bottom: 20px;
-    border-radius: 15px;
-    background-color: $formBackground;
-    max-width: 600px;
-    width: auto;
-    overflow-y: auto;
-    & label {
-      margin-top: 20px;
-      &#fileuploadLabel {
-       display:block;
-        text-align: left;
-        margin-top: 0;
-        //margin-left: -390px;
-      }
+  & #readPosts {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    max-width: 1024px;
+    margin-top: 10px;
+    background-color: rgba(12, 128, 236, 0.9);
+    /*& h3 {
+      flex: 0 0 100%;
+      background-color: $sectionTitles;
+      border-radius: 5px;
+      // height: 30px;
+      font-size: 18px;
+      padding-top: 5px;
+      padding-left: 10px;
+
+      // text-align: left;
     }
-    & input {
-      border-radius: 7px;
-      /*&#fileupload{
-        display: inline-block;
-      }*/
-    }
-    & #uploadDiv{
-      display: flex!important;
-      flex-direction: column;
-      justify-content: flex-start;
-      padding-top: 20px;
-      padding-right: 0;
-      display: inline-block;
-    } & #picDiv{
-      padding:20px ;
-      display: inline-block;
-      min-height: 150px;
-    }
-    & img {
-      max-width: 200px;
+    */
+  }
+  & .onePostDiv {
+    display: flex;
+    flex-direction: column;
+    //flex-wrap: wrap;
+   // align-items: flex-start;
+    align-self: center;
+    background: #fff;
+    margin: 5px;
+    width: 240px;
+    height: 300px;
+    box-shadow: 4px 2px 4px 0 rgba(73, 73, 73, 0.6);
+    border-radius: 0 0px 20px 20px;
+
+    & .postTitleClass {
+      width: 100%;
+      //flex: 0 0 100%;
+      background-color: $postTitles;
+      box-shadow: 0px 2px 4px -1px $postShadows;
+      margin: 0 0 5px 0;
+      padding: 8px;
+      //border: 0;
+      border-radius: 0 0px 0 0;
+      font-size: 16px;
       height: auto;
-      max-height: 200px;
-      margin: 0;
-      padding: 0;
-      border: 2px 2px solid #fff;
-      box-shadow: 5px 5px rgba(160, 160, 160, 0.5);
-    }
-    & textarea {
-      border-radius: 7px;
-      max-width: 540px;
-      min-width: 540px;
-      max-height: 150px;
-      min-height: 50px;
-      overflow-y: scroll;
-    }
-    & button {
-      width: 100px;
-      font-size: 15px;
-      border-radius: 7px;
-      &#removeImgButton{
-        margin-top: 10px;
-        font-size: 14px;
-        border-radius: 6px;
+      max-height: 50px;
+      &.SeenPost{
+        
+        background-color: rgba(12, 128, 236, 0.9);
       }
     }
-    
+    //.postTitleClass
+    & .contentDiv {
+      align-self: flex-start;
+      overflow: hidden;
+      align-self: flex-start;
+      text-overflow: ellipsis;
+      max-height: 175px;
+      //flex-grow: 1;
+      & .postTextClass {
+        //float:none;
+        //display: block;
+        //max-height: 175px;
+        width: auto;
+        //overflow: hidden;
+        margin:0;
+        margin-top: 5px;
+        text-overflow: ellipsis;
+        font-size: 12px;
+        text-align: justify;
+      }
+      & img {
+        //display:inline-block;
+        float: left;
+        margin: 10px 10px 0 0;
+       max-width: 120px;
+        max-height: 110px;
+      }
+    }
+    & .createdByClass {
+      box-shadow: 0px -2px 4px -1px $postShadows;
+      margin-top: auto;
+      //margin-bottom: 5px;
+      height: 45px;
+      align-items: flex-end;
+      & h5 {
+        margin:0;
+        display: inline-block;
+        width: 100%;
+        font-size: 12px;
+      }
+    }
+    & i {
+      margin: 5px;
+    }
+    & .timeCreatedClass {
+      box-shadow: 0px -2px 4px -1px $postShadows;
+      border-radius: 0 0 20px 20px;
+      width: 100%;
+      margin:0;
+      padding: 2.5px;
+      height: 20px;
+      align-self: flex-end;
+      font-size: 12px;
+    }
+    &:hover {
+      cursor: pointer;
+    }
   }
 }

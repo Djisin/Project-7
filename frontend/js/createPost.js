@@ -2,6 +2,10 @@ let createPostButton = document.getElementById('createPost');
 let createPostSection = document.getElementById('createPostSection');
 
 createPostButton.addEventListener('click', ($event) => {
+    if (document.getElementById('divOnTop')!==null){
+        document.getElementById('divOnTop').style.display = 'none';
+    }
+
     $event.preventDefault();
 
     createPostSection.style.display = 'flex';
@@ -11,6 +15,7 @@ createPostButton.addEventListener('click', ($event) => {
     postForm.setAttribute('method', 'POST');
     postForm.setAttribute('class', 'col-md-12')
     postForm.setAttribute('id', 'createPostForm')
+    postForm.setAttribute('enctype', 'multipart/form-data')
     createPostSection.appendChild(postForm);
 
     let header = document.createElement('h3');
@@ -20,7 +25,7 @@ createPostButton.addEventListener('click', ($event) => {
     let formRow1 = document.createElement('div');
     formRow1.setAttribute('class', 'form-row col-md-12');
     let formDiv1 = document.createElement('div');
-    formDiv1.setAttribute('class', 'md-col-3')
+    formDiv1.setAttribute('class', 'md-col-12')
     postForm.appendChild(formRow1);
     formRow1.appendChild(formDiv1);
 
@@ -78,8 +83,8 @@ createPostButton.addEventListener('click', ($event) => {
     postImgLabel1.textContent = 'Select a file to upload';
     let postImgInput = document.createElement('input');
     postImgInput.setAttribute('type', 'file');
-    postImgInput.setAttribute('name', 'fileupload');
-    postImgInput.setAttribute('value', 'fileupload');
+    //postImgInput.setAttribute('name', 'upimg');
+    //postImgInput.setAttribute('value', 'fileupload');
     postImgInput.setAttribute('id', 'fileupload');
     postImgInput.setAttribute('class', 'btn btn-secondary');
 
@@ -95,7 +100,7 @@ createPostButton.addEventListener('click', ($event) => {
     submitPostButton.innerText = 'Create';
     postForm.appendChild(submitPostButton);
 
-    let submitCreate = {};
+    let submitCreate = new FormData;
     submitPostButton.addEventListener('click', ($event) => {
 
         $event.preventDefault();
@@ -114,7 +119,15 @@ createPostButton.addEventListener('click', ($event) => {
             postTextArea.focus();
             return false;
         } else {
-            submitCreate = getCreatePost(); console.log(submitCreate)
+            image = document.getElementById('fileupload').files[0];
+            if (image !== undefined || image !== null) {
+                submitCreate.append('file', image)
+            }
+            console.log(image)
+            submitContent = getCreatePost()
+            submitContent = JSON.stringify(submitContent)
+
+            submitCreate.append('post', submitContent);
             submitCreateFormData(submitCreate);
         }
     });
@@ -153,9 +166,10 @@ apiCreate = 'http://127.0.0.1:3000'
 function getCreatePost() {
     postTitle = document.getElementById('postTitle').value;
     postText = document.getElementById('postText').value;
-    image = document.getElementById('fileupload').value;
-    post = { postTitle, postText, image }
+
+    post = { postTitle, postText }
     return post
+
 }
 
 function makeCreateRequest(submitCreate) {
@@ -174,8 +188,8 @@ function makeCreateRequest(submitCreate) {
                 }
             }
         };
-        request.setRequestHeader('Content-Type', 'application/json');
-        request.send(JSON.stringify(submitCreate));
+        //request.setRequestHeader('Content-Type', 'application/json');
+        request.send(submitCreate);
     });
 }
 
