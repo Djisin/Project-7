@@ -84,17 +84,28 @@ exports.getOnePost = (req, res, next) => {
                                 ORDER BY comseclevel.timeCreated DESC` ,
                                     (error, commentOnComment) => {
                                         if (!error) {
+                                            for(j= 0; j<comment.length;j++){
+                                                let zika = new Array
+                                                for(k =0; k<commentOnComment.length; k++){
+                                                    if (comment[j].commentId === commentOnComment[k].commentId){
+                                                        
+                                                        zika.push(commentOnComment[k])
+                                                       
+                                                    }
+                                                } 
+                                                comment[j]['commentOnComment']=zika
+                                            }
                                             if (req.session.userId === post[0].userId) {
                                                 res.status(200).json({
                                                     comment: comment,
                                                     post: post,
-                                                    commentOnComment: commentOnComment,
+                                                    //commentOnComment: commentOnComment,
                                                     userCreatedThisPost: true,
                                                     userId: userId
                                                 })
                                             } else {
                                                 res.status(200).json({
-                                                    commentOnComment: commentOnComment,
+                                                    //commentOnComment: commentOnComment,
                                                     comment: comment,
                                                     post: post,
                                                     userId: userId
