@@ -66,8 +66,17 @@ exports.getOnePost = (req, res, next) => {
                 LEFT JOIN reports
                 ON comment.commentId = reports.commentId
                 WHERE comment.?
+                AND reports.comSecLevId IS NOT NULL
+                UNION
+                SELECT comment.*, user.username, user.userPicture
+                FROM comment 
+                INNER JOIN user
+                ON comment.userId = user.userId 
+                LEFT JOIN reports
+                ON comment.commentId = reports.commentId
+                WHERE comment.?
                 AND reports.reportId IS NULL
-                ORDER BY comment.comTimeCreated DESC`, postId,
+                ORDER BY comTimeCreated DESC`, [postId, postId], //order by treba
                     (error, comment) => {
                         if (!error) {
                             let commentArray = new Array
@@ -80,32 +89,31 @@ exports.getOnePost = (req, res, next) => {
                                 FROM comseclevel
                                 INNER JOIN user
                                 ON comseclevel.userId = user.userId
-                                WHERE commentId IN (`+ commentArray + `)
+                                LEFT JOIN reports
+                                ON comseclevel.comSecLevId = reports.comSecLevId
+                                 WHERE comseclevel.commentId IN (`+ commentArray + `)
+                                 AND reports.reportId IS NULL
                                 ORDER BY comseclevel.timeCreated DESC` ,
                                     (error, commentOnComment) => {
                                         if (!error) {
-                                            for(j= 0; j<comment.length;j++){
-                                                let zika = new Array
-                                                for(k =0; k<commentOnComment.length; k++){
-                                                    if (comment[j].commentId === commentOnComment[k].commentId){
-                                                        
-                                                        zika.push(commentOnComment[k])
-                                                       
+                                            for (j = 0; j < comment.length; j++) {
+                                                let storeComments = new Array
+                                                for (k = 0; k < commentOnComment.length; k++) {
+                                                    if (comment[j].commentId === commentOnComment[k].commentId) {
+                                                        storeComments.push(commentOnComment[k])
                                                     }
-                                                } 
-                                                comment[j]['commentOnComment']=zika
+                                                }
+                                                comment[j]['commentOnComment'] = storeComments
                                             }
                                             if (req.session.userId === post[0].userId) {
                                                 res.status(200).json({
                                                     comment: comment,
                                                     post: post,
-                                                    //commentOnComment: commentOnComment,
                                                     userCreatedThisPost: true,
                                                     userId: userId
                                                 })
                                             } else {
                                                 res.status(200).json({
-                                                    //commentOnComment: commentOnComment,
                                                     comment: comment,
                                                     post: post,
                                                     userId: userId
@@ -116,18 +124,16 @@ exports.getOnePost = (req, res, next) => {
                                             console.log(error)
                                         }
                                     })
-                            }else{
+                            } else {
                                 if (req.session.userId === post[0].userId) {
                                     res.status(200).json({
                                         comment: comment,
                                         post: post,
-                                        commentOnComment: [],
                                         userCreatedThisPost: true,
                                         userId: userId
                                     })
                                 } else {
                                     res.status(200).json({
-                                        commentOnComment: [],
                                         comment: comment,
                                         post: post,
                                         userId: userId
@@ -182,7 +188,20 @@ exports.getAllPosts = (req, res, next) => {
             ON post.userId = user.userId 
             LEFT JOIN reports
             ON post.postId = reports.postId
-            WHERE reports.reportId IS NULL
+            WHERE  reports.commentId IS NULL
+            AND reports.comSecLevId IS NULL
+            AND reports.reportId IS NULL
+            UNION
+            SELECT post.postId, post.postTitle, post.postPicture, post.postText, post.postLikes, post.postDislikes, post.postTimeCreated, user.username 
+            FROM post 
+            INNER JOIN user 
+            ON post.userId = user.userId 
+            LEFT JOIN reports
+            ON post.postId = reports.postId
+            WHERE  reports.commentId IS NOT NULL
+            OR reports.comSecLevId IS NULL
+            AND reports.reportId IS NULL
+
             ORDER BY postTimeCreated DESC`,
                 (error, posts) => {
                     if (!error) {
