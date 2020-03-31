@@ -73,19 +73,45 @@ exports.commentOnComment = (req, res, next) => {
         }
     });
 }
-exports.modifyComment2nd=(req, res, next)=>{
-    console.log(req.body, 'modify sec com')
-    console.log(req.param, 'modify sec com')
+
+exports.modifyComment2nd = (req, res, next) => {
+    let comment2nd = {
+        'comSecLevText': req.body.comment2nd,
+        'edited': '1',
+        'timeEdited': today
+    }
+    connection.query('UPDATE comseclevel SET ? WHERE comSecLevId = ' + req.body.reqComId2nd, comment2nd, (error)=>{
+        if(!error){
+            res.status(200).json({
+                message:'Comment on second level successfully updated'
+            })
+        }else{
+            res.status(404).json({
+                message: error
+            })
+        }
+    })
 }
 
-exports.deleteComment2nd=(req, res, next)=>{
-    console.log(req.body, 'delete sec com')
-    console.log(req.param, 'delete sec com')
+exports.deleteComment2nd = (req, res, next) => {
+    let comSecLevId = { 'comSecLevId': req.body.reqComId2nd }
+    connection.query('DELETE FROM comseclevel WHERE ?', comSecLevId, (error) => {
+        if (!error) {
+            res.status(200).json({
+                message: 'Comment on second level deleted successfully'
+            })
+        } else {
+            res.status(400).json({
+                message: error
+            })
+        }
+    });
 }
 
 exports.submitReport = (req, res, next) => {
     let reportData = {
         'userId': req.session.userId,
+        'comSecLevId':req.body.comSecLevId,
         'commentId': req.body.commentId,
         'postId': req.body.postId,
         'reportReason': req.body.reportReason,

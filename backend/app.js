@@ -23,19 +23,19 @@ app.use((req, res, next) => {
     next();
 });
 
-app.use('/images',express.static(path.join(__dirname, 'images'))); 
+app.use('/images', express.static(path.join(__dirname, 'images')));
 
 app.use(cors({
-    origin:'http://127.0.0.1:5500',
+    origin: 'http://127.0.0.1:5500',
     //credentials:true
 }))
 app.use(session({
-    path:'/',
+    path: '/',
     name: 'Groupomania',
     resave: false,
     saveUninitialized: false,
     secret: 'some_session_secret',
-    unset:'destroy',
+    unset: 'destroy',
     cookie: {
         maxAge: 3.6e+6,//1h
         sameSite: true,
@@ -46,5 +46,9 @@ app.use(session({
 app.use('/', userRoutes);
 app.use('/api/posts', postsRoutes);
 app.use('/api/posts', commentRoutes)
+
+app.use((req, res, next) => {
+    res.status(404).send('Page not found')
+})
 
 module.exports = app;
