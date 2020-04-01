@@ -80,6 +80,39 @@ function submitEditedCommentFormData() {
     }
 }
 
+function submitReport(submitReportData) {
+    submitFormData(submitReportData);
+    function makeRequest(submitReportData) {
+        return new Promise((resolve, reject) => {
+            let request = new XMLHttpRequest();
+            request.withCredentials = true;
+            request.open('POST', api + '/report');
+            request.onreadystatechange = () => {
+                if (request.readyState === 4) {
+                    if (request.status >= 200 && request.status < 400) {
+                        resolve(request.response);
+                    } else {
+                        reject(request.response);
+                    }
+                }
+            };
+            request.setRequestHeader('Content-Type', 'application/json');
+            request.send(JSON.stringify(submitReportData));
+        });
+    }
+    async function submitFormData(submitReportData) {
+        try {
+            const requestPromise = makeRequest(submitReportData);
+            const response = await requestPromise;
+            responseId = (JSON.parse(response));
+            location.reload()
+        }
+        catch (errorResponse) {
+            alert(errorResponse);
+        };
+    }
+}
+
 function submitDeleteComment() {
     let submitComment = { reqComId };
 
@@ -187,13 +220,23 @@ function submitDeleteComment2nd() {
     }
 }
 
-function submitReport(submitReportData) {
-    submitFormData(submitReportData);
-    function makeRequest(submitReportData) {
+function submitEditedCommentFormData2nd() {
+    comment2nd = document.getElementsByClassName('editedCommentData2nd')[0].value;
+
+    if (document.getElementsByClassName('editedCommentData2nd')[0].value.trim().length > 1) {
+        let submitComment2nd = { comment2nd, reqComId2nd };
+        submitEditedFormData2nd(submitComment2nd);
+    } else {
+        document.getElementsByClassName('editedCommentData2nd')[0].setAttribute('placeholder', 'You can not submit empty comment');
+        document.getElementsByClassName('editedCommentData2nd')[0].focus();
+        return
+    }
+
+    function makeEditedRequest2nd(submitComment2nd) {
         return new Promise((resolve, reject) => {
             let request = new XMLHttpRequest();
             request.withCredentials = true;
-            request.open('POST', api + '/report');
+            request.open('PUT', api + '/comment2nd/:id');
             request.onreadystatechange = () => {
                 if (request.readyState === 4) {
                     if (request.status >= 200 && request.status < 400) {
@@ -204,12 +247,13 @@ function submitReport(submitReportData) {
                 }
             };
             request.setRequestHeader('Content-Type', 'application/json');
-            request.send(JSON.stringify(submitReportData));
+            request.send(JSON.stringify(submitComment2nd));
         });
     }
-    async function submitFormData(submitReportData) {
+
+    async function submitEditedFormData2nd(submitComment2nd) {
         try {
-            const requestPromise = makeRequest(submitReportData);
+            const requestPromise = makeEditedRequest2nd(submitComment2nd);
             const response = await requestPromise;
             responseId = (JSON.parse(response));
             location.reload()
