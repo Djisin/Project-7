@@ -76,7 +76,17 @@ exports.getOnePost = (req, res, next) => {
                 ON comment.commentId = reports.commentId
                 WHERE comment.?
                 AND reports.reportId IS NULL
-                ORDER BY comTimeCreated DESC`, [postId, postId], //order by treba
+                except
+                SELECT comment.*, user.username, user.userPicture
+                FROM comment 
+                INNER JOIN user
+                ON comment.userId = user.userId 
+                LEFT JOIN reports
+                ON comment.commentId = reports.commentId
+                WHERE comment.?
+                AND reports.comSecLevId IS NULL
+                AND reports.reportId IS NOT NULL
+                ORDER BY comTimeCreated DESC`, [postId, postId, postId],
                     (error, comment) => {
                         if (!error) {
                             let commentArray = new Array
@@ -201,7 +211,16 @@ exports.getAllPosts = (req, res, next) => {
             WHERE  reports.commentId IS NOT NULL
             OR reports.comSecLevId IS NULL
             AND reports.reportId IS NULL
-
+            EXCEPT
+            SELECT post.postId, post.postTitle, post.postPicture, post.postText, post.postLikes, post.postDislikes, post.postTimeCreated, user.username
+            FROM post 
+            INNER JOIN user 
+            ON post.userId = user.userId 
+            LEFT JOIN reports
+            ON post.postId = reports.postId
+            WHERE  reports.commentId IS NULL
+            AND reports.comSecLevId IS NULL
+            AND reports.reportId IS NOT NULL
             ORDER BY postTimeCreated DESC`,
                 (error, posts) => {
                     if (!error) {
