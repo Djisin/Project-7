@@ -49,140 +49,143 @@ exports.createPost = (req, res, next) => {
 
 exports.getOnePost = (req, res, next) => {
     let userId = req.session.userId;
-    let postId = { postId: req.params.id }
-    connection.query(`
-    SELECT post.*, user.username, user.userId
-    FROM post 
-    INNER JOIN user 
-    ON post.userId = user.userId
-    WHERE ?`, postId,
-        (error, post) => {
-            if (!error) {
-                connection.query(`
-                SELECT comment.*, user.username, user.userPicture
-                FROM comment 
-                INNER JOIN user
-                ON comment.userId = user.userId 
-                LEFT JOIN reports
-                ON comment.commentId = reports.commentId
-                WHERE comment.?
-                AND reports.comSecLevId IS NOT NULL
-                UNION
-                SELECT comment.*, user.username, user.userPicture
-                FROM comment 
-                INNER JOIN user
-                ON comment.userId = user.userId 
-                LEFT JOIN reports
-                ON comment.commentId = reports.commentId
-                WHERE comment.?
-                AND reports.reportId IS NULL
-                except
-                SELECT comment.*, user.username, user.userPicture
-                FROM comment 
-                INNER JOIN user
-                ON comment.userId = user.userId 
-                LEFT JOIN reports
-                ON comment.commentId = reports.commentId
-                WHERE comment.?
-                AND reports.comSecLevId IS NULL
-                AND reports.reportId IS NOT NULL
-                ORDER BY comTimeCreated DESC`, [postId, postId, postId],
-                    (error, comment) => {
-                        if (!error) {
-                            let commentArray = new Array
-                            for (i = 0; i < comment.length; i++) {
-                                commentArray.push(comment[i].commentId)
-                            }
-                            if (commentArray.length > 0) {
-                                connection.query(`
-                                SELECT comseclevel.*, user.username, user.userPicture
-                                FROM comseclevel
-                                INNER JOIN user
-                                ON comseclevel.userId = user.userId
-                                LEFT JOIN reports
-                                ON comseclevel.comSecLevId = reports.comSecLevId
-                                 WHERE comseclevel.commentId IN (`+ commentArray + `)
-                                 AND reports.reportId IS NULL
-                                ORDER BY comseclevel.timeCreated DESC` ,
-                                    (error, commentOnComment) => {
-                                        if (!error) {
-                                            for (j = 0; j < comment.length; j++) {
-                                                let storeComments = new Array
-                                                for (k = 0; k < commentOnComment.length; k++) {
-                                                    if (comment[j].commentId === commentOnComment[k].commentId) {
-                                                        storeComments.push(commentOnComment[k])
-                                                    }
-                                                }
-                                                comment[j]['commentOnComment'] = storeComments
-                                            }
-                                            if (req.session.userId === post[0].userId) {
-                                                res.status(200).json({
-                                                    comment: comment,
-                                                    post: post,
-                                                    userCreatedThisPost: true,
-                                                    userId: userId
-                                                })
-                                            } else {
-                                                res.status(200).json({
-                                                    comment: comment,
-                                                    post: post,
-                                                    userId: userId
-                                                })
-                                            }
-                                        }
-                                        else {
-                                            console.log(error)
-                                        }
-                                    })
-                            } else {
-                                if (req.session.userId === post[0].userId) {
-                                    res.status(200).json({
-                                        comment: comment,
-                                        post: post,
-                                        userCreatedThisPost: true,
-                                        userId: userId
-                                    })
-                                } else {
-                                    res.status(200).json({
-                                        comment: comment,
-                                        post: post,
-                                        userId: userId
-                                    })
+    connection.query('SELECT firstName, lastName, userId FROM user WHERE userId = ?', userId, (error, userInfo) => {
+        let postId = { postId: req.params.id }
+        connection.query(`
+            SELECT post.*, user.username, user.userId
+            FROM post 
+            INNER JOIN user 
+            ON post.userId = user.userId
+            WHERE ?`, postId,
+            (error, post) => {
+                if (!error) {
+                    connection.query(`
+                        SELECT comment.*, user.username, user.userPicture
+                        FROM comment 
+                        INNER JOIN user
+                        ON comment.userId = user.userId 
+                        LEFT JOIN reports
+                        ON comment.commentId = reports.commentId
+                        WHERE comment.?
+                        AND reports.comSecLevId IS NOT NULL
+                        UNION
+                        SELECT comment.*, user.username, user.userPicture
+                        FROM comment 
+                        INNER JOIN user
+                        ON comment.userId = user.userId 
+                        LEFT JOIN reports
+                        ON comment.commentId = reports.commentId
+                        WHERE comment.?
+                        AND reports.reportId IS NULL
+                        EXCEPT
+                        SELECT comment.*, user.username, user.userPicture
+                        FROM comment 
+                        INNER JOIN user
+                        ON comment.userId = user.userId 
+                        LEFT JOIN reports
+                        ON comment.commentId = reports.commentId
+                        WHERE comment.?
+                        AND reports.comSecLevId IS NULL
+                        AND reports.reportId IS NOT NULL
+                        ORDER BY comTimeCreated DESC`, [postId, postId, postId],
+                        (error, comment) => {
+                            if (!error) {
+                                let commentArray = new Array
+                                for (i = 0; i < comment.length; i++) {
+                                    commentArray.push(comment[i].commentId)
                                 }
+                                if (commentArray.length > 0) {
+                                    connection.query(`
+                                        SELECT comseclevel.*, user.username, user.userPicture
+                                        FROM comseclevel
+                                        INNER JOIN user
+                                        ON comseclevel.userId = user.userId
+                                        LEFT JOIN reports
+                                        ON comseclevel.comSecLevId = reports.comSecLevId
+                                        WHERE comseclevel.commentId IN (` + commentArray + `)
+                                        AND reports.reportId IS NULL
+                                        ORDER BY comseclevel.timeCreated DESC` ,
+                                        (error, commentOnComment) => {
+                                            if (!error) {
+                                                for (j = 0; j < comment.length; j++) {
+                                                    let storeComments = new Array
+                                                    for (k = 0; k < commentOnComment.length; k++) {
+                                                        if (comment[j].commentId === commentOnComment[k].commentId) {
+                                                            storeComments.push(commentOnComment[k])
+                                                        }
+                                                    }
+                                                    comment[j]['commentOnComment'] = storeComments
+                                                }
+                                                if (req.session.userId === post[0].userId) {
+                                                    res.status(200).json({
+                                                        comment: comment,
+                                                        post: post,
+                                                        userCreatedThisPost: true,
+                                                        userInfo: userInfo
+                                                    })
+                                                } else {
+                                                    res.status(200).json({
+                                                        comment: comment,
+                                                        post: post,
+                                                        userInfo: userInfo
+                                                    })
+                                                }
+                                            }
+                                            else {
+                                                console.log(error)
+                                            }
+                                        })
+                                } else {
+                                    if (req.session.userId === post[0].userId) {
+                                        res.status(200).json({
+                                            comment: comment,
+                                            post: post,
+                                            userCreatedThisPost: true,
+                                            userId: userId
+                                        })
+                                    } else {
+                                        res.status(200).json({
+                                            comment: comment,
+                                            post: post,
+                                            userId: userId
+                                        })
+                                    }
+                                }
+                            } else {
+                                console.log(error)
                             }
+                        });
+                    connection.query('SELECT userId, postsSeen FROM user WHERE userId = ?', req.session.userId, (error, user) => {
+                        let postsSeen = JSON.parse(user[0].postsSeen);
+                        if (!error) {
+                            //Check if array has the post id, if not add to the array
+                            //console.log(postsSeen.seen)
+                            //console.log(postsSeen.seen.length)
+                            if (!postsSeen.seen.includes(JSON.parse(req.params.id))) {
+                                postsSeen.seen.push(post[0].postId)
+                                postsSeen = JSON.stringify(postsSeen)
+                                //console.log(postsSeen);
+                                postsSeen = { 'postsSeen': postsSeen }
+                                connection.query('UPDATE user SET ? WHERE userId = ' + req.session.userId, postsSeen, (error) => {
+                                    if (!error) {
+                                        console.log('dodato u postsSeen')
+                                    } else {
+                                        console.log(error)
+                                    }
+                                });
+                            } else {
+                                console.log('ima, ne treba da se pise')
+                            };
                         } else {
-                            console.log(error)
+                            console.log('No user can be found')
                         }
                     });
-                connection.query('SELECT userId, postsSeen FROM user WHERE userId = ?', req.session.userId, (error, user) => {
-                    let postsSeen = JSON.parse(user[0].postsSeen);
-                    if (!error) {
-                        //Check if array has the post id, if not add to the array
-                        //console.log(postsSeen.seen)
-                        //console.log(postsSeen.seen.length)
-                        if (!postsSeen.seen.includes(JSON.parse(req.params.id))) {
-                            postsSeen.seen.push(post[0].postId)
-                            postsSeen = JSON.stringify(postsSeen)
-                            //console.log(postsSeen);
-                            postsSeen = { 'postsSeen': postsSeen }
-                            connection.query('UPDATE user SET ? WHERE userId = ' + req.session.userId, postsSeen, (error) => {
-                                if (!error) {
-                                    console.log('dodato u postsSeen')
-                                } else {
-                                    console.log(error)
-                                }
-                            });
-                        } else {
-                            console.log('ima, ne treba da se pise')
-                        };
-                    } else {
-                        console.log('No user can be found')
-                    }
-                });
-            } else {
-                res.status(404).json({ error })
-            }
-        });
+                } else {
+                    res.status(404).json({ error })
+                }
+            });
+    });
+
 }
 
 exports.getAllPosts = (req, res, next) => {
@@ -336,7 +339,6 @@ exports.deletePost = (req, res, next) => {
 }
 
 exports.likesPost = (req, res, next) => {
-    let postId = {
-        postId: req.params.id
-    }
+    console.log(req.body)
+    console.log(req.params.id)
 }

@@ -15,6 +15,8 @@ request.onload = function () {
     data = JSON.parse(this.response);
     console.log(data)
     if (request.status >= 200 && request.status < 400) {
+        const userCredentials = document.getElementById('credentials');
+        userCredentials.innerText = data.userInfo[0].firstName + ' ' + data.userInfo[0].lastName
 
         const container = document.createElement('div');
         container.setAttribute('class', 'col-md-12 mainContainer');
@@ -59,13 +61,39 @@ request.onload = function () {
 
         const postLikes = document.createElement('i')
         postLikes.setAttribute('class', 'far fa-thumbs-up');
+        if (data.post[0].postLikes > 0) {
+            postLikes.style.color = '#639a67' //likes color
+        }
         postLikes.innerText = data.post[0].postLikes;
+        postLikes.value = data.post[0].postLikes;
         likes.appendChild(postLikes);
 
+        postLikes.style.cursor = 'pointer';
+        postLikes.addEventListener('click', ($event) => {
+            $event.preventDefault();
+            postLikes.innerText = data.post[0].postLikes + 1
+            postLikes.style.color = '#639a67'
+            let like = 1;
+            console.log('ssss')
+        }, { once: true })
+
+
         const postDislikes = document.createElement('i')
+        if (data.post[0].postDislikes > 0) {
+            postDislikes.style.color = '#da2d2d'; // dislikes color
+        }
         postDislikes.setAttribute('class', 'far fa-thumbs-down');
         postDislikes.innerText = data.post[0].postDislikes;
         likes.appendChild(postDislikes);
+
+        postDislikes.addEventListener('click', ($event) => {
+            $event.preventDefault();
+            postDislikes.style.color = '#da2d2d';
+            postDislikes.style.cursor = 'pointer'
+            postDislikes.innerText = data.post[0].postDislikes + 1
+            let like = -1;
+            console.log('ccccc')
+        })
 
         /*const postUserLiked = document.createElement('p')
         postUserLiked.setAttribute('class', 'userLikesClass');
@@ -140,7 +168,7 @@ request.onload = function () {
         timePeriods.setAttribute('class', 'col-md-12 timePeriods');
         container.appendChild(timePeriods);
 
-        if (data.post[0].userId !== data.userId) {
+        if (data.post[0].userId !== data.userInfo[0].userId) {
             const postReport = document.createElement('button');
             postReport.setAttribute('class', 'btn btn-link')
             postReport.innerText = 'report';
@@ -283,7 +311,7 @@ request.onload = function () {
             comFooter.setAttribute('class', 'col-md-12 comFooter');
             mainComment.appendChild(comFooter);
 
-            if (data.comment[i].userId !== data.userId) {
+            if (data.comment[i].userId !== data.userInfo[0].userId) {
                 const comReport = document.createElement('button');
                 comReport.setAttribute('class', 'btn btn-link')
                 comReport.innerText = 'report';
@@ -328,7 +356,7 @@ request.onload = function () {
                 }, { once: true });
             }
 
-            if (data.comment[i].userId === data.userId) {
+            if (data.comment[i].userId === data.userInfo[0].userId) {
                 const comEdit = document.createElement('button');
                 comEdit.setAttribute('class', 'btn btn-link');
                 comEdit.innerText = 'edit';
@@ -381,7 +409,6 @@ request.onload = function () {
             const ComOnComment = document.createElement('button');
             ComOnComment.setAttribute('class', 'btn btn-link');
 
-
             add2ndComment = document.createElement('div');
             add2ndComment.setAttribute('class', 'col-md-12 add2ndCommentDiv')
             createCommentForm(add2ndComment)
@@ -393,31 +420,28 @@ request.onload = function () {
                 comOnComNumber = document.getElementsByClassName('mCommentDiv')[i].getElementsByClassName('mCommentDiv2nd')
                 for (let j = 0; j < document.getElementsByClassName('add2ndCommentDiv').length; j++) {
                     if (document.getElementsByClassName('add2ndCommentDiv')[j].style.opacity === '1') {
-                        document.getElementsByClassName('add2ndCommentDiv')[j].style.height = '0'
-                        document.getElementsByClassName('add2ndCommentDiv')[j].style.opacity = '0'
-
-                        //document.getElementsByClassName('mCommentDiv2nd')
-
+                        document.getElementsByClassName('add2ndCommentDiv')[j].style.height = '0';
+                        document.getElementsByClassName('add2ndCommentDiv')[j].style.opacity = '0';
                     }
                 }
-                document.getElementsByClassName('add2ndCommentDiv')[i].style.opacity = '1'
-                document.getElementsByClassName('add2ndCommentDiv')[i].style.height = '200px'
+                document.getElementsByClassName('add2ndCommentDiv')[i].style.opacity = '1';
+                document.getElementsByClassName('add2ndCommentDiv')[i].style.height = '200px';
                 //Listener for click on label
                 document.getElementsByClassName('add2ndCommentDiv')[i].children[0].firstChild.addEventListener('click', ($event) => {
                     $event.preventDefault();
-                    document.getElementsByClassName('add2ndCommentDiv')[i].style.height = '0'
-                    document.getElementsByClassName('add2ndCommentDiv')[i].style.opacity = '0'
+                    document.getElementsByClassName('add2ndCommentDiv')[i].style.height = '0';
+                    document.getElementsByClassName('add2ndCommentDiv')[i].style.opacity = '0';
 
                     for (let n = 0; n < document.getElementsByClassName('mCommentDiv2nd').length; n++) {
-                        document.getElementsByClassName('mCommentDiv2nd')[n].style.height = '0'
-                        document.getElementsByClassName('mCommentDiv2nd')[n].style.opacity = '0'
-                        document.getElementsByClassName('mCommentDiv2nd')[n].style.display = 'none'
+                        document.getElementsByClassName('mCommentDiv2nd')[n].style.height = '0';
+                        document.getElementsByClassName('mCommentDiv2nd')[n].style.opacity = '0';
+                        document.getElementsByClassName('mCommentDiv2nd')[n].style.display = 'none';
                     }
                 });
                 for (let n = 0; n < document.getElementsByClassName('mCommentDiv2nd').length; n++) {
-                    document.getElementsByClassName('mCommentDiv2nd')[n].style.height = '0'
-                    document.getElementsByClassName('mCommentDiv2nd')[n].style.opacity = '0'
-                    document.getElementsByClassName('mCommentDiv2nd')[n].style.display = 'none'
+                    document.getElementsByClassName('mCommentDiv2nd')[n].style.height = '0';
+                    document.getElementsByClassName('mCommentDiv2nd')[n].style.opacity = '0';
+                    document.getElementsByClassName('mCommentDiv2nd')[n].style.display = 'none';
                 }
                 for (let m = 0; m < comOnComNumber.length; m++) {
                     if (document.getElementsByClassName('add2ndCommentDiv')[i].style.opacity === '1') {
@@ -464,12 +488,32 @@ request.onload = function () {
             comFooter.appendChild(likesDiv);
 
             const comLikes = document.createElement('i');
+            if (data.comment[i].likes > 0) {
+                comLikes.style.color = '#639a67';
+            }
             comLikes.setAttribute('class', 'far fa-thumbs-up');
             comLikes.innerText = data.comment[i].likes;
+            comLikes.style.cursor = 'pointer';
+            comLikes.addEventListener('click', ($event) => {
+                $event.preventDefault();
+                comLikes.innerText = data.comment[i].likes + 1;
+                comLikes.style.color = '#639a67';
+                let like = 1;
+            })
+
             const comDislikes = document.createElement('i');
+            if (data.comment[i].dislikes > 0) {
+                comDislikes.style.color = '#da2d2d';
+            }
             comDislikes.setAttribute('class', 'far fa-thumbs-down');
             comDislikes.innerText = data.comment[i].dislikes;
-
+            comDislikes.style.cursor = 'pointer';
+            comDislikes.addEventListener('click', ($event) => {
+                $event.preventDefault();
+                comDislikes.innerText = data.comment[i].dislikes + 1
+                comDislikes.style.color = '#da2d2d';
+                let like = -1
+            })
             likesDiv.append(comLikes, comDislikes);
 
             /*const comOnComHeader = document.createElement('h6');
@@ -517,7 +561,7 @@ request.onload = function () {
                     comFooter2nd.setAttribute('class', 'col-md-12 comFooter2nd');
                     oneCommentDiv2nd.appendChild(comFooter2nd);
 
-                    if (data.comment[i].commentOnComment[k].userId !== data.userId) {
+                    if (data.comment[i].commentOnComment[k].userId !== data.userInfo[0].userId) {
                         const comReport2nd = document.createElement('button');
                         comReport2nd.setAttribute('class', 'btn btn-link')
                         comReport2nd.innerText = 'report';
@@ -563,7 +607,7 @@ request.onload = function () {
                         }, { once: true });
                     }
 
-                    if (data.comment[i].commentOnComment[k].userId === data.userId) {
+                    if (data.comment[i].commentOnComment[k].userId === data.userInfo[0].userId) {
 
                         const comEdit2nd = document.createElement('button');
                         comEdit2nd.setAttribute('class', 'btn btn-link');
@@ -628,11 +672,29 @@ request.onload = function () {
 
                     const comLikes2nd = document.createElement('i');
                     comLikes2nd.setAttribute('class', 'far fa-thumbs-up');
+                    if (data.comment[i].commentOnComment[k].likes > 0) {
+                        comLikes2nd.style.color = '#639a67';
+                    }
                     comLikes2nd.innerText = data.comment[i].commentOnComment[k].likes;
+                    comLikes2nd.addEventListener('click', ($event) => {
+                        $event.preventDefault();
+                        comLikes2nd.innerText = data.comment[i].commentOnComment[k].likes + 1;
+                        comLikes2nd.style.color = '#639a67';
+                        let like = 1;
+                    })
+
                     const comDislikes2nd = document.createElement('i');
                     comDislikes2nd.setAttribute('class', 'far fa-thumbs-down');
+                    if (data.comment[i].commentOnComment[k].dislikes > 0) {
+                        comDislikes2nd.style.color = '#da2d2d';
+                    }
                     comDislikes2nd.innerText = data.comment[i].commentOnComment[k].dislikes;
-
+                    comDislikes2nd.addEventListener('click', ($event) => {
+                        $event.preventDefault();
+                        comDislikes2nd.innerText = data.comment[i].commentOnComment[k].dislikes + 1;
+                        comDislikes2nd.style.color = '#da2d2d';
+                        let like = -1;
+                    })
                     likesDiv2nd.append(comLikes2nd, comDislikes2nd);
                 }
             }

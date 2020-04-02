@@ -16,8 +16,8 @@
 
     <script src="https://kit.fontawesome.com/ef6b1b88f1.js" crossorigin="anonymous"></script>
 
-    <script defer src='js/jquery-2.1.0.min.js'></script>
-    <script defer src="js/bootstrap.min.js"></script>
+    <script defer type="text/javascript" src='js/jquery-2.1.0.min.js'></script>
+    <script defer type="text/javascript" src='js/bootstrap.min.js'></script>
 
 </head>
 <nav class="navbar navbar-fixed-top navbar-inverse">
@@ -40,7 +40,8 @@
                 <li><a href="#">Page 3</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
-                <li  class="active"><a href="/frontend/profile.html"><i class="fas fa-user"></i> Profile</a></li>
+                <li><a id='credentials'></a></li>
+                <li class="active"><a href="/frontend/profile.html"><i class="fas fa-user"></i> Profile</a></li>
                 <li><a href="#"><i class="fas fa-sign-in-alt"></i> Logout</a></li>
             </ul>
 
@@ -59,7 +60,14 @@
 </nav>
 
 <body>
+    <section id ='userProfile'>
 
+    </section>
+    <footer class="page-footer">
+        <p>© 2020 Groupmania • All rights reserved • Designed by Miloš Radivojević » Freelance Web Developer</p>
+    </footer>
+    
+    <script async type="text/javascript" src='js/profile.js'></script>
 </body>
 
 </html>

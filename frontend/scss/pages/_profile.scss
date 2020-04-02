@@ -1,0 +1,72 @@
+#userProfile {
+    background-color: #fff;
+    margin-top: 60px;
+    align-self: center;
+    max-width: 1024px;
+    padding: 0;
+    & #leftPart {
+        top:60px;
+        position: sticky;
+        border:1px solid;
+        & div {
+            display: flex;
+            flex-direction: column;
+            padding: 10px;
+            & img {
+                max-width: 200px;
+                margin-bottom: 20px;
+            }
+            & label {
+                text-align: left;
+            }
+            & p{
+                text-align: left;
+            }
+        }
+    }
+    & #middlePart {
+        display: flex;
+        flex-direction: column;
+        & #headerDiv{
+            margin-bottom: 10px;
+            & h3{
+                text-align: left;
+            }
+            & h5{
+                text-align: left;
+            }
+            & p {
+                text-align: justify;
+            }
+        }
+        & #contentDiv{
+            display: flex;
+            flex-direction: column;
+            & h3{
+                text-align: left;
+            }
+        }
+    }
+    & #rightPart {
+        top:60px;
+        position: sticky;
+        border:1px solid;
+        display: flex;
+        flex-direction: column;
+        & #numbersDiv{
+            margin-top: 15px;
+        }
+        & #succArticles{
+            text-align: left;
+            & ul{
+                padding-left: 20px;
+            }
+        }
+        & #recentArticles{
+            text-align: left;
+            & ul{
+                padding-left: 20px;
+            }
+        }
+    }
+}

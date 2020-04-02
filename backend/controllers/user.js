@@ -23,29 +23,46 @@ exports.signup = (req, res, next) => {
                 'email': req.body.email,
                 'username': req.body.username,
                 'password': hash,
-                'firstName':req.body.firstName,
-                'lastName':req.body.lastName,
+                'firstName': req.body.firstName,
+                'lastName': req.body.lastName,
                 'timeCreated': today,
-                'postsSeen':'{"seen":[]}'
+                'postsSeen': '{"seen":[]}'
             };
             connection.query('INSERT INTO user SET ?', users, (error, result) => {
                 if (!error) {
-                    console.log("Added to the db")
-                    res.clearCookie('some_session_name')
-                    res.status(200).json({ message: 'User created!' })
-                } else if (error) {
-                    if (error.code === "ER_DUP_ENTRY") {
-                        res.status(401).json({ message: 'User already exists' })
-                    } else {
-                        res.status(401).json({ 
-                            error: error.code
-                        })
-                    }
+                    connection.query('INSERT INTO moreuserinfo SET userId = ?', result.insertId, (error) => {
+                        if (!error) {
+                            connection.query('INSERT INTO usersocnetws SET userId = ?', result.insertId, (error) => {
+                                if (!error) {
+                                    console.log("Added to the db")
+                                    res.clearCookie('Groupomania')
+                                    res.status(200).json({ message: 'User created!' })
+                                } else if (error) {
+                                    if (error.code === "ER_DUP_ENTRY") {
+                                        res.status(401).json({ message: 'User already exists' })
+                                    } else {
+                                        res.status(400).json({
+                                            error: error
+                                        })
+                                    }
+                                }
+                            });
+                        } else {
+                            res.status(400).json({
+                                error: error
+                            })
+                        }
+                    });
+                } else {
+                    res.status(400).json({
+                        error: error
+                    });
                 }
-            })
+            });
         }
     )
 };
+
 exports.login = (req, res, next) => {
     let email = req.body.email;
     //req.headers.authorization = true;
@@ -75,7 +92,7 @@ exports.login = (req, res, next) => {
                     res.status(200).json({
                         userId: result[0].userId,
                         token: token,
-                        loggedIn:true
+                        loggedIn: true
                     });
                 }
             ).catch(
@@ -91,17 +108,71 @@ exports.login = (req, res, next) => {
 
 exports.logout = (req, res, next) => {
     req.session.destroy(error => {
-        if (error){
-            res.status(500).json({ message:'problem kod logout'})
-            console.log('error na log out:'+error
+        if (error) {
+            res.status(500).json({ message: 'problem kod logout' })
+            console.log('error na log out:' + error
             )
-           // return res.redirect('/home');
-        }else{
-            //res.status(200).json({message:'izlogovan'})
+        } else {
             res.clearCookie('Groupomania')
             return res.status(200).json({
-                loggedOut:true
+                loggedOut: true
             })
         }
     })
+}
+
+exports.profile = (req, res, next) => {
+    userId = req.session.userId;
+    connection.query('SELECT firstName, lastName, userId FROM user WHERE userId = ?', userId, (error, userInfo) => {
+        if (!error) {
+            connection.query(`
+                SELECT user.userId, user.firstName, user.lastName, user.username, user.userPicture, user.timeCreated, moreuserinfo.personalLine, usersocnetws.userWebSite, usersocnetws.facebook, usersocnetws.linkendIn, usersocnetws.twitter
+                FROM user
+                INNER JOIN moreuserinfo
+                ON user.userId = moreuserinfo.userId
+                INNER JOIN usersocnetws
+                ON user.userId = usersocnetws.userId
+                WHERE user.userId = ?`, userId,
+                (error, userData) => {
+                    if (!error) {
+                        connection.query(`SELECT COUNT(postId) AS number FROM post WHERE userId = ?`, userData[0].userId, (error, numberOfPosts) => {
+                            if (!error) {
+                                connection.query(`SELECT post.postTitle, post.postId, user.username FROM post INNER JOIN user ON user.userId = post.userId ORDER BY postTimeCreated DESC LIMIT 3`, (error, recentPosts) => {
+                                    if (!error) {
+                                        userData[0]['numberOfPosts'] = numberOfPosts[0].number;
+                                        res.status(200).json({
+                                            userInfo: userInfo,
+                                            userData: userData,
+                                            recentPosts: recentPosts
+                                        });
+                                    } else {
+                                        res.status(404).json({
+                                            message: "Can't get last 3 posts",
+                                            message: error
+                                        });
+                                    }
+                                });
+                            } else {
+                                res.status(404).json({
+                                    message: 'Counting posts problem',
+                                    message: error
+                                });
+                            }
+                        });
+                    } else {
+                        res.status(404).json({
+                            message: 'User not found'
+                        });
+                    }
+                });
+        } else {
+            res.status(404).json({
+                message: 'User not found'
+            });
+        }
+    });
+}
+
+exports.editProfile = (req, res, next) => {
+    //console.log(req)
 }

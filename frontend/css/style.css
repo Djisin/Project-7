@@ -1232,4 +1232,119 @@ nav img {
   padding: 5px;
   padding-right: 15px;
 }
+
+#userProfile {
+  background-color: #fff;
+  margin-top: 60px;
+  -ms-flex-item-align: center;
+      -ms-grid-row-align: center;
+      align-self: center;
+  max-width: 1024px;
+  padding: 0;
+}
+
+#userProfile #leftPart {
+  top: 60px;
+  position: -webkit-sticky;
+  position: sticky;
+  border: 1px solid;
+}
+
+#userProfile #leftPart div {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  padding: 10px;
+}
+
+#userProfile #leftPart div img {
+  max-width: 200px;
+  margin-bottom: 20px;
+}
+
+#userProfile #leftPart div label {
+  text-align: left;
+}
+
+#userProfile #leftPart div p {
+  text-align: left;
+}
+
+#userProfile #middlePart {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+#userProfile #middlePart #headerDiv {
+  margin-bottom: 10px;
+}
+
+#userProfile #middlePart #headerDiv h3 {
+  text-align: left;
+}
+
+#userProfile #middlePart #headerDiv h5 {
+  text-align: left;
+}
+
+#userProfile #middlePart #headerDiv p {
+  text-align: justify;
+}
+
+#userProfile #middlePart #contentDiv {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+#userProfile #middlePart #contentDiv h3 {
+  text-align: left;
+}
+
+#userProfile #rightPart {
+  top: 60px;
+  position: -webkit-sticky;
+  position: sticky;
+  border: 1px solid;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+#userProfile #rightPart #numbersDiv {
+  margin-top: 15px;
+}
+
+#userProfile #rightPart #succArticles {
+  text-align: left;
+}
+
+#userProfile #rightPart #succArticles ul {
+  padding-left: 20px;
+}
+
+#userProfile #rightPart #recentArticles {
+  text-align: left;
+}
+
+#userProfile #rightPart #recentArticles ul {
+  padding-left: 20px;
+}
 /*# sourceMappingURL=style.css.map */

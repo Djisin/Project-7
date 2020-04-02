@@ -13,14 +13,11 @@ request.onload = function () {
 
     if (request.status >= 200 && request.status < 400) {
 
+        const userCredentials = document.getElementById('credentials');
+        userCredentials.innerText = data.userInfo[0].firstName + ' ' + data.userInfo[0].lastName
+
         if (data.posts !== 0) {
             for (let i = 0; i < data.posts.length; i++) {
-
-                const userFirstName = document.getElementById('firstName');
-                userFirstName.innerText = data.userInfo[0].firstName
-                const userLastName = document.getElementById('lastName');
-                userLastName.innerText = data.userInfo[0].lastName;
-
                 const container = document.getElementById('unreadPosts');
 
                 const postDiv = document.createElement('div');
@@ -28,9 +25,9 @@ request.onload = function () {
                 container.appendChild(postDiv);
                 postDiv.addEventListener('click', () => {
                     window.location.href = '/frontend/post.html?' + data.posts[i].postId
-                })
+                });
 
-                postsSeen = JSON.parse(data.userInfo[0].postsSeen)
+                postsSeen = JSON.parse(data.userInfo[0].postsSeen);
                 postsSeen = postsSeen.seen;
                 if (postsSeen.includes(data.posts[i].postId)) {
                     const postTitle = document.createElement('h3');
@@ -72,11 +69,17 @@ request.onload = function () {
 
                 likes = document.createElement('i');
                 likes.setAttribute('class', 'far fa-thumbs-up');
+                if (data.posts[i].postLikes > 0) {
+                    likes.style.color = '#639a67'
+                }
                 likes.innerText = '' + data.posts[i].postLikes;
                 createdByDiv.appendChild(likes);
 
                 dislikes = document.createElement('i');
                 dislikes.setAttribute('class', 'far fa-thumbs-down');
+                if (data.posts[i].postDislikes > 0) {
+                    dislikes.style.color = '#da2d2d';
+                }
                 dislikes.innerText = '' + data.posts[i].postDislikes;
                 createdByDiv.appendChild(dislikes);
 
