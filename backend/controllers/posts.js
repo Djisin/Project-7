@@ -327,18 +327,122 @@ exports.deletePost = (req, res, next) => {
                             console.log('problem')
                         }
                     });
-                    //
                 } else {
                     res.status(404).json({ error })
                 }
             });
         } else {
-            res.status(404).json({ error })
+            res.status(404).json({ error });
         }
     });
 }
 
 exports.likesPost = (req, res, next) => {
-    console.log(req.body)
-    console.log(req.params.id)
+    let postId = req.params.id;
+    let userId = req.session.userId;
+    if (req.body.like === 1) {
+        connection.query(`SELECT postUserLiked, postUserDisliked FROM post WHERE postId = ?`, postId, (error, postUsersLiked) => {
+            if (!error) {
+                let usersLiked = JSON.parse(postUsersLiked[0].postUserLiked);
+                let usersDisliked = JSON.parse(postUsersLiked[0].postUserDisliked);
+                if (!usersLiked.usersLiked.includes(userId) && !usersDisliked.usersDisliked.includes(userId)) {
+                    usersLiked.usersLiked.push(userId);
+                    usersLiked = JSON.stringify(usersLiked)
+                    usersLiked = { 'postUserLiked': usersLiked }
+                    connection.query(`UPDATE post SET postLikes = postLikes + 1, ? WHERE postId = ?`, [usersLiked, postId], (error) => {
+                        if (!error) {
+                            res.status(202).json({
+                                message: 'Liked',
+                                like: true,
+                                dislike: false
+                            })
+                        } else {
+                            res.status(400).json({
+                                message: 'Like can not be saved',
+                                message: error
+                            });
+                        }
+                    });
+                } else if (!usersLiked.usersLiked.includes(userId) && usersDisliked.usersDisliked.includes(userId)) {
+                    res.status(403).json({
+                        message: 'Remove your dislike before liking'
+                    })
+                } else {
+                    usersLiked.usersLiked.splice(usersLiked.usersLiked.indexOf(userId), 1)
+                    usersLiked = JSON.stringify(usersLiked)
+                    usersLiked = { 'postUserLiked': usersLiked }
+                    connection.query(`UPDATE post SET postLikes = postLikes - 1, ? WHERE postId = ?`, [usersLiked, postId], (error) => {
+                        if (!error) {
+                            res.status(202).json({
+                                message: 'Liked removed',
+                                like: false,
+                                dislike: false
+                            })
+                        } else {
+                            res.status(400).json({
+                                message: 'Like can not be saved',
+                                message: error
+                            });
+                        }
+                    });
+                }
+            } else {
+                res.status(404).json({
+                    error
+                })
+            }
+        })
+    } else if (req.body.like === -1) {
+        connection.query(`SELECT postUserLiked, postUserDisliked FROM post WHERE postId = ?`, postId, (error, postUsersDisliked) => {
+            if (!error) {
+                let usersLiked = JSON.parse(postUsersDisliked[0].postUserLiked);
+                let usersDisliked = JSON.parse(postUsersDisliked[0].postUserDisliked);
+                if (!usersLiked.usersLiked.includes(userId) && !usersDisliked.usersDisliked.includes(userId)) {
+                    usersDisliked.usersDisliked.push(userId);
+                    usersDisliked = JSON.stringify(usersDisliked)
+                    usersDisliked = { 'postUserDisliked': usersDisliked }
+                    connection.query(`UPDATE post SET postDislikes= postDislikes + 1, ? WHERE postId = ?`, [usersDisliked, postId], (error) => {
+                        if (!error) {
+                            res.status(202).json({
+                                message: 'Disliked',
+                                dislike: true,
+                                like: false
+                            })
+                        } else {
+                            res.status(400).json({
+                                message: 'Dislike can not be saved',
+                                message: error
+                            });
+                        }
+                    });
+                } else if (usersLiked.usersLiked.includes(userId) && !usersDisliked.usersDisliked.includes(userId)) {
+                    res.status(403).json({
+                        message: 'Remove your like before disliking'
+                    })
+                } else {
+                    usersDisliked.usersDisliked.splice(usersDisliked.usersDisliked.indexOf(userId), 1)
+                    usersDisliked = JSON.stringify(usersDisliked)
+                    usersDisliked = { 'postUserDisliked': usersDisliked }
+                    connection.query(`UPDATE post SET postDislikes= postDislikes - 1, ? WHERE postId = ?`, [usersDisliked, postId], (error) => {
+                        if (!error) {
+                            res.status(202).json({
+                                message: 'Dislike removed',
+                                dislike: false,
+                                like: false
+                            })
+                        } else {
+                            res.status(400).json({
+                                message: 'Dislike can not be saved',
+                                message: error
+                            });
+                        }
+                    });
+                }
+            } else {
+                res.status(404).json({
+                    error
+                })
+            }
+        })
+    }
 }

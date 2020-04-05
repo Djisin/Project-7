@@ -669,6 +669,67 @@ nav img {
   margin-left: auto;
 }
 
+#showPost .mainContainer .likes {
+  margin: 0;
+  padding: 5px;
+  height: 50px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+}
+
+#showPost .mainContainer .likes i {
+  -ms-flex-item-align: center;
+      -ms-grid-row-align: center;
+      align-self: center;
+  margin: 2px;
+  margin-right: 10px;
+}
+
+#showPost .mainContainer .likes i:first-child {
+  margin-left: auto;
+  -webkit-transition-duration: 0.2s all;
+          transition-duration: 0.2s all;
+}
+
+#showPost .mainContainer .likes i:last-child {
+  margin-right: auto;
+}
+
+#showPost .mainContainer .likes span {
+  visibility: hidden;
+  width: 120px;
+  background-color: black;
+  color: #fff;
+  text-align: center;
+  padding: 5px 0;
+  border-radius: 6px;
+  padding: 2px;
+  width: 150px;
+  bottom: 100%;
+  left: 50%;
+  margin-left: -60px;
+  /* Position the tooltip text - see examples below! */
+  position: absolute;
+  z-index: 1;
+}
+
+#showPost .mainContainer .likes span::after {
+  content: " ";
+  position: absolute;
+  top: 100%;
+  /* At the bottom of the tooltip */
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: black transparent transparent transparent;
+}
+
 #showPost #divOnTop {
   display: none;
   -webkit-box-orient: vertical;
@@ -1231,6 +1292,27 @@ nav img {
   font-size: 16px;
   padding: 5px;
   padding-right: 15px;
+}
+
+#showPost #commentsDiv .mCommentDiv .mCommentDiv2nd .comFooter2nd .likesDiv2nd i input {
+  background-color: #fff;
+  border: none;
+}
+
+.likedClass {
+  border: 5px double #639a67;
+  border-radius: 5px;
+  padding: 2px;
+  -webkit-transition-duration: 0.2s;
+          transition-duration: 0.2s;
+}
+
+.dislikedClass {
+  border: 5px double #da2d2d;
+  border-radius: 5px;
+  padding: 2px;
+  -webkit-transition-duration: 0.2s;
+          transition-duration: 0.2s;
 }
 
 #userProfile {

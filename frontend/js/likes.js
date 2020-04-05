@@ -1,12 +1,12 @@
-function submitPostLike(like) {
-    
+/*function submitPostLike(like) {
+
     submitFormData(like);
 
     function makeRequestLike(like) {
         return new Promise((resolve, reject) => {
             let request = new XMLHttpRequest();
             request.withCredentials = true;
-            request.open('POST', api + '/:id/likes');
+            request.open('POST', api + '/' + data.post[0].postId + '/likes');
             request.onreadystatechange = () => {
                 if (request.readyState === 4) {
                     if (request.status >= 200 && request.status < 400) {
@@ -30,4 +30,4 @@ function submitPostLike(like) {
             alert(errorResponse);
         };
     }
-}
+}*/
