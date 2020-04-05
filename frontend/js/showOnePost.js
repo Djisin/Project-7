@@ -105,9 +105,6 @@ request.onload = function () {
         }
         postDislikes.innerText = data.post[0].postDislikes;
         likes.appendChild(postDislikes);
-        const dislikesTip = document.createElement('span');
-        dislikesTip.setAttribute('class', 'tooltiptext');
-        postDislikes.appendChild(dislikesTip);
 
         let userDislikes = JSON.parse(data.post[0].postUserDisliked);
         if (userDislikes.usersDisliked.includes(data.userInfo[0].userId)) {
@@ -239,7 +236,7 @@ request.onload = function () {
                 const comRepReason = document.createElement('div');
                 comRepReason.setAttribute('class', 'col-md-12');
                 comRepReason.setAttribute('id', 'comRepReasonDiv')
-   
+
                 if (document.getElementById('comRepReasonDiv') !== null) {
                     document.getElementById('comRepReasonDiv').parentElement.removeChild(document.getElementById('comRepReasonDiv'));
                 }
@@ -540,38 +537,114 @@ request.onload = function () {
             comFooter.appendChild(likesDiv);
 
             const comLikes = document.createElement('i');
-            
+            comLikes.setAttribute('class', 'far fa-thumbs-up');
             if (data.comment[i].likes > 0) {
                 comLikes.style.color = '#639a67';
             }
-            comLikes.setAttribute('class', 'far fa-thumbs-up');
             comLikes.innerText = data.comment[i].likes;
+            let comUsersLiked = JSON.parse(data.comment[i].comUserLikes);
+            if (comUsersLiked.usersLiked.includes(data.userInfo[0].userId)) {
+                comLikes.classList.add('likedClass');
+            }
             comLikes.style.cursor = 'pointer';
             comLikes.addEventListener('click', ($event) => {
                 $event.preventDefault();
-                comLikes.innerText = data.comment[i].likes + 1;
-                comLikes.style.color = '#639a67';
-                let like = 1;
-            })
+                let like = { 'like': 1 };
+                submitFormDataLikeCom(like).then((comLikeResponse) => {
+                    if (comLikeResponse !== undefined) {
+                        if (comLikeResponse.comLike === true) {
+                            comLikes.innerText = data.comment[i].likes + 1;
+                            comLikes.classList.add('likedClass');
+                            if (comUsersLiked.usersLiked.includes(data.userInfo[0].userId)) {
+                                comLikes.innerText = data.comment[i].likes;
+                            }
+                        } else if (comLikeResponse.comLike === false) {
+                            comLikes.innerText = data.comment[i].likes;
+                            comLikes.classList.remove('likedClass');
+                            if (comUsersLiked.usersLiked.includes(data.userInfo[0].userId)) {
+                                comLikes.innerText = data.comment[i].likes - 1;
+                            }
+                        }
+                    }
+                });
+                if (data.comment[i].likes > 0) {
+                    comLikes.style.color = '#639a67';
+                }
+            });
+            const comLikesTip = document.createElement('span');
+            comLikesTip.setAttribute('class', 'tooltiptext');
 
             const comDislikes = document.createElement('i');
+            comDislikes.setAttribute('class', 'far fa-thumbs-down');
             if (data.comment[i].dislikes > 0) {
                 comDislikes.style.color = '#da2d2d';
             }
-            comDislikes.setAttribute('class', 'far fa-thumbs-down');
             comDislikes.innerText = data.comment[i].dislikes;
+            let comUsersDisliked = JSON.parse(data.comment[i].comUserDislikes);
+            if (comUsersDisliked.usersDisliked.includes(data.userInfo[0].userId)) {
+                comDislikes.classList.add('dislikedClass');
+            }
             comDislikes.style.cursor = 'pointer';
             comDislikes.addEventListener('click', ($event) => {
                 $event.preventDefault();
-                comDislikes.innerText = data.comment[i].dislikes + 1
-                comDislikes.style.color = '#da2d2d';
-                let like = -1
+                let like = { 'like': -1 };
+                submitFormDataLikeCom(like).then((comLikeResponse) => {
+                    if (comLikeResponse !== undefined) {
+                        if (comLikeResponse.comDislike === true) {
+                            comDislikes.innerText = data.comment[i].dislikes + 1;
+                            comDislikes.classList.add('dislikedClass');
+                            if (comUsersDisliked.usersDisliked.includes(data.userInfo[0].userId)) {
+                                comDislikes.innerText = data.comment[i].dislikes;
+                            }
+                        } else if (comLikeResponse.comDislike === false) {
+                            comDislikes.innerText = data.comment[i].dislikes;
+                            comDislikes.classList.remove('dislikedClass');
+                            if (comUsersDisliked.usersDisliked.includes(data.userInfo[0].userId)) {
+                                comDislikes.innerText = data.comment[i].dislikes - 1;
+                            }
+                        }
+                    }
+                });
+                if (data.comment[i].dislikes > 0) {
+                    comLikes.style.color = '#639a67';
+                }
             })
-            likesDiv.append(comLikes, comDislikes);
+            likesDiv.append(comLikes, comLikesTip, comDislikes);
 
-            /*const comOnComHeader = document.createElement('h6');
-            comOnComHeader.setAttribute('class', 'comOnComHeader');
-            oneCommentDiv.appendChild(comOnComHeader);*/
+            function makeRequestLikeCom(like) {
+                return new Promise((resolve, reject) => {
+                    let request = new XMLHttpRequest();
+                    request.withCredentials = true;
+                    request.open('POST', api + '/comment/' + data.comment[i].commentId + '/likes');
+                    request.onreadystatechange = () => {
+                        if (request.readyState === 4) {
+                            if (request.status >= 200 && request.status < 400) {
+                                resolve(request.response);
+                            } else if (request.status = 403) {
+                                let respMessage = JSON.parse(request.response);
+                                comLikesTip.innerText = respMessage.message;
+                                comLikesTip.style.visibility = 'visible';
+                                setTimeout(() => { comLikesTip.style.visibility = 'hidden' }, 3000);
+                            } else {
+                                reject(request.response);
+                            }
+                        }
+                    };
+                    request.setRequestHeader('Content-Type', 'application/json');
+                    request.send(JSON.stringify(like));
+                });
+            }
+            async function submitFormDataLikeCom(like) {
+                try {
+                    const requestPromise = makeRequestLikeCom(like);
+                    const response = await requestPromise;
+                    responseId = (JSON.parse(response));
+                    return responseId
+                }
+                catch (errorResponse) {
+                    alert(errorResponse);
+                };
+            }
             // COM ON COM START*****************************************************
             if (data.comment[i].commentOnComment.length !== 0) {
                 for (let k = 0; k < data.comment[i].commentOnComment.length; k++) {
@@ -709,8 +782,6 @@ request.onload = function () {
                             submitDeleteComment2nd()
                         }, { once: true })
                         comFooter2nd.append(comEdit2nd, comDelete2nd);
-
-
                     }
 
                     if (data.comment[i].commentOnComment[k].edited !== 0) {
@@ -729,12 +800,34 @@ request.onload = function () {
                         comLikes2nd.style.color = '#639a67';
                     }
                     comLikes2nd.innerText = data.comment[i].commentOnComment[k].likes;
+                    let comUserLikes2nd = JSON.parse(data.comment[i].commentOnComment[k].comUserLikes)
+                    if (comUserLikes2nd.usersLiked.includes(data.userInfo[0].userId)) {
+                        comLikes2nd.classList.add('likedClass');
+                    }
+                    comLikes2nd.style.cursor = 'pointer';
                     comLikes2nd.addEventListener('click', ($event) => {
                         $event.preventDefault();
-                        comLikes2nd.innerText = data.comment[i].commentOnComment[k].likes + 1;
-                        comLikes2nd.style.color = '#639a67';
-                        let like = 1;
-                    })
+                        let com2ndLike = { 'like': 1 };
+                        submitFormDataLikeCom2nd(com2ndLike).then((comLikeResponse2nd) => {
+                            if (comLikeResponse2nd !== undefined) {
+                                if (comLikeResponse2nd.like === true) {
+                                    comLikes2nd.innerText = data.comment[i].commentOnComment[k].likes + 1;
+                                    comLikes2nd.classList.add('likedClass');
+                                    if (comUserLikes2nd.usersLiked.includes(data.userInfo[0].userId)) {
+                                        comLikes2nd.innerText = data.comment[i].commentOnComment[k].likes;
+                                    }
+                                } else if (comLikeResponse2nd.like === false) {
+                                    comLikes2nd.innerText = data.comment[i].commentOnComment[k].likes;
+                                    comLikes2nd.classList.remove('likedClass');
+                                    if (comUserLikes2nd.usersLiked.includes(data.userInfo[0].userId)) {
+                                        comLikes2nd.innerText = data.comment[i].commentOnComment[k].likes - 1;
+                                    }
+                                }
+                            }
+                        });
+                    });
+                    const comLikesTip2nd = document.createElement('span');
+                    comLikesTip2nd.setAttribute('class', 'tooltiptext');
 
                     const comDislikes2nd = document.createElement('i');
                     comDislikes2nd.setAttribute('class', 'far fa-thumbs-down');
@@ -742,13 +835,68 @@ request.onload = function () {
                         comDislikes2nd.style.color = '#da2d2d';
                     }
                     comDislikes2nd.innerText = data.comment[i].commentOnComment[k].dislikes;
+                    let comUserDislikes2nd = JSON.parse(data.comment[i].commentOnComment[k].comUserDislikes)
+                    if (comUserDislikes2nd.usersDisliked.includes(data.userInfo[0].userId)) {
+                        comDislikes2nd.classList.add('dislikedClass');
+                    }
+                    comDislikes2nd.style.cursor = 'pointer';
                     comDislikes2nd.addEventListener('click', ($event) => {
                         $event.preventDefault();
-                        comDislikes2nd.innerText = data.comment[i].commentOnComment[k].dislikes + 1;
-                        comDislikes2nd.style.color = '#da2d2d';
-                        let like = -1;
-                    })
-                    likesDiv2nd.append(comLikes2nd, comDislikes2nd);
+                        let com2ndLike = { 'like': -1 };
+                        submitFormDataLikeCom2nd(com2ndLike).then((comLikeResponse2nd) => {
+                            if (comLikeResponse2nd !== undefined) {
+                                if (comLikeResponse2nd.dislike === true) {
+                                    comDislikes2nd.innerText = data.comment[i].commentOnComment[k].dislikes + 1;
+                                    comDislikes2nd.classList.add('dislikedClass');
+                                    if (comUserDislikes2nd.usersDisliked.includes(data.userInfo[0].userId)) {
+                                        comDislikes2nd.innerText = data.comment[i].commentOnComment[k].dislikes;
+                                    }
+                                } else if (comLikeResponse2nd.dislike === false) {
+                                    comDislikes2nd.innerText = data.comment[i].commentOnComment[k].dislikes;
+                                    comDislikes2nd.classList.remove('dislikedClass');
+                                    if (comUserDislikes2nd.usersDisliked.includes(data.userInfo[0].userId)) {
+                                        comDislikes2nd.innerText = data.comment[i].commentOnComment[k].dislikes - 1;
+                                    }
+                                }
+                            }
+                        });
+                    });
+                    likesDiv2nd.append(comLikes2nd, comLikesTip2nd, comDislikes2nd);
+
+                    function makeRequestLikeCom2nd(com2ndLike) {
+                        return new Promise((resolve, reject) => {
+                            let request = new XMLHttpRequest();
+                            request.withCredentials = true;
+                            request.open('POST', api + '/comment2nd/' + data.comment[i].commentOnComment[k].comSecLevId + '/likes');
+                            request.onreadystatechange = () => {
+                                if (request.readyState === 4) {
+                                    if (request.status >= 200 && request.status < 400) {
+                                        resolve(request.response);
+                                    } else if (request.status = 403) {
+                                        let respMessage = JSON.parse(request.response)
+                                        comLikesTip2nd.innerText = respMessage.message;
+                                        comLikesTip2nd.style.visibility = 'visible';
+                                        setTimeout(() => { comLikesTip2nd.style.visibility = 'hidden' }, 3000)
+                                    } else {
+                                        reject(request.response);
+                                    }
+                                }
+                            };
+                            request.setRequestHeader('Content-Type', 'application/json');
+                            request.send(JSON.stringify(com2ndLike));
+                        });
+                    }
+                    async function submitFormDataLikeCom2nd(com2ndLike) {
+                        try {
+                            const requestPromise = makeRequestLikeCom2nd(com2ndLike);
+                            const response = await requestPromise;
+                            responseId = (JSON.parse(response));
+                            return responseId
+                        }
+                        catch (errorResponse) {
+                            alert(errorResponse);
+                        };
+                    }
                 }
             }
             document.getElementsByClassName('mainComment')[0].style.borderRadius = '0 0 15px 15px'
