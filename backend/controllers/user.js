@@ -140,11 +140,22 @@ exports.profile = (req, res, next) => {
                                 connection.query(`SELECT post.postTitle, post.postId, user.username FROM post INNER JOIN user ON user.userId = post.userId ORDER BY postTimeCreated DESC LIMIT 3`, (error, recentPosts) => {
                                     if (!error) {
                                         userData[0]['numberOfPosts'] = numberOfPosts[0].number;
-                                        res.status(200).json({
-                                            userInfo: userInfo,
-                                            userData: userData,
-                                            recentPosts: recentPosts
+                                        connection.query(`SELECT postTitle, postId, postLikes, postDislikes FROM post WHERE userId = ? ORDER BY postLikes - postDislikes DESC LIMIT 3`, userId, (error, succPosts) => {
+                                            if (!error) {
+                                                userData[0]['succPosts'] = succPosts;
+                                                res.status(200).json({
+                                                    userInfo: userInfo,
+                                                    userData: userData,
+                                                    recentPosts: recentPosts
+                                                });
+                                            } else {
+                                                res.status(404).json({
+                                                    message: "Can't get last 3 most successfull posts",
+                                                    message: error
+                                                });
+                                            }
                                         });
+
                                     } else {
                                         res.status(404).json({
                                             message: "Can't get last 3 posts",

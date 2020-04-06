@@ -46,51 +46,60 @@ request.onload = function () {
         leftPart.appendChild(moreUserProf);
 
         const userWSLabel = document.createElement('label');
-        userWSLabel.setAttribute('for', 'userWS');
         userWSLabel.innerText = 'Your website:';
-        const userWS = document.createElement('p');
+        moreUserProf.appendChild(userWSLabel);
         if (data.userData[0].userWebSite !== null) {
-            const link = document.createElement('a')
+            const link = document.createElement('a');
             link.setAttribute('href', data.userData[0].userWebSite);
-            link.innerText = 'link'
+            link.innerText = 'link';
+            moreUserProf.appendChild(link);
         } else {
-            userWS.innerText = 'none'
+            const userWS = document.createElement('p');
+            userWS.innerText = 'none';
+            moreUserProf.appendChild(userWS);
         }
+
         const userFBLabel = document.createElement('label');
-        userFBLabel.setAttribute('for', 'facebook');
         userFBLabel.innerText = 'Facebook:';
-        const userFB = document.createElement('p');
+        moreUserProf.appendChild(userFBLabel);;
         if (data.userData[0].facebook !== null) {
             const link = document.createElement('a')
             link.setAttribute('href', data.userData[0].facebook);
-            link.innerText = 'link'
+            link.innerText = 'link';
+            moreUserProf.appendChild(link);
         } else {
-            userFB.innerText = 'none'
+            const userFB = document.createElement('p');
+            userFB.innerText = 'none';
+            moreUserProf.appendChild(userFB);
         }
+
         const userTwtLabel = document.createElement('label');
-        userTwtLabel.setAttribute('for', 'twitter');
         userTwtLabel.innerText = 'Twitter:';
-        const userTwt = document.createElement('p');
+        moreUserProf.appendChild(userTwtLabel);
         if (data.userData[0].twitter !== null) {
-            const link = document.createElement('a')
+            const link = document.createElement('a');
             link.setAttribute('href', data.userData[0].twitter);
-            link.innerText = 'link'
+            link.innerText = 'link';
+            moreUserProf.appendChild(link);
         } else {
-            userTwt.innerText = 'none'
+            const userTwt = document.createElement('p');
+            userTwt.innerText = 'none';
+            moreUserProf.appendChild(userTwt);
         }
+
         const userLiInLabel = document.createElement('label');
-        userLiInLabel.setAttribute('for', 'linkedIn');
         userLiInLabel.innerText = 'LinkedIn:';
-        const userLiIn = document.createElement('p');
+        moreUserProf.appendChild(userLiInLabel);
         if (data.userData[0].linkendIn !== null) {
             const link = document.createElement('a');
             link.setAttribute('href', data.userData[0].linkendIn);
             link.innerText = 'link';
+            moreUserProf.appendChild(link);
         } else {
+            const userLiIn = document.createElement('p');
             userLiIn.innerText = 'none';
-
+            moreUserProf.appendChild(userLiIn);
         }
-        moreUserProf.append(userWSLabel, userWS, userFBLabel, userFB, userTwtLabel, userTwt, userLiInLabel, userLiIn);
 
         moreUserProf.appendChild(document.createElement('hr'));
 
@@ -152,14 +161,40 @@ request.onload = function () {
         sucArticles.appendChild(sucArtHeader);
 
         const sucArtList = document.createElement('ul');
+
         const sucArtListItem1 = document.createElement('li');
-        sucArtListItem1.innerText = 'header1' // article header from db
+        const succLink1 = document.createElement('a');
+        succLink1.setAttribute('href', '/frontend/post.html?' + data.userData[0].succPosts[0].postId)
+        succLink1.innerText = data.userData[0].succPosts[0].postTitle;
+        sucArtListItem1.appendChild(succLink1)
+        const meter1 = document.createElement('meter');
+        meter1.setAttribute('min', '0');
+        meter1.setAttribute('max', '100');
+        meter1.setAttribute('value', data.userData[0].succPosts[0].postLikes - data.userData[0].succPosts[0].postDislikes);
+
         const sucArtListItem2 = document.createElement('li');
-        sucArtListItem2.innerText = 'header2' // article header from db
+        const succLink2 = document.createElement('a');
+        succLink2.setAttribute('href', '/frontend/post.html?' + data.userData[0].succPosts[1].postId)
+        succLink2.innerText = data.userData[0].succPosts[1].postTitle;
+        sucArtListItem2.appendChild(succLink2)
+        const meter2 = document.createElement('meter');
+        meter2.setAttribute('min', '0');
+        meter2.setAttribute('max', '100');
+        meter2.setAttribute('value', data.userData[0].succPosts[1].postLikes - data.userData[0].succPosts[1].postDislikes);
+
         const sucArtListItem3 = document.createElement('li');
-        sucArtListItem3.innerText = 'header3' // article header from db
-        sucArtList.append(sucArtListItem1, sucArtListItem2, sucArtListItem3);
+        const succLink3 = document.createElement('a');
+        succLink3.setAttribute('href', '/frontend/post.html?' + data.userData[0].succPosts[2].postId)
+        succLink3.innerText = data.userData[0].succPosts[2].postTitle;
+        sucArtListItem3.appendChild(succLink3)
+        const meter3 = document.createElement('meter');
+        meter3.setAttribute('min', '0');
+        meter3.setAttribute('max', '100');
+        meter3.setAttribute('value', data.userData[0].succPosts[2].postLikes - data.userData[0].succPosts[2].postDislikes);
+
+        sucArtList.append(sucArtListItem1, meter1, sucArtListItem2, meter2, sucArtListItem3, meter3);
         sucArticles.appendChild(sucArtList);
+
         //Recently created section
         const recentArticles = document.createElement('div');
         recentArticles.setAttribute('id', 'recentArticles');
@@ -172,17 +207,26 @@ request.onload = function () {
         const recArtList = document.createElement('ul');
 
         const recArtListItem1 = document.createElement('li');
-        recArtListItem1.innerText = data.recentPosts[0].postTitle;
+        const recLink1 = document.createElement('a');
+        recLink1.setAttribute('href', '/frontend/post.html?' + data.recentPosts[0].postId);
+        recLink1.innerText = data.recentPosts[0].postTitle;
+        recArtListItem1.appendChild(recLink1);
         const recArtCreator1 = document.createElement('p');
         recArtCreator1.innerText = 'By: ' + data.recentPosts[0].username;
 
         const recArtListItem2 = document.createElement('li');
-        recArtListItem2.innerText = data.recentPosts[1].postTitle;
+        const recLink2 = document.createElement('a');
+        recLink2.setAttribute('href', '/frontend/post.html?' + data.recentPosts[1].postId);
+        recLink2.innerText = data.recentPosts[1].postTitle;
+        recArtListItem2.appendChild(recLink2);
         const recArtCreator2 = document.createElement('p');
         recArtCreator2.innerText = 'By: ' + data.recentPosts[1].username;
 
         const recArtListItem3 = document.createElement('li');
-        recArtListItem3.innerText = data.recentPosts[2].postTitle;
+        const recLink3 = document.createElement('a');
+        recLink3.setAttribute('href', '/frontend/post.html?' + data.recentPosts[2].postId);
+        recLink3.innerText = data.recentPosts[2].postTitle;
+        recArtListItem3.appendChild(recLink3);
         const recArtCreator3 = document.createElement('p');
         recArtCreator3.innerText = 'By: ' + data.recentPosts[2].username;
 

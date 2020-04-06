@@ -7,15 +7,11 @@ let request = new XMLHttpRequest();
 request.open('GET', api, true);
 request.withCredentials = true;
 request.onload = function () {
-    //if (request.status = 401) { window.location.href = '/frontend/index.html' }
-    // Begin accessing JSON data here
     let data = JSON.parse(this.response);
 
     if (request.status >= 200 && request.status < 400) {
-
         const userCredentials = document.getElementById('credentials');
         userCredentials.innerText = data.userInfo[0].firstName + ' ' + data.userInfo[0].lastName
-
         if (data.posts !== 0) {
             for (let i = 0; i < data.posts.length; i++) {
                 const container = document.getElementById('unreadPosts');
@@ -92,10 +88,6 @@ request.onload = function () {
 
                 showAllPosts.appendChild(container)
             }
-        } else {
-            noPost = document.createElement('p');
-            noPost.innerText = 'There are no new posts';
-            document.getElementById('readPosts').appendChild(noPost);
         }
         /*if (data.posts !== 0) {
             for (let j = 0; j < data.posts.length; j++) {

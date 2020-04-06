@@ -4,7 +4,7 @@ nav img {
   margin-top: -10px;
 }
 #createPostSection {
-  @include postSection
+  @include postSection;
 }
 #showAllPosts {
   display: flex;
@@ -19,11 +19,11 @@ nav img {
     flex-wrap: wrap;
     justify-content: space-evenly;
     max-width: 1024px;
-    margin-top: 100px;
+    margin-top: 60px;
     background-color: rgba(208, 214, 232, 0.4);
-& #sectionTitle{
-  flex:0 0 100%;
-}
+    & #sectionTitle {
+      flex: 0 0 100%;
+    }
   }
   & #readPosts {
     display: flex;
@@ -33,24 +33,10 @@ nav img {
     max-width: 1024px;
     margin-top: 10px;
     background-color: rgba(12, 128, 236, 0.9);
-    /*& h3 {
-      flex: 0 0 100%;
-      background-color: $sectionTitles;
-      border-radius: 5px;
-      // height: 30px;
-      font-size: 18px;
-      padding-top: 5px;
-      padding-left: 10px;
-
-      // text-align: left;
-    }
-    */
   }
   & .onePostDiv {
     display: flex;
     flex-direction: column;
-    //flex-wrap: wrap;
-   // align-items: flex-start;
     align-self: center;
     background: #fff;
     margin: 5px;
@@ -61,57 +47,46 @@ nav img {
 
     & .postTitleClass {
       width: 100%;
-      //flex: 0 0 100%;
       background-color: $postTitles;
       box-shadow: 0px 2px 4px -1px $postShadows;
       margin: 0 0 5px 0;
       padding: 8px;
-      //border: 0;
       border-radius: 0 0px 0 0;
       font-size: 16px;
       height: auto;
       max-height: 50px;
-      &.SeenPost{
-        
+      &.SeenPost {
         background-color: rgba(12, 128, 236, 0.9);
       }
     }
-    //.postTitleClass
     & .contentDiv {
       align-self: flex-start;
       overflow: hidden;
       align-self: flex-start;
       text-overflow: ellipsis;
       max-height: 175px;
-      //flex-grow: 1;
       & .postTextClass {
-        //float:none;
-        //display: block;
-        //max-height: 175px;
         width: auto;
-        //overflow: hidden;
-        margin:0;
+        margin: 0;
         margin-top: 5px;
         text-overflow: ellipsis;
         font-size: 12px;
         text-align: justify;
       }
       & img {
-        //display:inline-block;
         float: left;
         margin: 10px 10px 0 0;
-       max-width: 120px;
+        max-width: 120px;
         max-height: 110px;
       }
     }
     & .createdByClass {
       box-shadow: 0px -2px 4px -1px $postShadows;
       margin-top: auto;
-      //margin-bottom: 5px;
       height: 45px;
       align-items: flex-end;
       & h5 {
-        margin:0;
+        margin: 0;
         display: inline-block;
         width: 100%;
         font-size: 12px;
@@ -124,7 +99,7 @@ nav img {
       box-shadow: 0px -2px 4px -1px $postShadows;
       border-radius: 0 0 20px 20px;
       width: 100%;
-      margin:0;
+      margin: 0;
       padding: 2.5px;
       height: 20px;
       align-self: flex-end;
