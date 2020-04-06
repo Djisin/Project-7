@@ -234,9 +234,9 @@
               padding: 5px;
               padding-right: 15px;
             }
-            & span{
+            & span {
               @include tooltiptext;
-              left:90%;
+              left: 90%;
             }
           }
         }
@@ -351,12 +351,13 @@
             align-self: flex-end;
             & i {
               font-size: 16px;
-              padding: 5px;
+              //padding: 5px;
               padding-right: 15px;
-              & input {
-                background-color: #fff;
-                border: none;
-              }
+            }
+            & span {
+              @include tooltiptext;
+              left: 90%;
+              //padding: 1px;
             }
           }
         }
@@ -365,14 +366,10 @@
   }
 }
 .likedClass {
-  border: 5px double #639a67;
-  border-radius: 5px;
-  padding: 2px;
   transition-duration: 0.2s;
+  color: #639a67;
 }
 .dislikedClass {
-  border: 5px double #da2d2d;
-  border-radius: 5px;
-  padding: 2px;
   transition-duration: 0.2s;
+  color: #da2d2d;
 }

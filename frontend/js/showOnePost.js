@@ -61,9 +61,7 @@ request.onload = function () {
 
         const postLikes = document.createElement('i')
         postLikes.setAttribute('class', 'far fa-thumbs-up');
-        if (data.post[0].postLikes > 0) {
-            postLikes.style.color = '#639a67' //likes color
-        }
+     
         postLikes.innerText = data.post[0].postLikes;
         likes.appendChild(postLikes);
 
@@ -100,9 +98,7 @@ request.onload = function () {
 
         const postDislikes = document.createElement('i');
         postDislikes.setAttribute('class', 'far fa-thumbs-down');
-        if (data.post[0].postDislikes > 0) {
-            postDislikes.style.color = '#da2d2d'; // dislikes color
-        }
+        
         postDislikes.innerText = data.post[0].postDislikes;
         likes.appendChild(postDislikes);
 
@@ -538,9 +534,7 @@ request.onload = function () {
 
             const comLikes = document.createElement('i');
             comLikes.setAttribute('class', 'far fa-thumbs-up');
-            if (data.comment[i].likes > 0) {
-                comLikes.style.color = '#639a67';
-            }
+        
             comLikes.innerText = data.comment[i].likes;
             let comUsersLiked = JSON.parse(data.comment[i].comUserLikes);
             if (comUsersLiked.usersLiked.includes(data.userInfo[0].userId)) {
@@ -567,18 +561,13 @@ request.onload = function () {
                         }
                     }
                 });
-                if (data.comment[i].likes > 0) {
-                    comLikes.style.color = '#639a67';
-                }
             });
             const comLikesTip = document.createElement('span');
             comLikesTip.setAttribute('class', 'tooltiptext');
 
             const comDislikes = document.createElement('i');
             comDislikes.setAttribute('class', 'far fa-thumbs-down');
-            if (data.comment[i].dislikes > 0) {
-                comDislikes.style.color = '#da2d2d';
-            }
+            
             comDislikes.innerText = data.comment[i].dislikes;
             let comUsersDisliked = JSON.parse(data.comment[i].comUserDislikes);
             if (comUsersDisliked.usersDisliked.includes(data.userInfo[0].userId)) {
@@ -605,10 +594,7 @@ request.onload = function () {
                         }
                     }
                 });
-                if (data.comment[i].dislikes > 0) {
-                    comLikes.style.color = '#639a67';
-                }
-            })
+            });
             likesDiv.append(comLikes, comLikesTip, comDislikes);
 
             function makeRequestLikeCom(like) {
@@ -796,9 +782,7 @@ request.onload = function () {
 
                     const comLikes2nd = document.createElement('i');
                     comLikes2nd.setAttribute('class', 'far fa-thumbs-up');
-                    if (data.comment[i].commentOnComment[k].likes > 0) {
-                        comLikes2nd.style.color = '#639a67';
-                    }
+                    
                     comLikes2nd.innerText = data.comment[i].commentOnComment[k].likes;
                     let comUserLikes2nd = JSON.parse(data.comment[i].commentOnComment[k].comUserLikes)
                     if (comUserLikes2nd.usersLiked.includes(data.userInfo[0].userId)) {
@@ -831,9 +815,7 @@ request.onload = function () {
 
                     const comDislikes2nd = document.createElement('i');
                     comDislikes2nd.setAttribute('class', 'far fa-thumbs-down');
-                    if (data.comment[i].commentOnComment[k].dislikes > 0) {
-                        comDislikes2nd.style.color = '#da2d2d';
-                    }
+                    
                     comDislikes2nd.innerText = data.comment[i].commentOnComment[k].dislikes;
                     let comUserDislikes2nd = JSON.parse(data.comment[i].commentOnComment[k].comUserDislikes)
                     if (comUserDislikes2nd.usersDisliked.includes(data.userInfo[0].userId)) {

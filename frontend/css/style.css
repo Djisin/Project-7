@@ -1321,29 +1321,50 @@ nav img {
 
 #showPost #commentsDiv .mCommentDiv .mCommentDiv2nd .comFooter2nd .likesDiv2nd i {
   font-size: 16px;
-  padding: 5px;
   padding-right: 15px;
 }
 
-#showPost #commentsDiv .mCommentDiv .mCommentDiv2nd .comFooter2nd .likesDiv2nd i input {
-  background-color: #fff;
-  border: none;
+#showPost #commentsDiv .mCommentDiv .mCommentDiv2nd .comFooter2nd .likesDiv2nd span {
+  visibility: hidden;
+  width: 120px;
+  background-color: black;
+  color: #fff;
+  text-align: center;
+  padding: 5px 0;
+  border-radius: 6px;
+  padding: 2px;
+  width: 150px;
+  bottom: 100%;
+  left: 50%;
+  margin-left: -60px;
+  /* Position the tooltip text - see examples below! */
+  position: absolute;
+  z-index: 1;
+  left: 90%;
+}
+
+#showPost #commentsDiv .mCommentDiv .mCommentDiv2nd .comFooter2nd .likesDiv2nd span::after {
+  content: " ";
+  position: absolute;
+  top: 100%;
+  /* At the bottom of the tooltip */
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: black transparent transparent transparent;
 }
 
 .likedClass {
-  border: 5px double #639a67;
-  border-radius: 5px;
-  padding: 2px;
   -webkit-transition-duration: 0.2s;
           transition-duration: 0.2s;
+  color: #639a67;
 }
 
 .dislikedClass {
-  border: 5px double #da2d2d;
-  border-radius: 5px;
-  padding: 2px;
   -webkit-transition-duration: 0.2s;
           transition-duration: 0.2s;
+  color: #da2d2d;
 }
 
 #userProfile {

@@ -56,7 +56,6 @@ exports.deleteComment = (req, res, next) => {
 exports.likeComment = (req, res, next) => {
     commentId = req.params.id;
     userId = req.session.userId;
-    console.log('ziak')
     if (req.body.like === 1) {
         connection.query(`SELECT comUserLikes, comUserDislikes FROM comment WHERE commentId = ?`, commentId, (error, comUsersLiked) => {
             if (!error) {
