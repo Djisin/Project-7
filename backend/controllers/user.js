@@ -122,7 +122,11 @@ exports.logout = (req, res, next) => {
 }
 
 exports.profile = (req, res, next) => {
-    userId = req.session.userId;
+    let userId = req.session.userId;
+    let profId = req.query.user
+    if (isNaN(profId)) {
+        profId = userId
+    }
     connection.query('SELECT firstName, lastName, userId FROM user WHERE userId = ?', userId, (error, userInfo) => {
         if (!error) {
             connection.query(`
@@ -132,15 +136,15 @@ exports.profile = (req, res, next) => {
                 ON user.userId = moreuserinfo.userId
                 INNER JOIN usersocnetws
                 ON user.userId = usersocnetws.userId
-                WHERE user.userId = ?`, userId,
+                WHERE user.userId = ?`, profId,
                 (error, userData) => {
                     if (!error) {
-                        connection.query(`SELECT COUNT(postId) AS number FROM post WHERE userId = ?`, userData[0].userId, (error, numberOfPosts) => {
+                        connection.query(`SELECT COUNT(postId) AS number FROM post WHERE userId = ?`, profId, (error, numberOfPosts) => {
                             if (!error) {
                                 connection.query(`SELECT post.postTitle, post.postId, user.username FROM post INNER JOIN user ON user.userId = post.userId ORDER BY postTimeCreated DESC LIMIT 3`, (error, recentPosts) => {
                                     if (!error) {
                                         userData[0]['numberOfPosts'] = numberOfPosts[0].number;
-                                        connection.query(`SELECT postTitle, postId, postLikes, postDislikes FROM post WHERE userId = ? ORDER BY postLikes - postDislikes DESC LIMIT 3`, userId, (error, succPosts) => {
+                                        connection.query(`SELECT postTitle, postId, postLikes, postDislikes FROM post WHERE userId = ? ORDER BY postLikes - postDislikes DESC LIMIT 3`, profId, (error, succPosts) => {
                                             if (!error) {
                                                 userData[0]['succPosts'] = succPosts;
                                                 res.status(200).json({
@@ -185,5 +189,81 @@ exports.profile = (req, res, next) => {
 }
 
 exports.editProfile = (req, res, next) => {
-    //console.log(req)
+    console.log(req)
+    let userId = req.session.userId;
+    let profId = JSON.parse(req.params.id);
+    console.log(userId)
+    console.log(profId)
+    if (userId === profId) {
+        let personalLine = { 'personalLine': req.body.personalLine }
+        if (req.body.personalLine !== null && req.body.profPicture === null && req.body.userNetws === null) {
+            connection.query(`UPDATE moreuserinfo SET ? WHERE userId = ` + userId, personalLine, (error) => {
+                if (!error) {
+                    res.status(204).json({
+                        message: 'Personal like updated successfully'
+                    });
+                } else {
+                    res.status(400).json({
+                        message: error
+                    });
+                }
+            })
+        } else if (req.body.personalLine === null && req.body.profPicture !== null && req.body.userNetws === null) {
+            if (!error) {
+
+            } else {
+                res.status(400).json({
+                    message: 'Povided data is not valid'
+                });
+            }
+        } else if (req.body.personalLine === null && req.body.profPicture === null && req.body.userNetws !== null) {
+            let facebook, twitter, linkendIn, userWebSite;
+            if (req.body.userNetws.editFb === '' || null || undefined) {
+                facebook = null;
+            } else {
+                facebook = req.body.userNetws.editFb;
+            }
+            if (req.body.userNetws.editTw === '' || null || undefined) {
+                twitter = null;
+            } else {
+                twitter = req.body.userNetws.editTw;
+            }
+            if (req.body.userNetws.editLi === '' || null || undefined) {
+                linkendIn = null;
+            } else {
+                linkendIn = req.body.userNetws.editLi;
+            }
+            if (req.body.userNetws.editWs === '' || null || undefined) {
+                userWebSite = null
+            } else {
+                userWebSite = req.body.userNetws.editWs
+            }
+            let userNetws = {
+                'facebook': facebook,
+                'twitter': twitter,
+                'linkendIn': linkendIn,
+                'userWebSite': userWebSite
+            }
+            connection.query(`UPDATE usersocnetws SET ? WHERE userId = ` + userId, userNetws, (error) => {
+                if (!error) {
+                    res.status(204).json({
+                        message: 'Networks updated successfully'
+                    })
+                } else {
+                    res.status(400).json({
+                        message: 'Incorrect information provided'
+                    });
+                }
+            })
+
+        } else {
+            res.status(400).json({
+                message: 'Incorrect information provided 4'
+            })
+        }
+    } else {
+        res.status(401).json({
+            message: 'You can only change your profile'
+        })
+    }
 }

@@ -47,12 +47,15 @@ request.onload = function () {
         }
 
         const createdByMain = document.createElement('div');
-        createdByMain.setAttribute('class', 'col-md-12 createdByMain')
-        container.appendChild(createdByMain)
+        createdByMain.setAttribute('class', 'col-md-12 createdByMain');
+        container.appendChild(createdByMain);
 
         const createdBy = document.createElement('h4');
         createdBy.setAttribute('class', 'createdByClass');
-        createdBy.innerText = data.post[0].username;
+        const createdByLink = document.createElement('a');
+        createdByLink.setAttribute('href','http://127.0.0.1:5500/frontend/profile.html?'+data.post[0].userId);
+        createdByLink.innerText = data.post[0].username;
+        createdBy.appendChild(createdByLink);
         createdByMain.appendChild(createdBy);
 
         const likes = document.createElement('div');

@@ -11,5 +11,5 @@ router.post('/login', UserCtrl.login);
 router.post('/logout', UserCtrl.logout);
 
 router.get('/user/profile', auth, UserCtrl.profile);
-router.post('/user/profile/:id', auth, UserCtrl.editProfile)
+router.put('/user/profile/:id', auth, UserCtrl.editProfile)
 module.exports = router; 

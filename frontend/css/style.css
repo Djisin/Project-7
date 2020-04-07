@@ -1387,7 +1387,7 @@ nav img {
   border: 1px solid;
 }
 
-#userProfile #leftPart div {
+#userProfile #leftPart #profPicDiv {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -1395,20 +1395,65 @@ nav img {
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
+  margin-top: 25px;
+  height: 240px;
+}
+
+#userProfile #leftPart #profPicDiv img {
+  -ms-flex-item-align: center;
+      -ms-grid-row-align: center;
+      align-self: center;
+  width: 200px;
+  height: 200px;
+}
+
+#userProfile #leftPart #profPicDiv .btn-group {
+  -ms-flex-item-align: center;
+      -ms-grid-row-align: center;
+      align-self: center;
+}
+
+#userProfile #leftPart #moreUserProf {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  padding: 5px;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+}
+
+#userProfile #leftPart #moreUserProf .btn-group {
   padding: 10px;
 }
 
-#userProfile #leftPart div img {
-  max-width: 200px;
-  margin-bottom: 20px;
-}
-
-#userProfile #leftPart div label {
+#userProfile #leftPart #moreUserProf label {
   text-align: left;
 }
 
-#userProfile #leftPart div p {
+#userProfile #leftPart #moreUserProf p {
   text-align: left;
+}
+
+#userProfile #leftPart #moreUserProf a {
+  width: 100%;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  -ms-flex-item-align: start;
+      align-self: flex-start;
+  text-align: left;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+#userProfile #leftPart #moreUserProf input {
+  padding: 3.2px;
+  border: none;
+  border-bottom: 1px solid;
 }
 
 #userProfile #middlePart {
@@ -1422,19 +1467,58 @@ nav img {
 }
 
 #userProfile #middlePart #headerDiv {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
   margin-bottom: 10px;
 }
 
 #userProfile #middlePart #headerDiv h3 {
   text-align: left;
+  margin-bottom: 0;
 }
 
 #userProfile #middlePart #headerDiv h5 {
   text-align: left;
+  margin-top: 5px;
 }
 
 #userProfile #middlePart #headerDiv p {
   text-align: justify;
+}
+
+#userProfile #middlePart #headerDiv button {
+  -ms-flex-item-align: end;
+      align-self: flex-end;
+}
+
+#userProfile #middlePart #headerDiv textarea {
+  margin-bottom: 10px;
+  resize: none;
+  border: none;
+  height: 90px;
+  background-color: rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  padding: 5px 10px 5px 10px;
+}
+
+#userProfile #middlePart #headerDiv .btn-group {
+  width: 100%;
+  -ms-flex-item-align: end;
+      align-self: flex-end;
+}
+
+#userProfile #middlePart #headerDiv .btn-group button {
+  float: right;
+}
+
+#userProfile #middlePart #headerDiv .btn-group p {
+  float: left;
+  margin: 0;
 }
 
 #userProfile #middlePart #contentDiv {
@@ -1449,6 +1533,7 @@ nav img {
 
 #userProfile #middlePart #contentDiv h3 {
   text-align: left;
+  margin-top: 0;
 }
 
 #userProfile #rightPart {

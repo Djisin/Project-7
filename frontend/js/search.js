@@ -1,3 +1,5 @@
+const postSeacrhApi = 'http://127.0.0.1:3000/api/posts';
+
 const searchInput = document.getElementById('searchInput');
 searchInput.value = ''
 let searchInputVal;
@@ -23,7 +25,7 @@ function makeSearchRequest(searchInputVal) {
     return new Promise((resolve, reject) => {
         let request = new XMLHttpRequest();
         request.withCredentials = true;
-        request.open('POST', api + '/search');
+        request.open('POST', postSeacrhApi + '/search');
         request.onreadystatechange = () => {
             if (request.readyState === 4) {
                 if (request.status >= 200 && request.status < 400) {
