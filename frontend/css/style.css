@@ -1378,13 +1378,13 @@ nav img {
       align-self: center;
   max-width: 1024px;
   padding: 0;
+  min-height: 90vh;
 }
 
 #userProfile #leftPart {
   top: 60px;
   position: -webkit-sticky;
   position: sticky;
-  border: 1px solid;
 }
 
 #userProfile #leftPart #profPicDiv {
@@ -1396,21 +1396,31 @@ nav img {
       -ms-flex-direction: column;
           flex-direction: column;
   margin-top: 25px;
-  height: 240px;
 }
 
 #userProfile #leftPart #profPicDiv img {
   -ms-flex-item-align: center;
       -ms-grid-row-align: center;
       align-self: center;
-  width: 200px;
+  max-width: 200px;
   height: 200px;
+  margin-bottom: 20px;
+  -webkit-box-shadow: 3px 3px 5px 0px rgba(0, 0, 0, 0.75);
+          box-shadow: 3px 3px 5px 0px rgba(0, 0, 0, 0.75);
+  overflow: hidden;
 }
 
 #userProfile #leftPart #profPicDiv .btn-group {
+  margin-top: 170px;
   -ms-flex-item-align: center;
       -ms-grid-row-align: center;
       align-self: center;
+  position: absolute;
+}
+
+#userProfile #leftPart #profPicDiv .btn-group button {
+  padding: 3px;
+  width: 100px;
 }
 
 #userProfile #leftPart #moreUserProf {
@@ -1427,7 +1437,7 @@ nav img {
 }
 
 #userProfile #leftPart #moreUserProf .btn-group {
-  padding: 10px;
+  padding: 0 10px 0 10px;
 }
 
 #userProfile #leftPart #moreUserProf label {
@@ -1456,6 +1466,27 @@ nav img {
   border-bottom: 1px solid;
 }
 
+#userProfile #leftPart #profRankDiv {
+  margin-bottom: 20px;
+}
+
+#userProfile #leftPart #profRankDiv #rank {
+  border: 3px double rgba(0, 0, 0, 0.75);
+  -webkit-box-shadow: 3px 3px 5px 0px rgba(0, 0, 0, 0.75);
+          box-shadow: 3px 3px 5px 0px rgba(0, 0, 0, 0.75);
+}
+
+#userProfile #leftPart #profRankDiv::before {
+  content: "";
+  position: absolute;
+  border-radius: 50%;
+  left: 50%;
+  margin-left: -5px;
+  margin-top: -6px;
+  border-width: 5px;
+  border-style: solid;
+}
+
 #userProfile #middlePart {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -1467,6 +1498,7 @@ nav img {
 }
 
 #userProfile #middlePart #headerDiv {
+  max-height: 480px;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -1540,7 +1572,6 @@ nav img {
   top: 60px;
   position: -webkit-sticky;
   position: sticky;
-  border: 1px solid;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -1562,11 +1593,19 @@ nav img {
   padding-left: 20px;
 }
 
+#userProfile #rightPart #succArticles ul meter {
+  width: 180px;
+}
+
 #userProfile #rightPart #recentArticles {
   text-align: left;
 }
 
 #userProfile #rightPart #recentArticles ul {
   padding-left: 20px;
+}
+
+#userProfile hr {
+  margin: 5px;
 }
 /*# sourceMappingURL=style.css.map */

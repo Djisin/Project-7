@@ -1,6 +1,7 @@
 const connection = require('../connection');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
+const fs = require('fs')
 
 exports.index = (req, res, next) => {
     if (!req.session.userId && !req.session.token) {
@@ -125,7 +126,7 @@ exports.profile = (req, res, next) => {
     let userId = req.session.userId;
     let profId = req.query.user
     if (isNaN(profId)) {
-        profId = userId
+        profId = userId 
     }
     connection.query('SELECT firstName, lastName, userId FROM user WHERE userId = ?', userId, (error, userInfo) => {
         if (!error) {
@@ -192,11 +193,13 @@ exports.editProfile = (req, res, next) => {
     console.log(req)
     let userId = req.session.userId;
     let profId = JSON.parse(req.params.id);
-    console.log(userId)
+    req.body.editedData = JSON.parse(req.body.editedData)
+
+    console.log(req.body.editedData)
     console.log(profId)
     if (userId === profId) {
-        let personalLine = { 'personalLine': req.body.personalLine }
-        if (req.body.personalLine !== null && req.body.profPicture === null && req.body.userNetws === null) {
+        let personalLine = { 'personalLine': req.body.editedData.personalLine }
+        if (req.body.editedData.personalLine !== null && req.body.editedData.profPicture === null && req.body.editedData.userNetws === null) {
             connection.query(`UPDATE moreuserinfo SET ? WHERE userId = ` + userId, personalLine, (error) => {
                 if (!error) {
                     res.status(204).json({
@@ -207,36 +210,58 @@ exports.editProfile = (req, res, next) => {
                         message: error
                     });
                 }
-            })
-        } else if (req.body.personalLine === null && req.body.profPicture !== null && req.body.userNetws === null) {
-            if (!error) {
+            }) 
+        } else if (req.body.editedData.personalLine === null && req.body.editedData.profPicture !== null && req.body.editedData.userNetws === null) {
+            const url = req.protocol + '://' + req.get('host');
+            const userPicture = { 'userPicture': url + '/images/' + req.file.filename };
+            connection.query(`SELECT userPicture FROM user WHERE userId = ?`, userId, (error, row) => {
+                if (!error) {
+                    if (row[0].userPicture !== 'img/userDef.jpg') {
+                        const filename = row[0].userPicture.split('/images/')[1];
+                        fs.unlinkSync('images/' + filename);
+                    } else {
+                        console.log('error ovde');
+                    } 
+                    connection.query(`UPDATE user SET ? WHERE userId = ` + userId, userPicture, (error) => {
+                        if (!error) {
+                            res.status(204).json({
+                                message: 'Profile picture updated successfully'
+                            })
+                        } else {
+                            res.status(400).json({ 
+                                message: error
+                            });
+                        }
+                    });
 
-            } else {
-                res.status(400).json({
-                    message: 'Povided data is not valid'
-                });
-            }
-        } else if (req.body.personalLine === null && req.body.profPicture === null && req.body.userNetws !== null) {
+                } else {
+                    res.status(404).json({
+                        message: 'Problem with existing picture'
+                    });
+                }
+            })
+
+        } else if (req.body.editedData.personalLine === null && req.body.editedData.profPicture === null && req.body.editedData.userNetws !== null) {
             let facebook, twitter, linkendIn, userWebSite;
-            if (req.body.userNetws.editFb === '' || null || undefined) {
+            if (req.body.editedData.userNetws.editFb === '' || null || undefined) {
                 facebook = null;
             } else {
-                facebook = req.body.userNetws.editFb;
+                facebook = req.body.editedData.userNetws.editFb;
             }
-            if (req.body.userNetws.editTw === '' || null || undefined) {
+            if (req.body.editedData.userNetws.editTw === '' || null || undefined) {
                 twitter = null;
             } else {
-                twitter = req.body.userNetws.editTw;
+                twitter = req.body.editedData.userNetws.editTw;
             }
-            if (req.body.userNetws.editLi === '' || null || undefined) {
+            if (req.body.editedData.userNetws.editLi === '' || null || undefined) {
                 linkendIn = null;
             } else {
-                linkendIn = req.body.userNetws.editLi;
+                linkendIn = req.body.editedData.userNetws.editLi;
             }
-            if (req.body.userNetws.editWs === '' || null || undefined) {
+            if (req.body.editedData.userNetws.editWs === '' || null || undefined) {
                 userWebSite = null
             } else {
-                userWebSite = req.body.userNetws.editWs
+                userWebSite = req.body.editedData.userNetws.editWs
             }
             let userNetws = {
                 'facebook': facebook,
@@ -259,7 +284,7 @@ exports.editProfile = (req, res, next) => {
         } else {
             res.status(400).json({
                 message: 'Incorrect information provided 4'
-            })
+            });
         }
     } else {
         res.status(401).json({

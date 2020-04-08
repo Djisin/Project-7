@@ -4,26 +4,32 @@
     align-self: center;
     max-width: 1024px;
     padding: 0;
+    min-height: 90vh;
     & #leftPart {
         top: 60px;
         position: sticky;
-        border: 1px solid;
+        //border: 1px solid;
         & #profPicDiv {
             display: flex;
             flex-direction: column;
             margin-top: 25px;
-            height: 240px;
+            //height: 230px;
             & img {
                 align-self: center;
-                width: 200px;
+                max-width: 200px;
                 height: 200px;
-                //margin-bottom: 20px;
+                margin-bottom: 20px;
+                box-shadow: 3px 3px 5px 0px rgba(0, 0, 0, 0.75);
+                overflow: hidden;
             }
-            & .btn-group{
-                //margin-top: -30px;
+            & .btn-group {
+                margin-top: 170px;
                 align-self: center;
-                //position: absolute;
-                //@include: ;
+                position: absolute;
+                & button{
+                    padding: 3px;
+                    width: 100px;
+                }
             }
         }
         & #moreUserProf {
@@ -32,7 +38,7 @@
             padding: 5px;
             flex-wrap: wrap;
             & .btn-group {
-                padding: 10px;
+                padding: 0 10px 0 10px;
             }
             & label {
                 text-align: left;
@@ -40,10 +46,10 @@
             & p {
                 text-align: left;
             }
-            & a{   
+            & a {
                 width: 100%;
                 box-sizing: border-box;
-                align-self: flex-start;;
+                align-self: flex-start;
                 text-align: left;
                 white-space: nowrap;
                 text-overflow: ellipsis;
@@ -55,11 +61,29 @@
                 border-bottom: 1px solid;
             }
         }
+        & #profRankDiv {
+            margin-bottom: 20px;
+            & #rank {
+                border: 3px double rgba(0, 0, 0, 0.75);
+                box-shadow: 3px 3px 5px 0px rgba(0, 0, 0, 0.75);
+            }
+            &::before {
+                content: "";
+                position: absolute;
+                border-radius: 50%;
+                left: 50%;
+                margin-left: -5px;
+                margin-top: -6px;
+                border-width: 5px;
+                border-style: solid;
+            }
+        }
     }
     & #middlePart {
         display: flex;
         flex-direction: column;
         & #headerDiv {
+            max-height: 480px;
             display: flex;
             flex-direction: column;
             margin-bottom: 10px;
@@ -111,7 +135,7 @@
     & #rightPart {
         top: 60px;
         position: sticky;
-        border: 1px solid;
+       // border: 1px solid;
         display: flex;
         flex-direction: column;
         & #numbersDiv {
@@ -121,6 +145,9 @@
             text-align: left;
             & ul {
                 padding-left: 20px;
+                & meter{
+                    width: 180px;
+                }
             }
         }
         & #recentArticles {
@@ -129,5 +156,8 @@
                 padding-left: 20px;
             }
         }
+    }
+    & hr{
+        margin:5px;
     }
 }

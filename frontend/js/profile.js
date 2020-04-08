@@ -11,7 +11,16 @@ request.onload = function () {
     let data = JSON.parse(this.response);
 
     if (request.status >= 200 && request.status < 400) {
+
+        let submitData = new FormData
         //User info on navbar
+        if (reqProfId == data.userInfo[0].userId) {
+            document.getElementsByClassName('prof')[0].classList.add('active');
+        } else if (isNaN(reqProfId)) {
+            document.getElementsByClassName('prof')[0].classList.add('active');
+        }
+
+
         const userCredentials = document.getElementById('credentials');
         userCredentials.innerText = data.userInfo[0].firstName + ' ' + data.userInfo[0].lastName
         //Profile structure
@@ -44,34 +53,70 @@ request.onload = function () {
         const editPicBtnDiv = document.createElement('div');
         editPicBtnDiv.setAttribute('class', 'btn-group')
         profPicDiv.appendChild(editPicBtnDiv);
+        if (data.userInfo[0].userId === data.userData[0].userId) {
+            let editPicBtn = document.createElement('button');
+            editPicBtn.setAttribute('class', 'btn btn-default');
+            editPicBtn.innerText = 'Change';
 
-        let editPicBtn = document.createElement('button');
-        editPicBtn.setAttribute('class', 'btn btn-default');
-        editPicBtn.innerText = 'Change';
-        editPicBtnDiv.appendChild(editPicBtn)
+            let changePicIn = document.createElement('input');
+            changePicIn.setAttribute('type', 'file');
+            changePicIn.setAttribute('id', 'chagePic');
+            profPic.addEventListener('mouseover', () => {
+                editPicBtnDiv.appendChild(editPicBtn)
+            });
 
-        let changePicIn = document.createElement('input');
-        changePicIn.setAttribute('type', 'file');
-        changePicIn.setAttribute('id', 'chagePic');
-        /*profPic.addEventListener('mouseover', () => {
+            profPic.addEventListener('mouseleave', () => {
+                setTimeout(() => {
+                    if (editPicBtnDiv.firstChild) {
+                        editPicBtnDiv.removeChild(editPicBtn)
+                    }
+                }, 2000);
+            });
 
-        });
+            editPicBtn.addEventListener('click', ($event) => {
+                $event.preventDefault();
+                changePicIn.click();
 
-        profPic.addEventListener('mouseleave', () => {
-            editPicBtnDiv.removeChild(editPicBtn)
-        });*/
+                changePicIn.onchange = function () {
 
-        editPicBtn.addEventListener('click', ($event) => {
-            $event.preventDefault();
-            changePicIn.click();
+                    let editedData = {
+                        'userNetws': null,
+                        'profPicture': true,
+                        'personalLine': null,
+                    };
+                    editedData = JSON.stringify(editedData);
+                    let newProfPic = changePicIn.files[0];
+                    submitData.append('file', newProfPic);
+                    submitData.append('editedData', editedData);
 
-            //changePicIn.onchange
-        })
-
+                    submitFormDataProfEdit(submitData);
+                }
+            });
+        }
+        const profRankDiv = document.createElement('div');
+        profRankDiv.setAttribute('id', 'profRankDiv');
+        leftPart.appendChild(profRankDiv)
         const profRank = document.createElement('img');
         profRank.setAttribute('alt', 'rank');
-        profRank.setAttribute('src', 'img/rankPH.jpg');
-        leftPart.appendChild(profRank);
+        profRank.setAttribute('id', 'rank');
+        //console.log(data.userData[0].numberOfPosts)
+        if (data.userData[0].numberOfPosts === 0) {
+            profRank.setAttribute('src', 'img/r0.png');
+        } else if (data.userData[0].numberOfPosts > 0 && data.userData[0].numberOfPosts <= 3) {
+            profRank.setAttribute('src', 'img/r1.png');
+        } else if (data.userData[0].numberOfPosts > 3 && data.userData[0].numberOfPosts <= 5) {
+            profRank.setAttribute('src', 'img/r2.png');
+        } else if (data.userData[0].numberOfPosts > 5 && data.userData[0].numberOfPosts <= 7) {
+            profRank.setAttribute('src', 'img/r3.png');
+        } else if (data.userData[0].numberOfPosts > 7 && data.userData[0].numberOfPosts <= 9) {
+            profRank.setAttribute('src', 'img/r4.png');
+        } else if (data.userData[0].numberOfPosts > 9 && data.userData[0].numberOfPosts <= 11) {
+            profRank.setAttribute('src', 'img/r5.png');
+        } else if (data.userData[0].numberOfPosts > 11) {
+            profRank.setAttribute('src', 'img/r6.png');
+        }
+        //profRank.setAttribute('src', 'img/rankPH.png');
+        profRankDiv.appendChild(profRank);
 
         const moreUserProf = document.createElement('div');
         moreUserProf.setAttribute('id', 'moreUserProf')
@@ -137,79 +182,93 @@ request.onload = function () {
                 userLiIn.innerText = 'none';
                 moreUserProf.appendChild(userLiIn);
             }
+            if (data.userInfo[0].userId === data.userData[0].userId) {
+                const editUserNetws = document.createElement('div');
+                editUserNetws.setAttribute('class', 'btn-group');
+                moreUserProf.appendChild(editUserNetws)
 
-            const editUserNetws = document.createElement('div');
-            editUserNetws.setAttribute('class', 'btn-group');
-            moreUserProf.appendChild(editUserNetws)
+                editUserNetwsBtn = document.createElement('button');
+                editUserNetwsBtn.setAttribute('class', 'btn btn-default');
+                editUserNetwsBtn.innerText = 'Edit'
+                editUserNetwsBtn.style.opacity = 0;
+                editUserNetws.appendChild(editUserNetwsBtn);
 
-            editUserNetwsBtn = document.createElement('button');
-            editUserNetwsBtn.setAttribute('class', 'btn btn-default');
-            editUserNetwsBtn.innerText = 'Edit'
-            editUserNetws.appendChild(editUserNetwsBtn);
+                moreUserProf.addEventListener('mouseover', () => {
+                    editUserNetwsBtn.style.opacity = 1;
+                });
+                moreUserProf.addEventListener('mouseout', () => {
+                    setTimeout(() => {
+                        editUserNetwsBtn.style.opacity = 0;
+                    }, 2000);
+                });
 
-            editUserNetwsBtn.addEventListener('click', ($event) => {
-                $event.preventDefault();
-
-                while (moreUserProf.firstChild) {
-                    moreUserProf.removeChild(moreUserProf.lastChild);
-                }
-
-                const editWs = document.createElement('input');
-                editWs.setAttribute('id', 'editWs');
-                editWs.value = data.userData[0].userWebSite;
-                const editFb = document.createElement('input');
-                editFb.setAttribute('id', 'editFb');
-                editFb.value = data.userData[0].facebook;
-                const editTw = document.createElement('input');
-                editTw.setAttribute('id', 'editTw');
-                editTw.value = data.userData[0].twitter;
-                const editLi = document.createElement('input');
-                editLi.setAttribute('id', 'editLi');
-                editLi.value = data.userData[0].linkendIn;
-
-
-                moreUserProf.append(userWSLabel, editWs, userFBLabel, editFb, userTwtLabel, editTw, userLiInLabel, editLi)
-                editUserNetws.removeChild(editUserNetwsBtn);
-                moreUserProf.append(editUserNetws);
-
-                const editCancel = document.createElement('button');
-                editCancel.setAttribute('class', 'btn btn-default');
-                editCancel.innerText = 'Cancel';
-                editUserNetws.appendChild(editCancel);
-                editCancel.addEventListener('click', ($event) => {
+                editUserNetwsBtn.addEventListener('click', ($event) => {
                     $event.preventDefault();
+
                     while (moreUserProf.firstChild) {
                         moreUserProf.removeChild(moreUserProf.lastChild);
                     }
-                    consructUserNetworks();
+
+                    const editWs = document.createElement('input');
+                    editWs.setAttribute('id', 'editWs');
+                    editWs.value = data.userData[0].userWebSite;
+                    const editFb = document.createElement('input');
+                    editFb.setAttribute('id', 'editFb');
+                    editFb.value = data.userData[0].facebook;
+                    const editTw = document.createElement('input');
+                    editTw.setAttribute('id', 'editTw');
+                    editTw.value = data.userData[0].twitter;
+                    const editLi = document.createElement('input');
+                    editLi.setAttribute('id', 'editLi');
+                    editLi.value = data.userData[0].linkendIn;
+
+                    moreUserProf.append(userWSLabel, editWs, userFBLabel, editFb, userTwtLabel, editTw, userLiInLabel, editLi)
+                    editUserNetws.removeChild(editUserNetwsBtn);
+                    moreUserProf.append(editUserNetws);
+
+                    const editCancel = document.createElement('button');
+                    editCancel.setAttribute('class', 'btn btn-default');
+                    editCancel.innerText = 'Cancel';
+                    editUserNetws.appendChild(editCancel);
+                    editCancel.addEventListener('click', ($event) => {
+                        $event.preventDefault();
+                        while (moreUserProf.firstChild) {
+                            moreUserProf.removeChild(moreUserProf.lastChild);
+                        }
+                        consructUserNetworks();
+                    });
+
+                    const submitEditNetws = document.createElement('button');
+                    submitEditNetws.setAttribute('class', 'btn btn-default');
+                    submitEditNetws.innerText = 'Submit';
+                    editUserNetws.appendChild(submitEditNetws);
+
+                    submitEditNetws.addEventListener('click', ($event) => {
+                        $event.preventDefault();
+
+                        let netwUpdates = {
+                            'editWs': editWs.value.trim(),
+                            'editFb': editFb.value.trim(),
+                            'editTw': editTw.value.trim(),
+                            'editLi': editLi.value.trim(),
+                        }
+                        let editedData = {
+                            'userNetws': netwUpdates,
+                            'profPicture': null,
+                            'personalLine': null,
+                        }
+
+                        editedData = JSON.stringify(editedData);
+                        submitData.append('editedData', editedData);
+
+                        submitFormDataProfEdit(submitData);
+
+                        setTimeout(() => {
+                            window.location.reload()
+                        }, 1000);
+                    })
                 });
-
-                const submitEditNetws = document.createElement('button');
-                submitEditNetws.setAttribute('class', 'btn btn-default');
-                submitEditNetws.innerText = 'Submit';
-                editUserNetws.appendChild(submitEditNetws);
-
-                submitEditNetws.addEventListener('click', ($event) => {
-                    $event.preventDefault();
-
-                    let netwUpdates = {
-                        'editWs': editWs.value.trim(),
-                        'editFb': editFb.value.trim(),
-                        'editTw': editTw.value.trim(),
-                        'editLi': editLi.value.trim(),
-                    }
-                    let editedData = {
-                        'userNetws': netwUpdates,
-                        'profPicture': null,
-                        'personalLine': null,
-                    }
-                    submitFormDataProfEdit(editedData);
-
-                    setTimeout(() => {
-                        window.location.reload()
-                    }, 1000);
-                })
-            });
+            }
         }
         consructUserNetworks();
         leftPart.appendChild(document.createElement('hr'));
@@ -239,9 +298,23 @@ request.onload = function () {
         if (data.userInfo[0].userId === data.userData[0].userId) {
 
             const editPersLineBtn = document.createElement('button');
+            editPersLineBtn.style.opacity = 0;
+            editPersLineBtn.style.position = 'absolute';
+            editPersLineBtn.style.marginTop = '40px';
+            headerDiv.appendChild(editPersLineBtn);
+
+            usersThoughts.addEventListener('mouseover', () => {
+                editPersLineBtn.style.opacity = 1;
+            })
+            usersThoughts.addEventListener('mouseout', () => {
+                setTimeout(() => {
+                    editPersLineBtn.style.opacity = 0;
+                }, 2000);
+            })
+
             editPersLineBtn.setAttribute('class', 'btn btn-default');
             editPersLineBtn.innerText = 'Edit';
-            headerDiv.appendChild(editPersLineBtn)
+
             editPersLineBtn.addEventListener('click', ($event) => {
                 $event.preventDefault();
                 headerDiv.removeChild(usersThoughts);
@@ -283,12 +356,15 @@ request.onload = function () {
 
                 editPersLineBtnSub.addEventListener('click', ($event) => {
                     $event.preventDefault();
-                    editedData = {
+                    let editedData = {
                         'userNetws': null,
                         'profPicture': null,
                         'personalLine': editPersLineTArea.value,
                     }
-                    submitFormDataProfEdit(editedData);
+                    editedData = JSON.stringify(editedData);
+                    submitData.append('editedData', editedData);
+
+                    submitFormDataProfEdit(submitData);
 
                     headerDiv.removeChild(editPersLineTArea);
                     headerDiv.removeChild(persLineBtns);
@@ -325,7 +401,7 @@ request.onload = function () {
         const usersPostsParag = document.createElement('p');
         usersPostsParag.innerText = 'sss'; //treba value
         numbersDiv.append(usersPosts, usersPostsParag);
-        //Recent articles
+        //Successfull articles
         const sucArticles = document.createElement('div');
         sucArticles.setAttribute('id', 'succArticles');
         rightPart.appendChild(sucArticles);
@@ -335,79 +411,61 @@ request.onload = function () {
         sucArticles.appendChild(sucArtHeader);
 
         const sucArtList = document.createElement('ul');
-
-        const sucArtListItem1 = document.createElement('li');
-        const succLink1 = document.createElement('a');
-        succLink1.setAttribute('href', '/frontend/post.html?' + data.userData[0].succPosts[0].postId)
-        succLink1.innerText = data.userData[0].succPosts[0].postTitle;
-        sucArtListItem1.appendChild(succLink1)
-        const meter1 = document.createElement('meter');
-        meter1.setAttribute('min', '0');
-        meter1.setAttribute('max', '100');
-        meter1.setAttribute('value', data.userData[0].succPosts[0].postLikes - data.userData[0].succPosts[0].postDislikes);
-
-        const sucArtListItem2 = document.createElement('li');
-        const succLink2 = document.createElement('a');
-        succLink2.setAttribute('href', '/frontend/post.html?' + data.userData[0].succPosts[1].postId)
-        succLink2.innerText = data.userData[0].succPosts[1].postTitle;
-        sucArtListItem2.appendChild(succLink2)
-        const meter2 = document.createElement('meter');
-        meter2.setAttribute('min', '0');
-        meter2.setAttribute('max', '100');
-        meter2.setAttribute('value', data.userData[0].succPosts[1].postLikes - data.userData[0].succPosts[1].postDislikes);
-
-        const sucArtListItem3 = document.createElement('li');
-        const succLink3 = document.createElement('a');
-        succLink3.setAttribute('href', '/frontend/post.html?' + data.userData[0].succPosts[2].postId)
-        succLink3.innerText = data.userData[0].succPosts[2].postTitle;
-        sucArtListItem3.appendChild(succLink3)
-        const meter3 = document.createElement('meter');
-        meter3.setAttribute('min', '0');
-        meter3.setAttribute('max', '100');
-        meter3.setAttribute('value', data.userData[0].succPosts[2].postLikes - data.userData[0].succPosts[2].postDislikes);
-
-        sucArtList.append(sucArtListItem1, meter1, sucArtListItem2, meter2, sucArtListItem3, meter3);
         sucArticles.appendChild(sucArtList);
 
+        if (data.userData[0].succPosts.length !== 0) {
+            for (let j = 0; j < data.userData[0].succPosts.length; j++) {
+
+                const sucArtListItem1 = document.createElement('li');
+
+                const succLink = document.createElement('a');
+                succLink.setAttribute('href', '/frontend/post.html?' + data.userData[0].succPosts[j].postId)
+                succLink.innerText = data.userData[0].succPosts[j].postTitle;
+                sucArtListItem1.appendChild(succLink)
+
+                const meter = document.createElement('meter');
+                meter.setAttribute('min', '0');
+                meter.setAttribute('max', '100');
+                meter.setAttribute('value', data.userData[0].succPosts[j].postLikes - data.userData[0].succPosts[j].postDislikes);
+
+                sucArtList.append(sucArtListItem1, meter)
+            }
+        } else {
+            const infoParag = document.createElement('p');
+            infoParag.innerText = 'You did not create any articles';
+            infoParag.style.fontStyle = 'italic'
+            sucArticles.appendChild(infoParag);
+        }
         //Recently created section
         const recentArticles = document.createElement('div');
         recentArticles.setAttribute('id', 'recentArticles');
         rightPart.appendChild(recentArticles);
 
         const recentArtHeader = document.createElement('h4');
-        recentArtHeader.innerText = 'Recently created';
+        recentArtHeader.innerText = 'Recent community articles';
         recentArticles.appendChild(recentArtHeader);
 
         const recArtList = document.createElement('ul');
-
-        const recArtListItem1 = document.createElement('li');
-        const recLink1 = document.createElement('a');
-        recLink1.setAttribute('href', '/frontend/post.html?' + data.recentPosts[0].postId);
-        recLink1.innerText = data.recentPosts[0].postTitle;
-        recArtListItem1.appendChild(recLink1);
-        const recArtCreator1 = document.createElement('p');
-        recArtCreator1.innerText = 'By: ' + data.recentPosts[0].username;
-
-        const recArtListItem2 = document.createElement('li');
-        const recLink2 = document.createElement('a');
-        recLink2.setAttribute('href', '/frontend/post.html?' + data.recentPosts[1].postId);
-        recLink2.innerText = data.recentPosts[1].postTitle;
-        recArtListItem2.appendChild(recLink2);
-        const recArtCreator2 = document.createElement('p');
-        recArtCreator2.innerText = 'By: ' + data.recentPosts[1].username;
-
-        const recArtListItem3 = document.createElement('li');
-        const recLink3 = document.createElement('a');
-        recLink3.setAttribute('href', '/frontend/post.html?' + data.recentPosts[2].postId);
-        recLink3.innerText = data.recentPosts[2].postTitle;
-        recArtListItem3.appendChild(recLink3);
-        const recArtCreator3 = document.createElement('p');
-        recArtCreator3.innerText = 'By: ' + data.recentPosts[2].username;
-
-        recArtList.append(recArtListItem1, recArtCreator1, recArtListItem2, recArtCreator2, recArtListItem3, recArtCreator3);
         recentArticles.appendChild(recArtList);
 
-        function makeRequestProfEdit(editedData) {
+        if (data.recentPosts.length !== 0) {
+            for (let j = 0; j < data.recentPosts.length; j++) {
+
+                const recArtListItem = document.createElement('li');
+
+                const recLink = document.createElement('a');
+                recLink.setAttribute('href', '/frontend/post.html?' + data.recentPosts[j].postId);
+                recLink.innerText = data.recentPosts[j].postTitle;
+                recArtListItem.appendChild(recLink);
+
+                const recArtCreator = document.createElement('p');
+                recArtCreator.innerText = 'By: ' + data.recentPosts[j].username;
+
+                recArtList.append(recArtListItem, recArtCreator);
+            }
+        }
+
+        function makeRequestProfEdit(submitData) {
             return new Promise((resolve, reject) => {
                 let request = new XMLHttpRequest();
                 request.open('PUT', api + '/' + data.userInfo[0].userId);
@@ -421,13 +479,12 @@ request.onload = function () {
                         }
                     }
                 };
-                request.setRequestHeader('Content-Type', 'application/json');
-                request.send(JSON.stringify(editedData));
+                request.send(submitData);
             });
         }
-        async function submitFormDataProfEdit(editedData) {
+        async function submitFormDataProfEdit(submitData) {
             try {
-                const requestPromise = makeRequestProfEdit(editedData);
+                const requestPromise = makeRequestProfEdit(submitData);
                 const response = await requestPromise;
             }
             catch (errorResponse) {
