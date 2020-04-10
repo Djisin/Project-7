@@ -4,12 +4,12 @@ const fs = require('fs');
 exports.createMMPost = (req, res, next) => {
     console.log('1')
     console.log(req.body);
-    console.log(req.params.id)
+    console.log(req.file) 
 }
 exports.modifyMMPost = (req, res, next) => {
     console.log('2')
     console.log(req.body);
-    console.log(req.params.id)
+    console.log(req.params.id) 
 }
 exports.getOneMMPost = (req, res, next) => {
     console.log('3')
@@ -18,8 +18,8 @@ exports.getOneMMPost = (req, res, next) => {
 }
 exports.getAllMMPosts = (req, res, next) => {
     console.log('4')
-    console.log(req.body);
-    console.log(req.params.id)
+    console.log(req.body); 
+    console.log(req.params.id) 
 }
 exports.deleteMMPost = (req, res, next) => {
     console.log('5')

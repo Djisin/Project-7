@@ -1583,6 +1583,75 @@ nav img {
   margin-top: 0;
 }
 
+#userProfile #middlePart #contentDiv p {
+  margin-top: 20px;
+}
+
+#userProfile #middlePart #contentDiv #createMMDiv {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  /*& #addMMContent {
+                    //display: inline-block;
+                    width: inherit;
+                    height: 34px;
+                    float: left;
+                }*/
+}
+
+#userProfile #middlePart #contentDiv #createMMDiv #mmPostTxt {
+  width: 100%;
+  resize: none;
+  height: 100px;
+  margin-bottom: 5px;
+}
+
+#userProfile #middlePart #contentDiv #createMMDiv .btn-group {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+#userProfile #middlePart #contentDiv #createMMDiv .btn-group button {
+  -ms-flex-item-align: end;
+      align-self: flex-end;
+}
+
+#userProfile #middlePart #contentDiv #createMMDiv .btn-group button:first-child {
+  font-size: 18px;
+  padding-top: 3px;
+  padding-bottom: 3px;
+}
+
+#userProfile #middlePart #contentDiv #createMMDiv .btn-group input {
+  text-align: left;
+  float: left;
+  width: 0;
+  opacity: 0;
+  padding: 0;
+}
+
+#userProfile #middlePart #contentDiv #createMMDiv .btn-group #mmLabel {
+  text-align: left;
+  padding: 0;
+  opacity: 0;
+  margin-bottom: 0;
+  line-height: inherit;
+  width: 0;
+  height: 34px;
+  cursor: pointer;
+}
+
+#userProfile #middlePart #contentDiv #errorParag {
+  position: absolute;
+  margin-top: 115px;
+  margin-left: 5px;
+}
+
 #userProfile #rightPart {
   top: 60px;
   position: -webkit-sticky;

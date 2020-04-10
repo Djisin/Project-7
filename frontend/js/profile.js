@@ -1,4 +1,5 @@
 let api = 'http://127.0.0.1:3000/user/profile';
+let mmApi = 'http://127.0.0.1:3000/api/mmposts/createPost';
 
 let url = window.location.href;
 let reqProfId = url.substring(url.lastIndexOf('?') + 1);
@@ -210,15 +211,19 @@ request.onload = function () {
                     }
 
                     const editWs = document.createElement('input');
+                    editWs.setAttribute('type', 'url');
                     editWs.setAttribute('id', 'editWs');
                     editWs.value = data.userData[0].userWebSite;
                     const editFb = document.createElement('input');
+                    editFb.setAttribute('type', 'url');
                     editFb.setAttribute('id', 'editFb');
                     editFb.value = data.userData[0].facebook;
                     const editTw = document.createElement('input');
+                    editTw.setAttribute('type', 'url');
                     editTw.setAttribute('id', 'editTw');
                     editTw.value = data.userData[0].twitter;
                     const editLi = document.createElement('input');
+                    editLi.setAttribute('type', 'url');
                     editLi.setAttribute('id', 'editLi');
                     editLi.value = data.userData[0].linkendIn;
 
@@ -293,12 +298,12 @@ request.onload = function () {
         let usersThoughts = document.createElement('p');
         usersThoughts.setAttribute('id', 'userThoughts');
         usersThoughts.innerText = data.userData[0].personalLine;
-        if (data.userData[0].personalLine === null || data.userData[0].personalLine === ''){
-            if (data.userInfo[0].userId === data.userData[0].userId){
+        if (data.userData[0].personalLine === null || data.userData[0].personalLine === '') {
+            if (data.userInfo[0].userId === data.userData[0].userId) {
                 usersThoughts.innerText = 'Share your thoughts'
             }
         }
-            headerDiv.appendChild(usersThoughts);
+        headerDiv.appendChild(usersThoughts);
 
         if (data.userInfo[0].userId === data.userData[0].userId) {
 
@@ -354,6 +359,7 @@ request.onload = function () {
                 persLineBtns.append(editPersLineBtnCancel, editPersLineBtnSub);
 
                 editPersLineBtnCancel.addEventListener('click', ($event) => {
+                    $event.preventDefault();
                     headerDiv.removeChild(editPersLineTArea);
                     headerDiv.removeChild(persLineBtns);
                     headerDiv.append(usersThoughts, editPersLineBtn);
@@ -388,11 +394,202 @@ request.onload = function () {
         contentHeader.innerText = 'Your posts';
         contentDiv.appendChild(contentHeader);
 
-        if(data.userData[0].mmContent.length ===0){
+        const createMMPostDiv = document.createElement('form');
+        createMMPostDiv.setAttribute('id', 'createMMDiv');
+        contentDiv.appendChild(createMMPostDiv);
+
+        const createMMPostTxt = document.createElement('textarea');
+        createMMPostTxt.setAttribute('id', 'mmPostTxt');
+        createMMPostTxt.setAttribute('class', 'form-control')
+        createMMPostTxt.placeholder = 'Write something here...'
+        createMMPostDiv.appendChild(createMMPostTxt);
+
+        const buttonGroup = document.createElement('div');
+        buttonGroup.setAttribute('class', 'btn-group');
+        createMMPostDiv.appendChild(buttonGroup);
+
+        const addMMContent = document.createElement('input');
+        addMMContent.setAttribute('type', 'file');
+        addMMContent.setAttribute('id', 'addMMContent');
+        //addMMContent.classList.add('input-group-addon')
+        //buttonGroup.appendChild(addMMContent);
+
+        const mmButton = document.createElement('button');
+        mmButton.setAttribute('class', 'btn btn-default');
+        mmButton.innerHTML = '<i class="far fa-image"></i>'
+        buttonGroup.appendChild(mmButton);
+        mmButton.addEventListener('click', ($event) => {
+            $event.preventDefault();
+            showMMLabel();
+            hideLinkInput();
+            addMMContent.click();
+            if (addMMContent.value !== null || addMMContent.value !== '') {
+                addMMContent.onchange = () => {
+                    mmLabel.innerText = addMMContent.files[0].name;
+                    hideLinkInput();
+                    mmLabel.addEventListener('click', ($event) => {
+                        $event.preventDefault()
+                        hideMMLabel();
+                    });
+                }
+            }
+        });
+
+        function hideMMLabel() {
+            mmLabel.style.flexGrow = '';
+            mmLabel.style.padding = '0';
+            mmLabel.style.border = '0';
+            mmLabel.style.opacity = '0';
+            mmLabel.style.width = '0';
+            mmLabel.innerText = '';
+            addMMContent.value = null;
+            //linkButton.classList.remove('disabled');
+        }
+
+        function showMMLabel() {
+            mmLabel.style.flexGrow = '100';
+            mmLabel.style.padding = ' 6px 12px 6px 12px';
+            mmLabel.style.border = null;
+            mmLabel.style.opacity = '1';
+            linkInput.value = '';
+            //
+            //linkButton.classList.add('disabled');
+        }
+
+        const mmLabel = document.createElement('label');
+        mmLabel.setAttribute('class', 'input-group-addon');
+        mmLabel.setAttribute('data-toggle', 'tooltip');
+        mmLabel.setAttribute('data-placement', 'top');
+        mmLabel.setAttribute('title', 'Click here to remove')
+        mmLabel.setAttribute('id', 'mmLabel');
+        mmLabel.style.border = '0';
+        buttonGroup.appendChild(mmLabel);
+
+        /*const mmLabelInfo = document.createElement('span');
+        mmLabelInfo.setAttribute('id', 'tooltip')
+        mmLabelInfo.innerText = 'Click here to remove';
+        //buttonGroup.appendChild(mmLabelInfo)
+*/
+        const linkButton = document.createElement('button');
+        linkButton.setAttribute('class', 'btn btn-default');
+        linkButton.innerHTML = '<i class="fas fa-link"></i>'
+        buttonGroup.appendChild(linkButton);
+        linkButton.addEventListener('click', ($event) => {
+            $event.preventDefault();
+            if (linkInput.style.flexGrow == 0) {
+                displayLinkInput();
+                hideMMLabel();
+            } else {
+                hideLinkInput();
+            }
+
+        });
+
+        function displayLinkInput() {
+            linkInput.style.flexGrow = '100';
+            linkInput.style.padding = ' 6px 12px 6px 12px';
+            linkInput.style.border = null;
+            linkInput.style.opacity = '1';
+            linkInput.focus();
+            addMMContent.value = null;
+        }
+        function hideLinkInput() {
+            linkInput.style.flexGrow = '';
+            linkInput.style.padding = '0';
+            linkInput.style.border = '0';
+            linkInput.style.opacity = '0';
+            linkInput.style.width = '0';
+            linkInput.value = '';
+        }
+
+        const linkInput = document.createElement('input');
+        linkInput.setAttribute('type', 'url');
+        linkInput.setAttribute('class', 'input-group-addon form-control');
+        linkInput.style.border = '0';
+        buttonGroup.appendChild(linkInput)
+
+        const createButton = document.createElement('button');
+        createButton.setAttribute('class', 'btn btn-default');
+        createButton.innerText = 'Post'
+        buttonGroup.appendChild(createButton);
+        createButton.addEventListener('click', ($event) => {
+            $event.preventDefault();
+
+            let submitMMData = new FormData
+            //let mmData;
+            if (addMMContent.files.length !== 0) {
+                if (linkInput.value.length === 0) {
+                    submitMMData.append('file', addMMContent.files[0]);
+                    submitMMData.append('embed', false)
+                } else {
+                    errorParag.innerText = 'You can only provide link, or upload video or picture.'
+                    return
+                }
+            } else if (linkInput.value.trim().length !== 0) {
+                if (addMMContent.files.length === 0) {
+                    submitMMData.append('embedLink', linkInput.value);
+                    submitMMData.append('embed', true);
+                } else {
+                    errorParag.innerText = 'You can only provide link, or upload video or picture.'
+                    return
+                }
+            } else if (createMMPostTxt.value.trim().length !== 0) {
+                if (createMMPostTxt.value.trim().length !== 0) {
+                    dataForSubmit = createMMPostTxt.value
+                    dataForSubmit = JSON.stringify(dataForSubmit);
+                    submitMMData.append('mmPost', dataForSubmit);
+                } else {
+                    dataForSubmit = null;
+                }
+            } else {
+                errorParag.innerText = 'You can not create post without any content.'
+                createMMPostTxt.focus();
+                setTimeout(() => {
+                    errorParag.innerText = '';
+                }, 5000);
+                return
+            }
+
+            submitMMpost(submitMMData);
+
+            function makeSubmitMMPost(submitMMData) {
+                return new Promise((resolve, reject) => {
+                    let request = new XMLHttpRequest();
+                    request.open('POST', mmApi, true);
+                    request.withCredentials = true;
+                    request.onreadystatechange = () => {
+                        if (request.readyState === 4) {
+                            if (request.status >= 200 && request.status < 400) {
+                                resolve(request.response);
+                            } else {
+                                reject(request.response);
+                            }
+                        }
+                    };
+                    request.send(submitMMData);
+                });
+            }
+            async function submitMMpost(submitMMData) {
+                try {
+                    const requestPromise = makeSubmitMMPost(submitMMData);
+                    const response = await requestPromise;
+                }
+                catch (errorResponse) {
+                    alert(errorResponse);
+                };
+            }
+        })
+        const errorParag = document.createElement('p');
+        errorParag.setAttribute('id', 'errorParag');
+        contentDiv.appendChild(errorParag);
+
+
+        if (data.userData[0].mmContent.length === 0) {
             const noMMPosts = document.createElement('p');
             noMMPosts.innerText = 'You did not create any posts'
             contentDiv.appendChild(noMMPosts);
         }
+
         //Right part
         //Numbers
         const numbersDiv = document.createElement('div');

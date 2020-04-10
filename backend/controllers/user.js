@@ -130,7 +130,6 @@ exports.profile = (req, res, next) => {
     }
     connection.query(`SELECT userId FROM user WHERE userId = ?`, profId, (error, foundUser) => {
         if (!error) {
-            console.log(foundUser)
             if (foundUser.length !== 0) {
                 connection.query('SELECT firstName, lastName, userId FROM user WHERE userId = ?', userId, (error, userInfo) => {
                     if (!error) {
