@@ -186,7 +186,6 @@ request.onload = function () {
 
             deleteButton.addEventListener('click', ($event) => {
                 $event.preventDefault();
-                makeDeleteRequest()
                 submitDeleteFormData()
                 function makeDeleteRequest() {
                     return new Promise((resolve, reject) => {
@@ -210,9 +209,12 @@ request.onload = function () {
                 async function submitDeleteFormData() {
                     try {
                         const requestPromise = makeDeleteRequest();
-                        const response = await requestPromise;
-                        responseId = (JSON.parse(response));
+                        let response = await requestPromise;
+                        response = (JSON.parse(response));
+                        if (response.deleted === true){
+                            
                         window.location.href = '/frontend/home.html'
+                        }
                     }
                     catch (errorResponse) {
                         alert(errorResponse);
@@ -895,7 +897,7 @@ request.onload = function () {
         }
 
     } else {
-        window.location.href = '/frontend/index.html';
+        window.location.href = '/frontend/home.html';
         // alert('There is an error');
     }
 

@@ -115,7 +115,13 @@ body {
 }
 
 #searchInputDiv {
-  position: absolute;
+  /*height:33px;
+  border-radius: 0px;*/
+}
+
+#searchInputDiv #searchInput {
+  height: 33px;
+  border-radius: 0px;
 }
 
 #searchInputDiv ul li {
@@ -427,30 +433,6 @@ nav img {
   background-color: rgba(208, 214, 232, 0.4);
 }
 
-#showAllPosts #unreadPosts #sectionTitle {
-  -webkit-box-flex: 0;
-      -ms-flex: 0 0 100%;
-          flex: 0 0 100%;
-}
-
-#showAllPosts #readPosts {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: horizontal;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: row;
-          flex-direction: row;
-  -ms-flex-wrap: wrap;
-      flex-wrap: wrap;
-  -webkit-box-pack: space-evenly;
-      -ms-flex-pack: space-evenly;
-          justify-content: space-evenly;
-  max-width: 1024px;
-  margin-top: 10px;
-  background-color: rgba(12, 128, 236, 0.9);
-}
-
 #showAllPosts .onePostDiv {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -461,13 +443,27 @@ nav img {
           flex-direction: column;
   -ms-flex-item-align: center;
       align-self: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
   background: #fff;
   margin: 5px;
   width: 240px;
   height: 300px;
   -webkit-box-shadow: 4px 2px 4px 0 rgba(73, 73, 73, 0.6);
           box-shadow: 4px 2px 4px 0 rgba(73, 73, 73, 0.6);
-  border-radius: 0 0px 20px 20px;
+  border-radius: 5px;
+  padding-bottom: 2px;
+  /* & .timeCreatedClass {
+      box-shadow: 0px -2px 4px -1px $postShadows;
+      border-radius: 0 0 20px 20px;
+      width: 100%;
+      margin: 0;
+      padding: 2.5px;
+      height: 20px;
+      align-self: flex-end;
+      font-size: 12px;
+    }*/
 }
 
 #showAllPosts .onePostDiv .postTitleClass {
@@ -488,12 +484,14 @@ nav img {
 }
 
 #showAllPosts .onePostDiv .contentDiv {
+  height: 100%;
+  -ms-flex-item-align: stretch;
+      -ms-grid-row-align: stretch;
+      align-self: stretch;
+  overflow: hidden;
   -ms-flex-item-align: start;
       align-self: flex-start;
-  overflow: hidden;
-  align-self: flex-start;
-  text-overflow: ellipsis;
-  max-height: 175px;
+  padding-bottom: 5px;
 }
 
 #showAllPosts .onePostDiv .contentDiv .postTextClass {
@@ -503,6 +501,7 @@ nav img {
   text-overflow: ellipsis;
   font-size: 12px;
   text-align: justify;
+  height: inherit;
 }
 
 #showAllPosts .onePostDiv .contentDiv img {
@@ -510,40 +509,52 @@ nav img {
   margin: 10px 10px 0 0;
   max-width: 120px;
   max-height: 110px;
+  -webkit-box-shadow: 3px 2px 3px 0 rgba(73, 73, 73, 0.75);
+          box-shadow: 3px 2px 3px 0 rgba(73, 73, 73, 0.75);
 }
 
 #showAllPosts .onePostDiv .createdByClass {
   -webkit-box-shadow: 0px -2px 4px -1px rgba(95, 131, 165, 0.75);
           box-shadow: 0px -2px 4px -1px rgba(95, 131, 165, 0.75);
-  margin-top: auto;
-  height: 45px;
-  -webkit-box-align: end;
-      -ms-flex-align: end;
-          align-items: flex-end;
-}
-
-#showAllPosts .onePostDiv .createdByClass h5 {
-  margin: 0;
-  display: inline-block;
-  width: 100%;
-  font-size: 12px;
-}
-
-#showAllPosts .onePostDiv i {
-  margin: 5px;
-}
-
-#showAllPosts .onePostDiv .timeCreatedClass {
-  -webkit-box-shadow: 0px -2px 4px -1px rgba(95, 131, 165, 0.75);
-          box-shadow: 0px -2px 4px -1px rgba(95, 131, 165, 0.75);
-  border-radius: 0 0 20px 20px;
-  width: 100%;
-  margin: 0;
-  padding: 2.5px;
-  height: 20px;
   -ms-flex-item-align: end;
       align-self: flex-end;
-  font-size: 12px;
+  height: 47px;
+  width: 100%;
+  padding: 0 10px 0 10px;
+}
+
+#showAllPosts .onePostDiv .createdByClass .creatorDiv {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  height: 25px;
+}
+
+#showAllPosts .onePostDiv .createdByClass .creatorDiv h5 {
+  margin: 3px;
+  font-size: 13px;
+  line-height: inherit;
+}
+
+#showAllPosts .onePostDiv .createdByClass .creatorDiv p {
+  margin: 3px;
+  margin-left: auto;
+  -ms-flex-item-align: end;
+      align-self: flex-end;
+  display: inline-block;
+  font-size: 13px;
+}
+
+#showAllPosts .onePostDiv .createdByClass .likesDiv {
+  height: 25px;
+}
+
+#showAllPosts .onePostDiv .createdByClass .likesDiv i:first-child {
+  margin-right: 15px;
 }
 
 #showAllPosts .onePostDiv:hover {
@@ -1408,6 +1419,8 @@ nav img {
   -webkit-box-shadow: 3px 3px 5px 0px rgba(0, 0, 0, 0.75);
           box-shadow: 3px 3px 5px 0px rgba(0, 0, 0, 0.75);
   overflow: hidden;
+  -o-object-fit: cover;
+     object-fit: cover;
 }
 
 #userProfile #leftPart #profPicDiv .btn-group {
@@ -1481,10 +1494,12 @@ nav img {
   position: absolute;
   border-radius: 50%;
   left: 50%;
-  margin-left: -5px;
-  margin-top: -6px;
-  border-width: 5px;
-  border-style: solid;
+  margin-left: -3px;
+  margin-top: -5px;
+  border-width: 3px;
+  border-style: double;
+  border-color: rgba(0, 0, 0, 0.75);
+  z-index: -1;
 }
 
 #userProfile #middlePart {

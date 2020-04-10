@@ -126,65 +126,77 @@ exports.profile = (req, res, next) => {
     let userId = req.session.userId;
     let profId = req.query.user
     if (isNaN(profId)) {
-        profId = userId 
+        profId = userId
     }
-    connection.query('SELECT firstName, lastName, userId FROM user WHERE userId = ?', userId, (error, userInfo) => {
+    connection.query(`SELECT userId FROM user WHERE userId = ?`, profId, (error, foundUser) => {
         if (!error) {
-            connection.query(`
-                SELECT user.userId, user.firstName, user.lastName, user.username, user.userPicture, user.timeCreated, moreuserinfo.personalLine, usersocnetws.userWebSite, usersocnetws.facebook, usersocnetws.linkendIn, usersocnetws.twitter
-                FROM user
-                INNER JOIN moreuserinfo
-                ON user.userId = moreuserinfo.userId
-                INNER JOIN usersocnetws
-                ON user.userId = usersocnetws.userId
-                WHERE user.userId = ?`, profId,
-                (error, userData) => {
+            console.log(foundUser)
+            if (foundUser.length !== 0) {
+                connection.query('SELECT firstName, lastName, userId FROM user WHERE userId = ?', userId, (error, userInfo) => {
                     if (!error) {
-                        connection.query(`SELECT COUNT(postId) AS number FROM post WHERE userId = ?`, profId, (error, numberOfPosts) => {
-                            if (!error) {
-                                connection.query(`SELECT post.postTitle, post.postId, user.username FROM post INNER JOIN user ON user.userId = post.userId ORDER BY postTimeCreated DESC LIMIT 3`, (error, recentPosts) => {
-                                    if (!error) {
-                                        userData[0]['numberOfPosts'] = numberOfPosts[0].number;
-                                        connection.query(`SELECT postTitle, postId, postLikes, postDislikes FROM post WHERE userId = ? ORDER BY postLikes - postDislikes DESC LIMIT 3`, profId, (error, succPosts) => {
-                                            if (!error) {
-                                                userData[0]['succPosts'] = succPosts;
-                                                res.status(200).json({
-                                                    userInfo: userInfo,
-                                                    userData: userData,
-                                                    recentPosts: recentPosts
-                                                });
-                                            } else {
-                                                res.status(404).json({
-                                                    message: "Can't get last 3 most successfull posts",
-                                                    message: error
-                                                });
-                                            }
-                                        });
+                        connection.query(`
+                            SELECT user.userId, user.firstName, user.lastName, user.username, user.userPicture, user.timeCreated, moreuserinfo.personalLine, usersocnetws.userWebSite, usersocnetws.facebook, usersocnetws.linkendIn, usersocnetws.twitter
+                            FROM user
+                            INNER JOIN moreuserinfo
+                            ON user.userId = moreuserinfo.userId
+                            INNER JOIN usersocnetws
+                            ON user.userId = usersocnetws.userId
+                            WHERE user.userId = ?`, profId,
+                            (error, userData) => {
+                                if (!error) {
+                                    connection.query(`SELECT COUNT(postId) AS number FROM post WHERE userId = ?`, profId, (error, numberOfPosts) => {
+                                        if (!error) {
+                                            connection.query(`SELECT post.postTitle, post.postId, user.username FROM post INNER JOIN user ON user.userId = post.userId ORDER BY postTimeCreated DESC LIMIT 3`, (error, recentPosts) => {
+                                                if (!error) {
+                                                    userData[0]['numberOfPosts'] = numberOfPosts[0].number;
+                                                    connection.query(`SELECT postTitle, postId, postLikes, postDislikes FROM post WHERE userId = ? ORDER BY postLikes - postDislikes DESC LIMIT 3`, profId, (error, succPosts) => {
+                                                        if (!error) {
+                                                            userData[0]['succPosts'] = succPosts;
+                                                            userData[0]['mmContent'] = []
+                                                            res.status(200).json({
+                                                                userInfo: userInfo,
+                                                                userData: userData,
+                                                                recentPosts: recentPosts
+                                                            });
+                                                        } else {
+                                                            res.status(404).json({
+                                                                message: "Can't get last 3 most successfull posts",
+                                                                message: error
+                                                            });
+                                                        }
+                                                    });
 
-                                    } else {
-                                        res.status(404).json({
-                                            message: "Can't get last 3 posts",
-                                            message: error
-                                        });
-                                    }
-                                });
-                            } else {
-                                res.status(404).json({
-                                    message: 'Counting posts problem',
-                                    message: error
-                                });
-                            }
-                        });
+                                                } else {
+                                                    res.status(404).json({
+                                                        message: "Can't get last 3 posts",
+                                                        message: error
+                                                    });
+                                                }
+                                            });
+                                        } else {
+                                            res.status(404).json({
+                                                message: 'Counting posts problem',
+                                                message: error
+                                            });
+                                        }
+                                    });
+                                } else {
+                                    res.status(404).json({
+                                        message: 'User not found'
+                                    });
+                                }
+                            });
                     } else {
                         res.status(404).json({
                             message: 'User not found'
                         });
                     }
                 });
+            } else {
+                res.status(404).json({ message: 'User not found' });
+            }
         } else {
-            res.status(404).json({
-                message: 'User not found'
-            });
+            res.status(404).json({ error });
         }
     });
 }
@@ -210,7 +222,7 @@ exports.editProfile = (req, res, next) => {
                         message: error
                     });
                 }
-            }) 
+            })
         } else if (req.body.editedData.personalLine === null && req.body.editedData.profPicture !== null && req.body.editedData.userNetws === null) {
             const url = req.protocol + '://' + req.get('host');
             const userPicture = { 'userPicture': url + '/images/' + req.file.filename };
@@ -221,14 +233,14 @@ exports.editProfile = (req, res, next) => {
                         fs.unlinkSync('images/' + filename);
                     } else {
                         console.log('error ovde');
-                    } 
+                    }
                     connection.query(`UPDATE user SET ? WHERE userId = ` + userId, userPicture, (error) => {
                         if (!error) {
                             res.status(204).json({
                                 message: 'Profile picture updated successfully'
                             })
                         } else {
-                            res.status(400).json({ 
+                            res.status(400).json({
                                 message: error
                             });
                         }

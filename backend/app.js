@@ -10,6 +10,11 @@ const commentRoutes = require('./routes/comment');
 const comment2ndRoutes = require('./routes/comment2nd');
 const reportRoutes = require('./routes/report');
 
+const mmPostsRoutes = require('./routes/mmPosts');
+const mmCommentRoutes = require('./routes/mmComment');
+const mmComment2ndRoutes = require('./routes/mmComment2nd');
+const mmReportRoutes = require('./routes/mmReport');
+
 const app = express();
 
 app.use(
@@ -61,10 +66,16 @@ app.use(
 );
 
 app.use('/', userRoutes);
+
 app.use('/api/posts', postsRoutes);
 app.use('/api/posts', commentRoutes);
 app.use('/api/posts', comment2ndRoutes);
 app.use('/api/posts', reportRoutes);
+
+app.use('/api/mmposts', mmPostsRoutes);
+app.use('/api/mmposts', mmCommentRoutes);
+app.use('/api/mmposts', mmComment2ndRoutes);
+app.use('/api/mmposts', mmReportRoutes);
 
 app.use((req, res, next) => {
     res.status(404).send('Page not found');

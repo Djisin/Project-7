@@ -21,6 +21,7 @@
                 margin-bottom: 20px;
                 box-shadow: 3px 3px 5px 0px rgba(0, 0, 0, 0.75);
                 overflow: hidden;
+                object-fit: cover;
             }
             & .btn-group {
                 margin-top: 170px;
@@ -72,10 +73,12 @@
                 position: absolute;
                 border-radius: 50%;
                 left: 50%;
-                margin-left: -5px;
-                margin-top: -6px;
-                border-width: 5px;
-                border-style: solid;
+                margin-left: -3px;
+                margin-top: -5px;
+                border-width: 3px;
+                border-style: double;
+                border-color: rgba(0, 0, 0, 0.75);
+                z-index: -1;
             }
         }
     }

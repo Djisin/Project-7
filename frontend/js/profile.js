@@ -293,7 +293,12 @@ request.onload = function () {
         let usersThoughts = document.createElement('p');
         usersThoughts.setAttribute('id', 'userThoughts');
         usersThoughts.innerText = data.userData[0].personalLine;
-        headerDiv.appendChild(usersThoughts);
+        if (data.userData[0].personalLine === null || data.userData[0].personalLine === ''){
+            if (data.userInfo[0].userId === data.userData[0].userId){
+                usersThoughts.innerText = 'Share your thoughts'
+            }
+        }
+            headerDiv.appendChild(usersThoughts);
 
         if (data.userInfo[0].userId === data.userData[0].userId) {
 
@@ -382,6 +387,12 @@ request.onload = function () {
         const contentHeader = document.createElement('h3');
         contentHeader.innerText = 'Your posts';
         contentDiv.appendChild(contentHeader);
+
+        if(data.userData[0].mmContent.length ===0){
+            const noMMPosts = document.createElement('p');
+            noMMPosts.innerText = 'You did not create any posts'
+            contentDiv.appendChild(noMMPosts);
+        }
         //Right part
         //Numbers
         const numbersDiv = document.createElement('div');
@@ -491,7 +502,6 @@ request.onload = function () {
                 alert(errorResponse);
             };
         }
-
     } else {
         window.location.href = '/frontend/index.html';
     }

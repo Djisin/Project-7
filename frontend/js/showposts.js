@@ -46,6 +46,12 @@ request.onload = function () {
                     postPicture.setAttribute('class', 'postPictureClass');
                     postPicture.setAttribute('src', data.posts[i].postPicture);
                     contentDiv.appendChild(postPicture);
+                    console.log(data.posts[i].postText.length)
+                    if (data.posts[i].postText.length < 170) {
+                        postPicture.style.maxWidth = '100%';
+                        postPicture.style.maxHeight = '210px';
+                        postPicture.style.marginBottom = '9px';
+                    }
                 }
                 let postText
                 if (!data.posts[i].postText == null || !data.posts[i].postText == '') {
@@ -56,12 +62,25 @@ request.onload = function () {
                 }
 
                 const createdByDiv = document.createElement('div');
-                createdByDiv.setAttribute('class', 'col-md-12 createdByClass');
+                createdByDiv.setAttribute('class', 'createdByClass');
                 postDiv.appendChild(createdByDiv);
 
+                const creatorDiv = document.createElement('div');
+                creatorDiv.setAttribute('class','creatorDiv');
+                createdByDiv.appendChild(creatorDiv);
+
                 const createdBy = document.createElement('h5');
-                createdBy.innerText = 'By: ' + data.posts[i].username;
-                createdByDiv.appendChild(createdBy)
+                createdBy.innerText = data.posts[i].username;
+                creatorDiv.appendChild(createdBy);
+                
+                const postTimeCreated = document.createElement('p');
+               // postTimeCreated.setAttribute('class', 'timeCreatedClass');
+                postTimeCreated.textContent = countTime(data.posts[i].postTimeCreated);
+                creatorDiv.appendChild(postTimeCreated)
+
+                likesDiv = document.createElement('div');
+                likesDiv.setAttribute('class','likesDiv');
+                createdByDiv.appendChild(likesDiv);
 
                 likes = document.createElement('i');
                 likes.setAttribute('class', 'far fa-thumbs-up');
@@ -69,7 +88,7 @@ request.onload = function () {
                     likes.style.color = '#639a67'
                 }
                 likes.innerText = '' + data.posts[i].postLikes;
-                createdByDiv.appendChild(likes);
+                likesDiv.appendChild(likes);
 
                 dislikes = document.createElement('i');
                 dislikes.setAttribute('class', 'far fa-thumbs-down');
@@ -77,108 +96,11 @@ request.onload = function () {
                     dislikes.style.color = '#da2d2d';
                 }
                 dislikes.innerText = '' + data.posts[i].postDislikes;
-                createdByDiv.appendChild(dislikes);
-
-                const postTimeCreated = document.createElement('p');
-                postTimeCreated.setAttribute('class', 'timeCreatedClass');
-                finalDate = data.posts[i].postTimeCreated;
-                finalDate = new Date(finalDate).toISOString().slice(0, 19).replace('T', ' ');
-                postTimeCreated.innerText = finalDate;
-                postDiv.appendChild(postTimeCreated)
+                likesDiv.appendChild(dislikes);
 
                 showAllPosts.appendChild(container)
             }
         }
-        /*if (data.posts !== 0) {
-            for (let j = 0; j < data.posts.length; j++) {
-                const container2 = document.getElementById('unreadPosts');
-
-                const postDiv2 = document.createElement('div');
-                postDiv2.setAttribute('class', 'onePostDiv');
-                container2.appendChild(postDiv2)
-                postDiv2.addEventListener('click', () => {
-                    window.location.href = '/frontend/post.html?' + data.posts[j].postId
-                })
-
-
-                const postTitle = document.createElement('h2');
-                postTitle.setAttribute('class', 'postTitleClass');
-                postTitle.textContent = data.posts[j].postTitle
-                postDiv2.appendChild(postTitle);
-
-                let postText
-                if (!data.posts[j].postText == null || !data.posts[j].postText == '') {
-                    postText = document.createElement('p');
-                    postText.setAttribute('class', 'postTextClass');
-                    postText.textContent = data.posts[j].postText;
-                    postDiv2.appendChild(postText);
-                }
-                let postPicture
-                if (!data.posts[j].postPicture == null || !data.posts[j].postPicture == '') {
-                    postPicture = document.createElement('img');
-                    postPicture.setAttribute('class', 'postPictureClass');
-                    postPicture.setAttribute('src', data.posts[j].postPicture);
-                    postDiv2.appendChild(postPicture);
-                }
-
-                let edited
-                if (!data.posts[j].edited == 0) {
-
-                    edited = document.createElement('p');
-                    edited.setAttribute('class', 'editedClass');
-                    edited.textContent = 'Edited';
-                    postDiv2.appendChild(edited);
-                }
-                let timeEdited
-                if (!data.posts[j].timeEdited == null || !data.posts[j].timeEdited == '') {
-                    timeEdited = document.createElement('p');
-                    timeEdited.setAttribute('class', 'timeEditedClass');
-                    timeEdited.textContent = data.posts[j].timeEdited;
-                    postDiv2.appendChild(timeEdited);
-                }
-
-                const postTimeCreated = document.createElement('p');
-                postTimeCreated.setAttribute('class', 'timeCreatedClass');
-                postTimeCreated.innerText = data.posts[j].postTimeCreated;
-                postDiv2.appendChild(postTimeCreated)
-
-                const postLikes = document.createElement('p')
-                postLikes.setAttribute('class', 'likesClass');
-                postLikes.innerText = data.posts[j].postLikes;
-                postDiv2.appendChild(postLikes);
-
-                const postDislikes = document.createElement('p')
-                postDislikes.setAttribute('class', 'likesClass');
-                postDislikes.innerText = data.posts[j].postDislikes;
-                postDiv2.appendChild(postDislikes);
-
-                const postUserLiked = document.createElement('p')
-                postUserLiked.setAttribute('class', 'userLikesClass');
-                //treba petlja da se napravi
-                postUserLiked.innerText = data.posts[j].postUserLiked;
-                postDiv2.appendChild(postUserLiked)
-
-                const postUserDisliked = document.createElement('p')
-                postUserDisliked.setAttribute('class', 'userLikesClass');
-                //treba petlja da se napravi
-                postUserDisliked.innerText = data.posts[j].postUserDisliked;
-                postDiv2.appendChild(postUserDisliked)
-
-                const createdBy = document.createElement('h4');
-                createdBy.setAttribute('class', 'createdByClass');
-                createdBy.innerText = data.posts[j].username;
-                postDiv2.appendChild(createdBy)
-
-
-                showAllPosts.appendChild(container2)
-            }
-        } else {
-            noPost = document.createElement('p');
-            noPost.innerText = 'You still did not read any post';
-            document.getElementById('readPosts').appendChild(noPost);
-
-        }*/
-
     } else {
         window.location.href = '/frontend/index.html'
         //alert('There is an error');
@@ -229,3 +151,34 @@ logoutButton.addEventListener('click', () => {
         };
     }
 });
+function countTime(timeToCount) {
+    today = new Date();
+    d1 = new Date(today.toISOString());
+    d2 = new Date(timeToCount);
+    let diffTime
+    diff = d1 - d2
+    if (diff < 60e3) {
+        diffTime = Math.floor(diff / 1000) + 'sec ago';
+        return diffTime;
+    }
+    else if (diff >= 60e3 && diff < 3.6e+6) {
+        diffTime = Math.floor(diff / 60e3) + 'min ago'
+    }
+    else if (diff >= 3.6e+6 && diff < 8.64e+7) {
+        diffTime = Math.floor(diff / 3.6e+6) + 'h ago';
+        return diffTime;
+    }
+    else if (diff >= 8.64e+7 && diff < 2.628e+9) {
+        diffTime = Math.floor(diff / 8.64e+7) + 'd ago';
+    }
+    else if (diff >= 2.628e+9 && diff < 3.154e+10) {
+        diffTime = Math.floor(diff / 2.628e+9) + `m'th ago`;
+    }
+    else if (diff >= 3.154e+10) {
+        diffTime = Math.floor(diff / 3.154e+10) + 'y ago';
+    }
+    else {
+        console.log('Problem with times in the function');
+    }
+    return diffTime;
+}

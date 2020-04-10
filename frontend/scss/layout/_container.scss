@@ -55,7 +55,13 @@ body {
   }
 }
 #searchInputDiv{
-  position: absolute;
+  /*height:33px;
+  border-radius: 0px;*/
+  //position: absolute;
+  #searchInput{
+    height: 33px;
+    border-radius: 0px;
+  }
   & ul{
     & li{
       text-align: left;

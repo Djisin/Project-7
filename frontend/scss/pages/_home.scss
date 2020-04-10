@@ -21,29 +21,19 @@ nav img {
     max-width: 1024px;
     margin-top: 60px;
     background-color: rgba(208, 214, 232, 0.4);
-    & #sectionTitle {
-      flex: 0 0 100%;
-    }
-  }
-  & #readPosts {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: space-evenly;
-    max-width: 1024px;
-    margin-top: 10px;
-    background-color: rgba(12, 128, 236, 0.9);
   }
   & .onePostDiv {
     display: flex;
     flex-direction: column;
     align-self: center;
+    align-items: center;
     background: #fff;
     margin: 5px;
     width: 240px;
     height: 300px;
     box-shadow: 4px 2px 4px 0 rgba(73, 73, 73, 0.6);
-    border-radius: 0 0px 20px 20px;
+    border-radius: 5px;
+    padding-bottom: 2px;
 
     & .postTitleClass {
       width: 100%;
@@ -60,11 +50,13 @@ nav img {
       }
     }
     & .contentDiv {
-      align-self: flex-start;
+      height: 100%;
+      align-self: stretch;
       overflow: hidden;
       align-self: flex-start;
-      text-overflow: ellipsis;
-      max-height: 175px;
+      //text-overflow: ellipsis;
+      // max-height: 175px;
+      padding-bottom: 5px;
       & .postTextClass {
         width: auto;
         margin: 0;
@@ -72,30 +64,57 @@ nav img {
         text-overflow: ellipsis;
         font-size: 12px;
         text-align: justify;
+        height: inherit;
       }
       & img {
         float: left;
         margin: 10px 10px 0 0;
         max-width: 120px;
         max-height: 110px;
+        box-shadow: 3px 2px 3px 0 rgba(73, 73, 73, 0.75);
       }
     }
     & .createdByClass {
       box-shadow: 0px -2px 4px -1px $postShadows;
-      margin-top: auto;
-      height: 45px;
-      align-items: flex-end;
-      & h5 {
-        margin: 0;
-        display: inline-block;
-        width: 100%;
-        font-size: 12px;
+      // margin-top: auto;
+      //height: 45px;
+      //align-items: flex-end;
+      align-self: flex-end;
+      //bottom:0;
+      height: 47px;
+      width: 100%;
+      padding: 0 10px 0 10px;
+      & .creatorDiv {
+        display: flex;
+        flex-direction: row;
+        height:25px;
+        & h5 {
+          margin: 3px;
+          //margin-left: -5px;
+          //display: inline-block;
+          //width: 100%;
+          font-size: 13px;
+          line-height: inherit;
+        }
+        & p {
+          margin: 3px;
+          margin-left: auto;
+          align-self: flex-end;
+          display: inline-block;
+          font-size: 13px;
+        }
+      }
+      & .likesDiv {
+        height:25px;
+        & i {
+          &:first-child {
+            margin-right: 15px;
+          }
+        }
       }
     }
-    & i {
-      margin: 5px;
-    }
-    & .timeCreatedClass {
+
+    /* & .timeCreatedClass {
       box-shadow: 0px -2px 4px -1px $postShadows;
       border-radius: 0 0 20px 20px;
       width: 100%;
@@ -104,7 +123,7 @@ nav img {
       height: 20px;
       align-self: flex-end;
       font-size: 12px;
-    }
+    }*/
     &:hover {
       cursor: pointer;
     }
