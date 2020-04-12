@@ -151,11 +151,21 @@ exports.profile = (req, res, next) => {
                                                     connection.query(`SELECT postTitle, postId, postLikes, postDislikes FROM post WHERE userId = ? ORDER BY postLikes - postDislikes DESC LIMIT 3`, profId, (error, succPosts) => {
                                                         if (!error) {
                                                             userData[0]['succPosts'] = succPosts;
-                                                            userData[0]['mmContent'] = []
-                                                            res.status(200).json({
-                                                                userInfo: userInfo,
-                                                                userData: userData,
-                                                                recentPosts: recentPosts
+                                                            connection.query(`SELECT mmpost.*, user.username, user.userPicture FROM mmpost INNER JOIN user ON mmpost.userId = user.userId WHERE mmpost.userId = ?`, profId, (error, mmPosts) => {
+                                                                if (!error) {
+                                                                    //userData[0]['mmContent'] = mmPosts;
+                                                                    res.status(200).json({
+                                                                        'userInfo': userInfo,
+                                                                        'userData': userData,
+                                                                        'recentPosts': recentPosts,
+                                                                        'mmContent': mmPosts
+                                                                    });
+                                                                } else {
+                                                                    res.status(404).json({
+                                                                        message: "Can't get users MM content",
+                                                                        message: error
+                                                                    });
+                                                                }
                                                             });
                                                         } else {
                                                             res.status(404).json({
@@ -164,7 +174,6 @@ exports.profile = (req, res, next) => {
                                                             });
                                                         }
                                                     });
-
                                                 } else {
                                                     res.status(404).json({
                                                         message: "Can't get last 3 posts",

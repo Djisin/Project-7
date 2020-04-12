@@ -1,0 +1,36 @@
+@mixin commentFormFormat {
+    & form {
+        padding-top: 5px;
+        display: flex;
+        flex-direction: column;
+        & .labelDiv {
+            display: flex;
+            justify-content: space-between;
+            flex-direction: row;
+            cursor: pointer;
+        }
+        & label {
+            font-weight: 200;
+        }
+        & #comInputArea {
+            opacity: 0;
+            & textarea {
+                width: 100%;
+                resize: none;
+                overflow-y: auto;
+                padding-left: 10px;
+                padding-right: 10px;
+                overflow: hidden;
+            }
+        }
+        & .commentButtonDiv {
+            height: auto;
+            padding: 0;
+            margin: 0 0 5px 0;
+            display: flex;
+            flex-direction: row;
+            justify-content: flex-end;
+            @include normal-style-button
+        }
+    }
+}

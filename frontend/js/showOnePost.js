@@ -286,11 +286,11 @@ request.onload = function () {
         // ** Comments START **
         let addComment = document.createElement('div');
         addComment.setAttribute('class', 'col-md-12 addCommentDiv');
-        showPost.appendChild(addComment);
+        container.appendChild(addComment);
 
         createCommentForm(addComment)
 
-        document.getElementsByClassName('labelDiv')[0].addEventListener('click', () => {
+        /*document.getElementsByClassName('labelDiv')[0].addEventListener('click', () => {
             if (document.getElementById('comInputArea').style.opacity === '1') {
                 document.getElementById('comInputArea').style.opacity = '0';
                 addComment.style.height = '40px';
@@ -311,7 +311,7 @@ request.onload = function () {
                 document.getElementById('commentTextInput').focus();
                 return
             }
-        })
+        })*/
 
         const commentsDiv = document.createElement('div');
         commentsDiv.setAttribute('class', 'col-md-12');
@@ -416,6 +416,7 @@ request.onload = function () {
 
                     comBody.removeChild(comBodyParag);
                     comBodyParag2 = document.createElement('textarea');
+                    comBodyParag2.setAttribute('class','form-control')
                     comBodyParag2.setAttribute('id', 'editedCommentData');
                     comBodyParag2.oninput = function () {
                         comBodyParag2.style.height = "20px";
@@ -476,7 +477,7 @@ request.onload = function () {
                     }
                 }
                 document.getElementsByClassName('add2ndCommentDiv')[i].style.opacity = '1';
-                document.getElementsByClassName('add2ndCommentDiv')[i].style.height = '200px';
+                document.getElementsByClassName('add2ndCommentDiv')[i].style.height = 'auto';
                 //Listener for click on label
                 document.getElementsByClassName('add2ndCommentDiv')[i].children[0].firstChild.addEventListener('click', ($event) => {
                     $event.preventDefault();

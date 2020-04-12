@@ -86,7 +86,7 @@
         display: flex;
         flex-direction: column;
         //padding:0;
-        & #headerDiv {
+        & #header-div {
             max-height: 480px;
             display: flex;
             flex-direction: column;
@@ -127,7 +127,7 @@
                 }
             }
         }
-        & #contentDiv {
+        & #create-content-div {
             display: flex;
             flex-direction: column;
             & h3 {
@@ -146,14 +146,9 @@
                     height: 100px;
                     margin-bottom: 5px;
                 }
-                /*& #addMMContent {
-                    //display: inline-block;
-                    width: inherit;
-                    height: 34px;
-                    float: left;
-                }*/
                 & .btn-group {
                     display: flex;
+                    margin-bottom: 10px;
                     & button {
                         align-self: flex-end;
                         &:first-child {
@@ -166,10 +161,8 @@
                         text-align: left;
                         float: left;
                         width: 0;
-                        //flex-grow: 100;
                         opacity: 0;
                         padding: 0;
-                        //border:0;
                     }
                     & #mmLabel {
                         text-align: left;
@@ -183,11 +176,112 @@
                     }
                 }
             }
-            & #errorParag{
+            & #errorParag {
                 position: absolute;
-                margin-top:115px;
+                margin-top: 115px;
                 margin-left: 5px;
-                //background-color: #fff;
+            }
+        }
+        & .content-div {
+            padding: 0;
+            & .mmPosts {
+                display: flex;
+                flex-direction: column;
+                border: 1px solid;
+                border-radius: 4px;
+                margin-top: 10px;
+                padding: 0;
+                & img {
+                    box-shadow: 0px 1px 5px 2px rgba(0, 0, 0, 0.25);
+                    width: inherit;
+                    margin-bottom: 5px;
+                }
+                & video {
+                    box-shadow: 0px 1px 5px 2px rgba(0, 0, 0, 0.25);
+                    width: inherit;
+                    margin-bottom: 5px;
+                    margin-top: 5px;
+                }
+                /*& iframe {
+                    width: inherit;
+                    height: auto;
+                    // overflow: hidden;
+                    & img {
+                        width: 100%;
+                    }
+                }*/
+                & p {
+                    text-align: left;
+                    padding-left: 10px;
+                    margin-bottom: 5px;
+                }
+                & .singlePostHeader {
+                    padding: 0;
+                    position: relative;
+                    float: none;
+                    height: 40px;
+                    & img {
+                        box-shadow: 2px 0px rgba(0, 0, 0, 0.25);
+                        padding: 5px;
+                        height: 40px;
+                        width: auto;
+                        border-radius: 0;
+                        float: left;
+                    }
+                    & p {
+                        float: left;
+                        margin: 10px;
+                        padding: 0;
+                    }
+                    & .timeCreated {
+                        float: right;
+                        font-size: 13px;
+                    }
+                }
+                & .post-text-content {
+                    margin: 5px 0 10px 0;
+                    min-height: 25px;
+                    position: relative;
+                }
+                & .singlePostFooter {
+                    margin: 2px;
+                    padding: 0;
+                    display: grid;
+                    height: 20px;
+                    grid-template-columns: 2fr 2fr 2fr;
+                    & p {
+                        //float: left;
+                        font-size: 12px;
+                        margin: 0;
+                        padding: 0;
+                    }
+                    & .likes-div {
+                        justify-self: end;
+                        //float: right;
+                        & i {
+                            margin-right: 10px;
+                            font-size: 16px;
+                        }
+                    }
+                    & .btn-group {
+                        justify-self: center;
+                        & button {
+                            padding: 0px 6px 3px 6px;
+                            text-decoration: none;
+                            color: #000;
+                            font-style: italic;
+                            &:hover {
+                                transform: scale(1.2);
+                                transition-duration: 0.25s;
+                            }
+                        }
+                    }
+                }
+                & hr {
+                    width: 100%;
+                    border: 1px solid;
+                    margin: 0;
+                }
             }
         }
     }

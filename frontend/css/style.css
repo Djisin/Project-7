@@ -114,11 +114,6 @@ body {
   border-radius: 10px;
 }
 
-#searchInputDiv {
-  /*height:33px;
-  border-radius: 0px;*/
-}
-
 #searchInputDiv #searchInput {
   height: 33px;
   border-radius: 0px;
@@ -126,9 +121,6 @@ body {
 
 #searchInputDiv ul li {
   text-align: left;
-  /*&:first-child{
-        margin-top: 30px;
-      }*/
 }
 
 #searchInputDiv ul li:hover {
@@ -575,6 +567,9 @@ nav img {
   -ms-flex-line-pack: center;
       align-content: center;
   overflow: hidden;
+  max-width: 1024px;
+  -ms-flex-item-align: center;
+      align-self: center;
 }
 
 #showPost .mainContainer {
@@ -591,7 +586,7 @@ nav img {
   width: 1024px;
   background-color: #fff;
   min-height: auto;
-  border-radius: 0 0 20px 20px;
+  border-radius: 0 0 15px 15px;
   -ms-flex-item-align: center;
       align-self: center;
 }
@@ -613,8 +608,7 @@ nav img {
 }
 
 #showPost .mainContainer i {
-  margin: 20px;
-  font-size: 20px;
+  font-size: 18px;
 }
 
 #showPost .mainContainer .timePeriods {
@@ -727,7 +721,6 @@ nav img {
   bottom: 100%;
   left: 50%;
   margin-left: -60px;
-  /* Position the tooltip text - see examples below! */
   position: absolute;
   z-index: 1;
 }
@@ -736,7 +729,6 @@ nav img {
   content: " ";
   position: absolute;
   top: 100%;
-  /* At the bottom of the tooltip */
   left: 50%;
   margin-left: -5px;
   border-width: 5px;
@@ -872,35 +864,32 @@ nav img {
   border-radius: 6px;
 }
 
-#showPost .btn-link {
-  padding-left: 0;
+#showPost button {
+  margin-left: 5px;
+  padding: 2px 8px 2px 8px;
   font-style: italic;
-  padding-top: 0;
-  padding-bottom: 0;
+  /*&:hover {
+            transform: scale(1.1);
+            transition-duration: 0.25s;
+        }*/
 }
 
-#showPost .btn-link:hover {
-  text-decoration: none;
-}
-
-#showPost .addCommentDiv {
-  -webkit-box-shadow: inset 0px 5px 10px -2px rgba(95, 131, 165, 0.75);
-          box-shadow: inset 0px 5px 10px -2px rgba(95, 131, 165, 0.75);
-  height: 40px;
+.addCommentDiv {
+  -webkit-box-shadow: inset 0px 3px 5px -2px rgba(95, 131, 165, 0.75);
+          box-shadow: inset 0px 3px 5px -2px rgba(95, 131, 165, 0.75);
+  height: 30px;
   background-color: #fff;
   -ms-flex-item-align: center;
       -ms-grid-row-align: center;
       align-self: center;
-  width: 980px;
   padding: 0;
-  border-radius: 0 0 20px 20px;
-  -webkit-transition: 0.25s ease-in-out;
-  transition: 0.25s ease-in-out;
+  border-radius: 0 0 10px 10px;
+  -webkit-transition: 0.45s ease-in-out;
+  transition: 0.45s ease-in-out;
 }
 
-#showPost .addCommentDiv form {
-  padding: 15px;
-  padding-top: 10px;
+.addCommentDiv form {
+  padding-top: 5px;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -910,7 +899,7 @@ nav img {
           flex-direction: column;
 }
 
-#showPost .addCommentDiv form .labelDiv {
+.addCommentDiv form .labelDiv {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -924,21 +913,27 @@ nav img {
   cursor: pointer;
 }
 
-#showPost .addCommentDiv form #comInputArea {
+.addCommentDiv form label {
+  font-weight: 200;
+}
+
+.addCommentDiv form #comInputArea {
   opacity: 0;
 }
 
-#showPost .addCommentDiv form #comInputArea textarea {
+.addCommentDiv form #comInputArea textarea {
   width: 100%;
   resize: none;
-  height: 100px;
   overflow-y: auto;
   padding-left: 10px;
   padding-right: 10px;
+  overflow: hidden;
 }
 
-#showPost .addCommentDiv form .commentButtonDiv {
-  margin: 0 10px 0 10px;
+.addCommentDiv form .commentButtonDiv {
+  height: auto;
+  padding: 0;
+  margin: 0 0 5px 0;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -951,19 +946,24 @@ nav img {
           justify-content: flex-end;
 }
 
-#showPost .addCommentDiv form .commentButtonDiv button {
-  margin-top: 10px;
-  margin-left: 15px;
+.addCommentDiv form .commentButtonDiv button {
+  margin-left: 5px;
+  padding: 2px 8px 2px 8px;
+  font-style: italic;
+  /*&:hover {
+            transform: scale(1.1);
+            transition-duration: 0.25s;
+        }*/
 }
 
-#showPost #commentsDiv {
+#commentsDiv {
   -ms-flex-item-align: center;
       -ms-grid-row-align: center;
       align-self: center;
   width: 980px;
 }
 
-#showPost #commentsDiv .mCommentDiv {
+#commentsDiv .mCommentDiv {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -973,45 +973,33 @@ nav img {
           flex-direction: column;
 }
 
-#showPost #commentsDiv .mCommentDiv:last-child {
+#commentsDiv .mCommentDiv:last-child {
   margin-bottom: 10px;
 }
 
-#showPost #commentsDiv .mCommentDiv .mainComment {
+#commentsDiv .mCommentDiv .mainComment {
   -webkit-box-shadow: inset 0px 5px 10px -2px rgba(95, 131, 165, 0.75);
           box-shadow: inset 0px 5px 10px -2px rgba(95, 131, 165, 0.75);
   padding: 0 0 5px 0;
   background-color: #fff;
   border-radius: 15px;
-  /*&:nth-child(1) {
-          border-radius: 15px;
-        }
-        &:nth-child(0) {
-          border-radius: 0 0 15px 15px;
-        }
-        /*&:nth-of-type(2) {
-          border-radius: 0 0 15px 15px;
-        }*/
-  /* &:last-child() {
-          margin-bottom: 20px;
-        }*/
 }
 
-#showPost #commentsDiv .mCommentDiv .mainComment .comLeftPart {
+#commentsDiv .mCommentDiv .mainComment .comLeftPart {
   padding: 0;
 }
 
-#showPost #commentsDiv .mCommentDiv .mainComment .comLeftPart img {
+#commentsDiv .mCommentDiv .mainComment .comLeftPart img {
   padding: 10px;
   max-width: 80px;
   max-height: 80px;
 }
 
-#showPost #commentsDiv .mCommentDiv .mainComment .comRightPart {
+#commentsDiv .mCommentDiv .mainComment .comRightPart {
   padding: 0;
 }
 
-#showPost #commentsDiv .mCommentDiv .mainComment .comRightPart .whoAndWhen {
+#commentsDiv .mCommentDiv .mainComment .comRightPart .whoAndWhen {
   padding-top: 10px;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -1025,7 +1013,7 @@ nav img {
           box-shadow: 0px 3px 3px -2px rgba(95, 131, 165, 0.75);
 }
 
-#showPost #commentsDiv .mCommentDiv .mainComment .comRightPart .whoAndWhen h5 {
+#commentsDiv .mCommentDiv .mainComment .comRightPart .whoAndWhen h5 {
   -ms-flex-item-align: start;
       align-self: flex-start;
   line-height: 5px;
@@ -1036,7 +1024,7 @@ nav img {
   display: inline-block;
 }
 
-#showPost #commentsDiv .mCommentDiv .mainComment .comRightPart .whoAndWhen p {
+#commentsDiv .mCommentDiv .mainComment .comRightPart .whoAndWhen p {
   -ms-flex-item-align: end;
       align-self: flex-end;
   line-height: 5px;
@@ -1046,18 +1034,18 @@ nav img {
   display: inline-block;
 }
 
-#showPost #commentsDiv .mCommentDiv .mainComment .comRightPart .comBody {
+#commentsDiv .mCommentDiv .mainComment .comRightPart .comBody {
   padding-left: 5px;
   min-height: 50px;
 }
 
-#showPost #commentsDiv .mCommentDiv .mainComment .comRightPart .comBody p {
+#commentsDiv .mCommentDiv .mainComment .comRightPart .comBody p {
   padding: 10px;
   text-align: left;
   margin: 0;
 }
 
-#showPost #commentsDiv .mCommentDiv .mainComment .comRightPart .comBody textarea {
+#commentsDiv .mCommentDiv .mainComment .comRightPart .comBody textarea {
   display: inline-block;
   resize: none;
   height: 80px;
@@ -1066,12 +1054,17 @@ nav img {
   margin: 10px;
 }
 
-#showPost #commentsDiv .mCommentDiv .mainComment .comRightPart .comBody .btn-info {
+#commentsDiv .mCommentDiv .mainComment .comRightPart .comBody button {
+  margin-left: 5px;
+  padding: 2px 8px 2px 8px;
   font-style: italic;
-  margin-bottom: 20px;
+  /*&:hover {
+            transform: scale(1.1);
+            transition-duration: 0.25s;
+        }*/
 }
 
-#showPost #commentsDiv .mCommentDiv .mainComment .comFooter {
+#commentsDiv .mCommentDiv .mainComment .comFooter {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -1083,27 +1076,27 @@ nav img {
           box-shadow: 0px -5px 10px -2px rgba(95, 131, 165, 0.75);
 }
 
-#showPost #commentsDiv .mCommentDiv .mainComment .comFooter p {
+#commentsDiv .mCommentDiv .mainComment .comFooter p {
   margin: 0;
   padding: 5px;
   padding-top: 10px;
   font-size: 12px;
 }
 
-#showPost #commentsDiv .mCommentDiv .mainComment .comFooter .likesDiv {
+#commentsDiv .mCommentDiv .mainComment .comFooter .likesDiv {
   margin-left: auto;
   display: inline-block;
   -ms-flex-item-align: end;
       align-self: flex-end;
 }
 
-#showPost #commentsDiv .mCommentDiv .mainComment .comFooter .likesDiv i {
+#commentsDiv .mCommentDiv .mainComment .comFooter .likesDiv i {
   font-size: 16px;
   padding: 5px;
   padding-right: 15px;
 }
 
-#showPost #commentsDiv .mCommentDiv .mainComment .comFooter .likesDiv span {
+#commentsDiv .mCommentDiv .mainComment .comFooter .likesDiv span {
   visibility: hidden;
   width: 120px;
   background-color: black;
@@ -1116,17 +1109,15 @@ nav img {
   bottom: 100%;
   left: 50%;
   margin-left: -60px;
-  /* Position the tooltip text - see examples below! */
   position: absolute;
   z-index: 1;
   left: 90%;
 }
 
-#showPost #commentsDiv .mCommentDiv .mainComment .comFooter .likesDiv span::after {
+#commentsDiv .mCommentDiv .mainComment .comFooter .likesDiv span::after {
   content: " ";
   position: absolute;
   top: 100%;
-  /* At the bottom of the tooltip */
   left: 50%;
   margin-left: -5px;
   border-width: 5px;
@@ -1134,23 +1125,23 @@ nav img {
   border-color: black transparent transparent transparent;
 }
 
-#showPost #commentsDiv .mCommentDiv .add2ndCommentDiv {
+#commentsDiv .mCommentDiv .add2ndCommentDiv {
   margin-top: -1px;
   opacity: 0;
   -webkit-box-shadow: inset 0px 5px 10px -2px rgba(95, 131, 165, 0.75);
           box-shadow: inset 0px 5px 10px -2px rgba(95, 131, 165, 0.75);
   height: 0px;
   background-color: #fff;
-  padding: 0;
+  -ms-flex-item-align: center;
+      -ms-grid-row-align: center;
+      align-self: center;
   border-radius: 0 0 20px 20px;
   -webkit-transition: 0.25s ease-in-out;
   transition: 0.25s ease-in-out;
-  width: 100%;
 }
 
-#showPost #commentsDiv .mCommentDiv .add2ndCommentDiv form {
-  padding: 15px;
-  padding-top: 10px;
+#commentsDiv .mCommentDiv .add2ndCommentDiv form {
+  padding-top: 5px;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -1160,7 +1151,7 @@ nav img {
           flex-direction: column;
 }
 
-#showPost #commentsDiv .mCommentDiv .add2ndCommentDiv form .labelDiv {
+#commentsDiv .mCommentDiv .add2ndCommentDiv form .labelDiv {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -1174,21 +1165,27 @@ nav img {
   cursor: pointer;
 }
 
-#showPost #commentsDiv .mCommentDiv .add2ndCommentDiv form #comInputArea {
+#commentsDiv .mCommentDiv .add2ndCommentDiv form label {
+  font-weight: 200;
+}
+
+#commentsDiv .mCommentDiv .add2ndCommentDiv form #comInputArea {
   opacity: 0;
 }
 
-#showPost #commentsDiv .mCommentDiv .add2ndCommentDiv form #comInputArea textarea {
+#commentsDiv .mCommentDiv .add2ndCommentDiv form #comInputArea textarea {
   width: 100%;
   resize: none;
-  height: 100px;
   overflow-y: auto;
   padding-left: 10px;
   padding-right: 10px;
+  overflow: hidden;
 }
 
-#showPost #commentsDiv .mCommentDiv .add2ndCommentDiv form .commentButtonDiv {
-  margin: 0 10px 0 10px;
+#commentsDiv .mCommentDiv .add2ndCommentDiv form .commentButtonDiv {
+  height: auto;
+  padding: 0;
+  margin: 0 0 5px 0;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -1201,16 +1198,21 @@ nav img {
           justify-content: flex-end;
 }
 
-#showPost #commentsDiv .mCommentDiv .add2ndCommentDiv form .commentButtonDiv button {
-  margin-top: 10px;
-  margin-left: 15px;
+#commentsDiv .mCommentDiv .add2ndCommentDiv form .commentButtonDiv button {
+  margin-left: 5px;
+  padding: 2px 8px 2px 8px;
+  font-style: italic;
+  /*&:hover {
+            transform: scale(1.1);
+            transition-duration: 0.25s;
+        }*/
 }
 
-#showPost #commentsDiv .mCommentDiv .add2ndCommentDiv form #comInputArea {
+#commentsDiv .mCommentDiv .add2ndCommentDiv form #comInputArea {
   opacity: 1;
 }
 
-#showPost #commentsDiv .mCommentDiv .mCommentDiv2nd {
+#commentsDiv .mCommentDiv .mCommentDiv2nd {
   height: 0;
   opacity: 0;
   display: none;
@@ -1225,29 +1227,29 @@ nav img {
   transition: 2s ease-in-out;
 }
 
-#showPost #commentsDiv .mCommentDiv .mCommentDiv2nd:nth-child(n) {
+#commentsDiv .mCommentDiv .mCommentDiv2nd:nth-child(n) {
   border-radius: 15px;
 }
 
-#showPost #commentsDiv .mCommentDiv .mCommentDiv2nd:nth-of-type(2) {
+#commentsDiv .mCommentDiv .mCommentDiv2nd:nth-of-type(2) {
   border-radius: 0 15px 15px 15px;
 }
 
-#showPost #commentsDiv .mCommentDiv .mCommentDiv2nd .comLeftPart2nd {
+#commentsDiv .mCommentDiv .mCommentDiv2nd .comLeftPart2nd {
   padding: 0;
 }
 
-#showPost #commentsDiv .mCommentDiv .mCommentDiv2nd .comLeftPart2nd img {
+#commentsDiv .mCommentDiv .mCommentDiv2nd .comLeftPart2nd img {
   padding: 10px;
   max-width: 70px;
   max-height: 70px;
 }
 
-#showPost #commentsDiv .mCommentDiv .mCommentDiv2nd .comRightPart2nd {
+#commentsDiv .mCommentDiv .mCommentDiv2nd .comRightPart2nd {
   padding: 0;
 }
 
-#showPost #commentsDiv .mCommentDiv .mCommentDiv2nd .comRightPart2nd .whoAndWhen2nd {
+#commentsDiv .mCommentDiv .mCommentDiv2nd .comRightPart2nd .whoAndWhen2nd {
   padding-top: 10px;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -1261,7 +1263,7 @@ nav img {
           box-shadow: 0px 3px 3px -2px rgba(95, 131, 165, 0.75);
 }
 
-#showPost #commentsDiv .mCommentDiv .mCommentDiv2nd .comRightPart2nd .whoAndWhen2nd h5 {
+#commentsDiv .mCommentDiv .mCommentDiv2nd .comRightPart2nd .whoAndWhen2nd h5 {
   -ms-flex-item-align: start;
       align-self: flex-start;
   line-height: 5px;
@@ -1272,7 +1274,7 @@ nav img {
   display: inline-block;
 }
 
-#showPost #commentsDiv .mCommentDiv .mCommentDiv2nd .comRightPart2nd .whoAndWhen2nd p {
+#commentsDiv .mCommentDiv .mCommentDiv2nd .comRightPart2nd .whoAndWhen2nd p {
   -ms-flex-item-align: end;
       align-self: flex-end;
   line-height: 5px;
@@ -1282,18 +1284,18 @@ nav img {
   display: inline-block;
 }
 
-#showPost #commentsDiv .mCommentDiv .mCommentDiv2nd .comRightPart2nd .comBody2nd {
+#commentsDiv .mCommentDiv .mCommentDiv2nd .comRightPart2nd .comBody2nd {
   padding-left: 0;
   min-height: 30px;
 }
 
-#showPost #commentsDiv .mCommentDiv .mCommentDiv2nd .comRightPart2nd .comBody2nd p {
+#commentsDiv .mCommentDiv .mCommentDiv2nd .comRightPart2nd .comBody2nd p {
   padding: 5px;
   text-align: left;
   margin: 0;
 }
 
-#showPost #commentsDiv .mCommentDiv .mCommentDiv2nd .comRightPart2nd .comBody2nd textarea {
+#commentsDiv .mCommentDiv .mCommentDiv2nd .comRightPart2nd .comBody2nd textarea {
   display: inline-block;
   resize: none;
   height: 30px;
@@ -1302,12 +1304,17 @@ nav img {
   margin: 10px;
 }
 
-#showPost #commentsDiv .mCommentDiv .mCommentDiv2nd .comRightPart2nd .comBody2nd .btn-info {
+#commentsDiv .mCommentDiv .mCommentDiv2nd .comRightPart2nd .comBody2nd button {
+  margin-left: 5px;
+  padding: 2px 8px 2px 8px;
   font-style: italic;
-  margin-bottom: 20px;
+  /*&:hover {
+            transform: scale(1.1);
+            transition-duration: 0.25s;
+        }*/
 }
 
-#showPost #commentsDiv .mCommentDiv .mCommentDiv2nd .comFooter2nd {
+#commentsDiv .mCommentDiv .mCommentDiv2nd .comFooter2nd {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -1319,26 +1326,26 @@ nav img {
           box-shadow: 0px -5px 10px -2px rgba(95, 131, 165, 0.75);
 }
 
-#showPost #commentsDiv .mCommentDiv .mCommentDiv2nd .comFooter2nd p {
+#commentsDiv .mCommentDiv .mCommentDiv2nd .comFooter2nd p {
   margin: 0;
   padding: 5px;
   padding-top: 10px;
   font-size: 12px;
 }
 
-#showPost #commentsDiv .mCommentDiv .mCommentDiv2nd .comFooter2nd .likesDiv2nd {
+#commentsDiv .mCommentDiv .mCommentDiv2nd .comFooter2nd .likesDiv2nd {
   margin-left: auto;
   display: inline-block;
   -ms-flex-item-align: end;
       align-self: flex-end;
 }
 
-#showPost #commentsDiv .mCommentDiv .mCommentDiv2nd .comFooter2nd .likesDiv2nd i {
+#commentsDiv .mCommentDiv .mCommentDiv2nd .comFooter2nd .likesDiv2nd i {
   font-size: 16px;
   padding-right: 15px;
 }
 
-#showPost #commentsDiv .mCommentDiv .mCommentDiv2nd .comFooter2nd .likesDiv2nd span {
+#commentsDiv .mCommentDiv .mCommentDiv2nd .comFooter2nd .likesDiv2nd span {
   visibility: hidden;
   width: 120px;
   background-color: black;
@@ -1351,17 +1358,15 @@ nav img {
   bottom: 100%;
   left: 50%;
   margin-left: -60px;
-  /* Position the tooltip text - see examples below! */
   position: absolute;
   z-index: 1;
   left: 90%;
 }
 
-#showPost #commentsDiv .mCommentDiv .mCommentDiv2nd .comFooter2nd .likesDiv2nd span::after {
+#commentsDiv .mCommentDiv .mCommentDiv2nd .comFooter2nd .likesDiv2nd span::after {
   content: " ";
   position: absolute;
   top: 100%;
-  /* At the bottom of the tooltip */
   left: 50%;
   margin-left: -5px;
   border-width: 5px;
@@ -1512,7 +1517,7 @@ nav img {
           flex-direction: column;
 }
 
-#userProfile #middlePart #headerDiv {
+#userProfile #middlePart #header-div {
   max-height: 480px;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -1524,26 +1529,26 @@ nav img {
   margin-bottom: 10px;
 }
 
-#userProfile #middlePart #headerDiv h3 {
+#userProfile #middlePart #header-div h3 {
   text-align: left;
   margin-bottom: 0;
 }
 
-#userProfile #middlePart #headerDiv h5 {
+#userProfile #middlePart #header-div h5 {
   text-align: left;
   margin-top: 5px;
 }
 
-#userProfile #middlePart #headerDiv p {
+#userProfile #middlePart #header-div p {
   text-align: justify;
 }
 
-#userProfile #middlePart #headerDiv button {
+#userProfile #middlePart #header-div button {
   -ms-flex-item-align: end;
       align-self: flex-end;
 }
 
-#userProfile #middlePart #headerDiv textarea {
+#userProfile #middlePart #header-div textarea {
   margin-bottom: 10px;
   resize: none;
   border: none;
@@ -1553,22 +1558,22 @@ nav img {
   padding: 5px 10px 5px 10px;
 }
 
-#userProfile #middlePart #headerDiv .btn-group {
+#userProfile #middlePart #header-div .btn-group {
   width: 100%;
   -ms-flex-item-align: end;
       align-self: flex-end;
 }
 
-#userProfile #middlePart #headerDiv .btn-group button {
+#userProfile #middlePart #header-div .btn-group button {
   float: right;
 }
 
-#userProfile #middlePart #headerDiv .btn-group p {
+#userProfile #middlePart #header-div .btn-group p {
   float: left;
   margin: 0;
 }
 
-#userProfile #middlePart #contentDiv {
+#userProfile #middlePart #create-content-div {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -1578,16 +1583,16 @@ nav img {
           flex-direction: column;
 }
 
-#userProfile #middlePart #contentDiv h3 {
+#userProfile #middlePart #create-content-div h3 {
   text-align: left;
   margin-top: 0;
 }
 
-#userProfile #middlePart #contentDiv p {
+#userProfile #middlePart #create-content-div p {
   margin-top: 20px;
 }
 
-#userProfile #middlePart #contentDiv #createMMDiv {
+#userProfile #middlePart #create-content-div #createMMDiv {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -1595,39 +1600,34 @@ nav img {
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
-  /*& #addMMContent {
-                    //display: inline-block;
-                    width: inherit;
-                    height: 34px;
-                    float: left;
-                }*/
 }
 
-#userProfile #middlePart #contentDiv #createMMDiv #mmPostTxt {
+#userProfile #middlePart #create-content-div #createMMDiv #mmPostTxt {
   width: 100%;
   resize: none;
   height: 100px;
   margin-bottom: 5px;
 }
 
-#userProfile #middlePart #contentDiv #createMMDiv .btn-group {
+#userProfile #middlePart #create-content-div #createMMDiv .btn-group {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  margin-bottom: 10px;
 }
 
-#userProfile #middlePart #contentDiv #createMMDiv .btn-group button {
+#userProfile #middlePart #create-content-div #createMMDiv .btn-group button {
   -ms-flex-item-align: end;
       align-self: flex-end;
 }
 
-#userProfile #middlePart #contentDiv #createMMDiv .btn-group button:first-child {
+#userProfile #middlePart #create-content-div #createMMDiv .btn-group button:first-child {
   font-size: 18px;
   padding-top: 3px;
   padding-bottom: 3px;
 }
 
-#userProfile #middlePart #contentDiv #createMMDiv .btn-group input {
+#userProfile #middlePart #create-content-div #createMMDiv .btn-group input {
   text-align: left;
   float: left;
   width: 0;
@@ -1635,7 +1635,7 @@ nav img {
   padding: 0;
 }
 
-#userProfile #middlePart #contentDiv #createMMDiv .btn-group #mmLabel {
+#userProfile #middlePart #create-content-div #createMMDiv .btn-group #mmLabel {
   text-align: left;
   padding: 0;
   opacity: 0;
@@ -1646,10 +1646,142 @@ nav img {
   cursor: pointer;
 }
 
-#userProfile #middlePart #contentDiv #errorParag {
+#userProfile #middlePart #create-content-div #errorParag {
   position: absolute;
   margin-top: 115px;
   margin-left: 5px;
+}
+
+#userProfile #middlePart .content-div {
+  padding: 0;
+}
+
+#userProfile #middlePart .content-div .mmPosts {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  border: 1px solid;
+  border-radius: 4px;
+  margin-top: 10px;
+  padding: 0;
+  /*& iframe {
+                    width: inherit;
+                    height: auto;
+                    // overflow: hidden;
+                    & img {
+                        width: 100%;
+                    }
+                }*/
+}
+
+#userProfile #middlePart .content-div .mmPosts img {
+  -webkit-box-shadow: 0px 1px 5px 2px rgba(0, 0, 0, 0.25);
+          box-shadow: 0px 1px 5px 2px rgba(0, 0, 0, 0.25);
+  width: inherit;
+  margin-bottom: 5px;
+}
+
+#userProfile #middlePart .content-div .mmPosts video {
+  -webkit-box-shadow: 0px 1px 5px 2px rgba(0, 0, 0, 0.25);
+          box-shadow: 0px 1px 5px 2px rgba(0, 0, 0, 0.25);
+  width: inherit;
+  margin-bottom: 5px;
+  margin-top: 5px;
+}
+
+#userProfile #middlePart .content-div .mmPosts p {
+  text-align: left;
+  padding-left: 10px;
+  margin-bottom: 5px;
+}
+
+#userProfile #middlePart .content-div .mmPosts .singlePostHeader {
+  padding: 0;
+  position: relative;
+  float: none;
+  height: 40px;
+}
+
+#userProfile #middlePart .content-div .mmPosts .singlePostHeader img {
+  -webkit-box-shadow: 2px 0px rgba(0, 0, 0, 0.25);
+          box-shadow: 2px 0px rgba(0, 0, 0, 0.25);
+  padding: 5px;
+  height: 40px;
+  width: auto;
+  border-radius: 0;
+  float: left;
+}
+
+#userProfile #middlePart .content-div .mmPosts .singlePostHeader p {
+  float: left;
+  margin: 10px;
+  padding: 0;
+}
+
+#userProfile #middlePart .content-div .mmPosts .singlePostHeader .timeCreated {
+  float: right;
+  font-size: 13px;
+}
+
+#userProfile #middlePart .content-div .mmPosts .post-text-content {
+  margin: 5px 0 10px 0;
+  min-height: 25px;
+  position: relative;
+}
+
+#userProfile #middlePart .content-div .mmPosts .singlePostFooter {
+  margin: 2px;
+  padding: 0;
+  display: -ms-grid;
+  display: grid;
+  height: 20px;
+  -ms-grid-columns: 2fr 2fr 2fr;
+      grid-template-columns: 2fr 2fr 2fr;
+}
+
+#userProfile #middlePart .content-div .mmPosts .singlePostFooter p {
+  font-size: 12px;
+  margin: 0;
+  padding: 0;
+}
+
+#userProfile #middlePart .content-div .mmPosts .singlePostFooter .likes-div {
+  -ms-grid-column-align: end;
+      justify-self: end;
+}
+
+#userProfile #middlePart .content-div .mmPosts .singlePostFooter .likes-div i {
+  margin-right: 10px;
+  font-size: 16px;
+}
+
+#userProfile #middlePart .content-div .mmPosts .singlePostFooter .btn-group {
+  -ms-grid-column-align: center;
+      justify-self: center;
+}
+
+#userProfile #middlePart .content-div .mmPosts .singlePostFooter .btn-group button {
+  padding: 0px 6px 3px 6px;
+  text-decoration: none;
+  color: #000;
+  font-style: italic;
+}
+
+#userProfile #middlePart .content-div .mmPosts .singlePostFooter .btn-group button:hover {
+  -webkit-transform: scale(1.2);
+          transform: scale(1.2);
+  -webkit-transition-duration: 0.25s;
+          transition-duration: 0.25s;
+}
+
+#userProfile #middlePart .content-div .mmPosts hr {
+  width: 100%;
+  border: 1px solid;
+  margin: 0;
 }
 
 #userProfile #rightPart {

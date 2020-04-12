@@ -1,3 +1,4 @@
+
 let api = 'http://127.0.0.1:3000/user/profile';
 let mmApi = 'http://127.0.0.1:3000/api/mmposts/createPost';
 
@@ -100,7 +101,7 @@ request.onload = function () {
         const profRank = document.createElement('img');
         profRank.setAttribute('alt', 'rank');
         profRank.setAttribute('id', 'rank');
-        //console.log(data.userData[0].numberOfPosts)
+
         if (data.userData[0].numberOfPosts === 0) {
             profRank.setAttribute('src', 'img/r0.png');
         } else if (data.userData[0].numberOfPosts > 0 && data.userData[0].numberOfPosts <= 3) {
@@ -116,7 +117,6 @@ request.onload = function () {
         } else if (data.userData[0].numberOfPosts > 11) {
             profRank.setAttribute('src', 'img/r6.png');
         }
-        //profRank.setAttribute('src', 'img/rankPH.png');
         profRankDiv.appendChild(profRank);
 
         const moreUserProf = document.createElement('div');
@@ -284,7 +284,7 @@ request.onload = function () {
         //Middle part
         //Header section
         const headerDiv = document.createElement('div');
-        headerDiv.setAttribute('id', 'headerDiv');
+        headerDiv.setAttribute('id', 'header-div');
         middlePart.appendChild(headerDiv);
 
         const usersName = document.createElement('h3');
@@ -385,9 +385,9 @@ request.onload = function () {
                 });
             });
         }
-        //Content
+        //Content create
         const contentDiv = document.createElement('div');
-        contentDiv.setAttribute('id', 'contentDiv');
+        contentDiv.setAttribute('id', 'create-content-div');
         middlePart.appendChild(contentDiv);
 
         const contentHeader = document.createElement('h3');
@@ -411,8 +411,6 @@ request.onload = function () {
         const addMMContent = document.createElement('input');
         addMMContent.setAttribute('type', 'file');
         addMMContent.setAttribute('id', 'addMMContent');
-        //addMMContent.classList.add('input-group-addon')
-        //buttonGroup.appendChild(addMMContent);
 
         const mmButton = document.createElement('button');
         mmButton.setAttribute('class', 'btn btn-default');
@@ -465,11 +463,6 @@ request.onload = function () {
         mmLabel.style.border = '0';
         buttonGroup.appendChild(mmLabel);
 
-        /*const mmLabelInfo = document.createElement('span');
-        mmLabelInfo.setAttribute('id', 'tooltip')
-        mmLabelInfo.innerText = 'Click here to remove';
-        //buttonGroup.appendChild(mmLabelInfo)
-*/
         const linkButton = document.createElement('button');
         linkButton.setAttribute('class', 'btn btn-default');
         linkButton.innerHTML = '<i class="fas fa-link"></i>'
@@ -516,32 +509,49 @@ request.onload = function () {
             $event.preventDefault();
 
             let submitMMData = new FormData
-            //let mmData;
+            submitMMData.append('embedLink', null);
+            submitMMData.append('mmPost', null);
+
             if (addMMContent.files.length !== 0) {
-                if (linkInput.value.length === 0) {
+                if (linkInput.value.trim().length === 0) {
                     submitMMData.append('file', addMMContent.files[0]);
                     submitMMData.append('embed', false)
                 } else {
                     errorParag.innerText = 'You can only provide link, or upload video or picture.'
                     return
                 }
-            } else if (linkInput.value.trim().length !== 0) {
+            }
+            if (linkInput.value.trim().length !== 0) {
                 if (addMMContent.files.length === 0) {
-                    submitMMData.append('embedLink', linkInput.value);
-                    submitMMData.append('embed', true);
+                    submitMMData.delete('embedLink');
+                    if (linkInput.value.indexOf('https://www.youtube.com') >= 0) {
+                        let newLink = linkInput.value.replace('/watch?v=', '/embed/');
+                        submitMMData.append('embedLink', newLink);
+                        submitMMData.append('embed', true);
+                    } else if (linkInput.value.indexOf('https://youtu.be/') >= 0) {
+                        let newLink = linkInput.value.replace('youtu.be/', 'www.youtube.com/embed/');
+                        submitMMData.append('embedLink', newLink);
+                        submitMMData.append('embed', true);
+                    } else {
+                        submitMMData.append('embedLink', linkInput.value);
+                        submitMMData.append('embed', true);
+                    }
+
                 } else {
                     errorParag.innerText = 'You can only provide link, or upload video or picture.'
                     return
                 }
-            } else if (createMMPostTxt.value.trim().length !== 0) {
+            }
+            if (createMMPostTxt.value.trim().length !== 0) {
                 if (createMMPostTxt.value.trim().length !== 0) {
                     dataForSubmit = createMMPostTxt.value
-                    dataForSubmit = JSON.stringify(dataForSubmit);
+                    submitMMData.delete('mmPost');
                     submitMMData.append('mmPost', dataForSubmit);
                 } else {
                     dataForSubmit = null;
                 }
-            } else {
+            }
+            if (createMMPostTxt.value.trim().length === 0 && linkInput.value.trim().length === 0 && addMMContent.files.length === 0) {
                 errorParag.innerText = 'You can not create post without any content.'
                 createMMPostTxt.focus();
                 setTimeout(() => {
@@ -584,10 +594,147 @@ request.onload = function () {
         contentDiv.appendChild(errorParag);
 
 
-        if (data.userData[0].mmContent.length === 0) {
+        if (data.mmContent.length === 0) {
             const noMMPosts = document.createElement('p');
-            noMMPosts.innerText = 'You did not create any posts'
+            noMMPosts.innerText = 'You did not create any posts';
             contentDiv.appendChild(noMMPosts);
+        }
+
+        //MM content created by user
+
+        const contentDivMM = document.createElement('div');
+        contentDivMM.setAttribute('class', 'col-md-12 content-div');
+        middlePart.appendChild(contentDivMM);
+
+        for (let i = 0; i < data.mmContent.length; i++) {
+
+            const singlePost = document.createElement('div');
+            singlePost.setAttribute('class', 'col-md-12 mmPosts');
+            contentDivMM.appendChild(singlePost);
+
+            const singlePostHeader = document.createElement('div');
+            singlePostHeader.setAttribute('class', 'singlePostHeader');
+            singlePost.appendChild(singlePostHeader);
+
+            const userPic = document.createElement('img');
+            userPic.setAttribute('alt', 'User picture')
+            userPic.setAttribute('src', data.mmContent[i].userPicture);
+            singlePostHeader.appendChild(userPic);
+
+            const userName = document.createElement('p');
+            userName.innerText = data.mmContent[i].username;
+            singlePostHeader.appendChild(userName);
+
+            const mmPostTimeCreated = document.createElement('p');
+            mmPostTimeCreated.setAttribute('class', 'timeCreated');
+            mmPostTimeCreated.innerText = countTime(data.mmContent[i].timeCreated);
+            singlePostHeader.appendChild(mmPostTimeCreated);
+            singlePost.appendChild(document.createElement('hr'));
+            const singlePostText = document.createElement('p');
+            singlePostText.setAttribute('class', 'post-text-content');
+
+            if (data.mmContent[i].postText !== null) {
+                singlePostText.innerText = data.mmContent[i].postText;
+                singlePost.appendChild(singlePostText);
+            }
+            if (data.mmContent[i].embed === 0) {
+                if (data.mmContent[i].postMMField !== null) {
+
+                    mmField = data.mmContent[i].postMMField;
+                    mmPic = mmField.substring(mmField.length - 4);
+
+                    let posibleImgExtensions = ['.jpg', '.png', 'apng', '.bmp', '.gif', '.svg', '.webp'];
+                    let posibleVidExtensions = ['.flv', '.mp4', '.ts', '.3gp', '.mov', '.avi', '.wmv'];
+
+                    if (posibleImgExtensions.includes(mmPic)) {
+                        const postPicture = document.createElement('img');
+                        postPicture.setAttribute('alt', 'Picture can not load');
+                        postPicture.setAttribute('src', data.mmContent[i].postMMField);
+                        singlePost.appendChild(postPicture);
+                    } else if (posibleVidExtensions.includes(mmPic)) {
+                        const postVideo = document.createElement('video');
+                        postVideo.setAttribute('alt', 'Video can not be loaded');
+                        postVideo.controls = true;
+                        postVideo.setAttribute('src', data.mmContent[i].postMMField);
+                        singlePost.appendChild(postVideo);
+                    }
+                }
+            } else if (data.mmContent[i].embed === 1) {
+                if (data.mmContent[i].postMMField !== null) {
+                    const embed = document.createElement('iframe');
+                    //embed.setAttribute('class', 'embed-responsive-item');
+                    embed.frameBorder = 0;
+                    embed.width = '100%'
+                    //embed.allowFullscreen = true;
+                    embed.setAttribute('src', data.mmContent[i].postMMField);
+                    singlePost.appendChild(embed);
+                } else {
+                    const errParagOnPost = document.createElement('p');
+                    errParagOnPost.innerText = 'Multimedia content not found or can not be played, please try different format';
+                    singlePost.appendChild(errParagOnPost);
+                }
+            }
+            //singlePost.appendChild(document.createElement('hr'));
+
+            const singlePostFooter = document.createElement('div');
+            singlePostFooter.setAttribute('class', 'col-md-12 singlePostFooter');
+            singlePost.appendChild(singlePostFooter);
+
+            const edited = document.createElement('p');
+            if (data.mmContent[i].timeEdited !== null) {
+                edited.innerText = 'Edited: ' + countTime(data.mmContent[i].timeEdited)
+            }
+            singlePostFooter.appendChild(edited);
+
+            const postButtonGroup = document.createElement('div');
+            postButtonGroup.setAttribute('class', 'btn-group');
+            singlePostFooter.appendChild(postButtonGroup);
+
+            if (data.userData[0].userId === data.userInfo[0].userId) {
+                const editButton = document.createElement('button');
+                editButton.setAttribute('class', 'btn btn-link');
+                editButton.innerText = 'edit';
+                postButtonGroup.appendChild(editButton);
+
+                const deleteButton = document.createElement('button');
+                deleteButton.setAttribute('class', 'btn btn-link');
+                deleteButton.innerText = 'delete';
+                postButtonGroup.appendChild(deleteButton);
+            }
+
+            const likesDiv = document.createElement('div');
+            likesDiv.setAttribute('class', 'likes-div');
+            singlePostFooter.appendChild(likesDiv);
+
+            const likes = document.createElement('i');
+            likes.setAttribute('class', 'far fa-thumbs-up');
+            likes.innerText = data.mmContent[i].postLikes;
+            let postUsersLiked = JSON.parse(data.mmContent[i].postUsersLiked);
+            if (postUsersLiked.usersLiked.includes(data.userInfo[0].userId)) {
+                likes.classList.add('likedClass');
+            }
+            likes.style.cursor = 'pointer';
+            likesDiv.appendChild(likes)
+
+            const dislikes = document.createElement('i');
+            dislikes.setAttribute('class', 'far fa-thumbs-down');
+
+            dislikes.innerText = data.mmContent[i].postDislikes;
+            let postUsersDisliked = JSON.parse(data.mmContent[i].postUsersDisliked);
+            if (postUsersDisliked.usersDisliked.includes(data.userInfo[0].userId)) {
+                dislikes.classList.add('dislikedClass');
+            }
+            dislikes.style.cursor = 'pointer';
+            likesDiv.appendChild(dislikes);
+
+            singlePost.appendChild(document.createElement('hr'));
+
+            //comments
+            let addComment = document.createElement('div');
+            addComment.setAttribute('class', 'col-md-12 addCommentDiv');
+            singlePost.appendChild(addComment);
+
+            createCommentForm(addComment)
         }
 
         //Right part
@@ -605,9 +752,9 @@ request.onload = function () {
 
         const usersPosts = document.createElement('label');
         usersPosts.setAttribute('for', 'postNumber');
-        usersPosts.innerText = 'Your posts:'
+        usersPosts.innerText = 'Created posts:'
         const usersPostsParag = document.createElement('p');
-        usersPostsParag.innerText = 'sss'; //treba value
+        usersPostsParag.innerText = data.mmContent.length;
         numbersDiv.append(usersPosts, usersPostsParag);
         //Successfull articles
         const sucArticles = document.createElement('div');
@@ -712,24 +859,24 @@ function countTime(timeToCount) {
     let diffTime
     diff = d1 - d2
     if (diff < 60e3) {
-        diffTime = Math.floor(diff / 1000) + 'sec ago';
+        diffTime = Math.floor(diff / 1000) + ' sec ago';
         return diffTime;
     }
     else if (diff >= 60e3 && diff < 3.6e+6) {
-        diffTime = Math.floor(diff / 60e3) + 'min ago'
+        diffTime = Math.floor(diff / 60e3) + ' min ago'
     }
     else if (diff >= 3.6e+6 && diff < 8.64e+7) {
-        diffTime = Math.floor(diff / 3.6e+6) + 'h ago';
+        diffTime = Math.floor(diff / 3.6e+6) + ' h ago';
         return diffTime;
     }
     else if (diff >= 8.64e+7 && diff < 2.628e+9) {
-        diffTime = Math.floor(diff / 8.64e+7) + 'd ago';
+        diffTime = Math.floor(diff / 8.64e+7) + ' d ago';
     }
     else if (diff >= 2.628e+9 && diff < 3.154e+10) {
-        diffTime = Math.floor(diff / 2.628e+9) + `m'th ago`;
+        diffTime = Math.floor(diff / 2.628e+9) + ` m'th ago`;
     }
     else if (diff >= 3.154e+10) {
-        diffTime = Math.floor(diff / 3.154e+10) + 'y ago';
+        diffTime = Math.floor(diff / 3.154e+10) + ' y ago';
     }
     else {
         console.log('Problem with times in the function');

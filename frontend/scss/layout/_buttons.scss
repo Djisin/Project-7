@@ -1,0 +1,31 @@
+@mixin close-button {
+    position: absolute;
+    top: 15px;
+    right: 35px;
+    color: #f1f1f1;
+    font-size: 40px;
+    font-weight: bold;
+    transition: 0.3s;
+    &:hover {
+        color: rgb(0, 0, 0);
+        text-decoration: none;
+        cursor: pointer;
+        transform: scale3d(1.4, 1.4, 1.4) translate3d(-5px, 5px, 0) rotate(1080deg);
+    }
+    &:focus {
+        color: #bbb;
+        text-decoration: none;
+        cursor: pointer;
+    }
+}
+@mixin normal-style-button {
+    & button {
+        margin-left: 5px;
+        padding: 2px 8px 2px 8px;
+        font-style: italic;
+        /*&:hover {
+            transform: scale(1.1);
+            transition-duration: 0.25s;
+        }*/
+    }
+}

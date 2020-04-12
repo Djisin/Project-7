@@ -266,7 +266,7 @@ function submitEditedCommentFormData2nd() {
 
 function createCommentForm(addComment, add2ndComment) {
     const commentForm = document.createElement('form');
-    commentForm.setAttribute('class', '');
+    commentForm.setAttribute('class', 'form-inline');
 
     const labelDiv = document.createElement('div')
     labelDiv.setAttribute('class', 'labelDiv');
@@ -287,8 +287,18 @@ function createCommentForm(addComment, add2ndComment) {
 
     const commentInput = document.createElement('textarea');
     commentInput.setAttribute('type', 'text');
+    commentInput.setAttribute('class','form-control')
     commentInput.setAttribute('name', 'commentTextInput');
     commentInput.setAttribute('id', 'commentTextInput');
+    commentInput.oninput = function () {
+        commentInput.style.height = "60px";
+        commentInput.style.height = Math.min(commentInput.scrollHeight, 200) + "px";
+        if(commentInput.scrollHeight >200){
+            commentInput.style.overflowY = 'scroll';
+        }else{
+            commentInput.style.overflowY = '';
+        }
+    };
     comInputArea.appendChild(commentInput);
 
     const commentButtonDiv = document.createElement('div');
@@ -296,7 +306,7 @@ function createCommentForm(addComment, add2ndComment) {
     comInputArea.appendChild(commentButtonDiv);
 
     const commentReset = document.createElement('button');
-    commentReset.setAttribute('class', 'btn btn-secondary');
+    commentReset.setAttribute('class', 'btn');
     commentReset.innerText = 'Reset';
     commentButtonDiv.appendChild(commentReset);
 
@@ -306,7 +316,7 @@ function createCommentForm(addComment, add2ndComment) {
     });
 
     const commentSubmit = document.createElement('button');
-    commentSubmit.setAttribute('class', 'btn btn-info');
+    commentSubmit.setAttribute('class', 'btn');
     commentSubmit.innerText = 'Comment';
     commentButtonDiv.appendChild(commentSubmit);
 
@@ -317,6 +327,28 @@ function createCommentForm(addComment, add2ndComment) {
     } else if (add2ndComment) {
         add2ndComment.appendChild(commentForm)
     }
+    labelDiv.addEventListener('click', () => {
+        if (comInputArea.style.opacity === '1') {
+            comInputArea.style.opacity = '0';
+            addComment.style.height = '30px';
+            showHideComArea.setAttribute('class', 'fas fa-chevron-up');
+        } else {
+            addComment.style.height = 'auto';
+            setTimeout(() => { comInputArea.style.opacity = '1' }, 150)
+
+            showHideComArea.setAttribute('class', 'fas fa-chevron-down');
+        }
+    })
+    commentButtonDiv.lastChild.addEventListener('click', ($event) => {
+        $event.preventDefault()
+        if (commentInput.value.trim().length > 1) {
+            submitCommentFormData();
+        } else {
+            commentInput.setAttribute('placeholder', 'You can not submit empty comment');
+            commentInput.focus();
+            return
+        }
+    })
 }
 
 function createReportDiv(comRepForm) {

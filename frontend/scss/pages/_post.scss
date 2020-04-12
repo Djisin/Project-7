@@ -6,6 +6,8 @@
   align-items: stretch;
   align-content: center;
   overflow: hidden;
+  max-width: 1024px;
+  align-self: center;
   .mainContainer {
     margin-top: 60px;
     display: flex;
@@ -16,7 +18,7 @@
     width: 1024px;
     background-color: #fff;
     min-height: auto;
-    border-radius: 0 0 20px 20px;
+    border-radius: 0 0 15px 15px;
     align-self: center;
     & .divMainContent {
       width: auto;
@@ -33,8 +35,8 @@
       }
     }
     & i {
-      margin: 20px;
-      font-size: 20px;
+      //margin: 5px;
+      font-size: 18px;
     }
     & .timePeriods {
       align-self: center;
@@ -105,266 +107,239 @@
   & #divOnTop {
     @include postSection;
   }
-  & .btn-link {
-    padding-left: 0;
-    font-style: italic;
-    padding-top: 0;
-    padding-bottom: 0;
-    &:hover {
-      text-decoration: none;
+  @include normal-style-button;
+}
+//comments
+.addCommentDiv {
+  box-shadow: inset 0px 3px 5px -2px $postShadows;
+  height: 30px; //bilo 200
+  background-color: #fff;
+  align-self: center;
+  //width: 97%!important;
+  padding: 0;
+  border-radius: 0 0 10px 10px;
+
+  @include commentFormFormat;
+  transition: 0.45s ease-in-out;
+}
+#commentsDiv {
+  align-self: center;
+
+  width: 980px;
+  & .mCommentDiv {
+    display: flex;
+    flex-direction: column;
+    &:last-child {
+      margin-bottom: 10px;
     }
-  }
-  //comments
-  & .addCommentDiv {
-    box-shadow: inset 0px 5px 10px -2px $postShadows;
-    height: 40px; //bilo 200
-    background-color: #fff;
-    align-self: center;
-    width: 980px;
-    padding: 0;
-    border-radius: 0 0 20px 20px;
-
-    @include commentFormFormat;
-    transition: 0.25s ease-in-out;
-  }
-  & #commentsDiv {
-    align-self: center;
-
-    width: 980px;
-    & .mCommentDiv {
-      display: flex;
-      flex-direction: column;
-      &:last-child {
-        margin-bottom: 10px;
-      }
-      & .mainComment {
-        box-shadow: inset 0px 5px 10px -2px $postShadows;
-        padding: 0 0 5px 0;
-        background-color: #fff;
-        border-radius: 15px;
-        /*&:nth-child(1) {
-          border-radius: 15px;
-        }
-        &:nth-child(0) {
-          border-radius: 0 0 15px 15px;
-        }
-        /*&:nth-of-type(2) {
-          border-radius: 0 0 15px 15px;
-        }*/
-        /* &:last-child() {
-          margin-bottom: 20px;
-        }*/
-        & .comLeftPart {
-          padding: 0;
-          & img {
-            padding: 10px;
-            max-width: 80px;
-            max-height: 80px;
-          }
-        }
-        & .comRightPart {
-          padding: 0;
-          & .whoAndWhen {
-            padding-top: 10px;
-            display: flex;
-            flex-direction: row;
-            padding-left: 5px;
-            box-shadow: 0px 3px 3px -2px $postShadows;
-            & h5 {
-              align-self: flex-start;
-              line-height: 5px;
-              padding: 0;
-              margin: 10px;
-              margin-left: 0;
-              font-size: 14px;
-              display: inline-block;
-            }
-            & p {
-              align-self: flex-end;
-              line-height: 5px;
-              margin: 10px;
-              margin-right: 0px;
-              margin-left: auto;
-              display: inline-block;
-            }
-          }
-          & .comBody {
-            padding-left: 5px;
-            min-height: 50px;
-            & p {
-              padding: 10px;
-              text-align: left;
-              margin: 0;
-            }
-            & textarea {
-              display: inline-block;
-              //align-self: left;
-              resize: none;
-              height: 80px;
-              width: 750px;
-              border: none;
-              margin: 10px;
-            }
-            & .btn-info {
-              font-style: italic;
-              //float: right;
-              //margin-top: auto;
-              margin-bottom: 20px;
-            }
-          }
-        }
-        & .comFooter {
-          //padding: 0;
-          display: flex;
-          flex-direction: row;
-          box-shadow: 0px -5px 10px -2px $postShadows;
-          & p {
-            margin: 0;
-            padding: 5px;
-            //padding-left: 15px;
-            padding-top: 10px;
-            font-size: 12px;
-          }
-          & .likesDiv {
-            margin-left: auto;
-            display: inline-block;
-            align-self: flex-end;
-            & i {
-              font-size: 16px;
-              padding: 5px;
-              padding-right: 15px;
-            }
-            & span {
-              @include tooltiptext;
-              left: 90%;
-            }
-          }
-        }
-      }
-      & .add2ndCommentDiv {
-        margin-top: -1px;
-        opacity: 0;
-        box-shadow: inset 0px 5px 10px -2px $postShadows;
-        height: 0px; //bilo 200
-        background-color: #fff;
-        //width: 960px;
-        //margin: 15px;
+    & .mainComment {
+      box-shadow: inset 0px 5px 10px -2px $postShadows;
+      padding: 0 0 5px 0;
+      background-color: #fff;
+      border-radius: 15px;
+      & .comLeftPart {
         padding: 0;
-        border-radius: 0 0 20px 20px;
-        transition: 0.25s ease-in-out;
-        width: 100%;
-        @include commentFormFormat;
-        & form #comInputArea {
-          opacity: 1;
+        & img {
+          padding: 10px;
+          max-width: 80px;
+          max-height: 80px;
         }
       }
-      & .mCommentDiv2nd {
-        height: 0;
-        opacity: 0;
-        display: none;
-        align-self: flex-end;
-        width: 96%;
-        box-shadow: inset 0px 5px 10px -2px $postShadows;
-        padding: 0 0 5px 0;
-        background-color: #fff;
-        transition: 2s ease-in-out;
-        &:nth-child(n) {
-          border-radius: 15px;
-        }
-        &:nth-of-type(2) {
-          border-radius: 0 15px 15px 15px;
-        }
-        & .comLeftPart2nd {
-          padding: 0;
-          & img {
-            padding: 10px;
-            max-width: 70px;
-            max-height: 70px;
-          }
-        }
-        & .comRightPart2nd {
-          padding: 0;
-          & .whoAndWhen2nd {
-            padding-top: 10px;
-            display: flex;
-            flex-direction: row;
-            padding-left: 5px;
-            box-shadow: 0px 3px 3px -2px $postShadows;
-            & h5 {
-              align-self: flex-start;
-              line-height: 5px;
-              padding: 0;
-              margin: 5px;
-              margin-left: 0;
-              font-size: 14px;
-              display: inline-block;
-            }
-            & p {
-              align-self: flex-end;
-              line-height: 5px;
-              margin: 5px;
-              margin-right: 0px;
-              margin-left: auto;
-              display: inline-block;
-            }
-          }
-          & .comBody2nd {
-            padding-left: 0;
-            min-height: 30px;
-            & p {
-              padding: 5px;
-              text-align: left;
-              margin: 0;
-            }
-            & textarea {
-              display: inline-block;
-              //align-self: left;
-              resize: none;
-              height: 30px;
-              width: 750px;
-              border: none;
-              margin: 10px;
-            }
-            & .btn-info {
-              font-style: italic;
-              //float: right;
-              //margin-top: auto;
-              margin-bottom: 20px;
-            }
-          }
-        }
-        & .comFooter2nd {
-          //padding: 0;
+      & .comRightPart {
+        padding: 0;
+        & .whoAndWhen {
+          padding-top: 10px;
           display: flex;
           flex-direction: row;
-          box-shadow: 0px -5px 10px -2px $postShadows;
-          & p {
-            margin: 0;
-            padding: 5px;
-            //padding-left: 15px;
-            padding-top: 10px;
-            font-size: 12px;
+          padding-left: 5px;
+          box-shadow: 0px 3px 3px -2px $postShadows;
+          & h5 {
+            align-self: flex-start;
+            line-height: 5px;
+            padding: 0;
+            margin: 10px;
+            margin-left: 0;
+            font-size: 14px;
+            display: inline-block;
           }
-          & .likesDiv2nd {
+          & p {
+            align-self: flex-end;
+            line-height: 5px;
+            margin: 10px;
+            margin-right: 0px;
             margin-left: auto;
             display: inline-block;
+          }
+        }
+        & .comBody {
+          padding-left: 5px;
+          min-height: 50px;
+          & p {
+            padding: 10px;
+            text-align: left;
+            margin: 0;
+          }
+          & textarea {
+            display: inline-block;
+            //align-self: left;
+            resize: none;
+            height: 80px;
+            width: 750px;
+            border: none;
+            margin: 10px;
+          }
+          @include normal-style-button;
+        }
+      }
+      & .comFooter {
+        //padding: 0;
+        display: flex;
+        flex-direction: row;
+        box-shadow: 0px -5px 10px -2px $postShadows;
+        & p {
+          margin: 0;
+          padding: 5px;
+          //padding-left: 15px;
+          padding-top: 10px;
+          font-size: 12px;
+        }
+        & .likesDiv {
+          margin-left: auto;
+          display: inline-block;
+          align-self: flex-end;
+          & i {
+            font-size: 16px;
+            padding: 5px;
+            padding-right: 15px;
+          }
+          & span {
+            @include tooltiptext;
+            left: 90%;
+          }
+        }
+      }
+    }
+    & .add2ndCommentDiv {
+     margin-top: -1px;
+      opacity: 0;
+      box-shadow: inset 0px 5px 10px -2px $postShadows;
+      height: 0px; //bilo 200
+      background-color: #fff;
+      //width: 960px;
+      align-self: center;
+      //width: 97%!important;
+      //margin: 15px;
+      //padding: 0;
+      border-radius: 0 0 20px 20px;
+      transition: 0.25s ease-in-out;
+      //width: 100%;
+      @include commentFormFormat;
+      & form #comInputArea {
+        opacity: 1;
+      }
+    }
+    & .mCommentDiv2nd {
+      height: 0;
+      opacity: 0;
+      display: none;
+      align-self: flex-end;
+      width: 96%;
+      box-shadow: inset 0px 5px 10px -2px $postShadows;
+      padding: 0 0 5px 0;
+      background-color: #fff;
+      transition: 2s ease-in-out;
+      &:nth-child(n) {
+        border-radius: 15px;
+      }
+      &:nth-of-type(2) {
+        border-radius: 0 15px 15px 15px;
+      }
+      & .comLeftPart2nd {
+        padding: 0;
+        & img {
+          padding: 10px;
+          max-width: 70px;
+          max-height: 70px;
+        }
+      }
+      & .comRightPart2nd {
+        padding: 0;
+        & .whoAndWhen2nd {
+          padding-top: 10px;
+          display: flex;
+          flex-direction: row;
+          padding-left: 5px;
+          box-shadow: 0px 3px 3px -2px $postShadows;
+          & h5 {
+            align-self: flex-start;
+            line-height: 5px;
+            padding: 0;
+            margin: 5px;
+            margin-left: 0;
+            font-size: 14px;
+            display: inline-block;
+          }
+          & p {
             align-self: flex-end;
-            & i {
-              font-size: 16px;
-              //padding: 5px;
-              padding-right: 15px;
-            }
-            & span {
-              @include tooltiptext;
-              left: 90%;
-              //padding: 1px;
-            }
+            line-height: 5px;
+            margin: 5px;
+            margin-right: 0px;
+            margin-left: auto;
+            display: inline-block;
+          }
+        }
+        & .comBody2nd {
+          padding-left: 0;
+          min-height: 30px;
+          & p {
+            padding: 5px;
+            text-align: left;
+            margin: 0;
+          }
+          & textarea {
+            display: inline-block;
+            //align-self: left;
+            resize: none;
+            height: 30px;
+            width: 750px;
+            border: none;
+            margin: 10px;
+          }
+          @include normal-style-button;
+        }
+      }
+      & .comFooter2nd {
+        //padding: 0;
+        display: flex;
+        flex-direction: row;
+        box-shadow: 0px -5px 10px -2px $postShadows;
+        & p {
+          margin: 0;
+          padding: 5px;
+          //padding-left: 15px;
+          padding-top: 10px;
+          font-size: 12px;
+        }
+        & .likesDiv2nd {
+          margin-left: auto;
+          display: inline-block;
+          align-self: flex-end;
+          & i {
+            font-size: 16px;
+            //padding: 5px;
+            padding-right: 15px;
+          }
+          & span {
+            @include tooltiptext;
+            left: 90%;
+            //padding: 1px;
           }
         }
       }
     }
   }
 }
+
 .likedClass {
   transition-duration: 0.2s;
   color: #639a67;
