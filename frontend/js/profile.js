@@ -1,6 +1,6 @@
 
 let api = 'http://127.0.0.1:3000/user/profile';
-let mmApi = 'http://127.0.0.1:3000/api/mmposts/createPost';
+let mmApi = 'http://127.0.0.1:3000/api/mmposts';
 
 let url = window.location.href;
 let reqProfId = url.substring(url.lastIndexOf('?') + 1);
@@ -276,11 +276,15 @@ request.onload = function () {
             }
         }
         consructUserNetworks();
-        leftPart.appendChild(document.createElement('hr'));
+        //leftPart.appendChild(document.createElement('hr'));
+
+        let membDiv = document.createElement('div');
+        membDiv.setAttribute('class', 'member-div');
+        leftPart.appendChild(membDiv);
 
         let memberSince = document.createElement('p');
         memberSince.innerText = 'Member since: ' + countTime(data.userData[0].timeCreated);
-        leftPart.appendChild(memberSince);
+        membDiv.appendChild(memberSince);
         //Middle part
         //Header section
         const headerDiv = document.createElement('div');
@@ -506,7 +510,7 @@ request.onload = function () {
         createButton.innerText = 'Post'
         buttonGroup.appendChild(createButton);
         createButton.addEventListener('click', ($event) => {
-            $event.preventDefault();
+            //$event.preventDefault();
 
             let submitMMData = new FormData
             submitMMData.append('embedLink', null);
@@ -532,6 +536,9 @@ request.onload = function () {
                         let newLink = linkInput.value.replace('youtu.be/', 'www.youtube.com/embed/');
                         submitMMData.append('embedLink', newLink);
                         submitMMData.append('embed', true);
+                    } else if (linkInput.value.indexOf('youtube') && linkInput.value.trim().length < 25) {
+                        errorParag.innerText = 'Provide a valid youtube link video.'
+                        return
                     } else {
                         submitMMData.append('embedLink', linkInput.value);
                         submitMMData.append('embed', true);
@@ -565,7 +572,7 @@ request.onload = function () {
             function makeSubmitMMPost(submitMMData) {
                 return new Promise((resolve, reject) => {
                     let request = new XMLHttpRequest();
-                    request.open('POST', mmApi, true);
+                    request.open('POST', mmApi + '/createPost', true);
                     request.withCredentials = true;
                     request.onreadystatechange = () => {
                         if (request.readyState === 4) {
@@ -593,13 +600,14 @@ request.onload = function () {
         errorParag.setAttribute('id', 'errorParag');
         contentDiv.appendChild(errorParag);
 
-
         if (data.mmContent.length === 0) {
             const noMMPosts = document.createElement('p');
             noMMPosts.innerText = 'You did not create any posts';
             contentDiv.appendChild(noMMPosts);
         }
-
+        const divOnTop = document.createElement('div');
+        divOnTop.setAttribute('id', 'divOnTop');
+        middlePart.appendChild(divOnTop);
         //MM content created by user
 
         const contentDivMM = document.createElement('div');
@@ -629,7 +637,7 @@ request.onload = function () {
             mmPostTimeCreated.setAttribute('class', 'timeCreated');
             mmPostTimeCreated.innerText = countTime(data.mmContent[i].timeCreated);
             singlePostHeader.appendChild(mmPostTimeCreated);
-            singlePost.appendChild(document.createElement('hr'));
+            //singlePost.appendChild(document.createElement('hr'));
             const singlePostText = document.createElement('p');
             singlePostText.setAttribute('class', 'post-text-content');
 
@@ -643,7 +651,7 @@ request.onload = function () {
                     mmField = data.mmContent[i].postMMField;
                     mmPic = mmField.substring(mmField.length - 4);
 
-                    let posibleImgExtensions = ['.jpg', '.png', 'apng', '.bmp', '.gif', '.svg', '.webp'];
+                    let posibleImgExtensions = ['.jpg', '.png', 'apng', '.bmp', '.gif', '.svg', 'webp'];
                     let posibleVidExtensions = ['.flv', '.mp4', '.ts', '.3gp', '.mov', '.avi', '.wmv'];
 
                     if (posibleImgExtensions.includes(mmPic)) {
@@ -662,10 +670,10 @@ request.onload = function () {
             } else if (data.mmContent[i].embed === 1) {
                 if (data.mmContent[i].postMMField !== null) {
                     const embed = document.createElement('iframe');
-                    //embed.setAttribute('class', 'embed-responsive-item');
+                    embed.setAttribute('class', 'embed-responsive-item');
                     embed.frameBorder = 0;
                     embed.width = '100%'
-                    //embed.allowFullscreen = true;
+                    embed.allowFullscreen = true;
                     embed.setAttribute('src', data.mmContent[i].postMMField);
                     singlePost.appendChild(embed);
                 } else {
@@ -692,14 +700,34 @@ request.onload = function () {
 
             if (data.userData[0].userId === data.userInfo[0].userId) {
                 const editButton = document.createElement('button');
-                editButton.setAttribute('class', 'btn btn-link');
+                editButton.setAttribute('class', 'btn btn-link editMMPost');
                 editButton.innerText = 'edit';
                 postButtonGroup.appendChild(editButton);
+
+                let multimedia = data.mmContent[i].postMMField;
+                let embeding = data.mmContent[i].embed;
+                let mmText = data.mmContent[i].postText;
+                let editingPostId = data.mmContent[i].mmPostId;
+                editMMPostFunction(divOnTop, editButton, mmText, multimedia, embeding, editingPostId);
 
                 const deleteButton = document.createElement('button');
                 deleteButton.setAttribute('class', 'btn btn-link');
                 deleteButton.innerText = 'delete';
                 postButtonGroup.appendChild(deleteButton);
+
+                deleteButton.addEventListener('click', ($event) => {
+                    $event.preventDefault();
+
+                    let result = confirm('Do you really want to delete your post')
+                    if (result) {
+                        let submitData = { 'delete': 'delete' };
+                        let apiLink = mmApi + '/' + data.mmContent[i].mmPostId;
+                        let keyWord = 'DELETE';
+
+                        submitMMFormData(submitData, keyWord, apiLink);
+                        document.getElementsByClassName('mmPosts')[i].style.display = 'none';
+                    }
+                });
             }
 
             const likesDiv = document.createElement('div');
@@ -727,14 +755,23 @@ request.onload = function () {
             dislikes.style.cursor = 'pointer';
             likesDiv.appendChild(dislikes);
 
-            singlePost.appendChild(document.createElement('hr'));
+            //singlePost.appendChild(document.createElement('hr'));
 
-            //comments
+            //add comments
             let addComment = document.createElement('div');
             addComment.setAttribute('class', 'col-md-12 addCommentDiv');
             singlePost.appendChild(addComment);
 
-            createCommentForm(addComment)
+            //Function from comment.js for Building input Comment form var order: div for form, post id
+            createCommentForm(addComment, (data.mmContent[i].mmPostId));
+
+            let inputLabel = document.getElementsByClassName('labelDiv')[i];
+
+            //Function for comment span on input comment variable order: div for form, inputLabel, numberOfComments, post id, div to attach comments
+            inputLabelCommentsSpan(addComment, inputLabel, (data.mmContent[i].numberOfComments), (data.mmContent[i].mmPostId), singlePost[i]);
+
+            //Function for building comments on the post - var order: post div,
+            //commentBuilder(singlePost, (data.mmContent[i].userPicture),(data.mmContent[i].username),(data.mmContent[i].timeCreated ))
         }
 
         //Right part
@@ -859,24 +896,24 @@ function countTime(timeToCount) {
     let diffTime
     diff = d1 - d2
     if (diff < 60e3) {
-        diffTime = Math.floor(diff / 1000) + ' sec ago';
+        diffTime = Math.floor(diff / 1000) + 'sec ago';
         return diffTime;
     }
     else if (diff >= 60e3 && diff < 3.6e+6) {
-        diffTime = Math.floor(diff / 60e3) + ' min ago'
+        diffTime = Math.floor(diff / 60e3) + 'min ago'
     }
     else if (diff >= 3.6e+6 && diff < 8.64e+7) {
-        diffTime = Math.floor(diff / 3.6e+6) + ' h ago';
+        diffTime = Math.floor(diff / 3.6e+6) + 'h ago';
         return diffTime;
     }
     else if (diff >= 8.64e+7 && diff < 2.628e+9) {
         diffTime = Math.floor(diff / 8.64e+7) + ' d ago';
     }
     else if (diff >= 2.628e+9 && diff < 3.154e+10) {
-        diffTime = Math.floor(diff / 2.628e+9) + ` m'th ago`;
+        diffTime = Math.floor(diff / 2.628e+9) + `m'th ago`;
     }
     else if (diff >= 3.154e+10) {
-        diffTime = Math.floor(diff / 3.154e+10) + ' y ago';
+        diffTime = Math.floor(diff / 3.154e+10) + 'y ago';
     }
     else {
         console.log('Problem with times in the function');
@@ -925,3 +962,34 @@ logoutButton.addEventListener('click', () => {
         };
     }
 });
+
+function makeMMRequest(submitMMData, keyWord, apiLink) {
+    return new Promise((resolve, reject) => {
+        let request = new XMLHttpRequest();
+        request.withCredentials = true;
+        request.open(keyWord, apiLink);
+        request.onreadystatechange = () => {
+            if (request.readyState === 4) {
+                if (request.status >= 200 && request.status < 400) {
+                    resolve(request.response);
+                } else {
+                    reject(request.response);
+                }
+            }
+        };
+        request.setRequestHeader('Content-Type', 'application/json');
+        request.send(JSON.stringify(submitMMData));
+    });
+}
+
+async function submitMMFormData(submitMMData, keyWord, reqOpen) {
+    try {
+        const requestPromise = makeMMRequest(submitMMData, keyWord, reqOpen);
+        const response = await requestPromise;
+        responseId = (JSON.parse(response));
+        //location.reload()
+    }
+    catch (errorResponse) {
+        alert(errorResponse);
+    };
+}

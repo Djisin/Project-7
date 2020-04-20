@@ -282,7 +282,7 @@ exports.modifyPost = (req, res, next) => {
                     const filename = rows[0].postPicture.split('/images/')[1];
                     fs.unlinkSync('images/' + filename);
                 }
-            } else {
+            } else { 
                 console.log('Error on picture update');
             }
         })

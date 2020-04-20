@@ -363,6 +363,7 @@ request.onload = function () {
             mainComment.appendChild(comFooter);
 
             if (data.comment[i].userId !== data.userInfo[0].userId) {
+                
                 const comReport = document.createElement('button');
                 comReport.setAttribute('class', 'btn btn-link')
                 comReport.innerText = 'report';
@@ -461,7 +462,7 @@ request.onload = function () {
             const ComOnComment = document.createElement('button');
             ComOnComment.setAttribute('class', 'btn btn-link');
 
-            add2ndComment = document.createElement('div');
+            const add2ndComment = document.createElement('div');
             add2ndComment.setAttribute('class', 'col-md-12 add2ndCommentDiv')
             createCommentForm(add2ndComment)
             oneCommentDiv.appendChild(add2ndComment)

@@ -7,7 +7,7 @@ postsMMCtrl = require('../controllers/mmPosts');
 
 router.post('/createPost', auth, multerMM, postsMMCtrl.createMMPost);
 router.get('/', auth, postsMMCtrl.getAllMMPosts);
-router.get('/:id', auth, postsMMCtrl.getOneMMPost);
+router.get('/:id', auth, postsMMCtrl.getOneMMPostComments);
 router.put('/:id', auth, multerMM, postsMMCtrl.modifyMMPost);
 router.delete('/:id', auth, postsMMCtrl.deleteMMPost);
 router.post('/:id/likes', auth, postsMMCtrl.likeMMPost);

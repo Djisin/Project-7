@@ -40,7 +40,7 @@ body {
       -ms-flex-pack: center;
           justify-content: center;
   position: fixed;
-  z-index: 1;
+  z-index: 9999;
   padding-top: 50px;
   left: 0;
   top: 0;
@@ -276,7 +276,7 @@ nav img {
       -ms-flex-pack: center;
           justify-content: center;
   position: fixed;
-  z-index: 1;
+  z-index: 9999;
   padding-top: 50px;
   left: 0;
   top: 0;
@@ -749,7 +749,7 @@ nav img {
       -ms-flex-pack: center;
           justify-content: center;
   position: fixed;
-  z-index: 1;
+  z-index: 9999;
   padding-top: 50px;
   left: 0;
   top: 0;
@@ -868,10 +868,16 @@ nav img {
   margin-left: 5px;
   padding: 2px 8px 2px 8px;
   font-style: italic;
-  /*&:hover {
-            transform: scale(1.1);
-            transition-duration: 0.25s;
-        }*/
+  color: #000;
+}
+
+#showPost button:hover {
+  -webkit-transform: scale(1.1);
+          transform: scale(1.1);
+  -webkit-transition-duration: 0.25s;
+          transition-duration: 0.25s;
+  text-decoration: none;
+  color: #5989d1;
 }
 
 .addCommentDiv {
@@ -903,14 +909,40 @@ nav img {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
   -webkit-box-orient: horizontal;
   -webkit-box-direction: normal;
       -ms-flex-direction: row;
           flex-direction: row;
   cursor: pointer;
+}
+
+.addCommentDiv form .labelDiv i {
+  margin-top: 3px;
+  margin-right: 10px;
+}
+
+.addCommentDiv form .labelDiv button {
+  margin-left: 5px;
+  padding: 2px 8px 2px 8px;
+  font-style: italic;
+  color: #000;
+}
+
+.addCommentDiv form .labelDiv button:hover {
+  -webkit-transform: scale(1.1);
+          transform: scale(1.1);
+  -webkit-transition-duration: 0.25s;
+          transition-duration: 0.25s;
+  text-decoration: none;
+  color: #5989d1;
+}
+
+.addCommentDiv form .labelDiv span {
+  -ms-flex-item-align: end;
+      align-self: flex-end;
+  margin-left: auto;
+  padding: 0;
+  margin-bottom: 3px;
 }
 
 .addCommentDiv form label {
@@ -933,7 +965,7 @@ nav img {
 .addCommentDiv form .commentButtonDiv {
   height: auto;
   padding: 0;
-  margin: 0 0 5px 0;
+  margin: 3px 0 3px 0;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -950,10 +982,16 @@ nav img {
   margin-left: 5px;
   padding: 2px 8px 2px 8px;
   font-style: italic;
-  /*&:hover {
-            transform: scale(1.1);
-            transition-duration: 0.25s;
-        }*/
+  color: #000;
+}
+
+.addCommentDiv form .commentButtonDiv button:hover {
+  -webkit-transform: scale(1.1);
+          transform: scale(1.1);
+  -webkit-transition-duration: 0.25s;
+          transition-duration: 0.25s;
+  text-decoration: none;
+  color: #5989d1;
 }
 
 #commentsDiv {
@@ -1058,10 +1096,16 @@ nav img {
   margin-left: 5px;
   padding: 2px 8px 2px 8px;
   font-style: italic;
-  /*&:hover {
-            transform: scale(1.1);
-            transition-duration: 0.25s;
-        }*/
+  color: #000;
+}
+
+#commentsDiv .mCommentDiv .mainComment .comRightPart .comBody button:hover {
+  -webkit-transform: scale(1.1);
+          transform: scale(1.1);
+  -webkit-transition-duration: 0.25s;
+          transition-duration: 0.25s;
+  text-decoration: none;
+  color: #5989d1;
 }
 
 #commentsDiv .mCommentDiv .mainComment .comFooter {
@@ -1155,14 +1199,40 @@ nav img {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
   -webkit-box-orient: horizontal;
   -webkit-box-direction: normal;
       -ms-flex-direction: row;
           flex-direction: row;
   cursor: pointer;
+}
+
+#commentsDiv .mCommentDiv .add2ndCommentDiv form .labelDiv i {
+  margin-top: 3px;
+  margin-right: 10px;
+}
+
+#commentsDiv .mCommentDiv .add2ndCommentDiv form .labelDiv button {
+  margin-left: 5px;
+  padding: 2px 8px 2px 8px;
+  font-style: italic;
+  color: #000;
+}
+
+#commentsDiv .mCommentDiv .add2ndCommentDiv form .labelDiv button:hover {
+  -webkit-transform: scale(1.1);
+          transform: scale(1.1);
+  -webkit-transition-duration: 0.25s;
+          transition-duration: 0.25s;
+  text-decoration: none;
+  color: #5989d1;
+}
+
+#commentsDiv .mCommentDiv .add2ndCommentDiv form .labelDiv span {
+  -ms-flex-item-align: end;
+      align-self: flex-end;
+  margin-left: auto;
+  padding: 0;
+  margin-bottom: 3px;
 }
 
 #commentsDiv .mCommentDiv .add2ndCommentDiv form label {
@@ -1185,7 +1255,7 @@ nav img {
 #commentsDiv .mCommentDiv .add2ndCommentDiv form .commentButtonDiv {
   height: auto;
   padding: 0;
-  margin: 0 0 5px 0;
+  margin: 3px 0 3px 0;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -1202,10 +1272,16 @@ nav img {
   margin-left: 5px;
   padding: 2px 8px 2px 8px;
   font-style: italic;
-  /*&:hover {
-            transform: scale(1.1);
-            transition-duration: 0.25s;
-        }*/
+  color: #000;
+}
+
+#commentsDiv .mCommentDiv .add2ndCommentDiv form .commentButtonDiv button:hover {
+  -webkit-transform: scale(1.1);
+          transform: scale(1.1);
+  -webkit-transition-duration: 0.25s;
+          transition-duration: 0.25s;
+  text-decoration: none;
+  color: #5989d1;
 }
 
 #commentsDiv .mCommentDiv .add2ndCommentDiv form #comInputArea {
@@ -1308,10 +1384,16 @@ nav img {
   margin-left: 5px;
   padding: 2px 8px 2px 8px;
   font-style: italic;
-  /*&:hover {
-            transform: scale(1.1);
-            transition-duration: 0.25s;
-        }*/
+  color: #000;
+}
+
+#commentsDiv .mCommentDiv .mCommentDiv2nd .comRightPart2nd .comBody2nd button:hover {
+  -webkit-transform: scale(1.1);
+          transform: scale(1.1);
+  -webkit-transition-duration: 0.25s;
+          transition-duration: 0.25s;
+  text-decoration: none;
+  color: #5989d1;
 }
 
 #commentsDiv .mCommentDiv .mCommentDiv2nd .comFooter2nd {
@@ -1388,22 +1470,24 @@ nav img {
 
 #userProfile {
   background-color: #fff;
-  margin-top: 60px;
+  margin-top: 40px;
   -ms-flex-item-align: center;
       -ms-grid-row-align: center;
       align-self: center;
   max-width: 1024px;
   padding: 0;
   min-height: 90vh;
+  border: 4px double rgba(95, 131, 165, 0.75);
+  border-radius: 8px;
 }
 
-#userProfile #leftPart {
-  top: 60px;
+#leftPart {
+  top: 44px;
   position: -webkit-sticky;
   position: sticky;
 }
 
-#userProfile #leftPart #profPicDiv {
+#leftPart #profPicDiv {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -1412,15 +1496,48 @@ nav img {
       -ms-flex-direction: column;
           flex-direction: column;
   margin-top: 25px;
+  padding: 0 10px 10px 10px;
+  border-top: 3px double rgba(95, 131, 165, 0.75);
+  border-bottom: 3px double rgba(95, 131, 165, 0.75);
+  border-right: 3px double rgba(95, 131, 165, 0.75);
+  border-radius: 8px;
+  -webkit-box-shadow: 1px 0px 2px 1px rgba(0, 0, 0, 0.35);
+          box-shadow: 1px 0px 2px 1px rgba(0, 0, 0, 0.35);
+  margin-top: 15px;
+  text-align: left;
 }
 
-#userProfile #leftPart #profPicDiv img {
+#leftPart #profPicDiv::before {
+  content: "";
+  position: absolute;
+  border-radius: 50%;
+  left: 50%;
+  margin-left: -3px;
+  margin-top: 1px;
+  border-width: 3px;
+  border-style: double;
+  border-color: rgba(95, 131, 165, 0.75);
+}
+
+#leftPart #profPicDiv::before {
+  content: "";
+  position: absolute;
+  border-radius: 50%;
+  left: 50%;
+  margin-left: -3px;
+  margin-top: 1px;
+  border-width: 3px;
+  border-style: double;
+  border-color: rgba(95, 131, 165, 0.75);
+}
+
+#leftPart #profPicDiv img {
   -ms-flex-item-align: center;
       -ms-grid-row-align: center;
       align-self: center;
   max-width: 200px;
   height: 200px;
-  margin-bottom: 20px;
+  margin-top: 10px;
   -webkit-box-shadow: 3px 3px 5px 0px rgba(0, 0, 0, 0.75);
           box-shadow: 3px 3px 5px 0px rgba(0, 0, 0, 0.75);
   overflow: hidden;
@@ -1428,7 +1545,7 @@ nav img {
      object-fit: cover;
 }
 
-#userProfile #leftPart #profPicDiv .btn-group {
+#leftPart #profPicDiv .btn-group {
   margin-top: 170px;
   -ms-flex-item-align: center;
       -ms-grid-row-align: center;
@@ -1436,12 +1553,70 @@ nav img {
   position: absolute;
 }
 
-#userProfile #leftPart #profPicDiv .btn-group button {
+#leftPart #profPicDiv .btn-group button {
   padding: 3px;
   width: 100px;
 }
 
-#userProfile #leftPart #moreUserProf {
+#leftPart #profRankDiv {
+  display: -webkit-inline-box;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  border-top: 3px double rgba(95, 131, 165, 0.75);
+  border-bottom: 3px double rgba(95, 131, 165, 0.75);
+  border-right: 3px double rgba(95, 131, 165, 0.75);
+  border-radius: 8px;
+  -webkit-box-shadow: 1px 0px 2px 1px rgba(0, 0, 0, 0.35);
+          box-shadow: 1px 0px 2px 1px rgba(0, 0, 0, 0.35);
+  margin-top: 15px;
+  text-align: left;
+  margin-top: 15px;
+}
+
+#leftPart #profRankDiv::before {
+  content: "";
+  position: absolute;
+  border-radius: 50%;
+  left: 50%;
+  margin-left: -3px;
+  margin-top: 1px;
+  border-width: 3px;
+  border-style: double;
+  border-color: rgba(95, 131, 165, 0.75);
+}
+
+#leftPart #profRankDiv::before {
+  content: "";
+  position: absolute;
+  border-radius: 50%;
+  left: 50%;
+  margin-left: -3px;
+  margin-top: 1px;
+  border-width: 3px;
+  border-style: double;
+  border-color: rgba(95, 131, 165, 0.75);
+}
+
+#leftPart #profRankDiv #rank {
+  border-radius: 6px;
+  -ms-flex-item-align: center;
+      -ms-grid-row-align: center;
+      align-self: center;
+}
+
+#leftPart #moreUserProf {
+  border-top: 3px double rgba(95, 131, 165, 0.75);
+  border-bottom: 3px double rgba(95, 131, 165, 0.75);
+  border-right: 3px double rgba(95, 131, 165, 0.75);
+  border-radius: 8px;
+  -webkit-box-shadow: 1px 0px 2px 1px rgba(0, 0, 0, 0.35);
+          box-shadow: 1px 0px 2px 1px rgba(0, 0, 0, 0.35);
+  margin-top: 15px;
+  text-align: left;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -1449,24 +1624,40 @@ nav img {
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
-  padding: 5px;
+  padding: 0px 10px 0 10px;
   -ms-flex-wrap: wrap;
       flex-wrap: wrap;
 }
 
-#userProfile #leftPart #moreUserProf .btn-group {
-  padding: 0 10px 0 10px;
+#leftPart #moreUserProf::before {
+  content: "";
+  position: absolute;
+  border-radius: 50%;
+  left: 50%;
+  margin-left: -3px;
+  margin-top: 1px;
+  border-width: 3px;
+  border-style: double;
+  border-color: rgba(95, 131, 165, 0.75);
 }
 
-#userProfile #leftPart #moreUserProf label {
+#leftPart #moreUserProf .btn-group {
+  padding: 0 10px 5px 10px;
+}
+
+#leftPart #moreUserProf label {
   text-align: left;
 }
 
-#userProfile #leftPart #moreUserProf p {
+#leftPart #moreUserProf label:first-child {
+  margin-top: 10px;
+}
+
+#leftPart #moreUserProf p {
   text-align: left;
 }
 
-#userProfile #leftPart #moreUserProf a {
+#leftPart #moreUserProf a {
   width: 100%;
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
@@ -1478,36 +1669,56 @@ nav img {
   overflow: hidden;
 }
 
-#userProfile #leftPart #moreUserProf input {
+#leftPart #moreUserProf input {
   padding: 3.2px;
   border: none;
   border-bottom: 1px solid;
 }
 
-#userProfile #leftPart #profRankDiv {
-  margin-bottom: 20px;
+#leftPart .member-div {
+  border-top: 3px double rgba(95, 131, 165, 0.75);
+  border-bottom: 3px double rgba(95, 131, 165, 0.75);
+  border-right: 3px double rgba(95, 131, 165, 0.75);
+  border-radius: 8px;
+  -webkit-box-shadow: 1px 0px 2px 1px rgba(0, 0, 0, 0.35);
+          box-shadow: 1px 0px 2px 1px rgba(0, 0, 0, 0.35);
+  margin-top: 15px;
+  text-align: left;
+  margin-top: 15px;
+  margin-bottom: 15px;
 }
 
-#userProfile #leftPart #profRankDiv #rank {
-  border: 3px double rgba(0, 0, 0, 0.75);
-  -webkit-box-shadow: 3px 3px 5px 0px rgba(0, 0, 0, 0.75);
-          box-shadow: 3px 3px 5px 0px rgba(0, 0, 0, 0.75);
-}
-
-#userProfile #leftPart #profRankDiv::before {
+#leftPart .member-div::before {
   content: "";
   position: absolute;
   border-radius: 50%;
   left: 50%;
   margin-left: -3px;
-  margin-top: -5px;
+  margin-top: 1px;
   border-width: 3px;
   border-style: double;
-  border-color: rgba(0, 0, 0, 0.75);
-  z-index: -1;
+  border-color: rgba(95, 131, 165, 0.75);
 }
 
-#userProfile #middlePart {
+#leftPart .member-div::before {
+  content: "";
+  position: absolute;
+  border-radius: 50%;
+  left: 50%;
+  margin-left: -3px;
+  margin-top: 1px;
+  border-width: 3px;
+  border-style: double;
+  border-color: rgba(95, 131, 165, 0.75);
+}
+
+#leftPart .member-div p {
+  margin-top: 15px;
+  padding-left: 10px;
+  text-align: center;
+}
+
+#middlePart {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -1515,9 +1726,19 @@ nav img {
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
+  padding: 0;
 }
 
-#userProfile #middlePart #header-div {
+#middlePart #header-div {
+  border-top: 3px double rgba(95, 131, 165, 0.75);
+  border-bottom: 3px double rgba(95, 131, 165, 0.75);
+  border-right: 3px double rgba(95, 131, 165, 0.75);
+  border-radius: 8px;
+  -webkit-box-shadow: 1px 0px 2px 1px rgba(0, 0, 0, 0.35);
+          box-shadow: 1px 0px 2px 1px rgba(0, 0, 0, 0.35);
+  margin-top: 15px;
+  text-align: left;
+  padding: 0 10px 10px 10px;
   max-height: 480px;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -1526,29 +1747,43 @@ nav img {
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
-  margin-bottom: 10px;
 }
 
-#userProfile #middlePart #header-div h3 {
+#middlePart #header-div::before {
+  content: "";
+  position: absolute;
+  border-radius: 50%;
+  left: 50%;
+  margin-left: -3px;
+  margin-top: 1px;
+  border-width: 3px;
+  border-style: double;
+  border-color: rgba(95, 131, 165, 0.75);
+}
+
+#middlePart #header-div h3 {
   text-align: left;
   margin-bottom: 0;
 }
 
-#userProfile #middlePart #header-div h5 {
+#middlePart #header-div h5 {
   text-align: left;
   margin-top: 5px;
 }
 
-#userProfile #middlePart #header-div p {
+#middlePart #header-div p {
+  font-size: 13px;
+  font-style: italic;
   text-align: justify;
+  margin: 0;
 }
 
-#userProfile #middlePart #header-div button {
+#middlePart #header-div button {
   -ms-flex-item-align: end;
       align-self: flex-end;
 }
 
-#userProfile #middlePart #header-div textarea {
+#middlePart #header-div textarea {
   margin-bottom: 10px;
   resize: none;
   border: none;
@@ -1558,22 +1793,73 @@ nav img {
   padding: 5px 10px 5px 10px;
 }
 
-#userProfile #middlePart #header-div .btn-group {
+#middlePart #header-div .btn-group {
   width: 100%;
   -ms-flex-item-align: end;
       align-self: flex-end;
 }
 
-#userProfile #middlePart #header-div .btn-group button {
+#middlePart #header-div .btn-group button {
   float: right;
 }
 
-#userProfile #middlePart #header-div .btn-group p {
+#middlePart #header-div .btn-group p {
   float: left;
   margin: 0;
 }
 
-#userProfile #middlePart #create-content-div {
+#middlePart #divOnTop {
+  display: none;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  position: fixed;
+  z-index: 9999;
+  padding-top: 50px;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(160, 160, 160, 0.7);
+  -webkit-animation: zoom 0.2s linear;
+          animation: zoom 0.2s linear;
+}
+
+#middlePart #divOnTop #closeButton {
+  position: absolute;
+  top: 15px;
+  right: 35px;
+  color: #f1f1f1;
+  font-size: 40px;
+  font-weight: bold;
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
+  top: 45px;
+}
+
+#middlePart #divOnTop #closeButton:hover {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+  -webkit-transform: scale3d(1.4, 1.4, 1.4) translate3d(-5px, 5px, 0) rotate(1080deg);
+          transform: scale3d(1.4, 1.4, 1.4) translate3d(-5px, 5px, 0) rotate(1080deg);
+}
+
+#middlePart #divOnTop #closeButton:focus {
+  color: #bbb;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+#middlePart #divOnTop .div-on-top-content {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -1581,18 +1867,50 @@ nav img {
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
-}
-
-#userProfile #middlePart #create-content-div h3 {
+  background-color: #fff;
+  width: 500px;
+  padding: 0px 10px 10px 10px;
+  border-top: 3px double rgba(95, 131, 165, 0.75);
+  border-bottom: 3px double rgba(95, 131, 165, 0.75);
+  border-right: 3px double rgba(95, 131, 165, 0.75);
+  border-radius: 8px;
+  -webkit-box-shadow: 1px 0px 2px 1px rgba(0, 0, 0, 0.35);
+          box-shadow: 1px 0px 2px 1px rgba(0, 0, 0, 0.35);
+  margin-top: 15px;
   text-align: left;
-  margin-top: 0;
 }
 
-#userProfile #middlePart #create-content-div p {
-  margin-top: 20px;
+#middlePart #divOnTop .div-on-top-content::before {
+  content: "";
+  position: absolute;
+  border-radius: 50%;
+  left: 50%;
+  margin-left: -3px;
+  margin-top: 1px;
+  border-width: 3px;
+  border-style: double;
+  border-color: rgba(95, 131, 165, 0.75);
 }
 
-#userProfile #middlePart #create-content-div #createMMDiv {
+#middlePart #divOnTop .div-on-top-content img {
+  width: 98%;
+  -ms-flex-item-align: center;
+      -ms-grid-row-align: center;
+      align-self: center;
+}
+
+#middlePart #divOnTop .div-on-top-content .chk-div input {
+  margin: 13.5px 10px 0 10px;
+  float: left;
+}
+
+#middlePart #divOnTop .div-on-top-content .chk-div label {
+  width: 430px;
+  font-weight: 200;
+  font-size: 14px;
+}
+
+#middlePart #divOnTop #editMMDiv {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -1602,32 +1920,33 @@ nav img {
           flex-direction: column;
 }
 
-#userProfile #middlePart #create-content-div #createMMDiv #mmPostTxt {
+#middlePart #divOnTop #editMMDiv #mmPostTxt {
   width: 100%;
   resize: none;
   height: 100px;
   margin-bottom: 5px;
 }
 
-#userProfile #middlePart #create-content-div #createMMDiv .btn-group {
+#middlePart #divOnTop #editMMDiv .btn-group {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
   margin-bottom: 10px;
 }
 
-#userProfile #middlePart #create-content-div #createMMDiv .btn-group button {
+#middlePart #divOnTop #editMMDiv .btn-group button {
   -ms-flex-item-align: end;
       align-self: flex-end;
 }
 
-#userProfile #middlePart #create-content-div #createMMDiv .btn-group button:first-child {
+#middlePart #divOnTop #editMMDiv .btn-group button:first-child {
+  height: 34px;
   font-size: 18px;
   padding-top: 3px;
   padding-bottom: 3px;
 }
 
-#userProfile #middlePart #create-content-div #createMMDiv .btn-group input {
+#middlePart #divOnTop #editMMDiv .btn-group input {
   text-align: left;
   float: left;
   width: 0;
@@ -1635,7 +1954,7 @@ nav img {
   padding: 0;
 }
 
-#userProfile #middlePart #create-content-div #createMMDiv .btn-group #mmLabel {
+#middlePart #divOnTop #editMMDiv .btn-group #mmLabel {
   text-align: left;
   padding: 0;
   opacity: 0;
@@ -1646,17 +1965,13 @@ nav img {
   cursor: pointer;
 }
 
-#userProfile #middlePart #create-content-div #errorParag {
+#middlePart #divOnTop #errorParag {
   position: absolute;
   margin-top: 115px;
   margin-left: 5px;
 }
 
-#userProfile #middlePart .content-div {
-  padding: 0;
-}
-
-#userProfile #middlePart .content-div .mmPosts {
+#middlePart #create-content-div {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -1664,51 +1979,149 @@ nav img {
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
-  border: 1px solid;
-  border-radius: 4px;
-  margin-top: 10px;
-  padding: 0;
-  /*& iframe {
-                    width: inherit;
-                    height: auto;
-                    // overflow: hidden;
-                    & img {
-                        width: 100%;
-                    }
-                }*/
+  border-top: 3px double rgba(95, 131, 165, 0.75);
+  border-bottom: 3px double rgba(95, 131, 165, 0.75);
+  border-right: 3px double rgba(95, 131, 165, 0.75);
+  border-radius: 8px;
+  -webkit-box-shadow: 1px 0px 2px 1px rgba(0, 0, 0, 0.35);
+          box-shadow: 1px 0px 2px 1px rgba(0, 0, 0, 0.35);
+  margin-top: 15px;
+  text-align: left;
+  padding: 0px 15px 0px 15px;
 }
 
-#userProfile #middlePart .content-div .mmPosts img {
-  -webkit-box-shadow: 0px 1px 5px 2px rgba(0, 0, 0, 0.25);
-          box-shadow: 0px 1px 5px 2px rgba(0, 0, 0, 0.25);
-  width: inherit;
-  margin-bottom: 5px;
+#middlePart #create-content-div::before {
+  content: "";
+  position: absolute;
+  border-radius: 50%;
+  left: 50%;
+  margin-left: -3px;
+  margin-top: 1px;
+  border-width: 3px;
+  border-style: double;
+  border-color: rgba(95, 131, 165, 0.75);
 }
 
-#userProfile #middlePart .content-div .mmPosts video {
-  -webkit-box-shadow: 0px 1px 5px 2px rgba(0, 0, 0, 0.25);
-          box-shadow: 0px 1px 5px 2px rgba(0, 0, 0, 0.25);
-  width: inherit;
-  margin-bottom: 5px;
+#middlePart #create-content-div h3 {
+  text-align: left;
   margin-top: 5px;
 }
 
-#userProfile #middlePart .content-div .mmPosts p {
+#middlePart #create-content-div p {
+  margin-top: 20px;
+}
+
+#middlePart #create-content-div #createMMDiv {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+#middlePart #create-content-div #createMMDiv #mmPostTxt {
+  width: 100%;
+  resize: none;
+  height: 100px;
+  margin-bottom: 5px;
+}
+
+#middlePart #create-content-div #createMMDiv .btn-group {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  margin-bottom: 10px;
+}
+
+#middlePart #create-content-div #createMMDiv .btn-group button {
+  -ms-flex-item-align: end;
+      align-self: flex-end;
+}
+
+#middlePart #create-content-div #createMMDiv .btn-group button:first-child {
+  height: 34px;
+  font-size: 18px;
+  padding-top: 3px;
+  padding-bottom: 3px;
+}
+
+#middlePart #create-content-div #createMMDiv .btn-group input {
+  text-align: left;
+  float: left;
+  width: 0;
+  opacity: 0;
+  padding: 0;
+}
+
+#middlePart #create-content-div #createMMDiv .btn-group #mmLabel {
+  text-align: left;
+  padding: 0;
+  opacity: 0;
+  margin-bottom: 0;
+  line-height: inherit;
+  width: 0;
+  height: 34px;
+  cursor: pointer;
+}
+
+#middlePart #create-content-div #errorParag {
+  position: absolute;
+  margin-top: 115px;
+  margin-left: 5px;
+}
+
+#middlePart .content-div {
+  padding: 0;
+}
+
+#middlePart .content-div .mmPosts {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  border: 3px double rgba(95, 131, 165, 0.75);
+  border-radius: 5px;
+  margin-top: 10px;
+  padding: 0;
+  -webkit-box-shadow: 2px 2px 5px 2px rgba(0, 0, 0, 0.25);
+          box-shadow: 2px 2px 5px 2px rgba(0, 0, 0, 0.25);
+}
+
+#middlePart .content-div .mmPosts img {
+  width: inherit;
+  margin-bottom: 5px;
+  padding: 2px;
+}
+
+#middlePart .content-div .mmPosts video {
+  -webkit-box-shadow: 0px 1px 5px 2px rgba(0, 0, 0, 0.25);
+          box-shadow: 0px 1px 5px 2px rgba(0, 0, 0, 0.25);
+  width: inherit;
+  margin-bottom: 5px;
+  padding: 2px;
+}
+
+#middlePart .content-div .mmPosts p {
   text-align: left;
   padding-left: 10px;
   margin-bottom: 5px;
 }
 
-#userProfile #middlePart .content-div .mmPosts .singlePostHeader {
+#middlePart .content-div .mmPosts .singlePostHeader {
   padding: 0;
   position: relative;
   float: none;
   height: 40px;
+  -webkit-box-shadow: 0px 1px 4px 0px rgba(95, 131, 165, 0.75);
+          box-shadow: 0px 1px 4px 0px rgba(95, 131, 165, 0.75);
 }
 
-#userProfile #middlePart .content-div .mmPosts .singlePostHeader img {
-  -webkit-box-shadow: 2px 0px rgba(0, 0, 0, 0.25);
-          box-shadow: 2px 0px rgba(0, 0, 0, 0.25);
+#middlePart .content-div .mmPosts .singlePostHeader img {
   padding: 5px;
   height: 40px;
   width: auto;
@@ -1716,24 +2129,23 @@ nav img {
   float: left;
 }
 
-#userProfile #middlePart .content-div .mmPosts .singlePostHeader p {
+#middlePart .content-div .mmPosts .singlePostHeader p {
   float: left;
   margin: 10px;
   padding: 0;
 }
 
-#userProfile #middlePart .content-div .mmPosts .singlePostHeader .timeCreated {
+#middlePart .content-div .mmPosts .singlePostHeader .timeCreated {
   float: right;
   font-size: 13px;
 }
 
-#userProfile #middlePart .content-div .mmPosts .post-text-content {
-  margin: 5px 0 10px 0;
-  min-height: 25px;
+#middlePart .content-div .mmPosts .post-text-content {
+  margin: 8px 0 8px 0;
   position: relative;
 }
 
-#userProfile #middlePart .content-div .mmPosts .singlePostFooter {
+#middlePart .content-div .mmPosts .singlePostFooter {
   margin: 2px;
   padding: 0;
   display: -ms-grid;
@@ -1743,48 +2155,52 @@ nav img {
       grid-template-columns: 2fr 2fr 2fr;
 }
 
-#userProfile #middlePart .content-div .mmPosts .singlePostFooter p {
+#middlePart .content-div .mmPosts .singlePostFooter p {
   font-size: 12px;
   margin: 0;
   padding: 0;
 }
 
-#userProfile #middlePart .content-div .mmPosts .singlePostFooter .likes-div {
+#middlePart .content-div .mmPosts .singlePostFooter .likes-div {
   -ms-grid-column-align: end;
       justify-self: end;
 }
 
-#userProfile #middlePart .content-div .mmPosts .singlePostFooter .likes-div i {
+#middlePart .content-div .mmPosts .singlePostFooter .likes-div i {
   margin-right: 10px;
   font-size: 16px;
 }
 
-#userProfile #middlePart .content-div .mmPosts .singlePostFooter .btn-group {
+#middlePart .content-div .mmPosts .singlePostFooter .btn-group {
   -ms-grid-column-align: center;
       justify-self: center;
 }
 
-#userProfile #middlePart .content-div .mmPosts .singlePostFooter .btn-group button {
+#middlePart .content-div .mmPosts .singlePostFooter .btn-group button {
   padding: 0px 6px 3px 6px;
   text-decoration: none;
   color: #000;
   font-style: italic;
 }
 
-#userProfile #middlePart .content-div .mmPosts .singlePostFooter .btn-group button:hover {
+#middlePart .content-div .mmPosts .singlePostFooter .btn-group button:hover {
   -webkit-transform: scale(1.2);
           transform: scale(1.2);
   -webkit-transition-duration: 0.25s;
           transition-duration: 0.25s;
 }
 
-#userProfile #middlePart .content-div .mmPosts hr {
+#middlePart .content-div .mmPosts:last-child {
+  margin-bottom: 15px;
+}
+
+#middlePart .content-div .mmPosts hr {
   width: 100%;
   border: 1px solid;
   margin: 0;
 }
 
-#userProfile #rightPart {
+#rightPart {
   top: 60px;
   position: -webkit-sticky;
   position: sticky;
@@ -1797,31 +2213,380 @@ nav img {
           flex-direction: column;
 }
 
-#userProfile #rightPart #numbersDiv {
+#rightPart h4 {
+  font-size: 16px;
+  text-align: center;
   margin-top: 15px;
 }
 
-#userProfile #rightPart #succArticles {
+#rightPart #numbersDiv {
+  border-top: 3px double rgba(95, 131, 165, 0.75);
+  border-bottom: 3px double rgba(95, 131, 165, 0.75);
+  border-right: 3px double rgba(95, 131, 165, 0.75);
+  border-radius: 8px;
+  -webkit-box-shadow: 1px 0px 2px 1px rgba(0, 0, 0, 0.35);
+          box-shadow: 1px 0px 2px 1px rgba(0, 0, 0, 0.35);
+  margin-top: 15px;
+  text-align: left;
+  text-align: center;
+  margin-top: 0;
+}
+
+#rightPart #numbersDiv::before {
+  content: "";
+  position: absolute;
+  border-radius: 50%;
+  left: 50%;
+  margin-left: -3px;
+  margin-top: 1px;
+  border-width: 3px;
+  border-style: double;
+  border-color: rgba(95, 131, 165, 0.75);
+}
+
+#rightPart #numbersDiv label {
+  display: block;
+  margin: 0;
+}
+
+#rightPart #numbersDiv label:first-child {
+  margin-top: 10px;
+}
+
+#rightPart #numbersDiv p {
+  display: inline-block;
+  padding: 3px 12px 3px 12px;
+  margin: 5px;
+  border: 1px solid rgba(95, 131, 165, 0.75);
+  min-width: 60px;
+  border-radius: 6px;
+  -webkit-box-shadow: inset 0px 0px 5px 1px rgba(95, 131, 165, 0.75);
+          box-shadow: inset 0px 0px 5px 1px rgba(95, 131, 165, 0.75);
+}
+
+#rightPart #succArticles {
+  border-top: 3px double rgba(95, 131, 165, 0.75);
+  border-bottom: 3px double rgba(95, 131, 165, 0.75);
+  border-right: 3px double rgba(95, 131, 165, 0.75);
+  border-radius: 8px;
+  -webkit-box-shadow: 1px 0px 2px 1px rgba(0, 0, 0, 0.35);
+          box-shadow: 1px 0px 2px 1px rgba(0, 0, 0, 0.35);
+  margin-top: 15px;
   text-align: left;
 }
 
-#userProfile #rightPart #succArticles ul {
+#rightPart #succArticles::before {
+  content: "";
+  position: absolute;
+  border-radius: 50%;
+  left: 50%;
+  margin-left: -3px;
+  margin-top: 1px;
+  border-width: 3px;
+  border-style: double;
+  border-color: rgba(95, 131, 165, 0.75);
+}
+
+#rightPart #succArticles ul {
   padding-left: 20px;
 }
 
-#userProfile #rightPart #succArticles ul meter {
+#rightPart #succArticles ul meter {
   width: 180px;
 }
 
-#userProfile #rightPart #recentArticles {
+#rightPart #recentArticles {
+  border-top: 3px double rgba(95, 131, 165, 0.75);
+  border-bottom: 3px double rgba(95, 131, 165, 0.75);
+  border-right: 3px double rgba(95, 131, 165, 0.75);
+  border-radius: 8px;
+  -webkit-box-shadow: 1px 0px 2px 1px rgba(0, 0, 0, 0.35);
+          box-shadow: 1px 0px 2px 1px rgba(0, 0, 0, 0.35);
+  margin-top: 15px;
   text-align: left;
+  margin-bottom: 15px;
 }
 
-#userProfile #rightPart #recentArticles ul {
+#rightPart #recentArticles::before {
+  content: "";
+  position: absolute;
+  border-radius: 50%;
+  left: 50%;
+  margin-left: -3px;
+  margin-top: 1px;
+  border-width: 3px;
+  border-style: double;
+  border-color: rgba(95, 131, 165, 0.75);
+}
+
+#rightPart #recentArticles ul {
   padding-left: 20px;
 }
 
-#userProfile hr {
-  margin: 5px;
+.single-comment-div {
+  background-color: #fff;
+  -ms-flex-item-align: center;
+      align-self: center;
+  padding: 0;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.single-comment-div form {
+  padding-top: 5px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.single-comment-div form .labelDiv {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  cursor: pointer;
+}
+
+.single-comment-div form .labelDiv i {
+  margin-top: 3px;
+  margin-right: 10px;
+}
+
+.single-comment-div form .labelDiv button {
+  margin-left: 5px;
+  padding: 2px 8px 2px 8px;
+  font-style: italic;
+  color: #000;
+}
+
+.single-comment-div form .labelDiv button:hover {
+  -webkit-transform: scale(1.1);
+          transform: scale(1.1);
+  -webkit-transition-duration: 0.25s;
+          transition-duration: 0.25s;
+  text-decoration: none;
+  color: #5989d1;
+}
+
+.single-comment-div form .labelDiv span {
+  -ms-flex-item-align: end;
+      align-self: flex-end;
+  margin-left: auto;
+  padding: 0;
+  margin-bottom: 3px;
+}
+
+.single-comment-div form label {
+  font-weight: 200;
+}
+
+.single-comment-div form #comInputArea {
+  opacity: 0;
+}
+
+.single-comment-div form #comInputArea textarea {
+  width: 100%;
+  resize: none;
+  overflow-y: auto;
+  padding-left: 10px;
+  padding-right: 10px;
+  overflow: hidden;
+}
+
+.single-comment-div form .commentButtonDiv {
+  height: auto;
+  padding: 0;
+  margin: 3px 0 3px 0;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
+}
+
+.single-comment-div form .commentButtonDiv button {
+  margin-left: 5px;
+  padding: 2px 8px 2px 8px;
+  font-style: italic;
+  color: #000;
+}
+
+.single-comment-div form .commentButtonDiv button:hover {
+  -webkit-transform: scale(1.1);
+          transform: scale(1.1);
+  -webkit-transition-duration: 0.25s;
+          transition-duration: 0.25s;
+  text-decoration: none;
+  color: #5989d1;
+}
+
+.single-comment-div .mainComment {
+  -webkit-box-shadow: inset 0px 3px 5px -2px rgba(95, 131, 165, 0.75);
+          box-shadow: inset 0px 3px 5px -2px rgba(95, 131, 165, 0.75);
+  padding: 0 0 5px 0;
+  background-color: #fff;
+  width: inherit;
+}
+
+.single-comment-div .mainComment .comLeftPart {
+  padding: 0;
+  height: 100%;
+}
+
+.single-comment-div .mainComment .comLeftPart img {
+  width: auto !important;
+  padding: 0;
+  max-width: 50px;
+  max-height: 50px;
+  margin-top: 5px;
+}
+
+.single-comment-div .mainComment .comRightPart {
+  padding: 0;
+}
+
+.single-comment-div .mainComment .comRightPart .whoAndWhen {
+  padding-top: 10px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  padding-left: 5px;
+  -webkit-box-shadow: 0px 3px 3px -2px rgba(95, 131, 165, 0.75);
+          box-shadow: 0px 3px 3px -2px rgba(95, 131, 165, 0.75);
+}
+
+.single-comment-div .mainComment .comRightPart .whoAndWhen h5 {
+  -ms-flex-item-align: start;
+      align-self: flex-start;
+  line-height: 5px;
+  padding: 0;
+  margin: 10px;
+  margin-left: 0;
+  font-size: 14px;
+  display: inline-block;
+}
+
+.single-comment-div .mainComment .comRightPart .whoAndWhen p {
+  -ms-flex-item-align: end;
+      align-self: flex-end;
+  line-height: 5px;
+  margin: 10px;
+  margin-right: 0px;
+  margin-left: auto;
+  display: inline-block;
+}
+
+.single-comment-div .mainComment .comRightPart .comBody {
+  padding-left: 5px;
+  min-height: 50px;
+}
+
+.single-comment-div .mainComment .comRightPart .comBody p {
+  padding: 10px;
+  text-align: left;
+  margin: 0;
+}
+
+.single-comment-div .mainComment .comRightPart .comBody textarea {
+  display: inline-block;
+  resize: none;
+  height: 80px;
+  width: 750px;
+  border: none;
+  margin: 10px;
+}
+
+.single-comment-div .mainComment .comRightPart .comBody button {
+  margin-left: 5px;
+  padding: 2px 8px 2px 8px;
+  font-style: italic;
+  color: #000;
+}
+
+.single-comment-div .mainComment .comRightPart .comBody button:hover {
+  -webkit-transform: scale(1.1);
+          transform: scale(1.1);
+  -webkit-transition-duration: 0.25s;
+          transition-duration: 0.25s;
+  text-decoration: none;
+  color: #5989d1;
+}
+
+.single-comment-div .mainComment .comFooter {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-shadow: 0px -5px 10px -2px rgba(95, 131, 165, 0.75);
+          box-shadow: 0px -5px 10px -2px rgba(95, 131, 165, 0.75);
+}
+
+.single-comment-div .mainComment .comFooter p {
+  margin: 0;
+  padding: 5px;
+  padding-top: 10px;
+  font-size: 12px;
+}
+
+.single-comment-div .mainComment .comFooter .likesDiv {
+  margin-left: auto;
+  display: inline-block;
+  -ms-flex-item-align: end;
+      align-self: flex-end;
+}
+
+.single-comment-div .mainComment .comFooter .likesDiv i {
+  font-size: 16px;
+  padding: 5px;
+  padding-right: 15px;
+}
+
+.single-comment-div .mainComment .comFooter .likesDiv span {
+  visibility: hidden;
+  width: 120px;
+  background-color: black;
+  color: #fff;
+  text-align: center;
+  padding: 5px 0;
+  border-radius: 6px;
+  padding: 2px;
+  width: 150px;
+  bottom: 100%;
+  left: 50%;
+  margin-left: -60px;
+  position: absolute;
+  z-index: 1;
+  left: 90%;
+}
+
+.single-comment-div .mainComment .comFooter .likesDiv span::after {
+  content: " ";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: black transparent transparent transparent;
 }
 /*# sourceMappingURL=style.css.map */

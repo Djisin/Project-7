@@ -1,5 +1,5 @@
-function submitCommentFormData() {
-    comment = document.getElementById('commentTextInput').value;
+/*function submitCommentFormData() {
+    comment = document.getElementsByClassName('commentTextInput')[0].value;
     let submitComment = { comment, reqPostId };
 
     submitFormData(submitComment);
@@ -34,7 +34,7 @@ function submitCommentFormData() {
             alert(errorResponse);
         };
     }
-}
+}*/
 
 function submitEditedCommentFormData() {
     comment = document.getElementById('editedCommentData').value;
@@ -264,7 +264,7 @@ function submitEditedCommentFormData2nd() {
     }
 }
 
-function createCommentForm(addComment, add2ndComment) {
+function createCommentForm(addComment, mmCommentId) {
     const commentForm = document.createElement('form');
     commentForm.setAttribute('class', 'form-inline');
 
@@ -272,14 +272,14 @@ function createCommentForm(addComment, add2ndComment) {
     labelDiv.setAttribute('class', 'labelDiv');
     commentForm.appendChild(labelDiv);
 
+    const showHideComArea = document.createElement('i');
+    showHideComArea.setAttribute('class', 'fas fa-chevron-up');
+    labelDiv.appendChild(showHideComArea);
+
     const commentFormLabel = document.createElement('label');
     commentFormLabel.setAttribute('for', 'comment');
     commentFormLabel.innerText = 'Add your comment here:'
     labelDiv.appendChild(commentFormLabel);
-
-    const showHideComArea = document.createElement('i');
-    showHideComArea.setAttribute('class', 'fas fa-chevron-up');
-    labelDiv.appendChild(showHideComArea);
 
     const comInputArea = document.createElement('div');
     comInputArea.setAttribute('id', 'comInputArea');
@@ -287,15 +287,15 @@ function createCommentForm(addComment, add2ndComment) {
 
     const commentInput = document.createElement('textarea');
     commentInput.setAttribute('type', 'text');
-    commentInput.setAttribute('class','form-control')
+    commentInput.setAttribute('class', 'form-control commentTextInput')
     commentInput.setAttribute('name', 'commentTextInput');
-    commentInput.setAttribute('id', 'commentTextInput');
+    //commentInput.setAttribute('id', '');
     commentInput.oninput = function () {
         commentInput.style.height = "60px";
         commentInput.style.height = Math.min(commentInput.scrollHeight, 200) + "px";
-        if(commentInput.scrollHeight >200){
+        if (commentInput.scrollHeight > 200) {
             commentInput.style.overflowY = 'scroll';
-        }else{
+        } else {
             commentInput.style.overflowY = '';
         }
     };
@@ -322,11 +322,10 @@ function createCommentForm(addComment, add2ndComment) {
 
     if (addComment) {
         addComment.appendChild(commentForm);
-
-
     } else if (add2ndComment) {
-        add2ndComment.appendChild(commentForm)
+        add2ndComment.appendChild(commentForm);
     }
+
     labelDiv.addEventListener('click', () => {
         if (comInputArea.style.opacity === '1') {
             comInputArea.style.opacity = '0';
@@ -335,14 +334,28 @@ function createCommentForm(addComment, add2ndComment) {
         } else {
             addComment.style.height = 'auto';
             setTimeout(() => { comInputArea.style.opacity = '1' }, 150)
-
             showHideComArea.setAttribute('class', 'fas fa-chevron-down');
+            commentInput.focus();
         }
     })
     commentButtonDiv.lastChild.addEventListener('click', ($event) => {
         $event.preventDefault()
         if (commentInput.value.trim().length > 1) {
-            submitCommentFormData();
+            if ((window.location.pathname).split('/')[2].split('?')[0] === 'post.html') {
+                comment = document.getElementsByClassName('commentTextInput')[0].value;
+                let submitComment = { comment, reqPostId };
+                let keyWord = 'POST';
+                let apiLink = api + '/comment';
+                submitMMComment1st(submitComment, keyWord, apiLink);
+                //submitCommentFormData();
+            } else if ((window.location.pathname).split('/')[2] === 'profile.html') {
+                comment = document.getElementsByClassName('commentTextInput')[0].value;
+                let submitComment = { comment, mmCommentId };
+                let keyWord = 'POST';
+                let apiLink = mmApi + '/comment';
+                submitMMComment1st(submitComment, keyWord, apiLink);
+            }
+
         } else {
             commentInput.setAttribute('placeholder', 'You can not submit empty comment');
             commentInput.focus();
@@ -350,6 +363,74 @@ function createCommentForm(addComment, add2ndComment) {
         }
     })
 }
+
+/*function commentBuilder(commentsDiv, ImgSrc, byWhoInfo, byWhenInfo, comTxt) {
+    const oneCommentDiv = document.createElement('div');
+    oneCommentDiv.setAttribute('class', 'col-md-12 mCommentDiv');
+    commentsDiv.appendChild(oneCommentDiv)
+
+    const mainComment = document.createElement('section');
+    mainComment.setAttribute('class', 'mainComment')
+    oneCommentDiv.appendChild(mainComment)
+
+    const creator = document.createElement('div');
+    creator.setAttribute('class', 'col-md-1 comLeftPart');
+    mainComment.appendChild(creator);
+
+    const userImg = document.createElement('img');
+    userImg.setAttribute('src', ImgSrc)
+    userImg.setAttribute('alt', 'User picture')
+    creator.appendChild(userImg)
+
+    const commInfo = document.createElement('div');
+    commInfo.setAttribute('class', 'col-md-11 comRightPart');
+    mainComment.appendChild(commInfo);
+
+    const whoAndWhen = document.createElement('div');
+    whoAndWhen.setAttribute('class', 'col-md-12 whoAndWhen');
+    commInfo.appendChild(whoAndWhen);
+
+    const byWho = document.createElement('h5');
+    byWho.innerText = byWhoInfo;
+    const byWhen = document.createElement('p');
+    byWhen.innerText = 'Created: ' + countTime(byWhenInfo);
+    whoAndWhen.append(byWho, byWhen);
+
+    const comBody = document.createElement('div');
+    comBody.setAttribute('class', 'col-md-12 comBody');
+    commInfo.appendChild(comBody);
+
+    let comBodyParag = document.createElement('p');
+    comBodyParag.innerText = comTxt;
+    comBody.appendChild(comBodyParag);
+
+    const comFooter = document.createElement('div');
+    comFooter.setAttribute('class', 'col-md-12 comFooter');
+    mainComment.appendChild(comFooter);
+    return comFooter;
+    /*const ComOnComment = document.createElement('button');
+    ComOnComment.setAttribute('class', 'btn btn-link');
+
+    const add2ndComment = document.createElement('div');
+    add2ndComment.setAttribute('class', 'col-md-12 add2ndCommentDiv');
+    createCommentForm(add2ndComment);
+    oneCommentDiv.appendChild(add2ndComment);
+
+    comFooter.appendChild(ComOnComment)
+
+    if (data.comment[i].edited !== 0) {
+        const editedParag = document.createElement('p');
+        editedParag.innerText = 'Edited: ' + countTime(data.comment[i].timeEdited);
+        comFooter.appendChild(editedParag);
+    }
+
+    const likesDiv = document.createElement('div');
+    likesDiv.setAttribute('class', 'likesDiv');
+    comFooter.appendChild(likesDiv);
+
+    const comLikes = document.createElement('i');
+    comLikes.setAttribute('class', 'far fa-thumbs-up');
+}*/
 
 function createReportDiv(comRepForm) {
     const comRepFormRow1 = document.createElement('div');
@@ -438,3 +519,41 @@ function createReportDiv(comRepForm) {
     })
     comRepFormRow6.appendChild(comRepCancel)
 }
+// mm Comments
+function submitMMComment1st(submitComment, keyWord, apiLink) {
+    /*comment = document.getElementsByClassName('commentTextInput')[0].value;
+    let submitComment = { comment, reqMMPostId };*/
+
+    submitFormData(submitComment);
+
+    function makeRequest(submitComment) {
+        return new Promise((resolve, reject) => {
+            let request = new XMLHttpRequest();
+            request.withCredentials = true;
+            request.open(keyWord, apiLink);
+            request.onreadystatechange = () => {
+                if (request.readyState === 4) {
+                    if (request.status >= 200 && request.status < 400) {
+                        resolve(request.response);
+                    } else {
+                        reject(request.response);
+                    }
+                }
+            };
+            request.setRequestHeader('Content-Type', 'application/json');
+            request.send(JSON.stringify(submitComment));
+        });
+    }
+
+    async function submitFormData(submitComment) {
+        try {
+            const requestPromise = makeRequest(submitComment);
+            const response = await requestPromise;
+            responseId = (JSON.parse(response));
+            location.reload()
+        }
+        catch (errorResponse) {
+            alert(errorResponse);
+        };
+    }
+};

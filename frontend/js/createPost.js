@@ -19,7 +19,7 @@ createPostButton.addEventListener('click', ($event) => {
     createPostSection.appendChild(postForm);
 
     let header = document.createElement('h3');
-    header.textContent = 'Create Post';
+    header.textContent = 'Create Article';
     postForm.appendChild(header);
 
     let formRow1 = document.createElement('div');

@@ -16,9 +16,9 @@ exports.createComment = (req, res, next) => {
         } else {
             res.status(401).json({
                 message: error
-            })
+            });
         }
-    })
+    });
 }
 
 exports.modifyComment = (req, res, next) => {

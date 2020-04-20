@@ -143,30 +143,50 @@ exports.profile = (req, res, next) => {
                             WHERE user.userId = ?`, profId,
                             (error, userData) => {
                                 if (!error) {
-                                    connection.query(`SELECT COUNT(postId) AS number FROM post WHERE userId = ?`, profId, (error, numberOfPosts) => {
+                                    connection.query(`
+                                    SELECT COUNT(postId) AS number 
+                                    FROM post 
+                                    WHERE userId = ?`, profId, (error, numberOfPosts) => {
                                         if (!error) {
-                                            connection.query(`SELECT post.postTitle, post.postId, user.username FROM post INNER JOIN user ON user.userId = post.userId ORDER BY postTimeCreated DESC LIMIT 3`, (error, recentPosts) => {
+                                            connection.query(`
+                                                SELECT post.postTitle, post.postId, user.username 
+                                                FROM post 
+                                                INNER JOIN user 
+                                                ON user.userId = post.userId 
+                                                ORDER BY postTimeCreated 
+                                                DESC LIMIT 3`, (error, recentPosts) => {
                                                 if (!error) {
                                                     userData[0]['numberOfPosts'] = numberOfPosts[0].number;
-                                                    connection.query(`SELECT postTitle, postId, postLikes, postDislikes FROM post WHERE userId = ? ORDER BY postLikes - postDislikes DESC LIMIT 3`, profId, (error, succPosts) => {
+                                                    connection.query(`
+                                                    SELECT postTitle, postId, postLikes, postDislikes 
+                                                    FROM post WHERE userId = ? 
+                                                    ORDER BY postLikes - postDislikes 
+                                                    DESC LIMIT 3`, profId, (error, succPosts) => {
                                                         if (!error) {
                                                             userData[0]['succPosts'] = succPosts;
-                                                            connection.query(`SELECT mmpost.*, user.username, user.userPicture FROM mmpost INNER JOIN user ON mmpost.userId = user.userId WHERE mmpost.userId = ?`, profId, (error, mmPosts) => {
-                                                                if (!error) {
-                                                                    //userData[0]['mmContent'] = mmPosts;
-                                                                    res.status(200).json({
-                                                                        'userInfo': userInfo,
-                                                                        'userData': userData,
-                                                                        'recentPosts': recentPosts,
-                                                                        'mmContent': mmPosts
-                                                                    });
-                                                                } else {
-                                                                    res.status(404).json({
-                                                                        message: "Can't get users MM content",
-                                                                        message: error
-                                                                    });
-                                                                }
-                                                            });
+                                                            connection.query(`
+                                                                SELECT mmpost.*, user.username, user.userPicture, COUNT(mmcomment.mmCommentId) AS numberOfComments 
+                                                                FROM mmpost 
+                                                                INNER JOIN user ON mmpost.userId = user.userId 
+                                                                LEFT JOIN mmcomment ON mmpost.mmPostId = mmcomment.mmPostId 
+                                                                WHERE mmpost.userId = ?
+                                                                GROUP BY mmPostId 
+                                                                ORDER BY timeCreated DESC`,
+                                                                profId, (error, mmPosts) => {
+                                                                    if (!error) {
+                                                                        res.status(200).json({
+                                                                            'userInfo': userInfo,
+                                                                            'userData': userData,
+                                                                            'recentPosts': recentPosts,
+                                                                            'mmContent': mmPosts
+                                                                        });
+                                                                    } else {
+                                                                        res.status(404).json({
+                                                                            message: "Can't get users MM content",
+                                                                            message: error
+                                                                        });
+                                                                    }
+                                                                });
                                                         } else {
                                                             res.status(404).json({
                                                                 message: "Can't get last 3 most successfull posts",
@@ -210,13 +230,9 @@ exports.profile = (req, res, next) => {
 }
 
 exports.editProfile = (req, res, next) => {
-    console.log(req)
     let userId = req.session.userId;
     let profId = JSON.parse(req.params.id);
     req.body.editedData = JSON.parse(req.body.editedData)
-
-    console.log(req.body.editedData)
-    console.log(profId)
     if (userId === profId) {
         let personalLine = { 'personalLine': req.body.editedData.personalLine }
         if (req.body.editedData.personalLine !== null && req.body.editedData.profPicture === null && req.body.editedData.userNetws === null) {
@@ -239,8 +255,6 @@ exports.editProfile = (req, res, next) => {
                     if (row[0].userPicture !== 'img/userDef.jpg') {
                         const filename = row[0].userPicture.split('/images/')[1];
                         fs.unlinkSync('images/' + filename);
-                    } else {
-                        console.log('error ovde');
                     }
                     connection.query(`UPDATE user SET ? WHERE userId = ` + userId, userPicture, (error) => {
                         if (!error) {
