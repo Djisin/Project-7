@@ -321,12 +321,6 @@ function createCommentForm(addComment, mmCommentId, subCom, postId) {
     commentSubmit.innerText = 'comment';
     commentButtonDiv.appendChild(commentSubmit);
     addComment.appendChild(commentForm);
-    /*if (addComment) {
-       
-    } else if (add2ndComment) {
-        add2ndComment.appendChild(commentForm);
-    }*/
-
     labelDiv.addEventListener('click', () => {
         if (comInputArea.style.opacity === '1') {
             comInputArea.style.opacity = '0';

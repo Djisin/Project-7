@@ -28,6 +28,9 @@ request.onload = function () {
         //Profile structure
         const profileSection = document.getElementById('userProfile');
         profileSection.setAttribute('class', 'col-md-12');
+        setTimeout(() => {
+            profileSection.style.display='block'
+        }, 1000);
 
         const leftPart = document.createElement('section');
         leftPart.setAttribute('id', 'leftPart');
@@ -622,8 +625,9 @@ request.onload = function () {
         for (let i = 0; i < data.mmContent.length; i++) {
 
             const singlePost = document.createElement('div');
-            singlePost.setAttribute('class', 'col-md-12 mmPosts');
+            singlePost.setAttribute('class', 'col-md-12 mmPosts slide-in-fwd-center');
             contentDivMM.appendChild(singlePost);
+            singlePost.style.animationDelay = (i+0.3)-(0.8*i)+'s'
             
             singlePost.addEventListener('mouseover', () => {
                 singlePost.getElementsByClassName('singlePostFooter')[0].children[1].style.opacity = '1'

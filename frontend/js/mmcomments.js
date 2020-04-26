@@ -55,6 +55,7 @@ function inputLabelCommentsSpan(addComment, inputLabel, postId, numberOfComments
                                 (resp.postComments[j].comUserDislikes),
                                 (resp.postComments[j].numberOfSubComments),
                                 postId,
+                                j
                             )
                         }
                     }
@@ -163,12 +164,14 @@ function commentBuilder(
     amountOfDislikes,
     usersWhoDisliked,
     amountOfSubComments,
-    postId) {
+    postId,
+    j) {
 
     let singleCommentDiv = document.createElement('div');
-    singleCommentDiv.setAttribute('class', 'col-md-12 single-comment-div');
+    singleCommentDiv.setAttribute('class', 'col-md-12 single-comment-div slide-in-top');
     singleCommentDiv.style.padding = '0';
     singlePost.appendChild(singleCommentDiv);
+    singleCommentDiv.style.animationDelay = j-(0.95*j)+'s'
 
     singleCommentDiv.addEventListener('mouseover', () => {
         singleCommentDiv.getElementsByClassName('comFooter')[0].children[1].style.opacity = '1'
