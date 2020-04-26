@@ -264,7 +264,7 @@ function submitEditedCommentFormData2nd() {
     }
 }
 
-function createCommentForm(addComment, mmCommentId) {
+function createCommentForm(addComment, mmCommentId, subCom, postId) {
     const commentForm = document.createElement('form');
     commentForm.setAttribute('class', 'form-inline');
 
@@ -289,6 +289,7 @@ function createCommentForm(addComment, mmCommentId) {
     commentInput.setAttribute('type', 'text');
     commentInput.setAttribute('class', 'form-control commentTextInput')
     commentInput.setAttribute('name', 'commentTextInput');
+    //commentInput.disabled = true;
     //commentInput.setAttribute('id', '');
     commentInput.oninput = function () {
         commentInput.style.height = "60px";
@@ -306,8 +307,8 @@ function createCommentForm(addComment, mmCommentId) {
     comInputArea.appendChild(commentButtonDiv);
 
     const commentReset = document.createElement('button');
-    commentReset.setAttribute('class', 'btn');
-    commentReset.innerText = 'Reset';
+    commentReset.setAttribute('class', 'btn btn-link');
+    commentReset.innerText = 'reset';
     commentButtonDiv.appendChild(commentReset);
 
     commentReset.addEventListener('click', ($event) => {
@@ -316,25 +317,27 @@ function createCommentForm(addComment, mmCommentId) {
     });
 
     const commentSubmit = document.createElement('button');
-    commentSubmit.setAttribute('class', 'btn');
-    commentSubmit.innerText = 'Comment';
+    commentSubmit.setAttribute('class', 'btn btn-link');
+    commentSubmit.innerText = 'comment';
     commentButtonDiv.appendChild(commentSubmit);
-
-    if (addComment) {
-        addComment.appendChild(commentForm);
+    addComment.appendChild(commentForm);
+    /*if (addComment) {
+       
     } else if (add2ndComment) {
         add2ndComment.appendChild(commentForm);
-    }
+    }*/
 
     labelDiv.addEventListener('click', () => {
         if (comInputArea.style.opacity === '1') {
             comInputArea.style.opacity = '0';
+            commentInput.style.display = 'none';
             addComment.style.height = '30px';
             showHideComArea.setAttribute('class', 'fas fa-chevron-up');
         } else {
             addComment.style.height = 'auto';
             setTimeout(() => { comInputArea.style.opacity = '1' }, 150)
             showHideComArea.setAttribute('class', 'fas fa-chevron-down');
+            commentInput.style.display = 'block';
             commentInput.focus();
         }
     })
@@ -342,100 +345,49 @@ function createCommentForm(addComment, mmCommentId) {
         $event.preventDefault()
         if (commentInput.value.trim().length > 1) {
             if ((window.location.pathname).split('/')[2].split('?')[0] === 'post.html') {
+
                 comment = document.getElementsByClassName('commentTextInput')[0].value;
                 let submitComment = { comment, reqPostId };
                 let keyWord = 'POST';
                 let apiLink = api + '/comment';
                 submitMMComment1st(submitComment, keyWord, apiLink);
-                //submitCommentFormData();
             } else if ((window.location.pathname).split('/')[2] === 'profile.html') {
-                comment = document.getElementsByClassName('commentTextInput')[0].value;
-                let submitComment = { comment, mmCommentId };
-                let keyWord = 'POST';
-                let apiLink = mmApi + '/comment';
-                submitMMComment1st(submitComment, keyWord, apiLink);
-            }
+                if (subCom === true) {
 
+                    comment = addComment.getElementsByClassName('commentTextInput')[0].value;
+                    let submitComment = { comment, mmCommentId, postId };
+                    let keyWord = 'POST';
+                    let apiLink = mmApi + '/commentOnComment';
+                    submitMMComment1st(submitComment, keyWord, apiLink);
+                    commentForm.reset();
+                } else {
+
+                    comment = addComment.getElementsByClassName('commentTextInput')[0].value;
+                    let submitComment = { comment, mmCommentId };
+                    let keyWord = 'POST';
+                    let apiLink = mmApi + '/comment';
+                    submitMMComment1st(submitComment, keyWord, apiLink);
+                    commentForm.reset();
+                }
+            }
         } else {
             commentInput.setAttribute('placeholder', 'You can not submit empty comment');
             commentInput.focus();
             return
         }
-    })
+    });
+    preventJs();
 }
 
-/*function commentBuilder(commentsDiv, ImgSrc, byWhoInfo, byWhenInfo, comTxt) {
-    const oneCommentDiv = document.createElement('div');
-    oneCommentDiv.setAttribute('class', 'col-md-12 mCommentDiv');
-    commentsDiv.appendChild(oneCommentDiv)
+function createReportDiv(comRepForm, divToReplace, comRepReason, replace) {
+    const comRepCol1 = document.createElement('div');
+    comRepCol1.setAttribute('class', ' btn-group');
+    comRepForm.appendChild(comRepCol1);
 
-    const mainComment = document.createElement('section');
-    mainComment.setAttribute('class', 'mainComment')
-    oneCommentDiv.appendChild(mainComment)
-
-    const creator = document.createElement('div');
-    creator.setAttribute('class', 'col-md-1 comLeftPart');
-    mainComment.appendChild(creator);
-
-    const userImg = document.createElement('img');
-    userImg.setAttribute('src', ImgSrc)
-    userImg.setAttribute('alt', 'User picture')
-    creator.appendChild(userImg)
-
-    const commInfo = document.createElement('div');
-    commInfo.setAttribute('class', 'col-md-11 comRightPart');
-    mainComment.appendChild(commInfo);
-
-    const whoAndWhen = document.createElement('div');
-    whoAndWhen.setAttribute('class', 'col-md-12 whoAndWhen');
-    commInfo.appendChild(whoAndWhen);
-
-    const byWho = document.createElement('h5');
-    byWho.innerText = byWhoInfo;
-    const byWhen = document.createElement('p');
-    byWhen.innerText = 'Created: ' + countTime(byWhenInfo);
-    whoAndWhen.append(byWho, byWhen);
-
-    const comBody = document.createElement('div');
-    comBody.setAttribute('class', 'col-md-12 comBody');
-    commInfo.appendChild(comBody);
-
-    let comBodyParag = document.createElement('p');
-    comBodyParag.innerText = comTxt;
-    comBody.appendChild(comBodyParag);
-
-    const comFooter = document.createElement('div');
-    comFooter.setAttribute('class', 'col-md-12 comFooter');
-    mainComment.appendChild(comFooter);
-    return comFooter;
-    /*const ComOnComment = document.createElement('button');
-    ComOnComment.setAttribute('class', 'btn btn-link');
-
-    const add2ndComment = document.createElement('div');
-    add2ndComment.setAttribute('class', 'col-md-12 add2ndCommentDiv');
-    createCommentForm(add2ndComment);
-    oneCommentDiv.appendChild(add2ndComment);
-
-    comFooter.appendChild(ComOnComment)
-
-    if (data.comment[i].edited !== 0) {
-        const editedParag = document.createElement('p');
-        editedParag.innerText = 'Edited: ' + countTime(data.comment[i].timeEdited);
-        comFooter.appendChild(editedParag);
-    }
-
-    const likesDiv = document.createElement('div');
-    likesDiv.setAttribute('class', 'likesDiv');
-    comFooter.appendChild(likesDiv);
-
-    const comLikes = document.createElement('i');
-    comLikes.setAttribute('class', 'far fa-thumbs-up');
-}*/
-
-function createReportDiv(comRepForm) {
     const comRepFormRow1 = document.createElement('div');
     comRepFormRow1.setAttribute('class', 'col-md-3');
-    comRepForm.appendChild(comRepFormRow1)
+    comRepCol1.appendChild(comRepFormRow1)
+
     const comRepInput1 = document.createElement('input');
     comRepInput1.setAttribute('class', 'form-check-input');
     comRepInput1.setAttribute('type', 'radio');
@@ -450,7 +402,7 @@ function createReportDiv(comRepForm) {
 
     const comRepFormRow2 = document.createElement('div');
     comRepFormRow2.setAttribute('class', 'col-md-3');
-    comRepForm.appendChild(comRepFormRow2)
+    comRepCol1.appendChild(comRepFormRow2)
     const comRepInput2 = document.createElement('input');
     comRepInput2.setAttribute('class', 'form-check-input');
     comRepInput2.setAttribute('type', 'radio');
@@ -464,7 +416,7 @@ function createReportDiv(comRepForm) {
 
     const comRepFormRow3 = document.createElement('div');
     comRepFormRow3.setAttribute('class', 'col-md-3');
-    comRepForm.appendChild(comRepFormRow3)
+    comRepCol1.appendChild(comRepFormRow3)
     const comRepInput3 = document.createElement('input');
     comRepInput3.setAttribute('class', 'form-check-input');
     comRepInput3.setAttribute('type', 'radio');
@@ -478,7 +430,7 @@ function createReportDiv(comRepForm) {
 
     const comRepFormRow4 = document.createElement('div');
     comRepFormRow4.setAttribute('class', 'col-md-3');
-    comRepForm.appendChild(comRepFormRow4)
+    comRepCol1.appendChild(comRepFormRow4)
     const comRepInput4 = document.createElement('input');
     comRepInput4.setAttribute('class', 'form-check-input');
     comRepInput4.setAttribute('type', 'radio');
@@ -490,9 +442,13 @@ function createReportDiv(comRepForm) {
     comRepLabel4.innerText = 'OPTION4';
     comRepFormRow4.append(comRepInput4, comRepLabel4);
 
+    const comRepCol2 = document.createElement('div');
+    comRepCol2.setAttribute('class', ' btn-group');
+    comRepForm.appendChild(comRepCol2);
+
     const comRepFormRow5 = document.createElement('div');
     comRepFormRow5.setAttribute('class', 'col-md-8');
-    comRepForm.appendChild(comRepFormRow5)
+    comRepCol2.appendChild(comRepFormRow5)
     const comRepInput5 = document.createElement('input');
     comRepInput5.setAttribute('class', 'form-check-input');
     comRepInput5.setAttribute('type', 'radio');
@@ -509,15 +465,23 @@ function createReportDiv(comRepForm) {
 
     const comRepFormRow6 = document.createElement('div');
     comRepFormRow6.setAttribute('class', 'col-md-4');
-    comRepForm.appendChild(comRepFormRow6)
+    comRepCol2.appendChild(comRepFormRow6)
     const comRepCancel = document.createElement('button')
-    comRepCancel.setAttribute('class', 'btn btn-secondary');
+    comRepCancel.setAttribute('class', 'btn btn-link');
     comRepCancel.innerText = 'Cancel';
     comRepCancel.addEventListener('click', () => {
-        comRepCancel.parentElement.parentElement.parentElement.parentElement.removeChild(document.getElementById('comRepReasonDiv'))
+        if (replace === 'replace') {
+            comRepReason.replaceWith(divToReplace)
+        } else if (replace === 'append') {
+            comRepReason.parentElement.removeChild(comRepReason)
+        } else {
+            comRepCancel.parentElement.parentElement.parentElement.parentElement.removeChild(document.getElementById('comRepReasonDiv'))
+
+        }
         // oneCommentDiv.removeChild(comRepReason);
     })
-    comRepFormRow6.appendChild(comRepCancel)
+    comRepCol2.appendChild(comRepCancel)
+    preventJs();
 }
 // mm Comments
 function submitMMComment1st(submitComment, keyWord, apiLink) {
@@ -557,3 +521,28 @@ function submitMMComment1st(submitComment, keyWord, apiLink) {
         };
     }
 };
+function preventJs() {
+    let inputFields = document.getElementsByTagName('input');
+    let textareaFields = document.getElementsByTagName('textarea');
+    for (let i = 0; i < inputFields.length; i++) {
+        preventJ(inputFields[i]);
+    }
+    for (let i = 0; i < textareaFields.length; i++) {
+        preventJ(textareaFields[i]);
+    }
+    function preventJ(field) {
+        field.addEventListener('input', () => {
+            if (field.value.toLowerCase().trim().includes('javascript:') || field.value.toLowerCase().trim().includes('<script>') || field.value.toLowerCase().trim().includes('document.cookie')) {
+                submitMMFormData({ field: field.outerHTML, fieldInput: field.value, location: window.location.href }, ('POST'), (api + '/hkReport'))
+                    .then(message => { alert(message.message) });
+                field.value = '';
+                alert(`
+                    BE AWARE! Attempting to hack is serious offence and has been reported. \n 
+                    Another try might cause permanent auto deletion of your account WITHOUT any posibility of recovering.\n
+                    This will include ALL articles and posts you have created.
+                `);
+                logoutButton.click();
+            }
+        });
+    }
+}

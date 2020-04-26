@@ -35,7 +35,7 @@ exports.modifyComment = (req, res, next) => {
         } else {
             res.status(404).json({ error })
         }
-    })
+    });
 }
 
 exports.deleteComment = (req, res, next) => {

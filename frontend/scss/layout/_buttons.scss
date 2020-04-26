@@ -21,14 +21,16 @@
 @mixin normal-style-button {
     & button {
         margin-left: 5px;
+        margin-bottom: 3px;
         padding: 2px 8px 2px 8px;
         font-style: italic;
+        font-size: 13px;
         color: #000;
         &:hover {
-            transform: scale(1.1);
+            transform: scale(1.2);
             transition-duration: 0.25s;
             text-decoration: none;
-            color: rgb(89, 137, 209);
+            color: $normalStyleButton
         }
     }
 }

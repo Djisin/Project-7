@@ -1,0 +1,24 @@
+#comRepReasonDiv{
+    padding: 0;
+    align-self: flex-end;
+    width: inherit;
+    box-shadow: 0px 2px 4px 1px $postShadows;
+    z-index: 1;
+    & form{
+        display: flex;
+        flex-direction: column;
+        & .btn-group{
+            padding:5px;
+        }
+    } 
+    & div{
+        padding: 0;
+    }
+    & input{
+        margin: 5px;
+    }
+    @include normal-style-button;
+    & button{
+        margin-top: 5px;
+    }
+}

@@ -110,14 +110,12 @@
 }
 //comments
 .addCommentDiv {
-  box-shadow: inset 0px 3px 5px -2px $postShadows;
+  box-shadow: inset 0px 1px 5px -2px $postShadows, 0px 4px 3px -2px $postShadows;
   height: 30px; //bilo 200
   background-color: #fff;
   align-self: center;
-  //width: 97%!important;
   padding: 0;
-  border-radius: 0 0 10px 10px;
-
+  z-index: 1;
   @include commentFormFormat;
   transition: 0.45s ease-in-out;
 }

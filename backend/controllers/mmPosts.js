@@ -148,11 +148,15 @@ exports.modifyMMPost = (req, res, next) => {
     });
 }
 exports.getOneMMPostComments = (req, res, next) => {
-    connection.query(`SELECT mmcomment.*, user.userPicture, user.username 
+    connection.query(`SELECT mmcomment.*, user.userPicture, user.username, COUNT(mmcomseclevel.mmComSecLevId) AS numberOfSubComments
         FROM mmcomment 
         INNER JOIN user 
         ON mmcomment.userId = user.userId
-        WHERE mmpostId = ?  `, req.params.id, (error, rows) => {
+        LEFT JOIN mmcomseclevel
+        ON mmcomment.mmCommentId = mmcomseclevel.mmCommentId
+        WHERE mmcomment.mmPostId = ?
+        GROUP BY mmCommentId
+        ORDER BY comTimeCreated DESC  `, req.params.id, (error, rows) => {
         if (!error) {
             res.status(200).json({
                 'postComments': rows
@@ -166,7 +170,7 @@ exports.getOneMMPostComments = (req, res, next) => {
 }
 
 exports.deleteMMPost = (req, res, next) => {
-    connection.query(`SELECT postMMField FROM mmpost WHERE mmpostId = ?`, req.params.id, (error, dbpicture) => {
+    connection.query(`SELECT postMMField FROM mmpost WHERE mmPostId = ?`, req.params.id, (error, dbpicture) => {
         if (!error) {
             if (dbpicture[0].postMMField !== null) {
                 let picture = dbpicture[0].postMMField.split('/images/')[1];
@@ -198,9 +202,117 @@ exports.likeMMPost = (req, res, next) => {
     console.log('6')
     console.log(req.body);
     console.log(req.params.id)
+    let postId = req.params.id;
+    let userId = req.session.userId;
+    if (req.body.like === 1) {
+        connection.query(`SELECT postUsersLiked, postUsersDisliked FROM mmpost WHERE mmPostId = ?`, postId, (error, postUsersLiked) => {
+            if (!error) {
+                let usersLiked = JSON.parse(postUsersLiked[0].postUsersLiked);
+                let usersDisliked = JSON.parse(postUsersLiked[0].postUsersDisliked);
+                if (!usersLiked.usersLiked.includes(userId) && !usersDisliked.usersDisliked.includes(userId)) {
+                    usersLiked.usersLiked.push(userId);
+                    usersLiked = JSON.stringify(usersLiked)
+                    usersLiked = { 'postUsersLiked': usersLiked }
+                    connection.query(`UPDATE mmpost SET postLikes = postLikes + 1, ? WHERE mmPostId = ?`, [usersLiked, postId], (error) => {
+                        if (!error) {
+                            res.status(202).json({
+                                message: 'Liked',
+                                like: true,
+                                dislike: false
+                            })
+                        } else {
+                            res.status(400).json({
+                                message: 'Like can not be saved',
+                                message: error
+                            });
+                        }
+                    });
+                } else if (!usersLiked.usersLiked.includes(userId) && usersDisliked.usersDisliked.includes(userId)) {
+                    res.status(200).json({
+                        message: 'Remove your dislike before liking'
+                    })
+                } else {
+                    usersLiked.usersLiked.splice(usersLiked.usersLiked.indexOf(userId), 1)
+                    usersLiked = JSON.stringify(usersLiked)
+                    usersLiked = { 'postUsersLiked': usersLiked }
+                    connection.query(`UPDATE mmpost SET postLikes = postLikes - 1, ? WHERE mmPostId = ?`, [usersLiked, postId], (error) => {
+                        if (!error) {
+                            res.status(202).json({
+                                message: 'Liked removed',
+                                like: false,
+                                dislike: false
+                            })
+                        } else {
+                            res.status(400).json({
+                                message: 'Like can not be saved',
+                                message: error
+                            });
+                        }
+                    });
+                }
+            } else {
+                res.status(404).json({
+                    error
+                })
+            }
+        })
+    } else if (req.body.like === -1) {
+        connection.query(`SELECT postUsersLiked, postUsersDisliked FROM mmpost WHERE mmPostId = ?`, postId, (error, postUsersDisliked) => {
+            if (!error) {
+                let usersLiked = JSON.parse(postUsersDisliked[0].postUsersLiked);
+                let usersDisliked = JSON.parse(postUsersDisliked[0].postUsersDisliked);
+                if (!usersLiked.usersLiked.includes(userId) && !usersDisliked.usersDisliked.includes(userId)) {
+                    usersDisliked.usersDisliked.push(userId);
+                    usersDisliked = JSON.stringify(usersDisliked)
+                    usersDisliked = { 'postUsersDisliked': usersDisliked }
+                    connection.query(`UPDATE mmpost SET postDislikes= postDislikes + 1, ? WHERE mmPostId = ?`, [usersDisliked, postId], (error) => {
+                        if (!error) {
+                            res.status(202).json({
+                                message: 'Disliked',
+                                dislike: true,
+                                like: false
+                            })
+                        } else {
+                            res.status(400).json({
+                                message: 'Dislike can not be saved',
+                                message: error
+                            });
+                        }
+                    });
+                } else if (usersLiked.usersLiked.includes(userId) && !usersDisliked.usersDisliked.includes(userId)) {
+                    res.status(200).json({
+                        message: 'Remove your like before disliking'
+                    })
+                } else {
+                    usersDisliked.usersDisliked.splice(usersDisliked.usersDisliked.indexOf(userId), 1)
+                    usersDisliked = JSON.stringify(usersDisliked)
+                    usersDisliked = { 'postUsersDisliked': usersDisliked }
+                    connection.query(`UPDATE mmpost SET postDislikes= postDislikes - 1, ? WHERE mmPostId = ?`, [usersDisliked, postId], (error) => {
+                        if (!error) {
+                            res.status(202).json({
+                                message: 'Dislike removed',
+                                dislike: false,
+                                like: false
+                            })
+                        } else {
+                            res.status(400).json({
+                                message: 'Dislike can not be saved',
+                                message: error
+                            });
+                        }
+                    });
+                }
+            } else {
+                res.status(404).json({
+                    error
+                })
+            }
+        })
+    }
 }
 exports.searchMM = (req, res, next) => {
     console.log('7')
     console.log(req.body);
     console.log(req.params.id)
+
 }

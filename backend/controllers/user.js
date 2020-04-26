@@ -2,6 +2,7 @@ const connection = require('../connection');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const fs = require('fs')
+const today = new Date();
 
 exports.index = (req, res, next) => {
     if (!req.session.userId && !req.session.token) {
@@ -19,7 +20,6 @@ exports.index = (req, res, next) => {
 exports.signup = (req, res, next) => {
     bcrypt.hash(req.body.password, 10).then(
         (hash) => {
-            let today = new Date();
             let users = {
                 'email': req.body.email,
                 'username': req.body.username,
@@ -66,9 +66,8 @@ exports.signup = (req, res, next) => {
 
 exports.login = (req, res, next) => {
     let email = req.body.email;
-    //req.headers.authorization = true;
     connection.query('SELECT * FROM user WHERE ?', { email },
-        (error, result, fields) => {
+        (error, result) => {
             if (result.length === 0) {
                 return res.status(404).json({
                     message: 'User not found!'
@@ -85,11 +84,8 @@ exports.login = (req, res, next) => {
                         { userId: result[0].userId },
                         'I23QLDc9mUczzZSxCYndC6SGrSPeX543lHjaAsWNrvgCBaXaVB80JYdKyP36',
                         { expiresIn: '24h' });
-                    req.session.userId = result[0].userId
-                    req.session.token = token
-                    //console.log(req)
-                    //req.session.save()
-                    //res.redirect('http://127.0.0.1:5500/frontend/home.html')
+                    req.session.userId = result[0].userId;
+                    req.session.token = token;
                     res.status(200).json({
                         userId: result[0].userId,
                         token: token,
@@ -110,16 +106,16 @@ exports.login = (req, res, next) => {
 exports.logout = (req, res, next) => {
     req.session.destroy(error => {
         if (error) {
-            res.status(500).json({ message: 'problem kod logout' })
-            console.log('error na log out:' + error
-            )
+            res.status(500).json({
+                error: error
+            });
         } else {
             res.clearCookie('Groupomania')
             return res.status(200).json({
                 loggedOut: true
-            })
+            });
         }
-    })
+    });
 }
 
 exports.profile = (req, res, next) => {
@@ -148,6 +144,7 @@ exports.profile = (req, res, next) => {
                                     FROM post 
                                     WHERE userId = ?`, profId, (error, numberOfPosts) => {
                                         if (!error) {
+                                            userData[0]['numberOfPosts'] = numberOfPosts[0].number;
                                             connection.query(`
                                                 SELECT post.postTitle, post.postId, user.username 
                                                 FROM post 
@@ -156,7 +153,6 @@ exports.profile = (req, res, next) => {
                                                 ORDER BY postTimeCreated 
                                                 DESC LIMIT 3`, (error, recentPosts) => {
                                                 if (!error) {
-                                                    userData[0]['numberOfPosts'] = numberOfPosts[0].number;
                                                     connection.query(`
                                                     SELECT postTitle, postId, postLikes, postDislikes 
                                                     FROM post WHERE userId = ? 
@@ -165,14 +161,14 @@ exports.profile = (req, res, next) => {
                                                         if (!error) {
                                                             userData[0]['succPosts'] = succPosts;
                                                             connection.query(`
-                                                                SELECT mmpost.*, user.username, user.userPicture, COUNT(mmcomment.mmCommentId) AS numberOfComments 
-                                                                FROM mmpost 
-                                                                INNER JOIN user ON mmpost.userId = user.userId 
-                                                                LEFT JOIN mmcomment ON mmpost.mmPostId = mmcomment.mmPostId 
-                                                                WHERE mmpost.userId = ?
-                                                                GROUP BY mmPostId 
-                                                                ORDER BY timeCreated DESC`,
-                                                                profId, (error, mmPosts) => {
+                                                            SELECT mmpost.*, user.username, user.userPicture, COUNT(mmcomment.mmCommentId) AS numberOfComments 
+                                                            FROM mmpost 
+                                                            INNER JOIN user ON mmpost.userId = user.userId 
+                                                            LEFT JOIN mmcomment ON mmpost.mmPostId = mmcomment.mmPostId 
+                                                            WHERE mmpost.userId = ?
+                                                            GROUP BY mmPostId 
+                                                            ORDER BY timeCreated DESC`,
+                                                                [profId, profId], (error, mmPosts) => {
                                                                     if (!error) {
                                                                         res.status(200).json({
                                                                             'userInfo': userInfo,
@@ -254,12 +250,18 @@ exports.editProfile = (req, res, next) => {
                 if (!error) {
                     if (row[0].userPicture !== 'img/userDef.jpg') {
                         const filename = row[0].userPicture.split('/images/')[1];
-                        fs.unlinkSync('images/' + filename);
+                        fs.unlink('images/' + filename, (error) => {
+                            if (!error) {
+                                console.log('Picture replaced successfully.');
+                            } else {
+                                console.log('Previous picture not found, picture saved.');
+                            }
+                        });
                     }
                     connection.query(`UPDATE user SET ? WHERE userId = ` + userId, userPicture, (error) => {
                         if (!error) {
                             res.status(204).json({
-                                message: 'Profile picture updated successfully'
+                                message: 'Profile picture updated successfully.'
                             })
                         } else {
                             res.status(400).json({
@@ -270,7 +272,7 @@ exports.editProfile = (req, res, next) => {
 
                 } else {
                     res.status(404).json({
-                        message: 'Problem with existing picture'
+                        error: error
                     });
                 }
             })
@@ -310,7 +312,8 @@ exports.editProfile = (req, res, next) => {
                     })
                 } else {
                     res.status(400).json({
-                        message: 'Incorrect information provided'
+                        message: 'Incorrect information provided',
+                        error: error
                     });
                 }
             })
@@ -325,4 +328,87 @@ exports.editProfile = (req, res, next) => {
             message: 'You can only change your profile'
         })
     }
+}
+exports.hackReport = (req, res, next) => {
+    console.log('hackreport')
+    console.log('4');
+    console.log(req.body);
+    console.log(req.params.id);
+    connection.query(`SELECT COUNT(userId) AS reportedTimes FROM hackreports WHERE userId = ?`, req.session.userId, (error, rows) => {
+        if (!error) {
+            if (rows[0].reportedTimes >= 4) {
+                connection.query(`DELETE FROM user WHERE userId = ?`, req.session.userId, (error) => {
+                    if (!error) {
+                        res.status(202).json({
+                            message: 'Your profile is permanetly deleted for hacking.'
+                        });
+                        req.session.destroy();
+                    } else {
+                        res.status(400).json({ error: error })
+                    }
+                });
+            } else {
+                report = {
+                    'userId': req.session.userId,
+                    'fieldAttempt': req.body.fieldInput,
+                    'fieldHTML': req.body.field,
+                    'location': req.body.location,
+                    'time': today
+                }
+                connection.query(`INSERT INTO hackreports SET ?`, report, (error) => {
+                    if (!error) {
+                        res.status(201).json({
+                            message: 'Report successfull'
+                        });
+                    } else {
+                        res.status(400).json({ error: error })
+                    }
+                });
+            }
+
+        } else {
+            res.status(400).json({ error: error })
+        }
+    });
+}
+exports.deleteProfile = (req, res, next) => {
+    console.log('delete profile req')
+    console.log(req.body);
+    console.log(req.params.id);
+    connection.query('SELECT * FROM user WHERE userId=?', req.params.id,
+        (error, result) => {
+            if (result.length === 0) {
+                return res.status(404).json({
+                    message: 'User not found!'
+                });
+            }
+            bcrypt.compare(req.body.password, result[0].password).then(
+                (valid) => {
+                    if (!valid) {
+                        return res.status(200).json({
+                            success: false,
+                            message: 'Incorrect password!'
+                        });
+                    }
+                    connection.query('DELETE FROM user WHERE userId=?', req.params.id, (error) => {
+                        if (!error) {
+                            res.status(200).json({
+                                success: true
+                            });
+                        } else {
+                            return res.status(404).json({
+                                error: error
+                            })
+                        }
+                    });
+                }
+            ).catch(
+                (error) => {
+                    res.status(500).json({
+                        error: error
+                    });
+                }
+            );
+        }
+    );
 }

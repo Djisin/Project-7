@@ -6,7 +6,9 @@
         & .labelDiv {
             display: flex;
             //justify-content: space-between;
+            font-size: 13px;
             flex-direction: row;
+            z-index: 1;
             cursor: pointer;
             & i{
                 margin-top: 3px;
@@ -22,10 +24,14 @@
         }
         & label {
             font-weight: 200;
+            &:hover{
+                cursor: pointer;
+            }
         }
         & #comInputArea {
             opacity: 0;
             & textarea {
+                display: none;
                 width: 100%;
                 resize: none;
                 overflow-y: auto;

@@ -9,13 +9,25 @@
     border-radius: 8px;
 }
 #leftPart {
-    top: 44px;
+    box-sizing: border-box;
+    top: 50px;
     position: sticky;
+    padding-top: 10px;
+    margin-bottom: 15px;
+    display: flex;
+    flex-direction: column;
+    height: 92vh;
+    overflow-y: scroll;
+    -ms-overflow-style: none; /* Internet Explorer 10+ */
+    scrollbar-width: none; /* Firefox */
+    &::-webkit-scrollbar {
+        display: none; /* Safari and Chrome */
+    }
 
     & #profPicDiv {
         display: flex;
         flex-direction: column;
-        margin-top: 25px;
+        margin-top: 0 !important;
         padding: 0 10px 10px 10px;
         @include nail-hanger;
         @include content-boxes;
@@ -53,10 +65,14 @@
         @include content-boxes;
         display: flex;
         flex-direction: column;
-        padding: 0px 10px 0 10px;
+        padding: 0px 10px 0 15px;
+        margin-bottom: 15px;
         flex-wrap: wrap;
         & .btn-group {
+            display: flex;
             padding: 0 10px 5px 10px;
+            flex-direction: row;
+            justify-content: center;
         }
         & label {
             text-align: left;
@@ -75,22 +91,20 @@
             white-space: nowrap;
             text-overflow: ellipsis;
             overflow: hidden;
+            color: #000;
+            font-style: italic;
+            &:hover {
+                color: $normalStyleButton;
+                text-decoration: none;
+            }
         }
         & input {
             padding: 3.2px;
             border: none;
             border-bottom: 1px solid;
-        }
-    }
-    & .member-div {
-        @include content-boxes;
-        @include nail-hanger;
-        margin-top: 15px;
-        margin-bottom: 15px;
-        & p {
-            margin-top: 15px;
-            padding-left: 10px;
-            text-align: center;
+            &#editLi {
+                margin-bottom: 5px;
+            }
         }
     }
 }
@@ -130,18 +144,22 @@
             border-radius: 10px;
             padding: 5px 10px 5px 10px;
         }
-        & .btn-group {
-            width: 100%;
-            align-self: flex-end;
-            & button {
-                float: right;
-            }
+        & .pers-line-footer {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
             & p {
-                float: left;
                 margin: 0;
-                //display: inline-block;
             }
         }
+    }
+    & .no-mmp-parag {
+        @include content-boxes;
+        text-align: center;
+        padding: 0px 10px 5px 10px;
+        line-height: 35px;
+        align-self: center;
+        width: inherit;
     }
     & #divOnTop {
         @include mm-post-section;
@@ -222,6 +240,7 @@
         & h3 {
             text-align: left;
             margin-top: 5px;
+            font-size: 20px;
         }
         & p {
             margin-top: 20px;
@@ -282,6 +301,7 @@
             margin-top: 10px;
             padding: 0;
             box-shadow: 2px 2px 5px 2px rgba(0, 0, 0, 0.25);
+
             & img {
                 width: inherit;
                 margin-bottom: 5px;
@@ -302,18 +322,18 @@
                 padding: 0;
                 position: relative;
                 float: none;
-                height: 40px;
+                height: 30px;
                 box-shadow: 0px 1px 4px 0px $postShadows;
                 & img {
                     padding: 5px;
-                    height: 40px;
+                    height: 30px;
                     width: auto;
                     border-radius: 0;
                     float: left;
                 }
                 & p {
                     float: left;
-                    margin: 10px;
+                    margin: 5px 10px 5px 0;
                     padding: 0;
                 }
                 & .timeCreated {
@@ -335,26 +355,22 @@
                     font-size: 12px;
                     margin: 0;
                     padding: 0;
+                    padding-left: 5px;
                 }
                 & .likes-div {
                     justify-self: end;
                     & i {
                         margin-right: 10px;
-                        font-size: 16px;
+                        font-size: 15px;
+                    }
+                    & span {
+                        @include tooltiptext;
+                        left: 89%;
                     }
                 }
                 & .btn-group {
                     justify-self: center;
-                    & button {
-                        padding: 0px 6px 3px 6px;
-                        text-decoration: none;
-                        color: #000;
-                        font-style: italic;
-                        &:hover {
-                            transform: scale(1.2);
-                            transition-duration: 0.25s;
-                        }
-                    }
+                    @include normal-style-button;
                 }
             }
             &:last-child {
@@ -369,10 +385,20 @@
     }
 }
 #rightPart {
-    top: 60px;
+    box-sizing: border-box;
+    top: 50px;
     position: sticky;
+    padding-top: 10px;
+    margin-bottom: 15px;
     display: flex;
     flex-direction: column;
+    height: 92vh;
+    overflow-y: scroll;
+    -ms-overflow-style: none; /* Internet Explorer 10+ */
+    scrollbar-width: none; /* Firefox */
+    &::-webkit-scrollbar {
+        display: none; /* Safari and Chrome */
+    }
     & h4 {
         font-size: 16px;
         text-align: center;
@@ -399,20 +425,91 @@
             box-shadow: inset 0px 0px 5px 1px $postShadows;
         }
     }
+    & .member-div {
+        @include content-boxes;
+        @include nail-hanger;
+        margin-top: 0px;
+        margin-bottom: 15px;
+        display: flex;
+        flex-direction: column;
+        & p {
+            margin-top: 15px;
+            margin-bottom: 15px;
+            padding-left: 10px;
+            text-align: center;
+        }
+        & button {
+            align-self: center;
+            opacity: 0;
+            margin: 9px;
+            border-radius: 6px;
+            padding: 5px 11px 5px 11px;
+            z-index: 2;
+        }
+    }
+    & .pw-input-div {
+        @include content-boxes;
+        @include nail-hanger;
+        margin-top: 0px;
+        margin-bottom: 15px;
+        display: flex;
+        flex-direction: column;
+        padding: 0 10px 10x 10px !important;
+        & input {
+            margin: 10px;
+            width: inherit;
+        }
+        & .btn-group {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 10px;
+        }
+        & p {
+            margin-top: 10px;
+            margin-bottom: 0;
+            padding: 0 10px 0 10px;
+            text-align: center;
+            font-style: italic;
+        }
+    }
     & #succArticles {
         @include content-boxes;
+        padding-left: 5px;
+        padding-right: 5px;
         & ul {
             padding-left: 20px;
             & meter {
                 width: 180px;
             }
         }
+        & p {
+            text-align: center;
+        }
+        & a {
+            color: #000;
+            &:hover {
+                color: $normalStyleButton;
+                text-decoration: none;
+            }
+        }
     }
     & #recentArticles {
         @include content-boxes;
+        padding-left: 5px;
+        padding-right: 5px;
         margin-bottom: 15px;
         & ul {
             padding-left: 20px;
+        }
+        & p {
+            font-style: italic;
+        }
+        & a {
+            color: #000;
+            &:hover {
+                color: $normalStyleButton;
+                text-decoration: none;
+            }
         }
     }
 }
@@ -420,101 +517,132 @@
 .single-comment-div {
     //box-shadow: inset 0px 3px 5px -2px $postShadows;
     //height: 30px; //bilo 200
-    background-color: #fff;
+    background-color: rgba(153, 153, 153, 0.2);
     align-self: center;
-    padding: 0;
+    padding: 0 !important;
     display: flex;
-    //border-radius: 0 0 10px 10px;
+    flex-direction: column;
+    width: 95%;
+    padding-bottom: 5px !important;
     @include commentFormFormat;
     & .mainComment {
-        box-shadow: inset 0px 3px 5px -2px $postShadows;
-        padding: 0 0 5px 0;
+        box-shadow: 0px 2px 4px 0px $postShadows;
+        //padding: 0 0 3px 0;
         background-color: #fff;
-        width: inherit;
-        //border-radius: 15px;
+        width: 95%;
+        align-self: flex-end;
+
         & .comLeftPart {
             padding: 0;
             height: 100%;
             & img {
                 width: auto !important;
                 padding: 0;
-                max-width: 50px;
-                max-height: 50px;
-                margin-top:5px;
+                max-width: 30px;
+                max-height: 30px;
+                margin-top: 5px;
             }
         }
         & .comRightPart {
             padding: 0;
             & .whoAndWhen {
-                padding-top: 10px;
+                padding: 8px 10px 0 10px;
                 display: flex;
                 flex-direction: row;
-                padding-left: 5px;
                 box-shadow: 0px 3px 3px -2px $postShadows;
                 & h5 {
                     align-self: flex-start;
-                    line-height: 5px;
+                    line-height: 14px;
                     padding: 0;
-                    margin: 10px;
-                    margin-left: 0;
-                    font-size: 14px;
+                    margin: 0;
+                    font-size: 13px;
                     display: inline-block;
+                }
+                & a {
+                    color: #000;
+                    &:hover {
+                        text-decoration: none;
+                        color: $normalStyleButton;
+                    }
                 }
                 & p {
                     align-self: flex-end;
-                    line-height: 5px;
-                    margin: 10px;
-                    margin-right: 0px;
+                    line-height: 14px;
+                    margin: 0;
                     margin-left: auto;
                     display: inline-block;
+                    font-size: 13px;
                 }
             }
             & .comBody {
-                padding-left: 5px;
+                padding: 0 5px 5px 5px;
                 min-height: 50px;
                 & p {
-                    padding: 10px;
                     text-align: left;
-                    margin: 0;
+                    padding: 5px 5px 5px 5px;
                 }
                 & textarea {
-                    display: inline-block;
-                    //align-self: left;
                     resize: none;
-                    height: 80px;
-                    width: 750px;
-                    border: none;
-                    margin: 10px;
+                    height: 32px;
+                    width: 98%;
+                    margin: 5px;
+                    padding: 5px;
+                    overflow: hidden;
                 }
                 @include normal-style-button;
             }
         }
         & .comFooter {
-            //padding: 0;
-            display: flex;
-            flex-direction: row;
-            box-shadow: 0px -5px 10px -2px $postShadows;
+            padding: 0;
+            display: grid;
+            grid-template-columns: 2fr 2fr 2fr;
+            height: 25px;
+            //box-shadow: 0px -5px 10px -2px $postShadows;
             & p {
-                margin: 0;
-                padding: 5px;
-                //padding-left: 15px;
-                padding-top: 10px;
+                margin: 0 !important;
+                padding: 4px !important;
+                padding-left: 6px !important;
                 font-size: 12px;
+                font-style: italic;
+            }
+            @include normal-style-button;
+            & .btn-group {
+                justify-self: center;
             }
             & .likesDiv {
-                margin-left: auto;
-                display: inline-block;
-                align-self: flex-end;
+                justify-self: end;
                 & i {
-                    font-size: 16px;
-                    padding: 5px;
-                    padding-right: 15px;
+                    margin-right: 10px;
+                    font-size: 15px;
                 }
+
                 & span {
                     @include tooltiptext;
                     left: 90%;
                 }
             }
         }
+    }
+    & .add-sub-comment {
+        align-self: flex-end;
+        width: 95%;
+    }
+    & .single-comment-div {
+        background-color: rgba(153, 153, 153, 0.2);
+        align-self: flex-end;
+        //padding: 0 !important;
+        display: flex;
+        flex-direction: column;
+        width: 95%;
+        padding-bottom: 5px !important;
+        & .mainComment {
+            box-shadow: 0px 2px 4px 0px $postShadows;
+            &:first-child {
+                margin-top: 0;
+            }
+        }
+    }
+    #comRepReasonDiv {
+        width: 95%;
     }
 }

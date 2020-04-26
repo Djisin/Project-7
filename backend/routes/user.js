@@ -12,5 +12,8 @@ router.post('/logout', UserCtrl.logout);
 
 router.get('/user/profile', auth, UserCtrl.profile);
 router.put('/user/profile/:id', auth, multer, UserCtrl.editProfile);
+router.delete('/user/profile/:id', auth, UserCtrl.deleteProfile);
+
+router.post('/user/profile/hkReport', auth, UserCtrl.hackReport);
 
 module.exports = router; 

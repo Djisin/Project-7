@@ -284,6 +284,7 @@ function editMMPostFunction(divOnTop, editButton, mmText, multimedia, embeding, 
                 try {
                     const requestPromise = makeSubmitMMPostEdited(submitEditedMMPost);
                     const response = await requestPromise;
+                    window.location.reload()
                 }
                 catch (errorResponse) {
                     alert(errorResponse);
@@ -321,41 +322,7 @@ function editMMPostFunction(divOnTop, editButton, mmText, multimedia, embeding, 
         const errorParagOnTop = document.createElement('p');
         errorParagOnTop.setAttribute('id', 'errorParag');
         contDiv.appendChild(errorParagOnTop);
+        preventJs()
     }, { once: true });
 
-    //apiCreate = 'http://127.0.0.1:3000/'
-
-    /*function makeCreateRequest(submitCreate) {
-        return new Promise((resolve, reject) => {
-            let request = new XMLHttpRequest();
-            request.withCredentials = true;
-            request.open('POST', apiCreate + '/api/posts/createPost');
-            request.onreadystatechange = () => {
-                if (request.readyState === 4) {
-                    if (request.status >= 200 && request.status < 400) {
-                        resolve(request.response);
-                        console.log(request.response)
-                    } else {
-                        reject(request.response);
-                        console.log(request.response)
-                    }
-                }
-            };
-            request.send(submitCreate);
-        });
-    }
-
-    async function submitCreateFormData(submitCreate) {
-        try {
-            const requestPromise = makeCreateRequest(submitCreate);
-            const response = await requestPromise;
-            responseId = (JSON.parse(response));
-            console.log(responseId)
-
-            window.location.href = '/frontend/home.html'
-        }
-        catch (errorResponse) {
-            alert(errorResponse);
-        };
-    }*/
 }

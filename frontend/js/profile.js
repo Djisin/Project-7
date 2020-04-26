@@ -68,11 +68,11 @@ request.onload = function () {
             });
 
             profPic.addEventListener('mouseleave', () => {
-                setTimeout(() => {
-                    if (editPicBtnDiv.firstChild) {
-                        editPicBtnDiv.removeChild(editPicBtn)
-                    }
-                }, 2000);
+                //setTimeout(() => {
+                if (editPicBtnDiv.firstChild) {
+                    editPicBtnDiv.removeChild(editPicBtn)
+                }
+                //}, 2000);
             });
 
             editPicBtn.addEventListener('click', ($event) => {
@@ -190,7 +190,7 @@ request.onload = function () {
 
                 editUserNetwsBtn = document.createElement('button');
                 editUserNetwsBtn.setAttribute('class', 'btn btn-default');
-                editUserNetwsBtn.innerText = 'Edit'
+                editUserNetwsBtn.innerText = 'Edit your networks'
                 editUserNetwsBtn.style.opacity = 0;
                 editUserNetws.appendChild(editUserNetwsBtn);
 
@@ -198,9 +198,9 @@ request.onload = function () {
                     editUserNetwsBtn.style.opacity = 1;
                 });
                 moreUserProf.addEventListener('mouseout', () => {
-                    setTimeout(() => {
-                        editUserNetwsBtn.style.opacity = 0;
-                    }, 2000);
+                    //setTimeout(() => {
+                    editUserNetwsBtn.style.opacity = 0;
+                    //}, 2000);
                 });
 
                 editUserNetwsBtn.addEventListener('click', ($event) => {
@@ -247,7 +247,7 @@ request.onload = function () {
                     submitEditNetws.setAttribute('class', 'btn btn-default');
                     submitEditNetws.innerText = 'Submit';
                     editUserNetws.appendChild(submitEditNetws);
-
+                    preventJs();
                     submitEditNetws.addEventListener('click', ($event) => {
                         $event.preventDefault();
 
@@ -276,15 +276,6 @@ request.onload = function () {
             }
         }
         consructUserNetworks();
-        //leftPart.appendChild(document.createElement('hr'));
-
-        let membDiv = document.createElement('div');
-        membDiv.setAttribute('class', 'member-div');
-        leftPart.appendChild(membDiv);
-
-        let memberSince = document.createElement('p');
-        memberSince.innerText = 'Member since: ' + countTime(data.userData[0].timeCreated);
-        membDiv.appendChild(memberSince);
         //Middle part
         //Header section
         const headerDiv = document.createElement('div');
@@ -317,13 +308,13 @@ request.onload = function () {
             editPersLineBtn.style.marginTop = '40px';
             headerDiv.appendChild(editPersLineBtn);
 
-            usersThoughts.addEventListener('mouseover', () => {
+            headerDiv.addEventListener('mouseover', () => {
                 editPersLineBtn.style.opacity = 1;
             })
-            usersThoughts.addEventListener('mouseout', () => {
-                setTimeout(() => {
-                    editPersLineBtn.style.opacity = 0;
-                }, 2000);
+            headerDiv.addEventListener('mouseout', () => {
+                //setTimeout(() => {
+                editPersLineBtn.style.opacity = 0;
+                // }, 2000);
             })
 
             editPersLineBtn.setAttribute('class', 'btn btn-default');
@@ -340,7 +331,7 @@ request.onload = function () {
                 editPersLineTArea.focus();
 
                 const persLineBtns = document.createElement('div')
-                persLineBtns.setAttribute('class', 'btn-group')
+                persLineBtns.setAttribute('class', 'pers-line-footer')
                 headerDiv.appendChild(persLineBtns);
 
                 const countLetters = document.createElement('p');
@@ -353,6 +344,11 @@ request.onload = function () {
                         editPersLineTArea.value = editPersLineTArea.value.substring(0, 249)
                     }
                 });
+
+                const lineBtns = document.createElement('div')
+                lineBtns.setAttribute('class', 'btn-group')
+                persLineBtns.appendChild(lineBtns);
+
                 const editPersLineBtnCancel = document.createElement('button');
                 editPersLineBtnCancel.innerText = 'Cancel';
                 editPersLineBtnCancel.setAttribute('class', 'btn btn-default');
@@ -360,7 +356,7 @@ request.onload = function () {
                 const editPersLineBtnSub = document.createElement('button');
                 editPersLineBtnSub.innerText = 'Submit';
                 editPersLineBtnSub.setAttribute('class', 'btn btn-default');
-                persLineBtns.append(editPersLineBtnCancel, editPersLineBtnSub);
+                lineBtns.append(editPersLineBtnCancel, editPersLineBtnSub);
 
                 editPersLineBtnCancel.addEventListener('click', ($event) => {
                     $event.preventDefault();
@@ -387,223 +383,232 @@ request.onload = function () {
 
                     usersThoughts.innerText = editPersLineTArea.value;
                 });
+                preventJs();
             });
         }
         //Content create
-        const contentDiv = document.createElement('div');
-        contentDiv.setAttribute('id', 'create-content-div');
-        middlePart.appendChild(contentDiv);
+        if (data.userData[0].userId === data.userInfo[0].userId) {
+            const contentDiv = document.createElement('div');
+            contentDiv.setAttribute('id', 'create-content-div');
+            middlePart.appendChild(contentDiv);
 
-        const contentHeader = document.createElement('h3');
-        contentHeader.innerText = 'Your posts';
-        contentDiv.appendChild(contentHeader);
+            const contentHeader = document.createElement('h3');
+            contentHeader.innerText = 'Your posts';
+            contentDiv.appendChild(contentHeader);
 
-        const createMMPostDiv = document.createElement('form');
-        createMMPostDiv.setAttribute('id', 'createMMDiv');
-        contentDiv.appendChild(createMMPostDiv);
+            const createMMPostDiv = document.createElement('form');
+            createMMPostDiv.setAttribute('id', 'createMMDiv');
+            contentDiv.appendChild(createMMPostDiv);
 
-        const createMMPostTxt = document.createElement('textarea');
-        createMMPostTxt.setAttribute('id', 'mmPostTxt');
-        createMMPostTxt.setAttribute('class', 'form-control')
-        createMMPostTxt.placeholder = 'Write something here...'
-        createMMPostDiv.appendChild(createMMPostTxt);
+            const createMMPostTxt = document.createElement('textarea');
+            createMMPostTxt.setAttribute('id', 'mmPostTxt');
+            createMMPostTxt.setAttribute('class', 'form-control')
+            createMMPostTxt.placeholder = 'Write something here...'
+            createMMPostDiv.appendChild(createMMPostTxt);
 
-        const buttonGroup = document.createElement('div');
-        buttonGroup.setAttribute('class', 'btn-group');
-        createMMPostDiv.appendChild(buttonGroup);
+            const buttonGroup = document.createElement('div');
+            buttonGroup.setAttribute('class', 'btn-group');
+            createMMPostDiv.appendChild(buttonGroup);
 
-        const addMMContent = document.createElement('input');
-        addMMContent.setAttribute('type', 'file');
-        addMMContent.setAttribute('id', 'addMMContent');
+            const addMMContent = document.createElement('input');
+            addMMContent.setAttribute('type', 'file');
+            addMMContent.setAttribute('id', 'addMMContent');
 
-        const mmButton = document.createElement('button');
-        mmButton.setAttribute('class', 'btn btn-default');
-        mmButton.innerHTML = '<i class="far fa-image"></i>'
-        buttonGroup.appendChild(mmButton);
-        mmButton.addEventListener('click', ($event) => {
-            $event.preventDefault();
-            showMMLabel();
-            hideLinkInput();
-            addMMContent.click();
-            if (addMMContent.value !== null || addMMContent.value !== '') {
-                addMMContent.onchange = () => {
-                    mmLabel.innerText = addMMContent.files[0].name;
+            const mmButton = document.createElement('button');
+            mmButton.setAttribute('class', 'btn btn-default');
+            mmButton.innerHTML = '<i class="far fa-image"></i>'
+            buttonGroup.appendChild(mmButton);
+            mmButton.addEventListener('click', ($event) => {
+                $event.preventDefault();
+                showMMLabel();
+                hideLinkInput();
+                addMMContent.click();
+                if (addMMContent.value !== null || addMMContent.value !== '') {
+                    addMMContent.onchange = () => {
+                        mmLabel.innerText = addMMContent.files[0].name;
+                        hideLinkInput();
+                        mmLabel.addEventListener('click', ($event) => {
+                            $event.preventDefault()
+                            hideMMLabel();
+                        });
+                    }
+                }
+            });
+
+            function hideMMLabel() {
+                mmLabel.style.flexGrow = '';
+                mmLabel.style.padding = '0';
+                mmLabel.style.border = '0';
+                mmLabel.style.opacity = '0';
+                mmLabel.style.width = '0';
+                mmLabel.innerText = '';
+                addMMContent.value = null;
+                //linkButton.classList.remove('disabled');
+            }
+
+            function showMMLabel() {
+                mmLabel.style.flexGrow = '100';
+                mmLabel.style.padding = ' 6px 12px 6px 12px';
+                mmLabel.style.border = null;
+                mmLabel.style.opacity = '1';
+                linkInput.value = '';
+                //
+                //linkButton.classList.add('disabled');
+            }
+
+            const mmLabel = document.createElement('label');
+            mmLabel.setAttribute('class', 'input-group-addon');
+            mmLabel.setAttribute('data-toggle', 'tooltip');
+            mmLabel.setAttribute('data-placement', 'top');
+            mmLabel.setAttribute('title', 'Click here to remove')
+            mmLabel.setAttribute('id', 'mmLabel');
+            mmLabel.style.border = '0';
+            buttonGroup.appendChild(mmLabel);
+
+            const linkButton = document.createElement('button');
+            linkButton.setAttribute('class', 'btn btn-default');
+            linkButton.innerHTML = '<i class="fas fa-link"></i>'
+            buttonGroup.appendChild(linkButton);
+            linkButton.addEventListener('click', ($event) => {
+                $event.preventDefault();
+                if (linkInput.style.flexGrow == 0) {
+                    displayLinkInput();
+                    hideMMLabel();
+                } else {
                     hideLinkInput();
-                    mmLabel.addEventListener('click', ($event) => {
-                        $event.preventDefault()
-                        hideMMLabel();
+                }
+
+            });
+
+            function displayLinkInput() {
+                linkInput.style.flexGrow = '100';
+                linkInput.style.padding = ' 6px 12px 6px 12px';
+                linkInput.style.border = null;
+                linkInput.style.opacity = '1';
+                linkInput.focus();
+                addMMContent.value = null;
+            }
+            function hideLinkInput() {
+                linkInput.style.flexGrow = '';
+                linkInput.style.padding = '0';
+                linkInput.style.border = '0';
+                linkInput.style.opacity = '0';
+                linkInput.style.width = '0';
+                linkInput.value = '';
+            }
+
+            const linkInput = document.createElement('input');
+            linkInput.setAttribute('type', 'url');
+            linkInput.setAttribute('class', 'input-group-addon form-control');
+            linkInput.style.border = '0';
+            buttonGroup.appendChild(linkInput)
+
+            const createButton = document.createElement('button');
+            createButton.setAttribute('class', 'btn btn-default');
+            createButton.innerText = 'Post'
+            buttonGroup.appendChild(createButton);
+            createButton.addEventListener('click', ($event) => {
+                $event.preventDefault();
+
+                let submitMMData = new FormData
+                submitMMData.append('embedLink', null);
+                submitMMData.append('mmPost', null);
+
+                if (addMMContent.files.length !== 0) {
+                    if (linkInput.value.trim().length === 0) {
+                        submitMMData.append('file', addMMContent.files[0]);
+                        submitMMData.append('embed', false)
+                    } else {
+                        errorParag.innerText = 'You can only provide link, or upload video or picture.'
+                        return
+                    }
+                }
+                if (linkInput.value.trim().length !== 0) {
+                    if (addMMContent.files.length === 0) {
+                        submitMMData.delete('embedLink');
+                        if (linkInput.value.indexOf('https://www.youtube.com') >= 0) {
+                            let newLink = linkInput.value.replace('/watch?v=', '/embed/');
+                            submitMMData.append('embedLink', newLink);
+                            submitMMData.append('embed', true);
+                        } else if (linkInput.value.indexOf('https://youtu.be/') >= 0) {
+                            let newLink = linkInput.value.replace('youtu.be/', 'www.youtube.com/embed/');
+                            submitMMData.append('embedLink', newLink);
+                            submitMMData.append('embed', true);
+                        } else if (linkInput.value.indexOf('youtube') && linkInput.value.trim().length < 25) {
+                            errorParag.innerText = 'Provide a valid youtube link video.'
+                            return
+                        } else {
+                            submitMMData.append('embedLink', linkInput.value);
+                            submitMMData.append('embed', true);
+                        }
+
+                    } else {
+                        errorParag.innerText = 'You can only provide link, or upload video or picture.'
+                        return
+                    }
+                }
+                if (createMMPostTxt.value.trim().length !== 0) {
+                    if (createMMPostTxt.value.trim().length !== 0) {
+                        dataForSubmit = createMMPostTxt.value
+                        submitMMData.delete('mmPost');
+                        submitMMData.append('mmPost', dataForSubmit);
+                    } else {
+                        dataForSubmit = null;
+                    }
+                }
+                if (createMMPostTxt.value.trim().length === 0 && linkInput.value.trim().length === 0 && addMMContent.files.length === 0) {
+                    errorParag.innerText = 'You can not create post without any content.'
+                    createMMPostTxt.focus();
+                    setTimeout(() => {
+                        errorParag.innerText = '';
+                    }, 5000);
+                    return
+                } else {
+                    submitMMpost(submitMMData);
+                    setTimeout(() => {
+                        window.location.reload();
+                    }, 500);
+                }
+
+                function makeSubmitMMPost(submitMMData) {
+                    return new Promise((resolve, reject) => {
+                        let request = new XMLHttpRequest();
+                        request.open('POST', mmApi + '/createPost', true);
+                        request.withCredentials = true;
+                        request.onreadystatechange = () => {
+                            if (request.readyState === 4) {
+                                if (request.status >= 200 && request.status < 400) {
+                                    resolve(request.response);
+                                } else {
+                                    reject(request.response);
+                                }
+                            }
+                        };
+                        request.send(submitMMData);
                     });
                 }
-            }
-        });
-
-        function hideMMLabel() {
-            mmLabel.style.flexGrow = '';
-            mmLabel.style.padding = '0';
-            mmLabel.style.border = '0';
-            mmLabel.style.opacity = '0';
-            mmLabel.style.width = '0';
-            mmLabel.innerText = '';
-            addMMContent.value = null;
-            //linkButton.classList.remove('disabled');
-        }
-
-        function showMMLabel() {
-            mmLabel.style.flexGrow = '100';
-            mmLabel.style.padding = ' 6px 12px 6px 12px';
-            mmLabel.style.border = null;
-            mmLabel.style.opacity = '1';
-            linkInput.value = '';
-            //
-            //linkButton.classList.add('disabled');
-        }
-
-        const mmLabel = document.createElement('label');
-        mmLabel.setAttribute('class', 'input-group-addon');
-        mmLabel.setAttribute('data-toggle', 'tooltip');
-        mmLabel.setAttribute('data-placement', 'top');
-        mmLabel.setAttribute('title', 'Click here to remove')
-        mmLabel.setAttribute('id', 'mmLabel');
-        mmLabel.style.border = '0';
-        buttonGroup.appendChild(mmLabel);
-
-        const linkButton = document.createElement('button');
-        linkButton.setAttribute('class', 'btn btn-default');
-        linkButton.innerHTML = '<i class="fas fa-link"></i>'
-        buttonGroup.appendChild(linkButton);
-        linkButton.addEventListener('click', ($event) => {
-            $event.preventDefault();
-            if (linkInput.style.flexGrow == 0) {
-                displayLinkInput();
-                hideMMLabel();
-            } else {
-                hideLinkInput();
-            }
-
-        });
-
-        function displayLinkInput() {
-            linkInput.style.flexGrow = '100';
-            linkInput.style.padding = ' 6px 12px 6px 12px';
-            linkInput.style.border = null;
-            linkInput.style.opacity = '1';
-            linkInput.focus();
-            addMMContent.value = null;
-        }
-        function hideLinkInput() {
-            linkInput.style.flexGrow = '';
-            linkInput.style.padding = '0';
-            linkInput.style.border = '0';
-            linkInput.style.opacity = '0';
-            linkInput.style.width = '0';
-            linkInput.value = '';
-        }
-
-        const linkInput = document.createElement('input');
-        linkInput.setAttribute('type', 'url');
-        linkInput.setAttribute('class', 'input-group-addon form-control');
-        linkInput.style.border = '0';
-        buttonGroup.appendChild(linkInput)
-
-        const createButton = document.createElement('button');
-        createButton.setAttribute('class', 'btn btn-default');
-        createButton.innerText = 'Post'
-        buttonGroup.appendChild(createButton);
-        createButton.addEventListener('click', ($event) => {
-            //$event.preventDefault();
-
-            let submitMMData = new FormData
-            submitMMData.append('embedLink', null);
-            submitMMData.append('mmPost', null);
-
-            if (addMMContent.files.length !== 0) {
-                if (linkInput.value.trim().length === 0) {
-                    submitMMData.append('file', addMMContent.files[0]);
-                    submitMMData.append('embed', false)
-                } else {
-                    errorParag.innerText = 'You can only provide link, or upload video or picture.'
-                    return
-                }
-            }
-            if (linkInput.value.trim().length !== 0) {
-                if (addMMContent.files.length === 0) {
-                    submitMMData.delete('embedLink');
-                    if (linkInput.value.indexOf('https://www.youtube.com') >= 0) {
-                        let newLink = linkInput.value.replace('/watch?v=', '/embed/');
-                        submitMMData.append('embedLink', newLink);
-                        submitMMData.append('embed', true);
-                    } else if (linkInput.value.indexOf('https://youtu.be/') >= 0) {
-                        let newLink = linkInput.value.replace('youtu.be/', 'www.youtube.com/embed/');
-                        submitMMData.append('embedLink', newLink);
-                        submitMMData.append('embed', true);
-                    } else if (linkInput.value.indexOf('youtube') && linkInput.value.trim().length < 25) {
-                        errorParag.innerText = 'Provide a valid youtube link video.'
-                        return
-                    } else {
-                        submitMMData.append('embedLink', linkInput.value);
-                        submitMMData.append('embed', true);
+                async function submitMMpost(submitMMData) {
+                    try {
+                        const requestPromise = makeSubmitMMPost(submitMMData);
+                        const response = await requestPromise;
                     }
-
-                } else {
-                    errorParag.innerText = 'You can only provide link, or upload video or picture.'
-                    return
-                }
-            }
-            if (createMMPostTxt.value.trim().length !== 0) {
-                if (createMMPostTxt.value.trim().length !== 0) {
-                    dataForSubmit = createMMPostTxt.value
-                    submitMMData.delete('mmPost');
-                    submitMMData.append('mmPost', dataForSubmit);
-                } else {
-                    dataForSubmit = null;
-                }
-            }
-            if (createMMPostTxt.value.trim().length === 0 && linkInput.value.trim().length === 0 && addMMContent.files.length === 0) {
-                errorParag.innerText = 'You can not create post without any content.'
-                createMMPostTxt.focus();
-                setTimeout(() => {
-                    errorParag.innerText = '';
-                }, 5000);
-                return
-            }
-
-            submitMMpost(submitMMData);
-
-            function makeSubmitMMPost(submitMMData) {
-                return new Promise((resolve, reject) => {
-                    let request = new XMLHttpRequest();
-                    request.open('POST', mmApi + '/createPost', true);
-                    request.withCredentials = true;
-                    request.onreadystatechange = () => {
-                        if (request.readyState === 4) {
-                            if (request.status >= 200 && request.status < 400) {
-                                resolve(request.response);
-                            } else {
-                                reject(request.response);
-                            }
-                        }
+                    catch (errorResponse) {
+                        alert(errorResponse);
                     };
-                    request.send(submitMMData);
-                });
-            }
-            async function submitMMpost(submitMMData) {
-                try {
-                    const requestPromise = makeSubmitMMPost(submitMMData);
-                    const response = await requestPromise;
                 }
-                catch (errorResponse) {
-                    alert(errorResponse);
-                };
-            }
-        })
-        const errorParag = document.createElement('p');
-        errorParag.setAttribute('id', 'errorParag');
-        contentDiv.appendChild(errorParag);
-
-        if (data.mmContent.length === 0) {
-            const noMMPosts = document.createElement('p');
+            })
+            const errorParag = document.createElement('p');
+            errorParag.setAttribute('id', 'errorParag');
+            contentDiv.appendChild(errorParag);
+        }
+        const noMMPosts = document.createElement('p');
+        noMMPosts.setAttribute('class', 'no-mmp-parag');
+        if (data.mmContent.length === 0 && (data.userInfo[0].userId !== data.userData[0].userId)) {
+            noMMPosts.innerText = 'User did not create any posts';
+            middlePart.appendChild(noMMPosts);
+        } else if (data.mmContent.length === 0) {
             noMMPosts.innerText = 'You did not create any posts';
-            contentDiv.appendChild(noMMPosts);
+            middlePart.appendChild(noMMPosts);
         }
         const divOnTop = document.createElement('div');
         divOnTop.setAttribute('id', 'divOnTop');
@@ -619,6 +624,13 @@ request.onload = function () {
             const singlePost = document.createElement('div');
             singlePost.setAttribute('class', 'col-md-12 mmPosts');
             contentDivMM.appendChild(singlePost);
+            
+            singlePost.addEventListener('mouseover', () => {
+                singlePost.getElementsByClassName('singlePostFooter')[0].children[1].style.opacity = '1'
+            });
+            singlePost.addEventListener('mouseout', () => {
+                singlePost.getElementsByClassName('singlePostFooter')[0].children[1].style.opacity = '0'
+            });
 
             const singlePostHeader = document.createElement('div');
             singlePostHeader.setAttribute('class', 'singlePostHeader');
@@ -682,7 +694,6 @@ request.onload = function () {
                     singlePost.appendChild(errParagOnPost);
                 }
             }
-            //singlePost.appendChild(document.createElement('hr'));
 
             const singlePostFooter = document.createElement('div');
             singlePostFooter.setAttribute('class', 'col-md-12 singlePostFooter');
@@ -696,7 +707,15 @@ request.onload = function () {
 
             const postButtonGroup = document.createElement('div');
             postButtonGroup.setAttribute('class', 'btn-group');
+            postButtonGroup.style.opacity='0';
             singlePostFooter.appendChild(postButtonGroup);
+
+            const comReport = document.createElement('button');
+            if (data.mmContent[i].userId !== data.userInfo[0].userId) {
+                comReport.setAttribute('class', 'btn btn-link')
+                comReport.innerText = 'report';
+                postButtonGroup.appendChild(comReport)
+            }
 
             if (data.userData[0].userId === data.userInfo[0].userId) {
                 const editButton = document.createElement('button');
@@ -718,44 +737,43 @@ request.onload = function () {
                 deleteButton.addEventListener('click', ($event) => {
                     $event.preventDefault();
 
-                    let result = confirm('Do you really want to delete your post')
-                    if (result) {
-                        let submitData = { 'delete': 'delete' };
-                        let apiLink = mmApi + '/' + data.mmContent[i].mmPostId;
-                        let keyWord = 'DELETE';
-
-                        submitMMFormData(submitData, keyWord, apiLink);
-                        document.getElementsByClassName('mmPosts')[i].style.display = 'none';
-                    }
+                    //deletePost((data.mmContent[i].mmPostId), singlePost)
+                    delPostComOrSubCom((mmApi + '/' + data.mmContent[i].mmPostId), singlePost)
                 });
+                preventJs()
             }
 
             const likesDiv = document.createElement('div');
             likesDiv.setAttribute('class', 'likes-div');
             singlePostFooter.appendChild(likesDiv);
 
+            const likesTip = document.createElement('span');
+            likesTip.setAttribute('class', 'tooltiptext');
+
             const likes = document.createElement('i');
             likes.setAttribute('class', 'far fa-thumbs-up');
             likes.innerText = data.mmContent[i].postLikes;
-            let postUsersLiked = JSON.parse(data.mmContent[i].postUsersLiked);
-            if (postUsersLiked.usersLiked.includes(data.userInfo[0].userId)) {
-                likes.classList.add('likedClass');
-            }
-            likes.style.cursor = 'pointer';
-            likesDiv.appendChild(likes)
+            apiAddress = [like = { 'like': 1 }, ('POST'), (mmApi + '/' + data.mmContent[i].mmPostId + '/likes')];
+            likeComment(
+                (data.mmContent[i].postUsersLiked),
+                data.mmContent[i].postLikes,
+                data.userInfo[0].userId,
+                likes,
+                apiAddress,
+                likesTip);
 
             const dislikes = document.createElement('i');
             dislikes.setAttribute('class', 'far fa-thumbs-down');
-
             dislikes.innerText = data.mmContent[i].postDislikes;
-            let postUsersDisliked = JSON.parse(data.mmContent[i].postUsersDisliked);
-            if (postUsersDisliked.usersDisliked.includes(data.userInfo[0].userId)) {
-                dislikes.classList.add('dislikedClass');
-            }
-            dislikes.style.cursor = 'pointer';
-            likesDiv.appendChild(dislikes);
-
-            //singlePost.appendChild(document.createElement('hr'));
+            apiAddress = [like = { 'like': -1 }, ('POST'), (mmApi + '/' + data.mmContent[i].mmPostId + '/likes')];
+            dislikeComment(
+                (data.mmContent[i].postUsersDisliked),
+                data.mmContent[i].postDislikes,
+                data.userInfo[0].userId,
+                dislikes,
+                apiAddress,
+                likesTip);
+            likesDiv.append(likes, likesTip, dislikes);
 
             //add comments
             let addComment = document.createElement('div');
@@ -765,17 +783,114 @@ request.onload = function () {
             //Function from comment.js for Building input Comment form var order: div for form, post id
             createCommentForm(addComment, (data.mmContent[i].mmPostId));
 
-            let inputLabel = document.getElementsByClassName('labelDiv')[i];
+            let inputLabel = singlePost.getElementsByClassName('labelDiv')[0];
 
             //Function for comment span on input comment variable order: div for form, inputLabel, numberOfComments, post id, div to attach comments
-            inputLabelCommentsSpan(addComment, inputLabel, (data.mmContent[i].numberOfComments), (data.mmContent[i].mmPostId), singlePost[i]);
-
-            //Function for building comments on the post - var order: post div,
-            //commentBuilder(singlePost, (data.mmContent[i].userPicture),(data.mmContent[i].username),(data.mmContent[i].timeCreated ))
+            inputLabelCommentsSpan(
+                addComment,
+                inputLabel,
+                (data.mmContent[i].mmPostId),
+                (data.mmContent[i].numberOfComments),
+                singlePost,
+                (data.userInfo[0].userId)
+            );
+            reportEventListener(comReport, singlePostFooter, (data.mmContent[i].mmPostId), (data.mmContent[i].userId), (undefined))
         }
 
         //Right part
         //Numbers
+        let membDiv = document.createElement('div');
+        membDiv.setAttribute('class', 'member-div');
+        rightPart.appendChild(membDiv);
+
+        let memberSince = document.createElement('p');
+        memberSince.innerText = 'Member since: ' + countTime(data.userData[0].timeCreated);
+        membDiv.appendChild(memberSince);
+
+        if (data.userData[0].userId === data.userInfo[0].userId) {
+            const profDelete = document.createElement('button');
+            profDelete.setAttribute('class', 'btn btn-default');
+            profDelete.innerText = 'Delete profile';
+            membDiv.addEventListener('mouseover', () => {
+                memberSince.replaceWith(profDelete);
+                profDelete.style.opacity = '1';
+            });
+            membDiv.addEventListener('mouseout', () => {
+                profDelete.replaceWith(memberSince);
+                profDelete.style.opacity = '0';
+            });
+
+            profDelete.addEventListener('click', ($event) => {
+                $event.preventDefault();
+
+                const pwInputDiv = document.createElement('div');
+                pwInputDiv.setAttribute('class', 'pw-input-div');
+                membDiv.replaceWith(pwInputDiv);
+
+                const pwParag = document.createElement('p');
+                pwParag.innerText = `Be careful, deleting your profile will include all articles and posts you've created.\n
+                This action is irreversible.\n
+                Once deleted, your profile can not be recovered.`
+                pwInputDiv.appendChild(pwParag);
+
+                const pwInput = document.createElement('input');
+                pwInput.setAttribute('class', 'form-control');
+                pwInput.placeholder = 'Confirm with password';
+                pwInput.setAttribute('type', 'password');
+                pwInput.setAttribute('id', 'pwInput');
+                pwInputDiv.appendChild(pwInput);
+
+                const delBtnGroup = document.createElement('div');
+                delBtnGroup.setAttribute('class', 'btn-group');
+                pwInputDiv.appendChild(delBtnGroup);
+
+                const delCancel = document.createElement('button');
+                delCancel.setAttribute('class', 'btn btn-default');
+                delCancel.innerText = 'Cancel';
+                delCancel.addEventListener('click', ($event) => {
+                    $event.preventDefault();
+                    pwInputDiv.replaceWith(membDiv);
+                    profDelete.replaceWith(memberSince);
+                    profDelete.style.opacity = '0';
+                });
+
+                const delSubmit = document.createElement('button');
+                delSubmit.setAttribute('class', 'btn btn-default');
+                delSubmit.innerText = 'Delete';
+                delBtnGroup.append(delCancel, delSubmit)
+
+                delSubmit.addEventListener('click', ($event) => {
+                    $event.preventDefault();
+
+                    if (document.getElementById('pwInput').value.trim().length === 0) {
+                        pwInput.placeholder = 'Insert password'
+                        setTimeout(() => {
+                            pwInput.placeholder = 'Confirm with password'
+                        }, 3000);
+                        pwInput.focus();
+                    } else {
+                        let result = confirm('Do you really want to delete your profile?');
+                        if (result) {
+                            submitMMFormData({ 'delete': 'delete', password: pwInput.value }, 'DELETE', (api + '/' + data.userInfo[0].userId)).then((resp) => {
+                                if (resp !== undefined) {
+                                    if (resp.success === true) {
+                                        logoutButton.click();
+                                    } else {
+                                        pwInput.value = '';
+                                        pwInput.placeholder = 'Incorrect password'
+                                        pwInput.focus();
+                                        setTimeout(() => {
+                                            pwInput.placeholder = 'Confirm with password'
+                                        }, 3000);
+                                    }
+                                }
+                            });
+                        }
+                    }
+                });
+            });
+        }
+
         const numbersDiv = document.createElement('div');
         numbersDiv.setAttribute('id', 'numbersDiv');
         rightPart.appendChild(numbersDiv);
@@ -824,7 +939,7 @@ request.onload = function () {
             }
         } else {
             const infoParag = document.createElement('p');
-            infoParag.innerText = 'You did not create any articles';
+            infoParag.innerText = 'No articles to dispay';
             infoParag.style.fontStyle = 'italic'
             sucArticles.appendChild(infoParag);
         }
@@ -883,6 +998,7 @@ request.onload = function () {
                 alert(errorResponse);
             };
         }
+        preventJs()
     } else {
         window.location.href = '/frontend/index.html';
     }
@@ -907,7 +1023,7 @@ function countTime(timeToCount) {
         return diffTime;
     }
     else if (diff >= 8.64e+7 && diff < 2.628e+9) {
-        diffTime = Math.floor(diff / 8.64e+7) + ' d ago';
+        diffTime = Math.floor(diff / 8.64e+7) + 'd ago';
     }
     else if (diff >= 2.628e+9 && diff < 3.154e+10) {
         diffTime = Math.floor(diff / 2.628e+9) + `m'th ago`;
@@ -987,9 +1103,11 @@ async function submitMMFormData(submitMMData, keyWord, reqOpen) {
         const requestPromise = makeMMRequest(submitMMData, keyWord, reqOpen);
         const response = await requestPromise;
         responseId = (JSON.parse(response));
+        return responseId
         //location.reload()
     }
     catch (errorResponse) {
         alert(errorResponse);
     };
 }
+
