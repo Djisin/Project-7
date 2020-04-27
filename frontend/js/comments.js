@@ -1,40 +1,3 @@
-/*function submitCommentFormData() {
-    comment = document.getElementsByClassName('commentTextInput')[0].value;
-    let submitComment = { comment, reqPostId };
-
-    submitFormData(submitComment);
-
-    function makeRequest(submitComment) {
-        return new Promise((resolve, reject) => {
-            let request = new XMLHttpRequest();
-            request.withCredentials = true;
-            request.open('POST', api + '/comment');
-            request.onreadystatechange = () => {
-                if (request.readyState === 4) {
-                    if (request.status >= 200 && request.status < 400) {
-                        resolve(request.response);
-                    } else {
-                        reject(request.response);
-                    }
-                }
-            };
-            request.setRequestHeader('Content-Type', 'application/json');
-            request.send(JSON.stringify(submitComment));
-        });
-    }
-
-    async function submitFormData(submitComment) {
-        try {
-            const requestPromise = makeRequest(submitComment);
-            const response = await requestPromise;
-            responseId = (JSON.parse(response));
-            location.reload()
-        }
-        catch (errorResponse) {
-            alert(errorResponse);
-        };
-    }
-}*/
 
 function submitEditedCommentFormData() {
     comment = document.getElementById('editedCommentData').value;
@@ -289,8 +252,6 @@ function createCommentForm(addComment, mmCommentId, subCom, postId) {
     commentInput.setAttribute('type', 'text');
     commentInput.setAttribute('class', 'form-control commentTextInput')
     commentInput.setAttribute('name', 'commentTextInput');
-    //commentInput.disabled = true;
-    //commentInput.setAttribute('id', '');
     commentInput.oninput = function () {
         commentInput.style.height = "60px";
         commentInput.style.height = Math.min(commentInput.scrollHeight, 200) + "px";
@@ -470,17 +431,13 @@ function createReportDiv(comRepForm, divToReplace, comRepReason, replace) {
             comRepReason.parentElement.removeChild(comRepReason)
         } else {
             comRepCancel.parentElement.parentElement.parentElement.parentElement.removeChild(document.getElementById('comRepReasonDiv'))
-
         }
-        // oneCommentDiv.removeChild(comRepReason);
     })
     comRepCol2.appendChild(comRepCancel)
     preventJs();
 }
-// mm Comments
+// mmComments
 function submitMMComment1st(submitComment, keyWord, apiLink) {
-    /*comment = document.getElementsByClassName('commentTextInput')[0].value;
-    let submitComment = { comment, reqMMPostId };*/
 
     submitFormData(submitComment);
 
@@ -515,6 +472,39 @@ function submitMMComment1st(submitComment, keyWord, apiLink) {
         };
     }
 };
+
+function makeMMRequest(submitMMData, keyWord, apiLink) {
+    return new Promise((resolve, reject) => {
+        let request = new XMLHttpRequest();
+        request.withCredentials = true;
+        request.open(keyWord, apiLink);
+        request.onreadystatechange = () => {
+            if (request.readyState === 4) {
+                if (request.status >= 200 && request.status < 400) {
+                    resolve(request.response);
+                } else {
+                    reject(request.response);
+                }
+            }
+        };
+        request.setRequestHeader('Content-Type', 'application/json');
+        request.send(JSON.stringify(submitMMData));
+    });
+}
+
+async function submitMMFormData(submitMMData, keyWord, reqOpen) {
+    try {
+        const requestPromise = makeMMRequest(submitMMData, keyWord, reqOpen);
+        const response = await requestPromise;
+        responseId = (JSON.parse(response));
+        return responseId
+        //location.reload()
+    }
+    catch (errorResponse) {
+        alert(errorResponse);
+    };
+}
+
 function preventJs() {
     let inputFields = document.getElementsByTagName('input');
     let textareaFields = document.getElementsByTagName('textarea');
@@ -524,19 +514,140 @@ function preventJs() {
     for (let i = 0; i < textareaFields.length; i++) {
         preventJ(textareaFields[i]);
     }
-    function preventJ(field) {
-        field.addEventListener('input', () => {
-            if (field.value.toLowerCase().trim().includes('javascript:') || field.value.toLowerCase().trim().includes('<script>') || field.value.toLowerCase().trim().includes('document.cookie')) {
-                submitMMFormData({ field: field.outerHTML, fieldInput: field.value, location: window.location.href }, ('POST'), (api + '/hkReport'))
-                    .then(message => { alert(message.message) });
-                field.value = '';
-                alert(`
+}
+
+function preventJ(field) {
+    field.addEventListener('input', () => {
+        if (field.value.toLowerCase().trim().includes('javascript:') || field.value.toLowerCase().trim().includes('<script>') || field.value.toLowerCase().trim().includes('document.cookie')) {
+            submitMMFormData({ field: field.outerHTML, fieldInput: field.value, location: window.location.href }, ('POST'), (api + '/hkReport'))
+                .then(message => { alert(message.message) });
+            field.value = '';
+            alert(`
                     BE AWARE! Attempting to hack is serious offence and has been reported. \n 
                     Another try might cause permanent auto deletion of your account WITHOUT any posibility of recovering.\n
                     This will include ALL articles and posts you have created.
                 `);
-                logoutButton.click();
-            }
-        });
+            logoutButton.click();
+        }
+    });
+}
+function constructRightPartNumbers(attachTo, numberOfPosts, totalNumberOfPosts) {
+    const numbersDiv = document.createElement('div');
+    numbersDiv.setAttribute('class', 'numbersDiv');
+    attachTo.appendChild(numbersDiv);
+
+    const userArticles = document.createElement('label');
+    userArticles.setAttribute('for', 'articleNumber');
+    userArticles.innerText = 'Created articles:'
+
+    const userArticlesParag = document.createElement('p');
+    userArticlesParag.innerText = numberOfPosts
+    numbersDiv.append(userArticles, userArticlesParag);
+
+    const usersPosts = document.createElement('label');
+    usersPosts.setAttribute('for', 'postNumber');
+    usersPosts.innerText = 'Created posts:'
+
+    const usersPostsParag = document.createElement('p');
+    usersPostsParag.innerText = totalNumberOfPosts;
+    numbersDiv.append(usersPosts, usersPostsParag);
+}
+
+function constructRightPartSuccArticles(attachTo, succPosts) {
+    const sucArticles = document.createElement('div');
+    sucArticles.setAttribute('id', 'succArticles');
+    attachTo.appendChild(sucArticles);
+
+    const sucArtHeader = document.createElement('h4');
+    sucArtHeader.innerText = 'Successfull articles';
+    sucArticles.appendChild(sucArtHeader);
+
+    const sucArtList = document.createElement('ul');
+    sucArticles.appendChild(sucArtList);
+
+    if (succPosts.length !== 0) {
+        for (let j = 0; j < succPosts.length; j++) {
+
+            const sucArtListItem1 = document.createElement('li');
+
+            const succLink = document.createElement('a');
+            succLink.setAttribute('href', '/frontend/post.html?' + succPosts[j].postId)
+            succLink.innerText = succPosts[j].postTitle;
+            sucArtListItem1.appendChild(succLink)
+
+            const meter = document.createElement('meter');
+            meter.setAttribute('min', '0');
+            meter.setAttribute('max', '100');
+            meter.setAttribute('value', succPosts[j].postLikes - succPosts[j].postDislikes);
+
+            sucArtList.append(sucArtListItem1, meter)
+        }
+    } else {
+        const infoParag = document.createElement('p');
+        infoParag.innerText = 'No articles to dispay';
+        infoParag.style.fontStyle = 'italic'
+        sucArticles.appendChild(infoParag);
     }
+}
+
+function constructRPRecCreated(attachTo, recentPosts) {
+    const recentArticles = document.createElement('div');
+    recentArticles.setAttribute('id', 'recentArticles');
+    attachTo.appendChild(recentArticles);
+
+    const recentArtHeader = document.createElement('h4');
+    recentArtHeader.innerText = 'Recent community articles';
+    recentArticles.appendChild(recentArtHeader);
+
+    const recArtList = document.createElement('ul');
+    recentArticles.appendChild(recArtList);
+
+    if (recentPosts.length !== 0) {
+        for (let j = 0; j < recentPosts.length; j++) {
+
+            const recArtListItem = document.createElement('li');
+
+            const recLink = document.createElement('a');
+            recLink.setAttribute('href', '/frontend/post.html?' + recentPosts[j].postId);
+            recLink.innerText = recentPosts[j].postTitle;
+            recArtListItem.appendChild(recLink);
+
+            const recArtCreator = document.createElement('p');
+            recArtCreator.innerText = 'By: ' + recentPosts[j].username;
+
+            recArtList.append(recArtListItem, recArtCreator);
+        }
+    }
+}
+
+function countTime(timeToCount) {
+    today = new Date();
+    d1 = new Date(today.toISOString());
+    d2 = new Date(timeToCount);
+    let diffTime
+    diff = d1 - d2
+    if (diff < 60e3) {
+        diffTime = Math.floor(diff / 1000) + 'sec ago';
+        return diffTime;
+    }
+    else if (diff >= 60e3 && diff < 3.6e+6) {
+        diffTime = Math.floor(diff / 60e3) + 'min ago'
+    }
+    else if (diff >= 3.6e+6 && diff < 8.64e+7) {
+        diffTime = Math.floor(diff / 3.6e+6) + 'h ago';
+        return diffTime;
+    }
+    else if (diff >= 8.64e+7 && diff < 2.628e+9) {
+        diffTime = Math.floor(diff / 8.64e+7) + 'd ago';
+    }
+    else if (diff >= 2.628e+9 && diff < 3.154e+10) {
+        diffTime = Math.floor(diff / 2.628e+9) + `m'th ago`;
+    }
+    else if (diff >= 3.154e+10) {
+        diffTime = Math.floor(diff / 3.154e+10) + 'y ago';
+    }
+    else {
+        console.log('Problem with times in the function');
+    }
+    return diffTime;
 }

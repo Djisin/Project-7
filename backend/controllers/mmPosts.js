@@ -44,9 +44,128 @@ exports.createMMPost = (req, res, next) => {
 }
 
 exports.getAllMMPosts = (req, res, next) => {
-    console.log('4')
-    console.log(req.body);
-    console.log(req.params.id)
+    connection.query('SELECT firstName, lastName, userId FROM user WHERE userId = ?', req.session.userId, (error, userInfo) => {
+        if (!error) {
+            connection.query(`
+                SELECT COUNT(postId) AS number
+                FROM post
+                WHERE userId = ?
+                UNION
+                SELECT COUNT(mmPostId) AS number
+                FROM mmpost
+                WHERE userId = ?`, [req.session.userId, req.session.userId], (error, numberOfPosts) => {
+                if (!error) {
+                    userInfo[0]['numberOfArticles'] = numberOfPosts[0].number;
+                    userInfo[0]['numberOfPosts'] = numberOfPosts[1].number;
+                    connection.query(`
+                        SELECT post.postTitle, post.postId, user.username 
+                        FROM post 
+                        INNER JOIN user 
+                        ON user.userId = post.userId 
+                        ORDER BY postTimeCreated 
+                        DESC LIMIT 3`, (error, recentPosts) => {
+                        if (!error) {
+                            connection.query(`
+                                SELECT postTitle, postId, postLikes, postDislikes 
+                                FROM post WHERE userId = ? 
+                                ORDER BY postLikes - postDislikes 
+                                DESC LIMIT 3`, req.session.userId, (error, succPosts) => {
+                                if (!error) {
+                                    userInfo[0]['succPosts'] = succPosts;
+                                    connection.query(`
+                                        SELECT mmpost.*, user.username, user.userPicture, COUNT(mmcomment.mmCommentId) AS numberOfComments 
+                                        FROM mmpost 
+                                        INNER JOIN user ON mmpost.userId = user.userId 
+                                        LEFT JOIN mmcomment ON mmpost.mmPostId = mmcomment.mmPostId 
+                                        GROUP BY mmPostId 
+                                        ORDER BY timeCreated DESC`,
+                                        (error, mmPosts) => {
+                                            if (!error) {
+                                                connection.query(`
+                                                    SELECT COUNT(userId) as number
+                                                    FROM user`,
+                                                    (error, howManyUsers) => {
+                                                        if (!error) {
+                                                            connection.query(`
+                                                                SELECT postId, postTitle
+                                                                FROM post`,
+                                                                (error, postsCreated) => {
+                                                                    if (!error) {
+                                                                        connection.query(`SELECT postsSeen FROM user`, (error, postsSeenByUsers) => {
+                                                                            if (!error) {
+                                                                                for (let i = 0; i < postsCreated.length; i++) {
+                                                                                    let count = 0
+                                                                                    for (let j = 0; j < postsSeenByUsers.length; j++) {
+                                                                                        zika = JSON.parse(postsSeenByUsers[j].postsSeen);
+                                                                                        if (zika.seen.includes(postsCreated[i].postId)) {
+                                                                                            count++
+                                                                                        }
+                                                                                    }
+                                                                                    postsCreated[i]['count'] = count
+                                                                                }
+                                                                                var max = postsCreated.reduce(function (prev, current) {
+                                                                                    return (prev.count > current.count) ? prev : current
+                                                                                });
+                                                                                res.status(200).json({
+                                                                                    'userInfo': userInfo,
+                                                                                    'numberOfUsers': howManyUsers[0].number,
+                                                                                    'recentPosts': recentPosts,
+                                                                                    'mmContent': mmPosts,
+                                                                                    'mostReadArticle': max
+                                                                                });
+                                                                            } else {
+                                                                                res.status(404).json({
+                                                                                    error: error
+                                                                                });
+                                                                            }
+                                                                        });
+                                                                    } else {
+                                                                        res.status(404).json({
+                                                                            error: error
+                                                                        });
+                                                                    }
+                                                                });
+                                                        } else {
+                                                            res.status(404).json({
+                                                                error: error
+                                                            });
+                                                        }
+                                                    });
+                                            } else {
+                                                res.status(404).json({
+                                                    message: "Can't get users MM content",
+                                                    message: error
+                                                });
+                                            }
+                                        });
+                                } else {
+                                    res.status(404).json({
+                                        message: "Can't get last 3 most successfull posts",
+                                        message: error
+                                    });
+                                }
+                            });
+                        } else {
+                            res.status(404).json({
+                                message: "Can't get last 3 posts",
+                                message: error
+                            });
+                        }
+                    });
+                } else {
+                    res.status(404).json({
+                        message: 'Counting posts problem',
+                        message: error
+                    });
+                }
+            });
+
+        } else {
+            res.status(404).json({
+                message: 'User not found'
+            });
+        }
+    });
 }
 exports.modifyMMPost = (req, res, next) => {
     console.log('2')

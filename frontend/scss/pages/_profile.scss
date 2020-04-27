@@ -9,7 +9,7 @@
     border-radius: 8px;
     display: none;
     opacity: 0;
-    animation: slide-in-fwd-center 1.2s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+    animation: slide-in-fwd-center 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
 }
 #leftPart {
     box-sizing: border-box;
@@ -45,9 +45,6 @@
             overflow: hidden;
             object-fit: cover;
             z-index: 1;
-            &:hover{
-                cursor: pointer;
-            }
         }
         & .btn-group {
             margin-top: 170px;
@@ -78,9 +75,6 @@
         padding: 0px 10px 0 15px;
         margin-bottom: 15px;
         flex-wrap: wrap;
-        &:hover{
-            cursor: pointer;
-        }
         & .btn-group {
             display: flex;
             padding: 0 10px 5px 10px;
@@ -144,9 +138,6 @@
             font-style: italic;
             text-align: justify;
             margin: 0;
-            &:hover{
-                cursor: pointer;
-            }
         }
         & button {
             align-self: flex-end;
@@ -319,7 +310,7 @@
             margin-top: 10px;
             padding: 0;
             box-shadow: 2px 2px 5px 2px rgba(0, 0, 0, 0.25);
-            
+
             & img {
                 width: inherit;
                 margin-bottom: 5px;
@@ -349,12 +340,19 @@
                     border-radius: 0;
                     float: left;
                 }
-                & p {
+                & a {
                     float: left;
                     margin: 5px 10px 5px 0;
                     padding: 0;
+                    color: #000;
+                    &:hover {
+                        color: $normalStyleButton;
+                        text-decoration: none;
+                    }
                 }
                 & .timeCreated {
+                    margin-top: 10px;
+                    margin-right: 5px;
                     float: right;
                     font-size: 13px;
                 }
@@ -422,27 +420,6 @@
         text-align: center;
         margin-top: 15px;
     }
-    & #numbersDiv {
-        @include content-boxes;
-        text-align: center;
-        margin-top: 0;
-        & label {
-            display: block;
-            margin: 0;
-            &:first-child {
-                margin-top: 10px;
-            }
-        }
-        & p {
-            display: inline-block;
-            padding: 3px 12px 3px 12px;
-            margin: 5px;
-            border: 1px solid $postShadows;
-            min-width: 60px;
-            border-radius: 6px;
-            box-shadow: inset 0px 0px 5px 1px $postShadows;
-        }
-    }
     & .member-div {
         @include content-boxes;
         @include nail-hanger;
@@ -465,9 +442,6 @@
             border-radius: 6px;
             padding: 5px 11px 5px 11px;
             z-index: 2;
-        }
-        &:hover{
-            cursor: pointer;
         }
     }
     & .pw-input-div {
@@ -495,27 +469,6 @@
             font-style: italic;
         }
     }
-    & #succArticles {
-        @include content-boxes;
-        padding-left: 5px;
-        padding-right: 5px;
-        & ul {
-            padding-left: 20px;
-            & meter {
-                width: 180px;
-            }
-        }
-        & p {
-            text-align: center;
-        }
-        & a {
-            color: #000;
-            &:hover {
-                color: $normalStyleButton;
-                text-decoration: none;
-            }
-        }
-    }
     & #recentArticles {
         @include content-boxes;
         padding-left: 5px;
@@ -536,7 +489,50 @@
         }
     }
 }
-
+.numbersDiv {
+    @include content-boxes;
+    text-align: center;
+    margin-top: 0;
+    margin-bottom: 15px;
+    & label {
+        display: block;
+        margin: 0;
+        &:first-child {
+            margin-top: 10px;
+        }
+    }
+    & p {
+        display: inline-block;
+        padding: 3px 12px 3px 12px;
+        margin: 5px;
+        border: 1px solid $postShadows;
+        min-width: 60px;
+        border-radius: 6px;
+        box-shadow: inset 0px 0px 5px 1px $postShadows;
+    }
+}
+#succArticles {
+    @include content-boxes;
+    margin-top: 0;
+    padding-left: 5px;
+    padding-right: 5px;
+    & ul {
+        padding-left: 20px;
+        & meter {
+            width: 180px;
+        }
+    }
+    & p {
+        text-align: center;
+    }
+    & a {
+        color: #000;
+        &:hover {
+            color: $normalStyleButton;
+            text-decoration: none;
+        }
+    }
+}
 .single-comment-div {
     //box-shadow: inset 0px 3px 5px -2px $postShadows;
     //height: 30px; //bilo 200

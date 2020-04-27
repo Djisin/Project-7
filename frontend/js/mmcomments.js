@@ -476,7 +476,6 @@ function reportEventListener(reportButton, divToReplace, whatToReportId, whatToR
     reportButton.addEventListener('click', ($event) => {
         $event.preventDefault();
         const comRepReason = document.createElement('div');
-        //comRepReason.setAttribute('class', 'col-md-12');
         comRepReason.setAttribute('id', 'comRepReasonDiv')
 
         if (document.getElementById('comRepReasonDiv')) {
@@ -510,7 +509,6 @@ function reportEventListener(reportButton, divToReplace, whatToReportId, whatToR
             if (replace === 'append') {
                 submitReportData = {
                     'level': 'bottom',
-                    //'postId':postId,
                     'commentId2nd': whatToReportId,
                     'reportReason': repReasonData,
                     'whoCreatedPost': whatToReportCreatorId
@@ -538,39 +536,3 @@ function reportEventListener(reportButton, divToReplace, whatToReportId, whatToR
         preventJs();
     });
 }
-
-/*function deletePost(mmPostId, singlePost) {
-    let result = confirm('Do you really want to delete your post')
-    if (result) {
-        let submitData = { 'delete': 'delete' };
-        let apiLink = mmApi + '/' + mmPostId;
-        let keyWord = 'DELETE';
-
-        submitMMFormData(submitData, keyWord, apiLink);
-        singlePost.style.display = 'none';
-    }
-}*/
-
-/*function deleteComment(commentId, singleCommentDiv) {
-    let result = confirm('Do you really want to delete your comment')
-    if (result) {
-        let submitData = { 'delete': 'delete' };
-        let apiLink = mmApi + '/comment/' + commentId;
-        let keyWord = 'DELETE';
-
-        submitMMFormData(submitData, keyWord, apiLink);
-        singleCommentDiv.style.display = 'none';
-    }
-}
-
-function deleteComment2nd(commentId, singleCommentDiv) {
-    let result = confirm('Do you really want to delete your comment')
-    if (result) {
-        let submitData = { 'delete': 'delete' };
-        let apiLink = mmApi + '/comment2nd/' + commentId;
-        let keyWord = 'DELETE';
-
-        submitMMFormData(submitData, keyWord, apiLink);
-        singleCommentDiv.style.display = 'none';
-    }
-}*/

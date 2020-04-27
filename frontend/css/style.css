@@ -1501,6 +1501,23 @@ nav img {
   color: #da2d2d;
 }
 
+#community-section {
+  background-color: #fff;
+  margin-top: 40px;
+  -ms-flex-item-align: center;
+      -ms-grid-row-align: center;
+      align-self: center;
+  max-width: 1024px;
+  padding: 0;
+  min-height: 90vh;
+  border: 4px double rgba(95, 131, 165, 0.75);
+  border-radius: 8px;
+  display: none;
+  opacity: 0;
+  -webkit-animation: slide-in-fwd-center 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+          animation: slide-in-fwd-center 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+}
+
 #userProfile {
   background-color: #fff;
   margin-top: 40px;
@@ -1607,10 +1624,6 @@ nav img {
   z-index: 1;
 }
 
-#leftPart #profPicDiv img:hover {
-  cursor: pointer;
-}
-
 #leftPart #profPicDiv .btn-group {
   margin-top: 170px;
   -ms-flex-item-align: center;
@@ -1707,10 +1720,6 @@ nav img {
   border-width: 3px;
   border-style: double;
   border-color: rgba(95, 131, 165, 0.75);
-}
-
-#leftPart #moreUserProf:hover {
-  cursor: pointer;
 }
 
 #leftPart #moreUserProf .btn-group {
@@ -1826,10 +1835,6 @@ nav img {
   font-style: italic;
   text-align: justify;
   margin: 0;
-}
-
-#middlePart #header-div p:hover {
-  cursor: pointer;
 }
 
 #middlePart #header-div button {
@@ -2222,13 +2227,21 @@ nav img {
   float: left;
 }
 
-#middlePart .content-div .mmPosts .singlePostHeader p {
+#middlePart .content-div .mmPosts .singlePostHeader a {
   float: left;
   margin: 5px 10px 5px 0;
   padding: 0;
+  color: #000;
+}
+
+#middlePart .content-div .mmPosts .singlePostHeader a:hover {
+  color: #5989d1;
+  text-decoration: none;
 }
 
 #middlePart .content-div .mmPosts .singlePostHeader .timeCreated {
+  margin-top: 10px;
+  margin-right: 5px;
   float: right;
   font-size: 13px;
 }
@@ -2361,51 +2374,6 @@ nav img {
   margin-top: 15px;
 }
 
-#rightPart #numbersDiv {
-  border-top: 3px double rgba(95, 131, 165, 0.75);
-  border-bottom: 3px double rgba(95, 131, 165, 0.75);
-  border-right: 3px double rgba(95, 131, 165, 0.75);
-  border-radius: 8px;
-  -webkit-box-shadow: 1px 0px 2px 1px rgba(0, 0, 0, 0.35);
-          box-shadow: 1px 0px 2px 1px rgba(0, 0, 0, 0.35);
-  margin-top: 15px;
-  text-align: left;
-  text-align: center;
-  margin-top: 0;
-}
-
-#rightPart #numbersDiv::before {
-  content: "";
-  position: absolute;
-  border-radius: 50%;
-  left: 50%;
-  margin-left: -3px;
-  margin-top: 1px;
-  border-width: 3px;
-  border-style: double;
-  border-color: rgba(95, 131, 165, 0.75);
-}
-
-#rightPart #numbersDiv label {
-  display: block;
-  margin: 0;
-}
-
-#rightPart #numbersDiv label:first-child {
-  margin-top: 10px;
-}
-
-#rightPart #numbersDiv p {
-  display: inline-block;
-  padding: 3px 12px 3px 12px;
-  margin: 5px;
-  border: 1px solid rgba(95, 131, 165, 0.75);
-  min-width: 60px;
-  border-radius: 6px;
-  -webkit-box-shadow: inset 0px 0px 5px 1px rgba(95, 131, 165, 0.75);
-          box-shadow: inset 0px 0px 5px 1px rgba(95, 131, 165, 0.75);
-}
-
 #rightPart .member-div {
   border-top: 3px double rgba(95, 131, 165, 0.75);
   border-bottom: 3px double rgba(95, 131, 165, 0.75);
@@ -2468,10 +2436,6 @@ nav img {
   border-radius: 6px;
   padding: 5px 11px 5px 11px;
   z-index: 2;
-}
-
-#rightPart .member-div:hover {
-  cursor: pointer;
 }
 
 #rightPart .pw-input-div {
@@ -2542,52 +2506,6 @@ nav img {
   font-style: italic;
 }
 
-#rightPart #succArticles {
-  border-top: 3px double rgba(95, 131, 165, 0.75);
-  border-bottom: 3px double rgba(95, 131, 165, 0.75);
-  border-right: 3px double rgba(95, 131, 165, 0.75);
-  border-radius: 8px;
-  -webkit-box-shadow: 1px 0px 2px 1px rgba(0, 0, 0, 0.35);
-          box-shadow: 1px 0px 2px 1px rgba(0, 0, 0, 0.35);
-  margin-top: 15px;
-  text-align: left;
-  padding-left: 5px;
-  padding-right: 5px;
-}
-
-#rightPart #succArticles::before {
-  content: "";
-  position: absolute;
-  border-radius: 50%;
-  left: 50%;
-  margin-left: -3px;
-  margin-top: 1px;
-  border-width: 3px;
-  border-style: double;
-  border-color: rgba(95, 131, 165, 0.75);
-}
-
-#rightPart #succArticles ul {
-  padding-left: 20px;
-}
-
-#rightPart #succArticles ul meter {
-  width: 180px;
-}
-
-#rightPart #succArticles p {
-  text-align: center;
-}
-
-#rightPart #succArticles a {
-  color: #000;
-}
-
-#rightPart #succArticles a:hover {
-  color: #5989d1;
-  text-decoration: none;
-}
-
 #rightPart #recentArticles {
   border-top: 3px double rgba(95, 131, 165, 0.75);
   border-bottom: 3px double rgba(95, 131, 165, 0.75);
@@ -2627,6 +2545,99 @@ nav img {
 }
 
 #rightPart #recentArticles a:hover {
+  color: #5989d1;
+  text-decoration: none;
+}
+
+.numbersDiv {
+  border-top: 3px double rgba(95, 131, 165, 0.75);
+  border-bottom: 3px double rgba(95, 131, 165, 0.75);
+  border-right: 3px double rgba(95, 131, 165, 0.75);
+  border-radius: 8px;
+  -webkit-box-shadow: 1px 0px 2px 1px rgba(0, 0, 0, 0.35);
+          box-shadow: 1px 0px 2px 1px rgba(0, 0, 0, 0.35);
+  margin-top: 15px;
+  text-align: left;
+  text-align: center;
+  margin-top: 0;
+  margin-bottom: 15px;
+}
+
+.numbersDiv::before {
+  content: "";
+  position: absolute;
+  border-radius: 50%;
+  left: 50%;
+  margin-left: -3px;
+  margin-top: 1px;
+  border-width: 3px;
+  border-style: double;
+  border-color: rgba(95, 131, 165, 0.75);
+}
+
+.numbersDiv label {
+  display: block;
+  margin: 0;
+}
+
+.numbersDiv label:first-child {
+  margin-top: 10px;
+}
+
+.numbersDiv p {
+  display: inline-block;
+  padding: 3px 12px 3px 12px;
+  margin: 5px;
+  border: 1px solid rgba(95, 131, 165, 0.75);
+  min-width: 60px;
+  border-radius: 6px;
+  -webkit-box-shadow: inset 0px 0px 5px 1px rgba(95, 131, 165, 0.75);
+          box-shadow: inset 0px 0px 5px 1px rgba(95, 131, 165, 0.75);
+}
+
+#succArticles {
+  border-top: 3px double rgba(95, 131, 165, 0.75);
+  border-bottom: 3px double rgba(95, 131, 165, 0.75);
+  border-right: 3px double rgba(95, 131, 165, 0.75);
+  border-radius: 8px;
+  -webkit-box-shadow: 1px 0px 2px 1px rgba(0, 0, 0, 0.35);
+          box-shadow: 1px 0px 2px 1px rgba(0, 0, 0, 0.35);
+  margin-top: 15px;
+  text-align: left;
+  margin-top: 0;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#succArticles::before {
+  content: "";
+  position: absolute;
+  border-radius: 50%;
+  left: 50%;
+  margin-left: -3px;
+  margin-top: 1px;
+  border-width: 3px;
+  border-style: double;
+  border-color: rgba(95, 131, 165, 0.75);
+}
+
+#succArticles ul {
+  padding-left: 20px;
+}
+
+#succArticles ul meter {
+  width: 180px;
+}
+
+#succArticles p {
+  text-align: center;
+}
+
+#succArticles a {
+  color: #000;
+}
+
+#succArticles a:hover {
   color: #5989d1;
   text-decoration: none;
 }
