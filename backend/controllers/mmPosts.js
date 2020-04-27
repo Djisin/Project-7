@@ -65,8 +65,16 @@ exports.modifyMMPost = (req, res, next) => {
                     let possExtensions = ['.jpg', '.png', 'apng', '.bmp', '.gif', '.svg', 'webp', '.flv', '.mp4', '.ts', '.3gp', '.mov', '.avi', '.wmv']
                     let extension = rows[0].postMMField.substring(rows[0].postMMField.length - 4);
                     if (possExtensions.includes(extension)) {
+                        /*const filename = rows[0].postMMField.split('/images/')[1];
+                        fs.unlinkSync('images/' + filename);*/
                         const filename = rows[0].postMMField.split('/images/')[1];
-                        fs.unlinkSync('images/' + filename);
+                        fs.unlink('images/' + filename, (error) => {
+                            if (!error) {
+                                console.log('Picture replaced successfully.');
+                            } else {
+                                console.log('Previous picture not found, picture saved.');
+                            }
+                        });
                     }
                 }
             } else {
@@ -87,8 +95,16 @@ exports.modifyMMPost = (req, res, next) => {
                     let possExtensions = ['.jpg', '.png', 'apng', '.bmp', '.gif', '.svg', 'webp', '.flv', '.mp4', '.ts', '.3gp', '.mov', '.avi', '.wmv']
                     let extension = rows[0].postMMField.toLowerCase().substring(rows[0].postMMField.length - 4);
                     if (possExtensions.includes(extension)) {
+                        /*const filename = rows[0].postMMField.split('/images/')[1];
+                        fs.unlinkSync('images/' + filename);*/
                         const filename = rows[0].postMMField.split('/images/')[1];
-                        fs.unlinkSync('images/' + filename);
+                        fs.unlink('images/' + filename, (error) => {
+                            if (!error) {
+                                console.log('Picture replaced successfully.');
+                            } else {
+                                console.log('Previous picture not found, picture saved.');
+                            }
+                        });
                     }
                 }
             } else {
@@ -110,8 +126,16 @@ exports.modifyMMPost = (req, res, next) => {
                     let extension = rows[0].postMMField.substring(rows[0].postMMField.length - 4);
                     console.log(extension)
                     if (possExtensions.includes(extension)) {
+                        /*const filename = rows[0].postMMField.split('/images/')[1];
+                        fs.unlinkSync('images/' + filename);*/
                         const filename = rows[0].postMMField.split('/images/')[1];
-                        fs.unlinkSync('images/' + filename);
+                        fs.unlink('images/' + filename, (error) => {
+                            if (!error) {
+                                console.log('Picture replaced successfully.');
+                            } else {
+                                console.log('Previous picture not found, picture saved.');
+                            }
+                        });
                     }
                 }
             } else {
@@ -173,10 +197,18 @@ exports.deleteMMPost = (req, res, next) => {
     connection.query(`SELECT postMMField FROM mmpost WHERE mmPostId = ?`, req.params.id, (error, dbpicture) => {
         if (!error) {
             if (dbpicture[0].postMMField !== null) {
-                let picture = dbpicture[0].postMMField.split('/images/')[1];
+                /*let picture = dbpicture[0].postMMField.split('/images/')[1];
                 if (picture !== undefined) {
                     fs.unlinkSync('images/' + picture);
-                }
+                }*/
+                const filename = dbpicture[0].postMMField.split('/images/')[1];
+                fs.unlink('images/' + filename, (error) => {
+                    if (!error) {
+                        console.log('Picture replaced successfully.');
+                    } else {
+                        console.log('Previous picture not found.');
+                    }
+                });
             }
             connection.query(`DELETE FROM mmpost WHERE mmPostId = ?`, req.params.id, (error) => {
                 if (!error) {

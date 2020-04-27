@@ -260,8 +260,16 @@ exports.modifyPost = (req, res, next) => {
         connection.query('SELECT postPicture FROM post WHERE postId = ' + req.params.id, (error, rows) => {
             if (!error) {
                 if (rows[0].postPicture !== null) {
+                    /*const filename = rows[0].postPicture.split('/images/')[1];
+                    fs.unlinkSync('images/' + filename);*/
                     const filename = rows[0].postPicture.split('/images/')[1];
-                    fs.unlinkSync('images/' + filename);
+                    fs.unlink('images/' + filename, (error) => {
+                        if (!error) {
+                            console.log('Picture replaced successfully.');
+                        } else {
+                            console.log('Previous picture not found, picture saved.');
+                        }
+                    });
                 }
             } else {
                 console.log('Error on picture update');
@@ -279,10 +287,18 @@ exports.modifyPost = (req, res, next) => {
         connection.query('SELECT postPicture FROM post WHERE postId = ' + req.params.id, (error, rows) => {
             if (!error) {
                 if (rows[0].postPicture !== null) {
+                    /* const filename = rows[0].postPicture.split('/images/')[1];
+                     fs.unlinkSync('images/' + filename);*/
                     const filename = rows[0].postPicture.split('/images/')[1];
-                    fs.unlinkSync('images/' + filename);
+                    fs.unlink('images/' + filename, (error) => {
+                        if (!error) {
+                            console.log('Picture replaced successfully.');
+                        } else {
+                            console.log('Previous picture not found, picture saved.');
+                        }
+                    });
                 }
-            } else { 
+            } else {
                 console.log('Error on picture update');
             }
         })
@@ -313,10 +329,18 @@ exports.modifyPost = (req, res, next) => {
 exports.deletePost = (req, res, next) => {
     connection.query(`SELECT postPicture FROM post WHERE postId = ?`, req.params.id, (error, dbpicture) => {
         if (!error) {
-            let picture = dbpicture[0].postPicture.split('/images/')[1];
+            /*let picture = dbpicture[0].postPicture.split('/images/')[1];
             if (picture !== undefined) {
                 fs.unlinkSync('images/' + picture);
-            }
+            }*/
+            const filename = dbpicture[0].postPicture.split('/images/')[1];
+            fs.unlink('images/' + filename, (error) => {
+                if (!error) {
+                    console.log('Picture replaced successfully.');
+                } else {
+                    console.log('Previous picture not found, picture saved.');
+                }
+            });
             connection.query('DELETE FROM post WHERE postId = ?', req.params.id, (error) => {
                 if (!error) {
                     connection.query('DELETE FROM comment WHERE postId = ?', req.params.id, (error) => {
