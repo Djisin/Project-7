@@ -34,6 +34,8 @@
         padding: 0 10px 10px 10px;
         @include nail-hanger;
         @include content-boxes;
+        overflow: hidden;
+        min-height: 220px;
         & img {
             align-self: center;
             max-width: 200px;
@@ -42,6 +44,7 @@
             box-shadow: 3px 3px 5px 0px rgba(0, 0, 0, 0.75);
             overflow: hidden;
             object-fit: cover;
+            z-index: 1;
             &:hover{
                 cursor: pointer;
             }
@@ -50,6 +53,7 @@
             margin-top: 170px;
             align-self: center;
             position: absolute;
+            z-index: 2;
             & button {
                 padding: 3px;
                 width: 100px;
@@ -74,6 +78,9 @@
         padding: 0px 10px 0 15px;
         margin-bottom: 15px;
         flex-wrap: wrap;
+        &:hover{
+            cursor: pointer;
+        }
         & .btn-group {
             display: flex;
             padding: 0 10px 5px 10px;
@@ -137,6 +144,9 @@
             font-style: italic;
             text-align: justify;
             margin: 0;
+            &:hover{
+                cursor: pointer;
+            }
         }
         & button {
             align-self: flex-end;
@@ -440,6 +450,8 @@
         margin-bottom: 15px;
         display: flex;
         flex-direction: column;
+        overflow: hidden;
+        min-height: 57px;
         & p {
             margin-top: 15px;
             margin-bottom: 15px;

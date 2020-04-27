@@ -31,3 +31,33 @@
         opacity: 1;
     }
 }
+
+@keyframes ripple{
+    0%{
+      transform: translate3d(-50%, 50%, 0) scale(0);
+      opacity: .33;
+    }
+    100%{
+      transform: translate3d(-50%, 50%, 0) scale(500);
+      opacity: 0;
+    }
+  }
+  .ripple-1,
+.ripple-2,
+.ripple-3,
+.ripple-4,
+.ripple-5{
+  height: 1px;
+  width: 1px;
+  //position: absolute;
+  left: 0;
+  bottom: 0;
+  background-color: $postShadows;
+  border-radius: 50%;
+  transform: translate3d(-50%, 50%, 0);
+  animation-name: ripple;
+  animation-duration: 3s;
+  animation-iteration-count: infinite;
+  animation-timing-function: ease-out;
+  will-change: transform, opacity;
+}

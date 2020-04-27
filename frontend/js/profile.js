@@ -55,6 +55,13 @@ request.onload = function () {
         profPic.setAttribute('src', data.userData[0].userPicture);
         profPicDiv.appendChild(profPic);
 
+        const ripSpan = document.createElement('span');
+        ripSpan.setAttribute('class','ripple-1');
+        profPicDiv.appendChild(ripSpan)
+        const ripSpan2 = document.createElement('span');
+        ripSpan2.setAttribute('class','ripple-2');
+        profPicDiv.appendChild(ripSpan2)
+
         const editPicBtnDiv = document.createElement('div');
         editPicBtnDiv.setAttribute('class', 'btn-group')
         profPicDiv.appendChild(editPicBtnDiv);
@@ -75,14 +82,6 @@ request.onload = function () {
                 }
                 h++
             });
-
-            /*profPic.addEventListener('click', () => {
-                
-                if (editPicBtnDiv.firstChild) {
-                    editPicBtnDiv.removeChild(editPicBtn)
-                }
-               
-            });*/
 
             editPicBtn.addEventListener('click', ($event) => {
                 $event.preventDefault();
@@ -202,15 +201,20 @@ request.onload = function () {
                 editUserNetwsBtn.innerText = 'Edit your networks'
                 editUserNetwsBtn.style.opacity = 0;
                 editUserNetws.appendChild(editUserNetwsBtn);
-
-                moreUserProf.addEventListener('mouseover', () => {
-                    editUserNetwsBtn.style.opacity = 1;
+                let u=1;
+                moreUserProf.addEventListener('click', () => {
+                    if(u % 2 ===0){
+                        editUserNetwsBtn.style.opacity = 0;
+                    }else{
+                        editUserNetwsBtn.style.opacity = 1;
+                    }
+                    u++
                 });
-                moreUserProf.addEventListener('mouseout', () => {
+                /*moreUserProf.addEventListener('mouseout', () => {
                     //setTimeout(() => {
-                    editUserNetwsBtn.style.opacity = 0;
+                    
                     //}, 2000);
-                });
+                });*/
 
                 editUserNetwsBtn.addEventListener('click', ($event) => {
                     $event.preventDefault();
@@ -250,6 +254,9 @@ request.onload = function () {
                             moreUserProf.removeChild(moreUserProf.lastChild);
                         }
                         consructUserNetworks();
+                        setTimeout(() => {
+                            editUserNetwsBtn.style.opacity = 0;
+                        }, 1000);
                     });
 
                     const submitEditNetws = document.createElement('button');
@@ -311,7 +318,7 @@ request.onload = function () {
 
         if (data.userInfo[0].userId === data.userData[0].userId) {
 
-            const editPersLineBtn = document.createElement('button');
+            /*const editPersLineBtn = document.createElement('button');
             editPersLineBtn.style.opacity = 0;
             editPersLineBtn.style.position = 'absolute';
             editPersLineBtn.style.marginTop = '40px';
@@ -327,12 +334,12 @@ request.onload = function () {
             })
 
             editPersLineBtn.setAttribute('class', 'btn btn-default');
-            editPersLineBtn.innerText = 'Edit';
+            editPersLineBtn.innerText = 'Edit';*/
 
-            editPersLineBtn.addEventListener('click', ($event) => {
+            usersThoughts.addEventListener('click', ($event) => {
                 $event.preventDefault();
                 headerDiv.removeChild(usersThoughts);
-                headerDiv.removeChild(editPersLineBtn);
+                //headerDiv.removeChild(editPersLineBtn);
 
                 const editPersLineTArea = document.createElement('textarea');
                 editPersLineTArea.innerText = usersThoughts.innerText;
@@ -371,7 +378,7 @@ request.onload = function () {
                     $event.preventDefault();
                     headerDiv.removeChild(editPersLineTArea);
                     headerDiv.removeChild(persLineBtns);
-                    headerDiv.append(usersThoughts, editPersLineBtn);
+                    headerDiv.append(usersThoughts/*, editPersLineBtn*/);
                 });
 
                 editPersLineBtnSub.addEventListener('click', ($event) => {
@@ -816,6 +823,10 @@ request.onload = function () {
         let memberSince = document.createElement('p');
         memberSince.innerText = 'Member since: ' + countTime(data.userData[0].timeCreated);
         membDiv.appendChild(memberSince);
+
+        const mripSpan = document.createElement('span');
+        mripSpan.setAttribute('class','ripple-3');
+        membDiv.appendChild(mripSpan)
 
         if (data.userData[0].userId === data.userInfo[0].userId) {
             const profDelete = document.createElement('button');

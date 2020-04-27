@@ -1564,6 +1564,8 @@ nav img {
           box-shadow: 1px 0px 2px 1px rgba(0, 0, 0, 0.35);
   margin-top: 15px;
   text-align: left;
+  overflow: hidden;
+  min-height: 220px;
 }
 
 #leftPart #profPicDiv::before {
@@ -1602,6 +1604,7 @@ nav img {
   overflow: hidden;
   -o-object-fit: cover;
      object-fit: cover;
+  z-index: 1;
 }
 
 #leftPart #profPicDiv img:hover {
@@ -1614,6 +1617,7 @@ nav img {
       -ms-grid-row-align: center;
       align-self: center;
   position: absolute;
+  z-index: 2;
 }
 
 #leftPart #profPicDiv .btn-group button {
@@ -1703,6 +1707,10 @@ nav img {
   border-width: 3px;
   border-style: double;
   border-color: rgba(95, 131, 165, 0.75);
+}
+
+#leftPart #moreUserProf:hover {
+  cursor: pointer;
 }
 
 #leftPart #moreUserProf .btn-group {
@@ -1818,6 +1826,10 @@ nav img {
   font-style: italic;
   text-align: justify;
   margin: 0;
+}
+
+#middlePart #header-div p:hover {
+  cursor: pointer;
 }
 
 #middlePart #header-div button {
@@ -2412,6 +2424,8 @@ nav img {
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
+  overflow: hidden;
+  min-height: 57px;
 }
 
 #rightPart .member-div::before {
@@ -3032,6 +3046,56 @@ nav img {
             transform: translateZ(0);
     opacity: 1;
   }
+}
+
+@-webkit-keyframes ripple {
+  0% {
+    -webkit-transform: translate3d(-50%, 50%, 0) scale(0);
+            transform: translate3d(-50%, 50%, 0) scale(0);
+    opacity: .33;
+  }
+  100% {
+    -webkit-transform: translate3d(-50%, 50%, 0) scale(500);
+            transform: translate3d(-50%, 50%, 0) scale(500);
+    opacity: 0;
+  }
+}
+
+@keyframes ripple {
+  0% {
+    -webkit-transform: translate3d(-50%, 50%, 0) scale(0);
+            transform: translate3d(-50%, 50%, 0) scale(0);
+    opacity: .33;
+  }
+  100% {
+    -webkit-transform: translate3d(-50%, 50%, 0) scale(500);
+            transform: translate3d(-50%, 50%, 0) scale(500);
+    opacity: 0;
+  }
+}
+
+.ripple-1,
+.ripple-2,
+.ripple-3,
+.ripple-4,
+.ripple-5 {
+  height: 1px;
+  width: 1px;
+  left: 0;
+  bottom: 0;
+  background-color: rgba(95, 131, 165, 0.75);
+  border-radius: 50%;
+  -webkit-transform: translate3d(-50%, 50%, 0);
+          transform: translate3d(-50%, 50%, 0);
+  -webkit-animation-name: ripple;
+          animation-name: ripple;
+  -webkit-animation-duration: 3s;
+          animation-duration: 3s;
+  -webkit-animation-iteration-count: infinite;
+          animation-iteration-count: infinite;
+  -webkit-animation-timing-function: ease-out;
+          animation-timing-function: ease-out;
+  will-change: transform, opacity;
 }
 
 #comRepReasonDiv {
