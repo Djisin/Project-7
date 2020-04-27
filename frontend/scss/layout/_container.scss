@@ -61,8 +61,10 @@ body {
     border-radius: 0px;
   }
   & ul {
+    position: absolute;
     & li {
       text-align: left;
+      width: auto;
       &:hover {
         background-color: papayawhip;
       }

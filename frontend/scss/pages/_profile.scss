@@ -42,6 +42,9 @@
             box-shadow: 3px 3px 5px 0px rgba(0, 0, 0, 0.75);
             overflow: hidden;
             object-fit: cover;
+            &:hover{
+                cursor: pointer;
+            }
         }
         & .btn-group {
             margin-top: 170px;
@@ -450,6 +453,9 @@
             border-radius: 6px;
             padding: 5px 11px 5px 11px;
             z-index: 2;
+        }
+        &:hover{
+            cursor: pointer;
         }
     }
     & .pw-input-div {

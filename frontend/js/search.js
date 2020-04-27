@@ -13,8 +13,8 @@ searchInput.addEventListener('keyup', () => {
     if (searchInputVal !== '' || null || undefined) {
         delayTimer = setTimeout(() => { searchDB({ searchInputVal }) }, 1000);
     }
-    if(document.getElementById('searchInputDiv').children.length>1){
-        document.getElementById('searchInputDiv').children[1].remove();
+    if(document.getElementById('searchInputDiv').children.length>2){
+        document.getElementById('searchInputDiv').children[2].remove();
     }
 });
 searchInput.addEventListener('keydown', () => {

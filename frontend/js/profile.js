@@ -29,7 +29,7 @@ request.onload = function () {
         const profileSection = document.getElementById('userProfile');
         profileSection.setAttribute('class', 'col-md-12');
         setTimeout(() => {
-            profileSection.style.display='block'
+            profileSection.style.display = 'block'
         }, 1000);
 
         const leftPart = document.createElement('section');
@@ -66,17 +66,23 @@ request.onload = function () {
             let changePicIn = document.createElement('input');
             changePicIn.setAttribute('type', 'file');
             changePicIn.setAttribute('id', 'chagePic');
-            profPic.addEventListener('mouseover', () => {
-                editPicBtnDiv.appendChild(editPicBtn)
+            let h = 1;
+            profPic.addEventListener('click', () => {
+                if (h % 2 === 0) {
+                    editPicBtnDiv.removeChild(editPicBtn);
+                } else {
+                    editPicBtnDiv.appendChild(editPicBtn);
+                }
+                h++
             });
 
-            profPic.addEventListener('mouseleave', () => {
-                //setTimeout(() => {
+            /*profPic.addEventListener('click', () => {
+                
                 if (editPicBtnDiv.firstChild) {
                     editPicBtnDiv.removeChild(editPicBtn)
                 }
-                //}, 2000);
-            });
+               
+            });*/
 
             editPicBtn.addEventListener('click', ($event) => {
                 $event.preventDefault();
@@ -627,8 +633,8 @@ request.onload = function () {
             const singlePost = document.createElement('div');
             singlePost.setAttribute('class', 'col-md-12 mmPosts slide-in-fwd-center');
             contentDivMM.appendChild(singlePost);
-            singlePost.style.animationDelay = (i+0.3)-(0.8*i)+'s'
-            
+            singlePost.style.animationDelay = (i + 0.3) - (0.8 * i) + 's'
+
             singlePost.addEventListener('mouseover', () => {
                 singlePost.getElementsByClassName('singlePostFooter')[0].children[1].style.opacity = '1'
             });
@@ -711,7 +717,7 @@ request.onload = function () {
 
             const postButtonGroup = document.createElement('div');
             postButtonGroup.setAttribute('class', 'btn-group');
-            postButtonGroup.style.opacity='0';
+            postButtonGroup.style.opacity = '0';
             singlePostFooter.appendChild(postButtonGroup);
 
             const comReport = document.createElement('button');
@@ -815,14 +821,20 @@ request.onload = function () {
             const profDelete = document.createElement('button');
             profDelete.setAttribute('class', 'btn btn-default');
             profDelete.innerText = 'Delete profile';
-            membDiv.addEventListener('mouseover', () => {
-                memberSince.replaceWith(profDelete);
-                profDelete.style.opacity = '1';
+            let y = 1;
+            membDiv.addEventListener('click', () => {
+                if (y % 2 === 0) {
+                    profDelete.replaceWith(memberSince);
+                    profDelete.style.opacity = '0';
+                } else {
+                    memberSince.replaceWith(profDelete);
+                    profDelete.style.opacity = '1';
+                }
+                y++
             });
-            membDiv.addEventListener('mouseout', () => {
-                profDelete.replaceWith(memberSince);
-                profDelete.style.opacity = '0';
-            });
+            /* membDiv.addEventListener('mouseout', () => {
+                 
+             });*/
 
             profDelete.addEventListener('click', ($event) => {
                 $event.preventDefault();

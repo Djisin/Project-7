@@ -119,8 +119,13 @@ body {
   border-radius: 0px;
 }
 
+#searchInputDiv ul {
+  position: absolute;
+}
+
 #searchInputDiv ul li {
   text-align: left;
+  width: auto;
 }
 
 #searchInputDiv ul li:hover {
@@ -1599,6 +1604,10 @@ nav img {
      object-fit: cover;
 }
 
+#leftPart #profPicDiv img:hover {
+  cursor: pointer;
+}
+
 #leftPart #profPicDiv .btn-group {
   margin-top: 170px;
   -ms-flex-item-align: center;
@@ -2445,6 +2454,10 @@ nav img {
   border-radius: 6px;
   padding: 5px 11px 5px 11px;
   z-index: 2;
+}
+
+#rightPart .member-div:hover {
+  cursor: pointer;
 }
 
 #rightPart .pw-input-div {
