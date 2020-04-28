@@ -212,11 +212,6 @@ request.onload = function () {
                     }
                     u++
                 });
-                /*moreUserProf.addEventListener('mouseout', () => {
-                    //setTimeout(() => {
-                    
-                    //}, 2000);
-                });*/
 
                 editUserNetwsBtn.addEventListener('click', ($event) => {
                     $event.preventDefault();
@@ -309,7 +304,7 @@ request.onload = function () {
         headerDiv.appendChild(usersUsername);
 
         let usersThoughts = document.createElement('p');
-        
+
         usersThoughts.innerText = data.userData[0].personalLine;
         if (data.userData[0].personalLine === null || data.userData[0].personalLine === '') {
             if (data.userInfo[0].userId === data.userData[0].userId) {
@@ -361,7 +356,7 @@ request.onload = function () {
                     $event.preventDefault();
                     headerDiv.removeChild(editPersLineTArea);
                     headerDiv.removeChild(persLineBtns);
-                    headerDiv.append(usersThoughts/*, editPersLineBtn*/);
+                    headerDiv.appendChild(usersThoughts);
                 });
 
                 editPersLineBtnSub.addEventListener('click', ($event) => {
@@ -376,11 +371,10 @@ request.onload = function () {
 
                     submitFormDataProfEdit(submitData);
 
+                    usersThoughts.innerText = editPersLineTArea.value;
                     headerDiv.removeChild(editPersLineTArea);
                     headerDiv.removeChild(persLineBtns);
-                    headerDiv.append(usersThoughts, editPersLineBtn);
-
-                    usersThoughts.innerText = editPersLineTArea.value;
+                    headerDiv.append(usersThoughts);
                 });
                 preventJs();
             });
@@ -390,10 +384,6 @@ request.onload = function () {
             //Located in js/comments.js
             constructCreateMMPost(middlePart);
         }
-
-        const divOnTop = document.createElement('div');
-        divOnTop.setAttribute('id', 'divOnTop');
-        middlePart.appendChild(divOnTop);
 
         const noMMPosts = document.createElement('p');
         noMMPosts.setAttribute('class', 'no-mmp-parag');
@@ -421,7 +411,7 @@ request.onload = function () {
             const mripSpan = document.createElement('span');
             mripSpan.setAttribute('class', 'ripple-3');
             membDiv.appendChild(mripSpan);
-            membDiv.style.cursor ='pointer';
+            membDiv.style.cursor = 'pointer';
         }
         if (data.userData[0].userId === data.userInfo[0].userId) {
             const profDelete = document.createElement('button');

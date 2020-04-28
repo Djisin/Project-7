@@ -252,10 +252,6 @@ function constructCreateMMPost(attachTo) {
     const errorParag = document.createElement('p');
     errorParag.setAttribute('id', 'errorParag');
     contentDiv.appendChild(errorParag);
-
-    const divOnTop = document.createElement('div');
-    divOnTop.setAttribute('id', 'divOnTop');
-    attachTo.appendChild(divOnTop);
 }
 
 function constructMMPost(attachTo, mmContent, whoIsLoggedIn) {
@@ -271,12 +267,12 @@ function constructMMPost(attachTo, mmContent, whoIsLoggedIn) {
         contentDivMM.appendChild(singlePost);
         singlePost.style.animationDelay = (i + 0.3) - (0.8 * i) + 's'
 
-        singlePost.addEventListener('mouseover', () => {
+        /*singlePost.addEventListener('mouseover', () => {
             singlePost.getElementsByClassName('singlePostFooter')[0].children[1].style.opacity = '1'
         });
         singlePost.addEventListener('mouseout', () => {
             singlePost.getElementsByClassName('singlePostFooter')[0].children[1].style.opacity = '0'
-        });
+        });*/
 
         const singlePostHeader = document.createElement('div');
         singlePostHeader.setAttribute('class', 'singlePostHeader');
@@ -288,7 +284,7 @@ function constructMMPost(attachTo, mmContent, whoIsLoggedIn) {
         singlePostHeader.appendChild(userPic);
 
         const userName = document.createElement('a');
-        userName.setAttribute('href','http://127.0.0.1:5500/frontend/profile.html?'+mmContent[i].userId)
+        userName.setAttribute('href', 'http://127.0.0.1:5500/frontend/profile.html?' + mmContent[i].userId)
         userName.innerText = mmContent[i].username;
         singlePostHeader.appendChild(userName);
 
@@ -352,35 +348,37 @@ function constructMMPost(attachTo, mmContent, whoIsLoggedIn) {
         }
         singlePostFooter.appendChild(edited);
 
-        const postButtonGroup = document.createElement('div');
+        /*const postButtonGroup = document.createElement('div');
         postButtonGroup.setAttribute('class', 'btn-group');
-        postButtonGroup.style.opacity = '0';
-        singlePostFooter.appendChild(postButtonGroup);
+        //postButtonGroup.style.opacity = '0';
+        singlePostFooter.appendChild(postButtonGroup);*/
 
         const comReport = document.createElement('button');
         if (mmContent[i].userId !== whoIsLoggedIn) {
             comReport.setAttribute('class', 'btn btn-link')
             comReport.innerText = 'report';
-            postButtonGroup.appendChild(comReport)
+            hamburgerMenu(singlePostHeader,[comReport]);
+            //postButtonGroup.appendChild(comReport)
         }
 
         if (mmContent[i].userId === whoIsLoggedIn) {
             const editButton = document.createElement('button');
             editButton.setAttribute('class', 'btn btn-link editMMPost');
             editButton.innerText = 'edit';
-            postButtonGroup.appendChild(editButton);
+            //postButtonGroup.appendChild(editButton);
 
             let multimedia = mmContent[i].postMMField;
             let embeding = mmContent[i].embed;
             let mmText = mmContent[i].postText;
             let editingPostId = mmContent[i].mmPostId;
+            let divOnTop = document.getElementById('divOnTop');
             editMMPostFunction(divOnTop, editButton, mmText, multimedia, embeding, editingPostId);
 
             const deleteButton = document.createElement('button');
             deleteButton.setAttribute('class', 'btn btn-link');
             deleteButton.innerText = 'delete';
-            postButtonGroup.appendChild(deleteButton);
-
+            //postButtonGroup.appendChild(deleteButton);
+            hamburgerMenu(singlePostHeader, [editButton, deleteButton])
             deleteButton.addEventListener('click', ($event) => {
                 $event.preventDefault();
 
@@ -446,5 +444,33 @@ function constructMMPost(attachTo, mmContent, whoIsLoggedIn) {
             (whoIsLoggedIn)
         );
         reportEventListener(comReport, singlePostFooter, (mmContent[i].mmPostId), (mmContent[i].userId), (undefined))
+    }
+}
+
+
+function hamburgerMenu(attachTo, listItems) {
+
+    const container = document.createElement('div');
+    container.setAttribute('class', 'dropdown hamburger-dropdown');
+    attachTo.appendChild(container);
+
+    const collapseButton = document.createElement('button');
+    collapseButton.setAttribute('class', 'btn btn-link dropdown-toggle');
+    collapseButton.setAttribute('type', 'button');
+    collapseButton.setAttribute('data-toggle', 'dropdown');
+    collapseButton.setAttribute('aria-label', 'Additional options');
+    container.appendChild(collapseButton);
+
+    const buttonSpan = document.createElement('i');
+    buttonSpan.setAttribute('class', 'fas fa-bars fa-1x');
+    collapseButton.appendChild(buttonSpan);
+
+    const ul = document.createElement('div');
+    ul.setAttribute('class', 'dropdown-menu');
+    container.appendChild(ul);
+
+    for (let i = 0; i < listItems.length; i++) {
+        listItems[i].classList.add('dropdown-item')
+        ul.appendChild(listItems[i]);
     }
 }

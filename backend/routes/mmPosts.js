@@ -11,6 +11,5 @@ router.get('/:id', auth, postsMMCtrl.getOneMMPostComments);
 router.put('/:id', auth, multerMM, postsMMCtrl.modifyMMPost);
 router.delete('/:id', auth, postsMMCtrl.deleteMMPost);
 router.post('/:id/likes', auth, postsMMCtrl.likeMMPost);
-router.post('/search', auth, postsMMCtrl.searchMM);
 
 module.exports = router;  

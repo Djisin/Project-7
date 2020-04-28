@@ -2,79 +2,83 @@
 <html lang="en">
 
 <head>
-  <title>Miloš Radivojević - Project 7</title>
+    <title>Miloš Radivojević - Project 7</title>
 
-  <meta charset="utf-8">
-  <meta name="language" content="en-us">
-  <meta name="author" content="Miloš Radivojević">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="Description" content="OpenClassrooms project 7 Groupomania">
+    <meta charset="utf-8">
+    <meta name="language" content="en-us">
+    <meta name="author" content="Miloš Radivojević">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="Description" content="OpenClassrooms project 7 Groupomania">
 
-  <link href="../frontend/css/style.css" type="text/css" rel="stylesheet">
-  <link href="../frontend/css/bootstrap.min.css" type="text/css" rel="stylesheet">
-  <link href="../frontend/img/favico.ico" type="image/x-icon" rel="shourtcut icon">
+    <link href="../frontend/css/style.css" type="text/css" rel="stylesheet">
+    <link href="../frontend/css/bootstrap.min.css" type="text/css" rel="stylesheet">
+    <link href="../frontend/img/favico.ico" type="image/x-icon" rel="shourtcut icon">
 
-  <script async>if (!!window.performance && window.performance.navigation.type === 2) {
-      console.log('Reloading');
-      window.location.reload();
-    }
-  </script>
-  <script defer src="https://kit.fontawesome.com/ef6b1b88f1.js" crossorigin="anonymous"></script>
+    <script async>if (!!window.performance && window.performance.navigation.type === 2) {
+            console.log('Reloading');
+            window.location.reload();
+        }
+    </script>
+    <script defer src="https://kit.fontawesome.com/ef6b1b88f1.js" crossorigin="anonymous"></script>
 
-  <script defer type="text/javascript" src='js/jquery-2.1.0.min.js'></script>
-  <script defer type="text/javascript" src="js/bootstrap.min.js"></script>
-  <script defer type="text/javascript" src="js/createPost.js"></script>
+    <script defer type="text/javascript" src='js/jquery-2.1.0.min.js'></script>
+    <script defer type="text/javascript" src="js/bootstrap.min.js"></script>
+    <script defer type="text/javascript" src="js/createPost.js"></script>
+    <script async type="text/javascript" src="js/comments.js"></script>
 </head>
 
 <body>
-  <nav class="navbar navbar-fixed-top navbar-inverse">
-    <div class="container-fluid">
-      <div class="navbar-header">
-        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-        </button>
-        <a class="navbar-brand" href="#">
-          <img src="img/icon-left-font.png" alt="Groupomania">
-        </a>
-      </div>
-      <div class="collapse navbar-collapse" id="myNavbar">
-        <ul class="nav navbar-nav">
-          <li class="active"><a href="#">Home</a></li>
-          <li id='createPost'><a href="#">Create Article</a></li>
-          <li><a href="/frontend/posts.html">Community</a></li>
-        </ul>
-        <ul class="nav navbar-nav navbar-right">
-          <li><a id='credentials'></a></li>
-          <li><a href="/frontend/profile.html"><i class="fas fa-user"></i> Profile</a></li>
-          <li><a href="#" id='logoutButton'><i class="fas fa-sign-in-alt"></i> Logout</a></li>
-        </ul>
+    <div class="lds-ripple"><div></div><div></div></div>
+    <nav class="navbar navbar-fixed-top navbar-inverse">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">
+                    <img src="img/icon-left-font.png" alt="Groupomania">
+                </a>
+            </div>
+            <div class="collapse navbar-collapse" id="myNavbar">
+                <ul class="nav navbar-nav">
+                    <li class="active"><a href="#">Home</a></li>
+                    <li id='createPost'><a href="#">Create Article</a></li>
+                    <li><a href="/frontend/posts.html">Community</a></li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a id='credentials'></a></li>
+                    <li><a href="/frontend/profile.html"><i class="fas fa-user"></i> Profile</a></li>
+                    <li><a href="#" id='logoutButton'><i class="fas fa-sign-in-alt"></i> Logout</a></li>
+                </ul>
 
-        <form class="navbar-form navbar-left">
-          <div class="input-group" id='searchInputDiv'>
-            <div class="input-group-addon">
-              <i class="fas fa-search"></i>
+                <form class="navbar-form navbar-left">
+                    <div class="input-group" id='searchInputDiv'>
+                        <div class="input-group-addon">
+                            <i class="fas fa-search"></i>
+                        </div>
+                        <div>
+                            <input id="searchInput" type="text" class="form-control" placeholder="Search Articles">
+                            <select class="input-group-addon dropdown-toggle" id="searchOption">
+                                <option value='articles'>Articles</option>
+                                <option value='users'>Users</option>
+                            </select>
+                        </div>
+                    </div>
+                </form>
             </div>
-            <div>
-              <input id="searchInput" type="text" class="form-control" placeholder="Search Articles">
-              <select class="input-group-addon selectpicker">
-                <option>Articles</option>
-                <option>Users</option>
-              </select>
-            </div>
-          </div>
-        </form>
-      </div>
-    </div>
-  </nav>
-  <section id="createPostSection"></section>
-  <main id="showAllPosts">
-    <section id='unreadPosts'></section>
-  </main>
-  <footer class="page-footer">
-    <p>© 2020 Groupmania • All rights reserved • Designed by Miloš Radivojević » Freelance Web Developer</p>
-  </footer>
-  <script async type="text/javascript" src='js/search.js'></script>
-  <script async type="text/javascript" src='js/showposts.js'></script>
+        </div>
+    </nav>
+    <section id="createPostSection"></section>
+    <main id="showAllPosts">
+        <section id='unreadPosts'></section>
+    </main>
+    <footer class="page-footer">
+        <p>© 2020 Groupmania • All rights reserved • Designed by Miloš Radivojević » Freelance Web Developer</p>
+    </footer>
+    <script async type="text/javascript" src='js/search.js'></script>
+    <script async type="text/javascript" src='js/showposts.js'></script>
 </body>
+
+</html>

@@ -18,8 +18,8 @@
     padding: 0 10px 10px 10px;
     @include nail-hanger;
     @include content-boxes;
-    overflow: hidden;
-    min-height: 220px;
+    //overflow: hidden;
+    //min-height: 220px;
     //margin-bottom: 10px;
     & img {
         align-self: center;
@@ -64,6 +64,7 @@
         }
     }
     & p {
+        font-style: italic;
         & a {
             display: inline;
         }

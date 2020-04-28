@@ -485,9 +485,3 @@ exports.likeMMPost = (req, res, next) => {
         })
     }
 }
-exports.searchMM = (req, res, next) => {
-    console.log('7')
-    console.log(req.body);
-    console.log(req.params.id)
-
-}

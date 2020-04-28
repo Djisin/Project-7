@@ -56,18 +56,22 @@ body {
   }
 }
 #searchInputDiv {
-  #searchInput {
+  & #searchInput {
     height: 33px;
     border-radius: 0px;
   }
   & ul {
     position: absolute;
+    width: 266px;
     & li {
       text-align: left;
-      width: auto;
+      width: 100%;
       &:hover {
         background-color: papayawhip;
       }
     }
+  }
+  & select{
+    height: 33px;
   }
 }

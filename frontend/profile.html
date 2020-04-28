@@ -37,6 +37,7 @@
 </head>
 
 <body>
+    <div class="lds-ripple"><div></div><div></div></div>
     <nav class="navbar navbar-fixed-top navbar-inverse">
         <div class="container-fluid">
             <div class="navbar-header">
@@ -68,9 +69,9 @@
                         </div>
                         <div>
                             <input id="searchInput" type="text" class="form-control" placeholder="Search Articles">
-                            <select class="input-group-addon dropdown-toggle">
-                                <option>Articles</option>
-                                <option>Users</option>
+                            <select class="input-group-addon dropdown-toggle" id="searchOption">
+                                <option value='articles'>Articles</option>
+                                <option value='users'>Users</option>
                             </select>
                         </div>
                     </div>
@@ -80,6 +81,7 @@
     </nav>
     <section id='userProfile'></section>
     <section id='createPostSection'></section>
+    <section id='divOnTop'></section>
     <footer class="page-footer">
         <p>© 2020 Groupmania • All rights reserved • Designed by Miloš Radivojević » Freelance Web Developer</p>
     </footer>

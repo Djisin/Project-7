@@ -121,15 +121,20 @@ body {
 
 #searchInputDiv ul {
   position: absolute;
+  width: 266px;
 }
 
 #searchInputDiv ul li {
   text-align: left;
-  width: auto;
+  width: 100%;
 }
 
 #searchInputDiv ul li:hover {
   background-color: papayawhip;
+}
+
+#searchInputDiv select {
+  height: 33px;
 }
 
 #footerB {
@@ -1536,8 +1541,6 @@ nav img {
           box-shadow: 1px 0px 2px 1px rgba(0, 0, 0, 0.35);
   margin-top: 15px;
   text-align: left;
-  overflow: hidden;
-  min-height: 220px;
 }
 
 .succ-user::before {
@@ -1635,6 +1638,10 @@ nav img {
 .standing-out a:hover {
   color: #5989d1;
   text-decoration: none;
+}
+
+.standing-out p {
+  font-style: italic;
 }
 
 .standing-out p a {
@@ -2022,169 +2029,6 @@ nav img {
   border-color: rgba(95, 131, 165, 0.75);
 }
 
-#middlePart #divOnTop {
-  display: none;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  position: fixed;
-  z-index: 9999;
-  padding-top: 50px;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  overflow: auto;
-  background-color: rgba(160, 160, 160, 0.7);
-  -webkit-animation: zoom 0.2s linear;
-          animation: zoom 0.2s linear;
-}
-
-#middlePart #divOnTop #closeButton {
-  position: absolute;
-  top: 15px;
-  right: 35px;
-  color: #f1f1f1;
-  font-size: 40px;
-  font-weight: bold;
-  -webkit-transition: 0.3s;
-  transition: 0.3s;
-  top: 45px;
-}
-
-#middlePart #divOnTop #closeButton:hover {
-  color: black;
-  text-decoration: none;
-  cursor: pointer;
-  -webkit-transform: scale3d(1.4, 1.4, 1.4) translate3d(-5px, 5px, 0) rotate(1080deg);
-          transform: scale3d(1.4, 1.4, 1.4) translate3d(-5px, 5px, 0) rotate(1080deg);
-}
-
-#middlePart #divOnTop #closeButton:focus {
-  color: #bbb;
-  text-decoration: none;
-  cursor: pointer;
-}
-
-#middlePart #divOnTop .div-on-top-content {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
-  background-color: #fff;
-  width: 500px;
-  padding: 0px 10px 10px 10px;
-  border-top: 3px double rgba(95, 131, 165, 0.75);
-  border-bottom: 3px double rgba(95, 131, 165, 0.75);
-  border-right: 3px double rgba(95, 131, 165, 0.75);
-  border-radius: 8px;
-  -webkit-box-shadow: 1px 0px 2px 1px rgba(0, 0, 0, 0.35);
-          box-shadow: 1px 0px 2px 1px rgba(0, 0, 0, 0.35);
-  margin-top: 15px;
-  text-align: left;
-}
-
-#middlePart #divOnTop .div-on-top-content::before {
-  content: "";
-  position: absolute;
-  border-radius: 50%;
-  left: 50%;
-  margin-left: -3px;
-  margin-top: 1px;
-  border-width: 3px;
-  border-style: double;
-  border-color: rgba(95, 131, 165, 0.75);
-}
-
-#middlePart #divOnTop .div-on-top-content img {
-  width: 98%;
-  -ms-flex-item-align: center;
-      -ms-grid-row-align: center;
-      align-self: center;
-}
-
-#middlePart #divOnTop .div-on-top-content .chk-div input {
-  margin: 13.5px 10px 0 10px;
-  float: left;
-}
-
-#middlePart #divOnTop .div-on-top-content .chk-div label {
-  width: 430px;
-  font-weight: 200;
-  font-size: 14px;
-}
-
-#middlePart #divOnTop #editMMDiv {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
-}
-
-#middlePart #divOnTop #editMMDiv #mmPostTxt {
-  width: 100%;
-  resize: none;
-  height: 100px;
-  margin-bottom: 5px;
-}
-
-#middlePart #divOnTop #editMMDiv .btn-group {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  margin-bottom: 10px;
-}
-
-#middlePart #divOnTop #editMMDiv .btn-group button {
-  -ms-flex-item-align: end;
-      align-self: flex-end;
-}
-
-#middlePart #divOnTop #editMMDiv .btn-group button:first-child {
-  height: 34px;
-  font-size: 18px;
-  padding-top: 3px;
-  padding-bottom: 3px;
-}
-
-#middlePart #divOnTop #editMMDiv .btn-group input {
-  text-align: left;
-  float: left;
-  width: 0;
-  opacity: 0;
-  padding: 0;
-}
-
-#middlePart #divOnTop #editMMDiv .btn-group #mmLabel {
-  text-align: left;
-  padding: 0;
-  opacity: 0;
-  margin-bottom: 0;
-  line-height: inherit;
-  width: 0;
-  height: 34px;
-  cursor: pointer;
-}
-
-#middlePart #divOnTop #errorParag {
-  position: absolute;
-  margin-top: 115px;
-  margin-left: 5px;
-}
-
 #middlePart #create-content-div {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -2340,6 +2184,9 @@ nav img {
   height: 30px;
   -webkit-box-shadow: 0px 1px 4px 0px rgba(95, 131, 165, 0.75);
           box-shadow: 0px 1px 4px 0px rgba(95, 131, 165, 0.75);
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
 }
 
 #middlePart .content-div .mmPosts .singlePostHeader img {
@@ -2363,9 +2210,7 @@ nav img {
 }
 
 #middlePart .content-div .mmPosts .singlePostHeader .timeCreated {
-  margin-top: 10px;
-  margin-right: 5px;
-  float: right;
+  margin: 5px 0 0 auto;
   font-size: 13px;
 }
 
@@ -2380,8 +2225,15 @@ nav img {
   display: -ms-grid;
   display: grid;
   height: 20px;
-  -ms-grid-columns: 2fr 2fr 2fr;
-      grid-template-columns: 2fr 2fr 2fr;
+  -ms-grid-columns: 2fr 2fr;
+      grid-template-columns: 2fr 2fr;
+  /*& .btn-group {
+                    justify-self: center;
+                    @include normal-style-button;
+                    & button{
+                        display: block;
+                    }
+                }*/
 }
 
 #middlePart .content-div .mmPosts .singlePostFooter p {
@@ -2428,29 +2280,6 @@ nav img {
   border-width: 5px;
   border-style: solid;
   border-color: black transparent transparent transparent;
-}
-
-#middlePart .content-div .mmPosts .singlePostFooter .btn-group {
-  -ms-grid-column-align: center;
-      justify-self: center;
-}
-
-#middlePart .content-div .mmPosts .singlePostFooter .btn-group button {
-  margin-left: 5px;
-  margin-bottom: 3px;
-  padding: 2px 8px 2px 8px;
-  font-style: italic;
-  font-size: 13px;
-  color: #000;
-}
-
-#middlePart .content-div .mmPosts .singlePostFooter .btn-group button:hover {
-  -webkit-transform: scale(1.2);
-          transform: scale(1.2);
-  -webkit-transition-duration: 0.25s;
-          transition-duration: 0.25s;
-  text-decoration: none;
-  color: #5989d1;
 }
 
 #middlePart .content-div .mmPosts:last-child {
@@ -2629,6 +2458,49 @@ nav img {
   font-style: italic;
 }
 
+#rightPart #recentArticles {
+  border-top: 3px double rgba(95, 131, 165, 0.75);
+  border-bottom: 3px double rgba(95, 131, 165, 0.75);
+  border-right: 3px double rgba(95, 131, 165, 0.75);
+  border-radius: 8px;
+  -webkit-box-shadow: 1px 0px 2px 1px rgba(0, 0, 0, 0.35);
+          box-shadow: 1px 0px 2px 1px rgba(0, 0, 0, 0.35);
+  margin-top: 15px;
+  text-align: left;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin-bottom: 15px;
+}
+
+#rightPart #recentArticles::before {
+  content: "";
+  position: absolute;
+  border-radius: 50%;
+  left: 50%;
+  margin-left: -3px;
+  margin-top: 1px;
+  border-width: 3px;
+  border-style: double;
+  border-color: rgba(95, 131, 165, 0.75);
+}
+
+#rightPart #recentArticles ul {
+  padding-left: 20px;
+}
+
+#rightPart #recentArticles p {
+  font-style: italic;
+}
+
+#rightPart #recentArticles a {
+  color: #000;
+}
+
+#rightPart #recentArticles a:hover {
+  color: #5989d1;
+  text-decoration: none;
+}
+
 .numbersDiv {
   border-top: 3px double rgba(95, 131, 165, 0.75);
   border-bottom: 3px double rgba(95, 131, 165, 0.75);
@@ -2673,49 +2545,6 @@ nav img {
   border-radius: 6px;
   -webkit-box-shadow: inset 0px 0px 5px 1px rgba(95, 131, 165, 0.75);
           box-shadow: inset 0px 0px 5px 1px rgba(95, 131, 165, 0.75);
-}
-
-#recentArticles {
-  border-top: 3px double rgba(95, 131, 165, 0.75);
-  border-bottom: 3px double rgba(95, 131, 165, 0.75);
-  border-right: 3px double rgba(95, 131, 165, 0.75);
-  border-radius: 8px;
-  -webkit-box-shadow: 1px 0px 2px 1px rgba(0, 0, 0, 0.35);
-          box-shadow: 1px 0px 2px 1px rgba(0, 0, 0, 0.35);
-  margin-top: 15px;
-  text-align: left;
-  padding-left: 5px;
-  padding-right: 5px;
-  margin-bottom: 15px;
-}
-
-#recentArticles::before {
-  content: "";
-  position: absolute;
-  border-radius: 50%;
-  left: 50%;
-  margin-left: -3px;
-  margin-top: 1px;
-  border-width: 3px;
-  border-style: double;
-  border-color: rgba(95, 131, 165, 0.75);
-}
-
-#recentArticles ul {
-  padding-left: 20px;
-}
-
-#recentArticles p {
-  font-style: italic;
-}
-
-#recentArticles a {
-  color: #000;
-}
-
-#recentArticles a:hover {
-  color: #5989d1;
-  text-decoration: none;
 }
 
 #succArticles {
@@ -3186,7 +3015,7 @@ nav img {
   0% {
     -webkit-transform: translate3d(-50%, 50%, 0) scale(0);
             transform: translate3d(-50%, 50%, 0) scale(0);
-    opacity: .33;
+    opacity: 0.33;
   }
   100% {
     -webkit-transform: translate3d(-50%, 50%, 0) scale(500);
@@ -3199,7 +3028,7 @@ nav img {
   0% {
     -webkit-transform: translate3d(-50%, 50%, 0) scale(0);
             transform: translate3d(-50%, 50%, 0) scale(0);
-    opacity: .33;
+    opacity: 0.33;
   }
   100% {
     -webkit-transform: translate3d(-50%, 50%, 0) scale(500);
@@ -3286,6 +3115,169 @@ nav img {
   margin-top: 5px;
 }
 
+#divOnTop {
+  display: none;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  position: fixed;
+  z-index: 9999;
+  padding-top: 50px;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(160, 160, 160, 0.7);
+  -webkit-animation: zoom 0.2s linear;
+          animation: zoom 0.2s linear;
+}
+
+#divOnTop #closeButton {
+  position: absolute;
+  top: 15px;
+  right: 35px;
+  color: #f1f1f1;
+  font-size: 40px;
+  font-weight: bold;
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
+  top: 45px;
+}
+
+#divOnTop #closeButton:hover {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+  -webkit-transform: scale3d(1.4, 1.4, 1.4) translate3d(-5px, 5px, 0) rotate(1080deg);
+          transform: scale3d(1.4, 1.4, 1.4) translate3d(-5px, 5px, 0) rotate(1080deg);
+}
+
+#divOnTop #closeButton:focus {
+  color: #bbb;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+#divOnTop .div-on-top-content {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  background-color: #fff;
+  width: 500px;
+  padding: 0px 10px 10px 10px;
+  border-top: 3px double rgba(95, 131, 165, 0.75);
+  border-bottom: 3px double rgba(95, 131, 165, 0.75);
+  border-right: 3px double rgba(95, 131, 165, 0.75);
+  border-radius: 8px;
+  -webkit-box-shadow: 1px 0px 2px 1px rgba(0, 0, 0, 0.35);
+          box-shadow: 1px 0px 2px 1px rgba(0, 0, 0, 0.35);
+  margin-top: 15px;
+  text-align: left;
+}
+
+#divOnTop .div-on-top-content::before {
+  content: "";
+  position: absolute;
+  border-radius: 50%;
+  left: 50%;
+  margin-left: -3px;
+  margin-top: 1px;
+  border-width: 3px;
+  border-style: double;
+  border-color: rgba(95, 131, 165, 0.75);
+}
+
+#divOnTop .div-on-top-content img {
+  width: 98%;
+  -ms-flex-item-align: center;
+      -ms-grid-row-align: center;
+      align-self: center;
+}
+
+#divOnTop .div-on-top-content .chk-div input {
+  margin: 13.5px 10px 0 10px;
+  float: left;
+}
+
+#divOnTop .div-on-top-content .chk-div label {
+  width: 430px;
+  font-weight: 200;
+  font-size: 14px;
+}
+
+#divOnTop #editMMDiv {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+#divOnTop #editMMDiv #mmPostTxt {
+  width: 100%;
+  resize: none;
+  height: 100px;
+  margin-bottom: 5px;
+}
+
+#divOnTop #editMMDiv .btn-group {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  margin-bottom: 10px;
+}
+
+#divOnTop #editMMDiv .btn-group button {
+  -ms-flex-item-align: end;
+      align-self: flex-end;
+}
+
+#divOnTop #editMMDiv .btn-group button:first-child {
+  height: 34px;
+  font-size: 18px;
+  padding-top: 3px;
+  padding-bottom: 3px;
+}
+
+#divOnTop #editMMDiv .btn-group input {
+  text-align: left;
+  float: left;
+  width: 0;
+  opacity: 0;
+  padding: 0;
+}
+
+#divOnTop #editMMDiv .btn-group #mmLabel {
+  text-align: left;
+  padding: 0;
+  opacity: 0;
+  margin-bottom: 0;
+  line-height: inherit;
+  width: 0;
+  height: 34px;
+  cursor: pointer;
+}
+
+#divOnTop #errorParag {
+  position: absolute;
+  margin-top: 115px;
+  margin-left: 5px;
+}
+
 .lds-ripple {
   display: inline-block;
   position: absolute;
@@ -3343,5 +3335,44 @@ nav img {
     height: 100px;
     opacity: 0;
   }
+}
+
+.hamburger-dropdown {
+  margin: 3px;
+}
+
+.hamburger-dropdown button {
+  margin-left: 5px;
+  margin-bottom: 3px;
+  padding: 2px 8px 2px 8px;
+  font-style: italic;
+  font-size: 13px;
+  color: #000;
+}
+
+.hamburger-dropdown button:hover {
+  -webkit-transform: scale(1.2);
+          transform: scale(1.2);
+  -webkit-transition-duration: 0.25s;
+          transition-duration: 0.25s;
+  text-decoration: none;
+  color: #5989d1;
+}
+
+.hamburger-dropdown button {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.hamburger-dropdown .dropdown-menu {
+  display: none;
+  min-width: 100px;
+  text-align: center;
+  right: -4px;
+  left: -50px;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
 }
 /*# sourceMappingURL=style.css.map */
