@@ -469,25 +469,6 @@
             font-style: italic;
         }
     }
-    & #recentArticles {
-        @include content-boxes;
-        padding-left: 5px;
-        padding-right: 5px;
-        margin-bottom: 15px;
-        & ul {
-            padding-left: 20px;
-        }
-        & p {
-            font-style: italic;
-        }
-        & a {
-            color: #000;
-            &:hover {
-                color: $normalStyleButton;
-                text-decoration: none;
-            }
-        }
-    }
 }
 .numbersDiv {
     @include content-boxes;
@@ -509,6 +490,25 @@
         min-width: 60px;
         border-radius: 6px;
         box-shadow: inset 0px 0px 5px 1px $postShadows;
+    }
+}
+#recentArticles {
+    @include content-boxes;
+    padding-left: 5px;
+    padding-right: 5px;
+    margin-bottom: 15px;
+    & ul {
+        padding-left: 20px;
+    }
+    & p {
+        font-style: italic;
+    }
+    & a {
+        color: #000;
+        &:hover {
+            color: $normalStyleButton;
+            text-decoration: none;
+        }
     }
 }
 #succArticles {

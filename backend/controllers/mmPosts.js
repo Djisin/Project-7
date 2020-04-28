@@ -87,8 +87,10 @@ exports.getAllMMPosts = (req, res, next) => {
                                                     (error, howManyUsers) => {
                                                         if (!error) {
                                                             connection.query(`
-                                                                SELECT postId, postTitle
-                                                                FROM post`,
+                                                                SELECT postId, postTitle, (postLikes- postDislikes) as rating, username, post.userId
+                                                                FROM post
+                                                                INNER JOIN user 
+                                                                ON post.userId = user.userId`,
                                                                 (error, postsCreated) => {
                                                                     if (!error) {
                                                                         connection.query(`SELECT postsSeen FROM user`, (error, postsSeenByUsers) => {
@@ -103,15 +105,37 @@ exports.getAllMMPosts = (req, res, next) => {
                                                                                     }
                                                                                     postsCreated[i]['count'] = count
                                                                                 }
-                                                                                var max = postsCreated.reduce(function (prev, current) {
+                                                                                let max = postsCreated.reduce(function (prev, current) {
                                                                                     return (prev.count > current.count) ? prev : current
                                                                                 });
-                                                                                res.status(200).json({
-                                                                                    'userInfo': userInfo,
-                                                                                    'numberOfUsers': howManyUsers[0].number,
-                                                                                    'recentPosts': recentPosts,
-                                                                                    'mmContent': mmPosts,
-                                                                                    'mostReadArticle': max
+                                                                                let max3 = postsCreated.reduce(function (prev, current) {
+                                                                                    return (prev.rating > current.rating) ? prev : current
+                                                                                });
+                                                                                connection.query(`
+                                                                                    SELECT SUM(postLikes - postDislikes) AS totalRating, post.userId, user.username, user.userPicture
+                                                                                    FROM post
+                                                                                    INNER JOIN user on user.userId = post.userId
+                                                                                    GROUP BY user.userId
+                                                                                `, (error, succUser) => {
+                                                                                    if (!error) {
+                                                                                        let max2 = succUser.reduce(function (prev, current) {
+                                                                                            return (prev.totalRating > current.totalRating) ? prev : current
+                                                                                        });
+                                                                                        res.status(200).json({
+                                                                                            'userInfo': userInfo,
+                                                                                            'numberOfUsers': howManyUsers[0].number,
+                                                                                            'recentPosts': recentPosts,
+                                                                                            'mmContent': mmPosts,
+                                                                                            'mostReadArticle': max,
+                                                                                            'mostSuccUser':max2,
+                                                                                            'mostLikedArticle':max3
+                                                                                        });
+                                                                                        
+                                                                                    } else {
+                                                                                        res.status(404).json({
+                                                                                            error: error
+                                                                                        });
+                                                                                    }
                                                                                 });
                                                                             } else {
                                                                                 res.status(404).json({

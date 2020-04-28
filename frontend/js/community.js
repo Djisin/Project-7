@@ -43,22 +43,26 @@ request.onload = function () {
         fdLabel1.setAttribute('for', '');
         fdLabel1.innerText = 'How many memebers do we have?';
         const fdParag1 = document.createElement('p');
-        fdParag1.innerText = 'neki broj';
+        fdParag1.innerText = data.numberOfUsers;
         members.append(fdLabel1, fdParag1);
 
         const mostSuccWriter = document.createElement('div');
-        mostSuccWriter.setAttribute('class', 'numbersDiv');
+        mostSuccWriter.setAttribute('class', 'succ-user');
         leftPart.appendChild(mostSuccWriter);
 
         const fdLabel2 = document.createElement('label');
         fdLabel2.setAttribute('for', '');
         fdLabel2.innerText = 'The most successfull writer of our community?';
-        const fdParag2 = document.createElement('p');
-        fdParag2.innerText = 'neki Lik, mozda slika?';
-        mostSuccWriter.append(fdLabel2, fdParag2);
+        const fdPic2 = document.createElement('img');
+        fdPic2.setAttribute('src',data.mostSuccUser.userPicture);
+        fdPic2.setAttribute('alt', 'The most successfull user picture')
+        const fdlink2 = document.createElement('a');
+        fdlink2.setAttribute('href', 'http://127.0.0.1:5500/frontend/profile.html?' + data.mostSuccUser.userId)
+        fdlink2.innerText = data.mostSuccUser.username;
+        mostSuccWriter.append(fdLabel2,fdPic2, fdlink2);
 
         const mostSuccArticle = document.createElement('div');
-        mostSuccArticle.setAttribute('class', 'numbersDiv');
+        mostSuccArticle.setAttribute('class', 'standing-out');
         leftPart.appendChild(mostSuccArticle);
 
         const fdLabel3 = document.createElement('label');
@@ -68,19 +72,28 @@ request.onload = function () {
         fdlink.setAttribute('href', 'http://127.0.0.1:5500/frontend/post.html?' + data.mostReadArticle.postId)
         fdlink.innerText = data.mostReadArticle.postTitle;
         const fdParag3 = document.createElement('p');
-        fdParag3.innerText = 'and it was read ' + data.mostReadArticle.count + ' times.'
+        if (data.mostReadArticle.count === data.numberOfUsers){
+           fdParag3.innerText = 'and it was read by all users!' 
+        }else{
+            fdParag3.innerText = 'and it was read ' + data.mostReadArticle.count + ' times.'
+        }
+        
         mostSuccArticle.append(fdLabel3, fdlink, fdParag3);
 
         const mostLikedArticle = document.createElement('div');
-        mostLikedArticle.setAttribute('class', 'numbersDiv');
+        mostLikedArticle.setAttribute('class', 'standing-out');
+        mostLikedArticle.style.textAlign = 'center';
         leftPart.appendChild(mostLikedArticle);
 
         const fdLabel4 = document.createElement('label');
         fdLabel4.setAttribute('for', '');
-        fdLabel4.innerText = 'Article with the most likes?';
+        fdLabel4.innerText = 'Article rated the best by users of our community?';
+        const fdlink4 = document.createElement('a');
+        fdlink4.setAttribute('href', 'http://127.0.0.1:5500/frontend/post.html?' + data.mostLikedArticle.postId)
+        fdlink4.innerText = data.mostLikedArticle.postTitle;
         const fdParag4 = document.createElement('p');
-        fdParag4.innerText = 'neki broj';
-        mostLikedArticle.append(fdLabel4, fdParag4);
+        fdParag4.innerHTML = 'By: <a href=http://127.0.0.1:5500/frontend/profile.html?'+data.mostLikedArticle.userId+'>'+data.mostLikedArticle.username+'</a>'
+        mostLikedArticle.append(fdLabel4,fdlink4, fdParag4);
         //MiddlePart
         //Located in js/mmPosts.js
         constructCreateMMPost(middlePart);
