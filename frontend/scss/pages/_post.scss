@@ -118,6 +118,7 @@
   z-index: 1;
   @include commentFormFormat;
   transition: 0.45s ease-in-out;
+  margin-bottom: 3px;
 }
 #commentsDiv {
   align-self: center;

@@ -171,14 +171,14 @@ function commentBuilder(
     singleCommentDiv.setAttribute('class', 'col-md-12 single-comment-div slide-in-top');
     singleCommentDiv.style.padding = '0';
     singlePost.appendChild(singleCommentDiv);
-    singleCommentDiv.style.animationDelay = j-(0.95*j)+'s'
+    singleCommentDiv.style.animationDelay = j - (0.95 * j) + 's'
 
-    singleCommentDiv.addEventListener('mouseover', () => {
+    /*singleCommentDiv.addEventListener('mouseover', () => {
         singleCommentDiv.getElementsByClassName('comFooter')[0].children[1].style.opacity = '1'
     });
     singleCommentDiv.addEventListener('mouseout', () => {
         singleCommentDiv.getElementsByClassName('comFooter')[0].children[1].style.opacity = '0'
-    });
+    });*/
 
     const mainComment = document.createElement('section');
     mainComment.setAttribute('class', 'mainComment')
@@ -237,7 +237,7 @@ function commentBuilder(
 
     const btnGroup = document.createElement('div');
     btnGroup.setAttribute('class', 'btn-group');
-    btnGroup.style.opacity = '0';
+    //btnGroup.style.opacity = '0';
     comFooter.appendChild(btnGroup);
 
     const comReport = document.createElement('button');
@@ -245,8 +245,8 @@ function commentBuilder(
 
         comReport.setAttribute('class', 'btn btn-link')
         comReport.innerText = 'report';
-        btnGroup.appendChild(comReport);
-
+        // btnGroup.appendChild(comReport);
+        hamburgerMenu(whoAndWhen, [comReport]);
     }
     if (whoCreatedComment === whoIsLoggedIn) {
         const comEdit = document.createElement('button');
@@ -257,11 +257,9 @@ function commentBuilder(
             if (document.getElementsByClassName('cancel-com-edit').length > 0) {
                 document.getElementsByClassName('cancel-com-edit')[0].click()
             }
-            comEdit.replaceWith(comEditCancel);
-            comBodyParag.replaceWith(comBodyParag2);
-            comBodyParag2.innerText = comTxt;
-            comBodyParag2.focus();
-            comBody.appendChild(editSubmit);
+            //comEdit.replaceWith(comEditCancel);
+            replaceParagWTextArea(comBodyParag)
+            comBody.append(comEditCancel, editSubmit);
         });
 
         const comEditCancel = document.createElement('button');
@@ -271,7 +269,8 @@ function commentBuilder(
             $event.preventDefault();
             comBodyParag2.replaceWith(comBodyParag)
             comBody.removeChild(editSubmit);
-            comEditCancel.replaceWith(comEdit);
+            comBody.removeChild(comEditCancel);
+            //comEditCancel.replaceWith(comEdit);
         });
 
         const editSubmit = document.createElement('button');
@@ -286,22 +285,6 @@ function commentBuilder(
             }
         });
 
-        comBodyParag2 = document.createElement('textarea');
-        comBodyParag2.setAttribute('class', 'form-control editedCommentData');
-        /*comBodyParag2.oninput = function () {
-            comBodyParag2.style.height = "20px";
-            comBodyParag2.style.height = Math.min(comBodyParag2.scrollHeight, 200) + "px";
-        };*/
-        comBodyParag2.oninput = function () {
-            comBodyParag2.style.height = "20px";
-            comBodyParag2.style.height = Math.min(comBodyParag2.scrollHeight, 200) + "px";
-            if (comBodyParag2.scrollHeight > 200) {
-                comBodyParag2.style.overflowY = 'scroll';
-            } else {
-                comBodyParag2.style.overflowY = '';
-            }
-        };
-
         const comDelete = document.createElement('button');
         comDelete.setAttribute('class', 'btn btn-link');
         comDelete.innerText = 'delete';
@@ -314,8 +297,8 @@ function commentBuilder(
                 delPostComOrSubCom((mmApi + '/comment/' + mmCommentId), singleCommentDiv)
             }
         }, { once: true })
-
-        btnGroup.append(comEdit, comDelete);
+        hamburgerMenu(whoAndWhen, [comEdit, comDelete]);
+        // btnGroup.append(comEdit, comDelete);
     }
     const likesDiv = document.createElement('div');
     likesDiv.setAttribute('class', 'likesDiv');
@@ -378,6 +361,23 @@ function commentBuilder(
     preventJs();
 }
 
+function replaceParagWTextArea(comBodyParag) {
+    comBodyParag2 = document.createElement('textarea');
+    comBodyParag2.setAttribute('class', 'form-control editedCommentData');
+    comBodyParag2.oninput = function () {
+        comBodyParag2.style.height = "20px";
+        comBodyParag2.style.height = Math.min(comBodyParag2.scrollHeight, 200) + "px";
+        if (comBodyParag2.scrollHeight > 200) {
+            comBodyParag2.style.overflowY = 'scroll';
+        } else {
+            comBodyParag2.style.overflowY = '';
+        }
+    };
+    comBodyParag.replaceWith(comBodyParag2);
+    comBodyParag2.innerText = comBodyParag.innerText;
+    comBodyParag2.focus();
+}
+
 function delPostComOrSubCom(apiAddress, containingElmt) {
     let result = confirm('Do you really want to delete your post?')
     if (result) {
@@ -400,7 +400,7 @@ function editComOrSubComSubmit(apiAddress, singleCommentDiv, previousParag, edit
         previousParag.innerText = editedTextArea.value.trim();
         editedTextArea.parentElement.removeChild(editedTextArea.parentElement.lastChild);
         editedTextArea.replaceWith(previousParag);
-        cancelButton.replaceWith(editButton);
+        cancelButton.remove();
     } else {
         editedTextArea.setAttribute('placeholder', 'You can not submit empty comment');
         editedTextArea.focus();
@@ -477,6 +477,7 @@ function reportEventListener(reportButton, divToReplace, whatToReportId, whatToR
         $event.preventDefault();
         const comRepReason = document.createElement('div');
         comRepReason.setAttribute('id', 'comRepReasonDiv')
+        comRepReason.setAttribute('class', 'flip-in-hor-bottom')
 
         if (document.getElementById('comRepReasonDiv')) {
             document.getElementById('comRepReasonDiv').remove();
@@ -504,34 +505,80 @@ function reportEventListener(reportButton, divToReplace, whatToReportId, whatToR
         comRepSubmit.addEventListener('click', ($event) => {
             $event.preventDefault();
             let repReasonData = document.querySelector('input[name="reportOptions"]:checked').value;
-            let submitReportData
-            let apiLink = mmApi + '/report'
-            if (replace === 'append') {
-                submitReportData = {
-                    'level': 'bottom',
-                    'commentId2nd': whatToReportId,
-                    'reportReason': repReasonData,
-                    'whoCreatedPost': whatToReportCreatorId
-                };
-
-            } else if (postId === undefined) {
-                submitReportData = {
-                    'level': 'top',
-                    'postId': whatToReportId,
-                    'commentId': null,
-                    'reportReason': repReasonData,
-                    'whoCreatedPost': whatToReportCreatorId
-                };
-            } else if (replace === 'replace') {
-                submitReportData = {
-                    'level': 'mid',
-                    'postId': postId,
-                    'commentId': whatToReportId,
-                    'reportReason': repReasonData,
-                    'whoCreatedPost': whatToReportCreatorId
-                };
+            if (repReasonData.trim().length !== 0 && repReasonData !== 'on') {
+                let submitReportData
+                let apiLink = mmApi + '/report'
+                if (replace === 'append') {
+                    submitReportData = {
+                        'level': 'bottom',
+                        'commentId2nd': whatToReportId,
+                        'reportReason': repReasonData,
+                        'whoCreatedPost': whatToReportCreatorId
+                    };
+                } else if (postId === undefined) {
+                    submitReportData = {
+                        'level': 'top',
+                        'postId': whatToReportId,
+                        'commentId': null,
+                        'reportReason': repReasonData,
+                        'whoCreatedPost': whatToReportCreatorId
+                    };
+                } else if (replace === 'replace') {
+                    submitReportData = {
+                        'level': 'mid',
+                        'postId': postId,
+                        'commentId': whatToReportId,
+                        'reportReason': repReasonData,
+                        'whoCreatedPost': whatToReportCreatorId
+                    };
+                }
+                console.log(document.querySelector('input[name="reportOptions"]:checked'))
+                submitMMFormData(submitReportData, ('POST'), apiLink).then((resp) => {
+                    if (resp !== undefined) {
+                        if (resp.success === true) {
+                            comRepReason.removeChild(comRepReason.lastChild)
+                            const feedback = document.createElement('p');
+                            feedback.setAttribute('class', 'flip-in-hor-bottom')
+                            feedback.innerText = `Your report is successfully submited. 
+                                Thank you for trying to make our community a better place.`
+                            comRepReason.appendChild(feedback)
+                            feedback.style.opacity = '0';
+                            setTimeout(() => {
+                                feedback.style.opacity = '1'
+                                feedback.style.transitionDuration = '2s'
+                            }, 250);
+                            setTimeout(() => {
+                                feedback.style.opacity = '0';
+                                feedback.style.height = '0';
+                                feedback.remove()
+                                document.getElementById('comRepReasonDiv').remove();
+                            }, 7000);
+                        } else if (resp.success === false) {
+                            comRepReason.removeChild(comRepReason.lastChild)
+                            const feedback = document.createElement('p');
+                            feedback.setAttribute('class', 'flip-in-hor-bottom')
+                            feedback.innerText = `Your report was previously saved. 
+                                Thank you for trying to make our community a better place.`
+                            comRepReason.appendChild(feedback)
+                            feedback.style.opacity = '0';
+                            setTimeout(() => {
+                                feedback.style.opacity = '1'
+                                feedback.style.transitionDuration = '2s'
+                            }, 250);
+                            setTimeout(() => {
+                                feedback.style.opacity = '0';
+                                feedback.style.height = '0';
+                                feedback.remove()
+                                document.getElementById('comRepReasonDiv').remove();
+                            }, 7000);
+                        }
+                    }
+                });
+            } else {
+                document.getElementById('reportLabel5').value = '';
+                document.getElementById('reportLabel5').placeholder = 'What is different reason?';
+                document.getElementById('reportLabel5').focus();
             }
-            submitMMFormData(submitReportData, ('POST'), apiLink);
         });
         preventJs();
     });

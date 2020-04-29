@@ -306,7 +306,7 @@ function createCommentForm(addComment, mmCommentId, subCom, postId) {
                 let keyWord = 'POST';
                 let apiLink = api + '/comment';
                 submitMMComment1st(submitComment, keyWord, apiLink);
-            } else if ((window.location.pathname).split('/')[2] === 'profile.html') {
+            } else if ((window.location.pathname).split('/')[2] === 'profile.html' || (window.location.pathname).split('/')[2] === 'posts.html') {
                 if (subCom === true) {
 
                     comment = addComment.getElementsByClassName('commentTextInput')[0].value;
@@ -348,11 +348,11 @@ function createReportDiv(comRepForm, divToReplace, comRepReason, replace) {
     comRepInput1.setAttribute('type', 'radio');
     comRepInput1.setAttribute('name', 'reportOptions');
     comRepInput1.setAttribute('id', 'reportOption1');
-    comRepInput1.setAttribute('value', 'OPTION1');
+    comRepInput1.setAttribute('value', 'Spam');
     comRepInput1.checked = true
     comRepLabel1 = document.createElement('label');
     comRepLabel1.setAttribute('for', 'reportOption1');
-    comRepLabel1.innerText = 'OPTION1';
+    comRepLabel1.innerText = 'Spam';
     comRepFormRow1.append(comRepInput1, comRepLabel1);
 
     const comRepFormRow2 = document.createElement('div');
@@ -363,10 +363,10 @@ function createReportDiv(comRepForm, divToReplace, comRepReason, replace) {
     comRepInput2.setAttribute('type', 'radio');
     comRepInput2.setAttribute('name', 'reportOptions');
     comRepInput2.setAttribute('id', 'reportOption2');
-    comRepInput2.setAttribute('value', 'OPTION2');
+    comRepInput2.setAttribute('value', 'Violence');
     comRepLabel2 = document.createElement('label');
     comRepLabel2.setAttribute('for', 'reportOption2');
-    comRepLabel2.innerText = 'OPTION2';
+    comRepLabel2.innerText = 'Violence';
     comRepFormRow2.append(comRepInput2, comRepLabel2);
 
     const comRepFormRow3 = document.createElement('div');
@@ -377,10 +377,10 @@ function createReportDiv(comRepForm, divToReplace, comRepReason, replace) {
     comRepInput3.setAttribute('type', 'radio');
     comRepInput3.setAttribute('name', 'reportOptions');
     comRepInput3.setAttribute('id', 'reportOption3');
-    comRepInput3.setAttribute('value', 'OPTION3');
+    comRepInput3.setAttribute('value', 'Fake news');
     comRepLabel3 = document.createElement('label');
     comRepLabel3.setAttribute('for', 'reportOption3');
-    comRepLabel3.innerText = 'OPTION3';
+    comRepLabel3.innerText = 'Fake news';
     comRepFormRow3.append(comRepInput3, comRepLabel3);
 
     const comRepFormRow4 = document.createElement('div');
@@ -391,10 +391,10 @@ function createReportDiv(comRepForm, divToReplace, comRepReason, replace) {
     comRepInput4.setAttribute('type', 'radio');
     comRepInput4.setAttribute('name', 'reportOptions');
     comRepInput4.setAttribute('id', 'reportOption4');
-    comRepInput4.setAttribute('value', 'OPTION4');
+    comRepInput4.setAttribute('value', 'Harrasment');
     comRepLabel4 = document.createElement('label');
     comRepLabel4.setAttribute('for', 'reportOption4');
-    comRepLabel4.innerText = 'OPTION4';
+    comRepLabel4.innerText = 'Harrasment';
     comRepFormRow4.append(comRepInput4, comRepLabel4);
 
     const comRepCol2 = document.createElement('div');
@@ -411,6 +411,8 @@ function createReportDiv(comRepForm, divToReplace, comRepReason, replace) {
     comRepInput5.setAttribute('id', 'reportOption5');
     comRepLabel5 = document.createElement('input');
     comRepLabel5.setAttribute('for', 'reportOption5');
+    comRepLabel5.setAttribute('class', 'form-control');
+    comRepLabel5.setAttribute('id', 'reportLabel5');
     comRepLabel5.setAttribute('placeholder', 'Different reason?');
     comRepLabel5.addEventListener('input', () => {
         comRepInput5.value = comRepLabel5.value;

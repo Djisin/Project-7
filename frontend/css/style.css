@@ -904,6 +904,7 @@ nav img {
   z-index: 1;
   -webkit-transition: 0.45s ease-in-out;
   transition: 0.45s ease-in-out;
+  margin-bottom: 3px;
 }
 
 .addCommentDiv form {
@@ -1572,7 +1573,6 @@ nav img {
       -ms-grid-row-align: center;
       align-self: center;
   max-width: 200px;
-  height: 250px;
   margin-top: 10px;
   -webkit-box-shadow: 3px 3px 5px 0px rgba(0, 0, 0, 0.75);
           box-shadow: 3px 3px 5px 0px rgba(0, 0, 0, 0.75);
@@ -1580,6 +1580,7 @@ nav img {
   -o-object-fit: cover;
      object-fit: cover;
   z-index: 1;
+  max-height: 300px;
 }
 
 .succ-user label {
@@ -2748,16 +2749,13 @@ nav img {
 }
 
 .single-comment-div .mainComment .comRightPart .whoAndWhen {
-  padding: 8px 10px 0 10px;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-orient: horizontal;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: row;
-          flex-direction: row;
   -webkit-box-shadow: 0px 3px 3px -2px rgba(95, 131, 165, 0.75);
           box-shadow: 0px 3px 3px -2px rgba(95, 131, 165, 0.75);
+  height: 25px;
+  padding-right: 0;
 }
 
 .single-comment-div .mainComment .comRightPart .whoAndWhen h5 {
@@ -2766,11 +2764,13 @@ nav img {
   line-height: 14px;
   padding: 0;
   margin: 0;
+  margin-top: 8px;
   font-size: 13px;
   display: inline-block;
 }
 
 .single-comment-div .mainComment .comRightPart .whoAndWhen a {
+  margin-top: 3px;
   color: #000;
 }
 
@@ -2951,8 +2951,9 @@ nav img {
     opacity: 0;
     z-index: -99;
   }
-  50% {
+  75% {
     opacity: 0;
+    z-index: -2;
   }
   100% {
     -webkit-transform: translateY(0);
@@ -2969,8 +2970,9 @@ nav img {
     opacity: 0;
     z-index: -99;
   }
-  50% {
+  75% {
     opacity: 0;
+    z-index: -2;
   }
   100% {
     -webkit-transform: translateY(0);
@@ -3061,6 +3063,37 @@ nav img {
   will-change: transform, opacity;
 }
 
+@-webkit-keyframes flip-in-hor-bottom {
+  0% {
+    -webkit-transform: rotateX(80deg);
+            transform: rotateX(80deg);
+    opacity: 0;
+  }
+  100% {
+    -webkit-transform: rotateX(0);
+            transform: rotateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes flip-in-hor-bottom {
+  0% {
+    -webkit-transform: rotateX(80deg);
+            transform: rotateX(80deg);
+    opacity: 0;
+  }
+  100% {
+    -webkit-transform: rotateX(0);
+            transform: rotateX(0);
+    opacity: 1;
+  }
+}
+
+.flip-in-hor-bottom {
+  -webkit-animation: flip-in-hor-bottom 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+          animation: flip-in-hor-bottom 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+}
+
 #comRepReasonDiv {
   padding: 0;
   -ms-flex-item-align: end;
@@ -3069,6 +3102,10 @@ nav img {
   -webkit-box-shadow: 0px 2px 4px 1px rgba(95, 131, 165, 0.75);
           box-shadow: 0px 2px 4px 1px rgba(95, 131, 165, 0.75);
   z-index: 1;
+  -webkit-transition-duration: 2s;
+          transition-duration: 2s;
+  -webkit-transition-timing-function: ease-in-out;
+          transition-timing-function: ease-in-out;
 }
 
 #comRepReasonDiv form {
@@ -3093,6 +3130,12 @@ nav img {
   margin: 5px;
 }
 
+#comRepReasonDiv input#reportLabel5 {
+  width: 88%;
+  display: inline-block;
+  height: 30px;
+}
+
 #comRepReasonDiv button {
   margin-left: 5px;
   margin-bottom: 3px;
@@ -3113,6 +3156,15 @@ nav img {
 
 #comRepReasonDiv button {
   margin-top: 5px;
+}
+
+#comRepReasonDiv p {
+  text-align: center !important;
+  margin: 10px;
+}
+
+#comRepReasonDiv label {
+  font-weight: 200;
 }
 
 #divOnTop {
@@ -3374,5 +3426,10 @@ nav img {
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
+}
+
+.whoAndWhen .hamburger-dropdown {
+  margin: 0;
+  z-index: 1;
 }
 /*# sourceMappingURL=style.css.map */

@@ -4,6 +4,8 @@
     width: inherit;
     box-shadow: 0px 2px 4px 1px $postShadows;
     z-index: 1;
+    transition-duration: 2s;
+    transition-timing-function: ease-in-out;
     & form {
         display: flex;
         flex-direction: column;
@@ -16,10 +18,22 @@
     }
     & input {
         margin: 5px;
+        &#reportLabel5{
+            width: 88%;
+            display: inline-block;
+            height: 30px;
+        }
     }
     @include normal-style-button;
     & button {
         margin-top: 5px;
+    }
+    & p {
+        text-align: center!important;
+        margin: 10px;
+    }
+    & label{
+        font-weight: 200;
     }
 }
 #divOnTop {

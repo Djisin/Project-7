@@ -24,12 +24,13 @@
     & img {
         align-self: center;
         max-width: 200px;
-        height: 250px;
+        //height: 250px;
         margin-top: 10px;
         box-shadow: 3px 3px 5px 0px rgba(0, 0, 0, 0.75);
         overflow: hidden;
         object-fit: cover;
         z-index: 1;
+        max-height: 300px;
     }
     & label {
         text-align: center;

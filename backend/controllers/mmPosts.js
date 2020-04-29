@@ -55,8 +55,13 @@ exports.getAllMMPosts = (req, res, next) => {
                 FROM mmpost
                 WHERE userId = ?`, [req.session.userId, req.session.userId], (error, numberOfPosts) => {
                 if (!error) {
+                    console.log(numberOfPosts)
                     userInfo[0]['numberOfArticles'] = numberOfPosts[0].number;
-                    userInfo[0]['numberOfPosts'] = numberOfPosts[1].number;
+                    if (numberOfPosts[1] === undefined) {
+                        userInfo[0]['numberOfPosts'] = 0
+                    } else {
+                        userInfo[0]['numberOfPosts'] = numberOfPosts[1].number;
+                    }
                     connection.query(`
                         SELECT post.postTitle, post.postId, user.username 
                         FROM post 
@@ -127,10 +132,10 @@ exports.getAllMMPosts = (req, res, next) => {
                                                                                             'recentPosts': recentPosts,
                                                                                             'mmContent': mmPosts,
                                                                                             'mostReadArticle': max,
-                                                                                            'mostSuccUser':max2,
-                                                                                            'mostLikedArticle':max3
+                                                                                            'mostSuccUser': max2,
+                                                                                            'mostLikedArticle': max3
                                                                                         });
-                                                                                        
+
                                                                                     } else {
                                                                                         res.status(404).json({
                                                                                             error: error
@@ -479,7 +484,7 @@ exports.likeMMPost = (req, res, next) => {
                 }
             } else {
                 res.status(404).json({
-                    error
+                    error: error
                 })
             }
         })

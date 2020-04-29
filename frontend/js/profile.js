@@ -388,10 +388,10 @@ request.onload = function () {
         const noMMPosts = document.createElement('p');
         noMMPosts.setAttribute('class', 'no-mmp-parag');
         if (data.mmContent.length === 0 && (data.userInfo[0].userId !== data.userData[0].userId)) {
-            noMMPosts.innerText = 'User did not create any posts';
+            noMMPosts.innerText = 'User did not create any personal posts';
             middlePart.appendChild(noMMPosts);
         } else if (data.mmContent.length === 0) {
-            noMMPosts.innerText = 'You did not create any posts';
+            noMMPosts.innerText = 'You do not have any posts';
             middlePart.appendChild(noMMPosts);
         }
 
