@@ -184,22 +184,18 @@ function commentBuilder(
     mainComment.setAttribute('class', 'mainComment')
     singleCommentDiv.appendChild(mainComment)
 
-    const creator = document.createElement('div');
-    creator.setAttribute('class', 'col-md-1 comLeftPart');
-    mainComment.appendChild(creator);
-
-    const userImg = document.createElement('img');
-    userImg.setAttribute('src', ImgSrc)
-    userImg.setAttribute('alt', 'User picture')
-    creator.appendChild(userImg)
-
     const commInfo = document.createElement('div');
-    commInfo.setAttribute('class', 'col-md-11 comRightPart');
+    commInfo.setAttribute('class', 'col-md-12 comRightPart');
     mainComment.appendChild(commInfo);
 
     const whoAndWhen = document.createElement('div');
     whoAndWhen.setAttribute('class', 'col-md-12 whoAndWhen');
     commInfo.appendChild(whoAndWhen);
+
+    const userImg = document.createElement('img');
+    userImg.setAttribute('src', ImgSrc)
+    userImg.setAttribute('alt', 'User picture')
+    whoAndWhen.appendChild(userImg)
 
     let byWho
     if (whoCreatedComment !== whoIsLoggedIn) {
@@ -212,7 +208,7 @@ function commentBuilder(
     }
 
     const byWhen = document.createElement('p');
-    byWhen.innerText = 'Created: ' + countTime(byWhenInfo);
+    byWhen.innerText = countTime(byWhenInfo);
     whoAndWhen.append(byWho, byWhen);
 
     const comBody = document.createElement('div');
@@ -393,7 +389,7 @@ function editComOrSubComSubmit(apiAddress, singleCommentDiv, previousParag, edit
     let editedTextArea = singleCommentDiv.getElementsByClassName('editedCommentData')[0];
     let comment = editedTextArea.value;
 
-    if (editedTextArea.value.trim().length > 1) {
+    if (editedTextArea.value.trim().length > 0) {
         let submitComment = { comment };
         let keyWord = 'PUT';
         submitMMFormData(submitComment, keyWord, apiAddress);

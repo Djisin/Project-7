@@ -1,0 +1,285 @@
+@media only screen and (max-width: 991px) and (min-width: 480px) {
+    #userProfile {
+        width: 100%;
+    }
+    #community-section {
+        width: 100%;
+    }
+
+    #leftPart {
+        padding: 10px;
+        position: relative;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        margin-bottom: 0px;
+        max-width: 720px;
+        margin-left: auto;
+        margin-right: auto;
+        height: 100%;
+        margin-top: 45px;
+        top: 0;
+        & > #profRankDiv::before {
+            display: none;
+        }
+        & > #profPicDiv::before {
+            display: none;
+        }
+        & > #moreUserProf::before {
+            display: none;
+        }
+        & > #profPicDiv {
+            grid-row-start: 1;
+            grid-row-end: 1;
+            grid-column-start: 1;
+            grid-column-end: 1;
+            margin-right: 10px;
+
+            height: auto;
+            margin-top: 5px !important;
+        }
+        & > #profRankDiv {
+            grid-row-start: 2;
+            grid-row-end: 2;
+            grid-column-start: 1;
+            grid-column-end: 1;
+            margin-right: 10px;
+        }
+        & > #moreUserProf {
+            grid-row-start: 1;
+            grid-row-end: 3;
+            grid-column-start: 2;
+            grid-column-end: 2;
+            margin-bottom: 0px;
+            margin-top: 5px;
+            & a {
+                max-width: 200px;
+            }
+        }
+        & > .numbersDiv {
+            grid-row-start: 1;
+            grid-row-end: 1;
+            grid-column-start: 1;
+            grid-column-end: 1;
+            margin-right: 10px;
+            margin-bottom: 0;
+            &::before {
+                display: none;
+            }
+        }
+        & > .succ-user {
+            grid-row-start: 1;
+            grid-row-end: 3;
+            grid-column-start: 2;
+            grid-column-end: 2;
+            &::before {
+                display: none;
+            }
+        }
+        & > .standing-out {
+            grid-row-start: 2;
+            grid-row-end: 2;
+            grid-column-start: 1;
+            grid-column-end: 1;
+            margin-right: 10px;
+            &::before {
+                display: none;
+            }
+            &:last-child {
+                grid-row-start: 4;
+                grid-row-end: 4;
+                grid-column-start: 1;
+                grid-column-end: 3;
+                margin-right: 0px;
+                margin-bottom: 0;
+            }
+        }
+    }
+    #middlePart {
+        padding: 0 5px 0 5px;
+        max-width: 500px;
+        margin-left: auto;
+        margin-right: auto;
+        #header-div {
+            margin-top: 0;
+        }
+        .mmPosts {
+            & p {
+                font-size: 13px;
+            }
+            & a {
+                font-size: 12px;
+            }
+        }
+    }
+    #rightPart {
+        max-width: 720px;
+        margin-left: auto;
+        margin-right: auto;
+        height: 100%;
+        top: 0;
+        padding: 0 5px 0 5px;
+        margin-bottom: 0;
+        position: relative;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        //flex-direction: row;
+        & .member-div {
+            display: flex;
+            justify-content: center;
+            grid-row-start: 1;
+            grid-row-end: 1;
+            grid-column-start: 1;
+            grid-column-end: 1;
+            margin-right: 10px;
+            &::before {
+                display: none;
+            }
+        }
+        & .numbersDiv {
+            grid-row-start: 1;
+            grid-row-end: 1;
+            grid-column-start: 2;
+            grid-column-end: 2;
+            &.community-numbers-div {
+                justify-self: center;
+                grid-column-start: 1;
+                grid-column-end: 3;
+                width: 300px;
+            }
+            &::before {
+                display: none;
+            }
+        }
+        & #succArticles {
+            margin-right: 10px;
+            grid-row-start: 2;
+            grid-row-end: 2;
+            grid-column-start: 1;
+            grid-column-end: 1;
+            margin-bottom: 10px;
+            &::before {
+                display: none;
+            }
+        }
+        & #recentArticles {
+            margin-top: 0;
+            margin-bottom: 10px;
+            grid-row-start: 2;
+            grid-row-end: 2;
+            grid-column-start: 2;
+            grid-column-end: 2;
+            &::before {
+                display: none;
+            }
+        }
+    }
+    .mmPosts > .addCommentDiv {
+        padding-left: 5px;
+        padding-right: 5px;
+        width: 100%;
+        & form > #comInputArea {
+            padding-left: 5px;
+            padding-right: 5px;
+        }
+    }
+    .mmPosts > .single-comment-div {
+        width: 100%;
+    }
+    .single-comment-div > .addCommentDiv {
+        padding-left: 5px;
+        padding-right: 5px;
+        width: 95%;
+        & form > #comInputArea {
+            padding-left: 5px;
+            padding-right: 5px;
+        }
+    }
+    #comRepReasonDiv {
+        width: 100%;
+    }
+}
+@media only screen and (max-width: 767px) {
+    #userProfile {
+       // width: 100vw;
+        margin-top: 0px;
+    }
+    #community-section {
+        //width: 100vw;
+        margin-top: 0px;
+    }
+}
+@media only screen and (max-width: 1142px) and (min-width: 991px) {
+    #userProfile {
+        margin-top: 80px;
+    }
+    #community-section {
+        margin-top: 80px;
+    }
+}
+@media only screen and (max-width: 480px) {
+    #userProfile {
+        width: 100%;
+    }
+    #community-section {
+        width: 100%;
+    }
+    #leftPart {
+        padding: 0 5px 0 5px;
+        top: 0px;
+        margin-top: 50px;
+        margin-bottom: 10px;
+        position: relative;
+        height: 100%;
+        & #profRankDiv {
+            align-self: center;
+        }
+    }
+    #middlePart {
+        padding: 0 5px 0 5px;
+        #header-div {
+            margin-top: 0;
+        }
+        .mmPosts {
+            & p {
+                font-size: 13px;
+            }
+            & a {
+                font-size: 12px;
+            }
+        }
+    }
+    #rightPart {
+        height: 100%;
+        top: 0;
+        padding: 0 5px 0 5px;
+        margin-bottom: 0;
+        position: relative;
+    }
+    .mmPosts > .addCommentDiv {
+        padding-left: 5px;
+        padding-right: 5px;
+        width: 100%;
+        & form > #comInputArea {
+            padding-left: 5px;
+            padding-right: 5px;
+        }
+    }
+    .mmPosts > .single-comment-div {
+        width: 100%;
+    }
+    .single-comment-div > .addCommentDiv {
+        padding-left: 5px;
+        padding-right: 5px;
+        width: 95%;
+        & form > #comInputArea {
+            padding-left: 5px;
+            padding-right: 5px;
+        }
+    }
+    .div-on-top-content {
+        width: 100% !important;
+    }
+    #comRepReasonDiv {
+        width: 100%;
+    }
+}

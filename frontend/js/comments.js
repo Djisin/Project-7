@@ -298,7 +298,7 @@ function createCommentForm(addComment, mmCommentId, subCom, postId) {
     })
     commentButtonDiv.lastChild.addEventListener('click', ($event) => {
         $event.preventDefault()
-        if (commentInput.value.trim().length > 1) {
+        if (commentInput.value.trim().length > 0) {
             if ((window.location.pathname).split('/')[2].split('?')[0] === 'post.html') {
 
                 comment = document.getElementsByClassName('commentTextInput')[0].value;

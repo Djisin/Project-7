@@ -11,6 +11,7 @@
     <meta name="Description" content="OpenClassrooms project 7 Groupomania">
 
     <link href="../frontend/css/style.css" type="text/css" rel="stylesheet">
+    <link href="../frontend/css/mob-style.css" type="text/css" rel="stylesheet" media="screen and (max-width: 1142px)">
     <link href="../frontend/css/bootstrap.min.css" type="text/css" rel="stylesheet">
     <link href="../frontend/img/favico.ico" type="image/x-icon" rel="shourtcut icon">
 
@@ -20,8 +21,9 @@
         }
     </script>
     <script defer src="https://kit.fontawesome.com/ef6b1b88f1.js" crossorigin="anonymous"></script>
-
-    <script defer type="text/javascript" src='js/jquery-2.1.0.min.js'></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script defer type="text/javascript" src='js/scrollToTop.js'></script>
+    <!--<script defer type="text/javascript" src='js/jquery-2.1.0.min.js'></script>-->
     <script defer type="text/javascript" src="js/bootstrap.min.js"></script>
     <script defer type="text/javascript" src="js/createPost.js"></script>
     <script async type="text/javascript" src="js/comments.js"></script>
@@ -53,7 +55,7 @@
                     <li><a href="#" id='logoutButton'><i class="fas fa-sign-in-alt"></i> Logout</a></li>
                 </ul>
 
-                <form class="navbar-form navbar-left">
+                <form class="navbar-form navbar-center">
                     <div class="input-group" id='searchInputDiv'>
                         <div class="input-group-addon">
                             <i class="fas fa-search"></i>

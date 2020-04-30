@@ -105,6 +105,7 @@ request.onload = function () {
         constructRightPartSuccArticles(rightPart, (data.userInfo[0].succPosts));
         constructRPRecCreated(rightPart, (data.recentPosts));
 
+        rightPart.getElementsByClassName('numbersDiv')[0].classList.add('community-numbers-div')
         //On load
         preventJs();
     } else {

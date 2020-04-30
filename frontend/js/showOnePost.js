@@ -21,7 +21,7 @@ request.onload = function () {
         const container = document.createElement('div');
         container.setAttribute('class', 'col-md-12 mainContainer');
 
-        const postTitle = document.createElement('h2');
+        const postTitle = document.createElement('h3');
         postTitle.setAttribute('class', 'postTitleClass');
         postTitle.textContent = data.post[0].postTitle;
         container.appendChild(postTitle);
@@ -60,7 +60,7 @@ request.onload = function () {
 
         const likes = document.createElement('div');
         likes.setAttribute('class', 'col-md-12 likes')
-        container.appendChild(likes)
+        createdByMain.appendChild(likes)
 
         const postLikes = document.createElement('i')
         postLikes.setAttribute('class', 'far fa-thumbs-up');
@@ -166,23 +166,26 @@ request.onload = function () {
                 alert(errorResponse);
             };
         }
+        const buttonDiv = document.createElement('div');
+        buttonDiv.setAttribute('class','btn-group');
+        createdByMain.appendChild(buttonDiv);
+
         if (data.userCreatedThisPost) {
+            
             const modifyButton = document.createElement('button');
-            modifyButton.setAttribute('class', 'btn btn-warning');
+            modifyButton.setAttribute('class', 'btn btn-link');
             modifyButton.innerHTML = 'Modify';
-            createdByMain.appendChild(modifyButton);
+            buttonDiv.appendChild(modifyButton);
 
             modifyButton.addEventListener('click', () => {
                 showPost.removeChild(container)
                 modifyUserPost()
             });
-        }
-
-        if (data.userCreatedThisPost) {
+        
             const deleteButton = document.createElement('button');
-            deleteButton.setAttribute('class', 'btn btn-danger');
+            deleteButton.setAttribute('class', 'btn btn-link');
             deleteButton.innerHTML = 'Delete';
-            createdByMain.appendChild(deleteButton);
+            buttonDiv.appendChild(deleteButton);
 
             deleteButton.addEventListener('click', ($event) => {
                 $event.preventDefault();
@@ -230,7 +233,7 @@ request.onload = function () {
             const postReport = document.createElement('button');
             postReport.setAttribute('class', 'btn btn-link')
             postReport.innerText = 'report';
-            timePeriods.appendChild(postReport)
+            buttonDiv.appendChild(postReport)
 
             postReport.addEventListener('click', ($event) => {
                 $event.preventDefault();
@@ -428,7 +431,7 @@ request.onload = function () {
                     comBodyParag2.focus();
 
                     editSubmit = document.createElement('button');
-                    editSubmit.setAttribute('class', 'btn btn-info');
+                    editSubmit.setAttribute('class', 'btn btn-link');
                     editSubmit.innerText = 'submit';
                     comBody.appendChild(editSubmit);
 
@@ -888,7 +891,7 @@ request.onload = function () {
                     }
                 }
             }
-            document.getElementsByClassName('mainComment')[0].style.borderRadius = '0 0 15px 15px'
+            //document.getElementsByClassName('mainComment')[0].style.borderRadius = '0 0 15px 15px'
 
             let numbOfComPerCom = document.getElementsByClassName('mCommentDiv')[i].getElementsByClassName('mCommentDiv2nd').length;
             if (numbOfComPerCom !== 0) {

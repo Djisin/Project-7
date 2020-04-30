@@ -242,13 +242,15 @@
             box-shadow: 2px 2px 5px 2px rgba(0, 0, 0, 0.25);
             
             & img {
-                width: inherit;
-                margin-bottom: 5px;
+                width: 100%;
+                //margin-bottom: 5px;
                 padding: 2px;
+                height: auto;
+                max-height: 1000px;
             }
             & video {
                 box-shadow: 0px 1px 5px 2px rgba(0, 0, 0, 0.25);
-                width: inherit;
+                width: 100%;
                 margin-bottom: 5px;
                 padding: 2px;
             }
@@ -266,8 +268,10 @@
                 display: flex;
                 & img {
                     padding: 5px;
+                    padding-bottom:2px;
                     height: 30px;
                     width: auto;
+                    max-width: 40px;
                     border-radius: 0;
                     float: left;
                 }
@@ -313,13 +317,6 @@
                         left: 89%;
                     }
                 }
-                /*& .btn-group {
-                    justify-self: center;
-                    @include normal-style-button;
-                    & button{
-                        display: block;
-                    }
-                }*/
             }
             &:last-child {
                 margin-bottom: 15px;
@@ -484,37 +481,39 @@
         width: 95%;
         align-self: flex-end;
 
-        & .comLeftPart {
+        /*& .comLeftPart {
             padding: 0;
             height: 100%;
+            
+        }*/@at-root
+        & .comRightPart {
+            padding: 0;
             & img {
                 width: auto !important;
                 padding: 0;
-                max-width: 30px;
+                max-width: 40px;
                 max-height: 30px;
-                margin-top: 5px;
+                margin: 5px 10px 0px 0px !important
             }
-        }
-        & .comRightPart {
-            padding: 0;
             & .whoAndWhen {
                 //padding: 8px 10px 0 10px;
                 display: flex;
                 //flex-direction: row;
                 box-shadow: 0px 3px 3px -2px $postShadows;
-                height:25px;
+                //height:25px;
+                padding-left: 5px;
                 padding-right: 0;
                 & h5 {
                     align-self: flex-start;
                     line-height: 14px;
                     padding: 0;
                     margin: 0;
-                    margin-top: 8px;
+                    margin-top: 10px;
                     font-size: 13px;
                     display: inline-block;
                 }
                 & a {
-                    margin-top: 3px;
+                    margin-top: 8px;
                     color: #000;
                     &:hover {
                         text-decoration: none;
@@ -526,6 +525,8 @@
                     line-height: 14px;
                     margin: 0;
                     margin-left: auto;
+                    padding-bottom: 4px;
+                    //margin-bottom: 5px;
                     display: inline-block;
                     font-size: 13px;
                 }
@@ -591,6 +592,7 @@
         flex-direction: column;
         width: 95%;
         padding-bottom: 5px !important;
+        z-index: 1;
         & .mainComment {
             box-shadow: 0px 2px 4px 0px $postShadows;
             &:first-child {

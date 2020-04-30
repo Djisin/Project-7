@@ -11,12 +11,14 @@
         min-width: 100px;
         text-align: center;
         right: -4px;
-        left: -50px;
+        left: -70px;
         justify-content: center;
     }
 }
 
-.whoAndWhen .hamburger-dropdown{
+.whoAndWhen>.hamburger-dropdown{
     margin: 0;
+    margin-top: 6px;
+    padding: 0;
     z-index: 1;
 }
