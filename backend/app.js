@@ -10,6 +10,8 @@ const commentRoutes = require('./routes/comment');
 const comment2ndRoutes = require('./routes/comment2nd');
 const reportRoutes = require('./routes/report');
 
+const searchRoute =require('./routes/search');
+
 const mmPostsRoutes = require('./routes/mmPosts');
 const mmCommentRoutes = require('./routes/mmComment');
 const mmComment2ndRoutes = require('./routes/mmComment2nd');
@@ -47,7 +49,7 @@ app.use(
         origin: 'http://127.0.0.1:5500',
         /*credentials:true*/
     })
-);
+); 
 
 app.use(
     session({
@@ -71,6 +73,8 @@ app.use('/api/posts', postsRoutes);
 app.use('/api/posts', commentRoutes);
 app.use('/api/posts', comment2ndRoutes);
 app.use('/api/posts', reportRoutes);
+
+app.use('/api/posts', searchRoute);
 
 app.use('/api/mmposts', mmPostsRoutes);
 app.use('/api/mmposts', mmCommentRoutes);

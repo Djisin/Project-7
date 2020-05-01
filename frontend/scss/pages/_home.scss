@@ -54,8 +54,6 @@ nav img {
       align-self: stretch;
       overflow: hidden;
       align-self: flex-start;
-      //text-overflow: ellipsis;
-      // max-height: 175px;
       padding-bottom: 5px;
       & .postTextClass {
         width: auto;
@@ -76,11 +74,7 @@ nav img {
     }
     & .createdByClass {
       box-shadow: 0px -2px 4px -1px $postShadows;
-      // margin-top: auto;
-      //height: 45px;
-      //align-items: flex-end;
       align-self: flex-end;
-      //bottom:0;
       height: 47px;
       width: 100%;
       padding: 0 10px 0 10px;
@@ -90,9 +84,6 @@ nav img {
         height:25px;
         & h5 {
           margin: 3px;
-          //margin-left: -5px;
-          //display: inline-block;
-          //width: 100%;
           font-size: 13px;
           line-height: inherit;
         }
@@ -113,17 +104,6 @@ nav img {
         }
       }
     }
-
-    /* & .timeCreatedClass {
-      box-shadow: 0px -2px 4px -1px $postShadows;
-      border-radius: 0 0 20px 20px;
-      width: 100%;
-      margin: 0;
-      padding: 2.5px;
-      height: 20px;
-      align-self: flex-end;
-      font-size: 12px;
-    }*/
     &:hover {
       cursor: pointer;
     }

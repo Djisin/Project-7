@@ -4,7 +4,7 @@ let today = new Date();
 exports.createComment = (req, res, next) => {
     let comment = {
         'userId': req.session.userId,
-        'postId': req.body.reqPostId,
+        'postId': req.body.mmCommentId,
         'commentText': req.body.comment,
         'comTimeCreated': today
     }
@@ -21,13 +21,37 @@ exports.createComment = (req, res, next) => {
     });
 }
 
+exports.getAllSubComments = (req, res, next) => {
+    connection.query(`
+        SELECT comseclevel.*, user.username, user.userPicture
+        FROM comseclevel
+        INNER JOIN user
+        ON comseclevel.userId = user.userId
+        LEFT JOIN reports
+        ON comseclevel.comSecLevId = reports.comSecLevId
+        WHERE comseclevel.commentId = ?
+        AND reports.reportId IS NULL
+        ORDER BY comseclevel.timeCreated DESC` , req.params.id,
+        (error, rows) => {
+            if (!error) {
+                res.status(200).json({
+                    'postComments': rows
+                });
+            } else {
+                res.status(404).json({
+                    message: 'No comments found'
+                });
+            }
+        })
+}
+
 exports.modifyComment = (req, res, next) => {
     let comment = {
         'commentText': req.body.comment,
         'edited': '1',
         'timeEdited': today
     }
-    connection.query('UPDATE comment SET ? WHERE commentId = ' + req.body.reqComId, comment, (error) => {
+    connection.query('UPDATE comment SET ? WHERE commentId = ' + req.params.id, comment, (error) => {
         if (!error) {
             res.status(200).json({
                 message: 'Comment edited successfully'
@@ -39,7 +63,7 @@ exports.modifyComment = (req, res, next) => {
 }
 
 exports.deleteComment = (req, res, next) => {
-    commentId = { 'commentId': req.body.reqComId }
+    commentId = { 'commentId': req.params.id }
     connection.query('DELETE FROM comment WHERE ?', commentId, (error) => {
         if (!error) {
             res.status(200).json({
@@ -69,8 +93,8 @@ exports.likeComment = (req, res, next) => {
                         if (!error) {
                             res.status(202).json({
                                 message: 'Liked',
-                                comLike: true,
-                                comDislike: false
+                                like: true,
+                                dislike: false
                             })
                         } else {
                             res.status(400).json({
@@ -80,7 +104,7 @@ exports.likeComment = (req, res, next) => {
                         }
                     });
                 } else if (!usersLiked.usersLiked.includes(userId) && usersDisliked.usersDisliked.includes(userId)) {
-                    res.status(403).json({
+                    res.status(200).json({
                         message: 'Remove your dislike before liking'
                     })
                 } else {
@@ -91,8 +115,8 @@ exports.likeComment = (req, res, next) => {
                         if (!error) {
                             res.status(202).json({
                                 message: 'Liked removed',
-                                comLike: false,
-                                comDislike: false
+                                like: false,
+                                dislike: false
                             })
                         } else {
                             res.status(400).json({
@@ -121,8 +145,8 @@ exports.likeComment = (req, res, next) => {
                         if (!error) {
                             res.status(202).json({
                                 message: 'Disliked',
-                                comDislike: true,
-                                comLike: false
+                                dislike: true,
+                                like: false
                             });
                         } else {
                             res.status(400).json({
@@ -132,7 +156,7 @@ exports.likeComment = (req, res, next) => {
                         }
                     });
                 } else if (usersLiked.usersLiked.includes(userId) && !usersDisliked.usersDisliked.includes(userId)) {
-                    res.status(403).json({
+                    res.status(200).json({
                         message: 'Remove your like before disliking'
                     });
                 } else {
@@ -143,8 +167,8 @@ exports.likeComment = (req, res, next) => {
                         if (!error) {
                             res.status(202).json({
                                 message: 'Dislike removed',
-                                comDislike: false,
-                                comLike: false
+                                dislike: false,
+                                like: false
                             });
                         } else {
                             res.status(400).json({

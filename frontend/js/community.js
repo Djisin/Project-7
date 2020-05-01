@@ -1,5 +1,4 @@
 let api = 'http://127.0.0.1:3000/user/profile';
-let mmApi = 'http://127.0.0.1:3000/api/mmposts';
 
 let request = new XMLHttpRequest();
 request.open('GET', mmApi + '/');
@@ -106,7 +105,6 @@ request.onload = function () {
         constructRPRecCreated(rightPart, (data.recentPosts));
 
         rightPart.getElementsByClassName('numbersDiv')[0].classList.add('community-numbers-div')
-        //On load
         preventJs();
     } else {
         window.location.href = '/frontend/index.html';

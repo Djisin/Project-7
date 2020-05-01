@@ -35,7 +35,6 @@ exports.createMMPost = (req, res, next) => {
     }
     connection.query('INSERT INTO mmpost SET ?', mmpost, (error) => {
         if (!error) {
-            console.log("mmPost added to the db")
             res.status(201).json({ message: 'Post created!' })
         } else {
             res.status(401).json({ message: error })
@@ -55,7 +54,6 @@ exports.getAllMMPosts = (req, res, next) => {
                 FROM mmpost
                 WHERE userId = ?`, [req.session.userId, req.session.userId], (error, numberOfPosts) => {
                 if (!error) {
-                    console.log(numberOfPosts)
                     userInfo[0]['numberOfArticles'] = numberOfPosts[0].number;
                     if (numberOfPosts[1] === undefined) {
                         userInfo[0]['numberOfPosts'] = 0
@@ -197,10 +195,6 @@ exports.getAllMMPosts = (req, res, next) => {
     });
 }
 exports.modifyMMPost = (req, res, next) => {
-    console.log('2')
-    console.log(req.body);
-    console.log(req.params.id)
-    console.log(req.file)
     const url = req.protocol + '://' + req.get('host');
     let mmPost;
     if (req.body.mmPost === 'null') {
@@ -213,8 +207,6 @@ exports.modifyMMPost = (req, res, next) => {
                     let possExtensions = ['.jpg', '.png', 'apng', '.bmp', '.gif', '.svg', 'webp', '.flv', '.mp4', '.ts', '.3gp', '.mov', '.avi', '.wmv']
                     let extension = rows[0].postMMField.substring(rows[0].postMMField.length - 4);
                     if (possExtensions.includes(extension)) {
-                        /*const filename = rows[0].postMMField.split('/images/')[1];
-                        fs.unlinkSync('images/' + filename);*/
                         const filename = rows[0].postMMField.split('/images/')[1];
                         fs.unlink('images/' + filename, (error) => {
                             if (!error) {
@@ -243,8 +235,6 @@ exports.modifyMMPost = (req, res, next) => {
                     let possExtensions = ['.jpg', '.png', 'apng', '.bmp', '.gif', '.svg', 'webp', '.flv', '.mp4', '.ts', '.3gp', '.mov', '.avi', '.wmv']
                     let extension = rows[0].postMMField.toLowerCase().substring(rows[0].postMMField.length - 4);
                     if (possExtensions.includes(extension)) {
-                        /*const filename = rows[0].postMMField.split('/images/')[1];
-                        fs.unlinkSync('images/' + filename);*/
                         const filename = rows[0].postMMField.split('/images/')[1];
                         fs.unlink('images/' + filename, (error) => {
                             if (!error) {
@@ -272,10 +262,7 @@ exports.modifyMMPost = (req, res, next) => {
                 if (rows[0].postMMField !== null) {
                     let possExtensions = ['.jpg', '.png', 'apng', '.bmp', '.gif', '.svg', 'webp', '.flv', '.mp4', '.ts', '.3gp', '.mov', '.avi', '.wmv']
                     let extension = rows[0].postMMField.substring(rows[0].postMMField.length - 4);
-                    console.log(extension)
                     if (possExtensions.includes(extension)) {
-                        /*const filename = rows[0].postMMField.split('/images/')[1];
-                        fs.unlinkSync('images/' + filename);*/
                         const filename = rows[0].postMMField.split('/images/')[1];
                         fs.unlink('images/' + filename, (error) => {
                             if (!error) {
@@ -345,10 +332,6 @@ exports.deleteMMPost = (req, res, next) => {
     connection.query(`SELECT postMMField FROM mmpost WHERE mmPostId = ?`, req.params.id, (error, dbpicture) => {
         if (!error) {
             if (dbpicture[0].postMMField !== null) {
-                /*let picture = dbpicture[0].postMMField.split('/images/')[1];
-                if (picture !== undefined) {
-                    fs.unlinkSync('images/' + picture);
-                }*/
                 const filename = dbpicture[0].postMMField.split('/images/')[1];
                 fs.unlink('images/' + filename, (error) => {
                     if (!error) {
@@ -379,9 +362,6 @@ exports.deleteMMPost = (req, res, next) => {
     });
 }
 exports.likeMMPost = (req, res, next) => {
-    console.log('6')
-    console.log(req.body);
-    console.log(req.params.id)
     let postId = req.params.id;
     let userId = req.session.userId;
     if (req.body.like === 1) {

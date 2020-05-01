@@ -18,13 +18,9 @@
     padding: 0 10px 10px 10px;
     @include nail-hanger;
     @include content-boxes;
-    //overflow: hidden;
-    //min-height: 220px;
-    //margin-bottom: 10px;
     & img {
         align-self: center;
         max-width: 200px;
-        //height: 250px;
         margin-top: 10px;
         box-shadow: 3px 3px 5px 0px rgba(0, 0, 0, 0.75);
         overflow: hidden;

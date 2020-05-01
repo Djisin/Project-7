@@ -1,46 +1,3 @@
-logoutApi = 'http://127.0.0.1:3000'
-logoutButton = document.getElementById('logoutButton')
-logoutButton.addEventListener('click', () => {
-
-    logoutButton.setAttribute('method', 'POST')
-    submitFormData()
-
-    function makeRequest() {
-        return new Promise((resolve, reject) => {
-            let request = new XMLHttpRequest();
-            request.open('POST', logoutApi + '/logout');
-            request.withCredentials = true;
-            request.onreadystatechange = () => {
-                if (request.readyState === 4) {
-                    if (request.status >= 200 && request.status < 400) {
-                        resolve(request.response);
-                    } else {
-                        reject(request.response);
-                    }
-                }
-            };
-            request.setRequestHeader('Content-Type', 'application/json');
-            request.send();
-        });
-    }
-    async function submitFormData() {
-        try {
-            const requestPromise = makeRequest();
-            const response = await requestPromise;
-            responseId = (JSON.parse(response));
-            if (responseId.loggedOut = true) {
-                window.location.replace("index.html");
-            } else {
-                console.log('response id nije dobar')
-            }
-
-        }
-        catch (errorResponse) {
-            alert(errorResponse);
-        };
-    }
-});
-
 function constructCreateMMPost(attachTo) {
     const contentDiv = document.createElement('div');
     contentDiv.setAttribute('id', 'create-content-div');
@@ -267,13 +224,6 @@ function constructMMPost(attachTo, mmContent, whoIsLoggedIn) {
         contentDivMM.appendChild(singlePost);
         singlePost.style.animationDelay = (i + 0.3) - (0.8 * i) + 's'
 
-        /*singlePost.addEventListener('mouseover', () => {
-            singlePost.getElementsByClassName('singlePostFooter')[0].children[1].style.opacity = '1'
-        });
-        singlePost.addEventListener('mouseout', () => {
-            singlePost.getElementsByClassName('singlePostFooter')[0].children[1].style.opacity = '0'
-        });*/
-
         const singlePostHeader = document.createElement('div');
         singlePostHeader.setAttribute('class', 'singlePostHeader');
         singlePost.appendChild(singlePostHeader);
@@ -348,24 +298,17 @@ function constructMMPost(attachTo, mmContent, whoIsLoggedIn) {
         }
         singlePostFooter.appendChild(edited);
 
-        /*const postButtonGroup = document.createElement('div');
-        postButtonGroup.setAttribute('class', 'btn-group');
-        //postButtonGroup.style.opacity = '0';
-        singlePostFooter.appendChild(postButtonGroup);*/
-
         const comReport = document.createElement('button');
         if (mmContent[i].userId !== whoIsLoggedIn) {
             comReport.setAttribute('class', 'btn btn-link')
             comReport.innerText = 'report';
-            hamburgerMenu(singlePostHeader,[comReport]);
-            //postButtonGroup.appendChild(comReport)
+            hamburgerMenu(singlePostHeader, [comReport]);
         }
 
         if (mmContent[i].userId === whoIsLoggedIn) {
             const editButton = document.createElement('button');
             editButton.setAttribute('class', 'btn btn-link editMMPost');
             editButton.innerText = 'edit';
-            //postButtonGroup.appendChild(editButton);
 
             let multimedia = mmContent[i].postMMField;
             let embeding = mmContent[i].embed;
@@ -377,12 +320,9 @@ function constructMMPost(attachTo, mmContent, whoIsLoggedIn) {
             const deleteButton = document.createElement('button');
             deleteButton.setAttribute('class', 'btn btn-link');
             deleteButton.innerText = 'delete';
-            //postButtonGroup.appendChild(deleteButton);
             hamburgerMenu(singlePostHeader, [editButton, deleteButton])
             deleteButton.addEventListener('click', ($event) => {
                 $event.preventDefault();
-
-                //deletePost((data.mmContent[i].mmPostId), singlePost)
                 delPostComOrSubCom((mmApi + '/' + mmContent[i].mmPostId), singlePost)
             });
             preventJs()
@@ -444,33 +384,5 @@ function constructMMPost(attachTo, mmContent, whoIsLoggedIn) {
             (whoIsLoggedIn)
         );
         reportEventListener(comReport, singlePostFooter, (mmContent[i].mmPostId), (mmContent[i].userId), (undefined))
-    }
-}
-
-
-function hamburgerMenu(attachTo, listItems) {
-
-    const container = document.createElement('div');
-    container.setAttribute('class', 'dropdown hamburger-dropdown');
-    attachTo.appendChild(container);
-
-    const collapseButton = document.createElement('button');
-    collapseButton.setAttribute('class', 'btn btn-link dropdown-toggle');
-    collapseButton.setAttribute('type', 'button');
-    collapseButton.setAttribute('data-toggle', 'dropdown');
-    collapseButton.setAttribute('aria-label', 'Additional options');
-    container.appendChild(collapseButton);
-
-    const buttonSpan = document.createElement('i');
-    buttonSpan.setAttribute('class', 'fas fa-bars fa-1x');
-    collapseButton.appendChild(buttonSpan);
-
-    const ul = document.createElement('div');
-    ul.setAttribute('class', 'dropdown-menu');
-    container.appendChild(ul);
-
-    for (let i = 0; i < listItems.length; i++) {
-        listItems[i].classList.add('dropdown-item')
-        ul.appendChild(listItems[i]);
     }
 }

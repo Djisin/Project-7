@@ -1,5 +1,4 @@
 api = 'http://127.0.0.1:3000'
-//Get contact info into the required object
 function getLoginUserInfo() {
     let email = document.getElementById('email').value;
     let password = document.getElementById('password').value;
@@ -51,7 +50,6 @@ function makeLoginRequest(submit) {
         };
 
         request.setRequestHeader('Content-Type', 'application/json');
-        //request.setRequestHeader('Authorization', 'Bearer ');
         request.send(JSON.stringify(submit));
     });
 }
@@ -64,7 +62,6 @@ async function submitLoginFormData(submit) {
         if (responseId.loggedIn = true) {
             window.location.href = '/frontend/home.html'
         }
-        console.log(response)
     }
     catch (errorResponse) {
         alert(errorResponse);

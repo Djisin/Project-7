@@ -2,7 +2,6 @@ previewImg = document.getElementById('img-preview');
 inputFile = document.getElementById('fileupload');
 inputFile.addEventListener('change', () => {
     const file = inputFile.files[0];
-    //console.log(inputFile.files[0])
     if (file) {
         const reader = new FileReader();
 

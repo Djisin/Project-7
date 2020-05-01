@@ -1,62 +1,61 @@
-function makeMMComRequest(submitComment, keyWord, apiLink) {
-    return new Promise((resolve, reject) => {
-        let request = new XMLHttpRequest();
-        request.withCredentials = true;
-        request.open(keyWord, apiLink);
-        request.onreadystatechange = () => {
-            if (request.readyState === 4) {
-                if (request.status >= 200 && request.status < 400) {
-                    resolve(request.response);
-                } else {
-                    reject(request.response);
-                }
-            }
-        };
-        request.setRequestHeader('Content-Type', 'application/json');
-        request.send(JSON.stringify(submitComment));
-    });
-}
 
-async function submitMMComFormData(submitComment, keyWord, apiLink) {
-    try {
-        const requestPromise = makeMMComRequest(submitComment, keyWord, apiLink);
-        const response = await requestPromise;
-        responseId = (JSON.parse(response));
-        return responseId;
-    }
-    catch (errorResponse) {
-        alert(errorResponse);
-    };
+let mmApi
+if ((window.location.pathname).split('/')[2].split('?')[0] === 'post.html') {
+    mmApi = 'http://127.0.0.1:3000/api/posts';
+} else if ((window.location.pathname).split('/')[2] === 'profile.html' || (window.location.pathname).split('/')[2] === 'posts.html') {
+    mmApi = 'http://127.0.0.1:3000/api/mmposts';
 }
 
 function inputLabelCommentsSpan(addComment, inputLabel, postId, numberOfComments, singlePost, whoIsLoggedIn) {
     //Click once to call the function
     inputLabel.addEventListener('click', () => {
         let submitComment = [];
-        submitMMComFormData(submitComment, ('GET'), (mmApi + '/' + postId))
+        submitMMFormData(submitComment, ('GET'), (mmApi + '/' + postId))
             .then((resp) => {
                 if (resp !== undefined) {
                     if (resp.postComments.length !== 0) {
                         for (let j = 0; j < resp.postComments.length; j++) {
-                            commentBuilder(
-                                singlePost,
-                                (resp.postComments[j].mmCommentId),
-                                (resp.postComments[j].userPicture),
-                                (resp.postComments[j].username),
-                                (resp.postComments[j].comTimeCreated),
-                                (resp.postComments[j].commentText),
-                                whoIsLoggedIn,
-                                (resp.postComments[j].userId),
-                                (resp.postComments[j].edited),
-                                (resp.postComments[j].timeEdited),
-                                (resp.postComments[j].likes),
-                                (resp.postComments[j].comUserLikes),
-                                (resp.postComments[j].dislikes),
-                                (resp.postComments[j].comUserDislikes),
-                                (resp.postComments[j].numberOfSubComments),
-                                postId,
-                                j
-                            )
+                            if ((window.location.pathname).split('/')[2].split('?')[0] === 'post.html') {
+                                commentBuilder(
+                                    singlePost,
+                                    (resp.postComments[j].commentId),
+                                    (resp.postComments[j].userPicture),
+                                    (resp.postComments[j].username),
+                                    (resp.postComments[j].comTimeCreated),
+                                    (resp.postComments[j].commentText),
+                                    whoIsLoggedIn,
+                                    (resp.postComments[j].userId),
+                                    (resp.postComments[j].edited),
+                                    (resp.postComments[j].timeEdited),
+                                    (resp.postComments[j].likes),
+                                    (resp.postComments[j].comUserLikes),
+                                    (resp.postComments[j].dislikes),
+                                    (resp.postComments[j].comUserDislikes),
+                                    (resp.postComments[j].numberOfSubComments),
+                                    postId,
+                                    j
+                                )
+                            } else {
+                                commentBuilder(
+                                    singlePost,
+                                    (resp.postComments[j].mmCommentId),
+                                    (resp.postComments[j].userPicture),
+                                    (resp.postComments[j].username),
+                                    (resp.postComments[j].comTimeCreated),
+                                    (resp.postComments[j].commentText),
+                                    whoIsLoggedIn,
+                                    (resp.postComments[j].userId),
+                                    (resp.postComments[j].edited),
+                                    (resp.postComments[j].timeEdited),
+                                    (resp.postComments[j].likes),
+                                    (resp.postComments[j].comUserLikes),
+                                    (resp.postComments[j].dislikes),
+                                    (resp.postComments[j].comUserDislikes),
+                                    (resp.postComments[j].numberOfSubComments),
+                                    postId,
+                                    j
+                                )
+                            }
                         }
                     }
                 }
@@ -67,13 +66,11 @@ function inputLabelCommentsSpan(addComment, inputLabel, postId, numberOfComments
         $event.preventDefault();
         if (addComment.style.height !== '30px') {
             inputLabel.lastChild.style.display = 'none';
-            //singlePost.style.paddingBottom = '5px'
             for (let k = 0; k < addComment.parentElement.getElementsByClassName('single-comment-div').length; k++) {
                 addComment.parentElement.getElementsByClassName('single-comment-div')[k].style.display = 'flex'
             }
         } else {
             inputLabel.lastChild.style.display = 'block';
-            //singlePost.style.paddingBottom = '0px'
             for (let k = 0; k < addComment.parentElement.getElementsByClassName('single-comment-div').length; k++) {
                 addComment.parentElement.getElementsByClassName('single-comment-div')[k].style.display = 'none'
             }
@@ -92,35 +89,56 @@ function inputLabelCommentsSpan(addComment, inputLabel, postId, numberOfComments
 function inputLabel2ndCommentsSpan(add2ndComment, inputLabel2nd, mmCommentId, numberOfSubComments, singleCommentDiv, whoIsLoggedIn) {
     inputLabel2nd.addEventListener('click', () => {
         let submitComment = [];
-        submitMMComFormData(submitComment, ('GET'), (mmApi + '/comment/' + mmCommentId))
+        submitMMFormData(submitComment, ('GET'), (mmApi + '/comment/' + mmCommentId))
             .then((resp) => {
                 if (resp !== undefined) {
                     if (resp.postComments.length !== 0) {
                         for (let j = 0; j < resp.postComments.length; j++) {
-                            commentBuilder(
-                                singleCommentDiv,
-                                (resp.postComments[j].mmComSecLevId),
-                                (resp.postComments[j].userPicture),
-                                (resp.postComments[j].username),
-                                (resp.postComments[j].timeCreated),
-                                (resp.postComments[j].comSecLevText),
-                                whoIsLoggedIn,
-                                (resp.postComments[j].userId),
-                                (resp.postComments[j].edited),
-                                (resp.postComments[j].timeEdited),
-                                (resp.postComments[j].likes),
-                                (resp.postComments[j].comUserLikes),
-                                (resp.postComments[j].dislikes),
-                                (resp.postComments[j].comUserDislikes),
-                                (resp.postComments[j].numberOfSubComments = 'disable'),
-                                (postId = undefined),
-                            )
+                            if ((window.location.pathname).split('/')[2].split('?')[0] === 'post.html') {
+                                commentBuilder(
+                                    singleCommentDiv,
+                                    (resp.postComments[j].comSecLevId),
+                                    (resp.postComments[j].userPicture),
+                                    (resp.postComments[j].username),
+                                    (resp.postComments[j].timeCreated),
+                                    (resp.postComments[j].comSecLevText),
+                                    whoIsLoggedIn,
+                                    (resp.postComments[j].userId),
+                                    (resp.postComments[j].edited),
+                                    (resp.postComments[j].timeEdited),
+                                    (resp.postComments[j].likes),
+                                    (resp.postComments[j].comUserLikes),
+                                    (resp.postComments[j].dislikes),
+                                    (resp.postComments[j].comUserDislikes),
+                                    (resp.postComments[j].numberOfSubComments = 'disable'),
+                                    (postId = undefined),
+                                )
+                            } else {
+                                commentBuilder(
+                                    singleCommentDiv,
+                                    (resp.postComments[j].mmComSecLevId),
+                                    (resp.postComments[j].userPicture),
+                                    (resp.postComments[j].username),
+                                    (resp.postComments[j].timeCreated),
+                                    (resp.postComments[j].comSecLevText),
+                                    whoIsLoggedIn,
+                                    (resp.postComments[j].userId),
+                                    (resp.postComments[j].edited),
+                                    (resp.postComments[j].timeEdited),
+                                    (resp.postComments[j].likes),
+                                    (resp.postComments[j].comUserLikes),
+                                    (resp.postComments[j].dislikes),
+                                    (resp.postComments[j].comUserDislikes),
+                                    (resp.postComments[j].numberOfSubComments = 'disable'),
+                                    (postId = undefined),
+                                )
+                            }
+
                         }
                     }
                 }
             });
     }, { once: true })
-    //console.log(add2ndComment)
     //Second click listener to display or hide content
     inputLabel2nd.addEventListener('click', ($event) => {
         $event.preventDefault();
@@ -173,13 +191,6 @@ function commentBuilder(
     singlePost.appendChild(singleCommentDiv);
     singleCommentDiv.style.animationDelay = j - (0.95 * j) + 's'
 
-    /*singleCommentDiv.addEventListener('mouseover', () => {
-        singleCommentDiv.getElementsByClassName('comFooter')[0].children[1].style.opacity = '1'
-    });
-    singleCommentDiv.addEventListener('mouseout', () => {
-        singleCommentDiv.getElementsByClassName('comFooter')[0].children[1].style.opacity = '0'
-    });*/
-
     const mainComment = document.createElement('section');
     mainComment.setAttribute('class', 'mainComment')
     singleCommentDiv.appendChild(mainComment)
@@ -231,17 +242,11 @@ function commentBuilder(
         comFooter.appendChild(editedParag);
     }
 
-    const btnGroup = document.createElement('div');
-    btnGroup.setAttribute('class', 'btn-group');
-    //btnGroup.style.opacity = '0';
-    comFooter.appendChild(btnGroup);
-
     const comReport = document.createElement('button');
     if (whoCreatedComment !== whoIsLoggedIn) {
 
         comReport.setAttribute('class', 'btn btn-link')
         comReport.innerText = 'report';
-        // btnGroup.appendChild(comReport);
         hamburgerMenu(whoAndWhen, [comReport]);
     }
     if (whoCreatedComment === whoIsLoggedIn) {
@@ -253,7 +258,6 @@ function commentBuilder(
             if (document.getElementsByClassName('cancel-com-edit').length > 0) {
                 document.getElementsByClassName('cancel-com-edit')[0].click()
             }
-            //comEdit.replaceWith(comEditCancel);
             replaceParagWTextArea(comBodyParag)
             comBody.append(comEditCancel, editSubmit);
         });
@@ -266,7 +270,6 @@ function commentBuilder(
             comBodyParag2.replaceWith(comBodyParag)
             comBody.removeChild(editSubmit);
             comBody.removeChild(comEditCancel);
-            //comEditCancel.replaceWith(comEdit);
         });
 
         const editSubmit = document.createElement('button');
@@ -274,11 +277,11 @@ function commentBuilder(
         editSubmit.innerText = 'submit';
         editSubmit.addEventListener('click', ($event) => {
             $event.preventDefault();
-            if (amountOfSubComments = 'disable' && postId === undefined) {
+            if (amountOfSubComments === 'disable' && postId === undefined) {
                 editComOrSubComSubmit((mmApi + '/comment2nd/' + mmCommentId), singleCommentDiv, comBodyParag, comEdit, comEditCancel);
             } else {
                 editComOrSubComSubmit((mmApi + '/comment/' + mmCommentId), singleCommentDiv, comBodyParag, comEdit, comEditCancel);
-            }
+            } 
         });
 
         const comDelete = document.createElement('button');
@@ -292,9 +295,9 @@ function commentBuilder(
             } else {
                 delPostComOrSubCom((mmApi + '/comment/' + mmCommentId), singleCommentDiv)
             }
+
         }, { once: true })
         hamburgerMenu(whoAndWhen, [comEdit, comDelete]);
-        // btnGroup.append(comEdit, comDelete);
     }
     const likesDiv = document.createElement('div');
     likesDiv.setAttribute('class', 'likesDiv');
@@ -355,23 +358,6 @@ function commentBuilder(
         reportEventListener(comReport, mainComment, mmCommentId, whoCreatedComment, postId)
     }
     preventJs();
-}
-
-function replaceParagWTextArea(comBodyParag) {
-    comBodyParag2 = document.createElement('textarea');
-    comBodyParag2.setAttribute('class', 'form-control editedCommentData');
-    comBodyParag2.oninput = function () {
-        comBodyParag2.style.height = "20px";
-        comBodyParag2.style.height = Math.min(comBodyParag2.scrollHeight, 200) + "px";
-        if (comBodyParag2.scrollHeight > 200) {
-            comBodyParag2.style.overflowY = 'scroll';
-        } else {
-            comBodyParag2.style.overflowY = '';
-        }
-    };
-    comBodyParag.replaceWith(comBodyParag2);
-    comBodyParag2.innerText = comBodyParag.innerText;
-    comBodyParag2.focus();
 }
 
 function delPostComOrSubCom(apiAddress, containingElmt) {

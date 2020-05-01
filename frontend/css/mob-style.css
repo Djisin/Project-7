@@ -123,6 +123,9 @@
   #middlePart .mmPosts a {
     font-size: 12px;
   }
+  #middlePart .tooltiptext {
+    width: auto !important;
+  }
   #rightPart {
     max-width: 720px;
     margin-left: auto;
@@ -228,9 +231,11 @@
 
 @media only screen and (max-width: 767px) {
   #userProfile {
+    width: 100%;
     margin-top: 0px;
   }
   #community-section {
+    width: 100%;
     margin-top: 0px;
   }
 }
@@ -264,6 +269,9 @@
         -ms-grid-row-align: center;
         align-self: center;
   }
+  #leftPart #moreUserProf a {
+    max-width: 200px;
+  }
   #middlePart {
     padding: 0 5px 0 5px;
   }
@@ -275,6 +283,9 @@
   }
   #middlePart .mmPosts a {
     font-size: 12px;
+  }
+  #middlePart .tooltiptext {
+    width: auto !important;
   }
   #rightPart {
     height: 100%;

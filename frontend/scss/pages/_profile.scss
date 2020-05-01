@@ -168,7 +168,7 @@
         align-self: center;
         width: inherit;
     }
-    
+
     & #create-content-div {
         display: flex;
         flex-direction: column;
@@ -240,10 +240,9 @@
             margin-top: 10px;
             padding: 0;
             box-shadow: 2px 2px 5px 2px rgba(0, 0, 0, 0.25);
-            
+
             & img {
                 width: 100%;
-                //margin-bottom: 5px;
                 padding: 2px;
                 height: auto;
                 max-height: 1000px;
@@ -268,7 +267,7 @@
                 display: flex;
                 & img {
                     padding: 5px;
-                    padding-bottom:2px;
+                    padding-bottom: 2px;
                     height: 30px;
                     width: auto;
                     max-width: 40px;
@@ -463,8 +462,6 @@
     }
 }
 .single-comment-div {
-    //box-shadow: inset 0px 3px 5px -2px $postShadows;
-    //height: 30px; //bilo 200
     background-color: rgba(153, 153, 153, 0.2);
     align-self: center;
     padding: 0 !important;
@@ -473,19 +470,11 @@
     width: 95%;
     padding-bottom: 5px !important;
     @include commentFormFormat;
-    
     & .mainComment {
         box-shadow: 0px 2px 4px 0px $postShadows;
-        //padding: 0 0 3px 0;
         background-color: #fff;
         width: 95%;
         align-self: flex-end;
-
-        /*& .comLeftPart {
-            padding: 0;
-            height: 100%;
-            
-        }*/@at-root
         & .comRightPart {
             padding: 0;
             & img {
@@ -493,14 +482,12 @@
                 padding: 0;
                 max-width: 40px;
                 max-height: 30px;
-                margin: 5px 10px 0px 0px !important
+                margin: 5px 10px 0px 0px !important;
             }
             & .whoAndWhen {
-                //padding: 8px 10px 0 10px;
                 display: flex;
-                //flex-direction: row;
                 box-shadow: 0px 3px 3px -2px $postShadows;
-                //height:25px;
+                height: 30px;
                 padding-left: 5px;
                 padding-right: 0;
                 & h5 {
@@ -525,8 +512,7 @@
                     line-height: 14px;
                     margin: 0;
                     margin-left: auto;
-                    padding-bottom: 4px;
-                    //margin-bottom: 5px;
+                    padding-bottom: 5px;
                     display: inline-block;
                     font-size: 13px;
                 }
@@ -552,19 +538,15 @@
         & .comFooter {
             padding: 0;
             display: grid;
-            grid-template-columns: 2fr 2fr 2fr;
+            grid-template-columns: 1fr 1fr;
             height: 25px;
-            //box-shadow: 0px -5px 10px -2px $postShadows;
             & p {
                 margin: 0 !important;
                 padding: 4px !important;
                 padding-left: 6px !important;
                 font-size: 12px;
                 font-style: italic;
-            }
-            @include normal-style-button;
-            & .btn-group {
-                justify-self: center;
+                text-align: left;
             }
             & .likesDiv {
                 justify-self: end;
@@ -587,7 +569,6 @@
     & .single-comment-div {
         background-color: rgba(153, 153, 153, 0.2);
         align-self: flex-end;
-        //padding: 0 !important;
         display: flex;
         flex-direction: column;
         width: 95%;

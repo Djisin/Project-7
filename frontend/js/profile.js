@@ -1,6 +1,4 @@
-
 let api = 'http://127.0.0.1:3000/user/profile';
-let mmApi = 'http://127.0.0.1:3000/api/mmposts';
 
 let url = window.location.href;
 let reqProfId = url.substring(url.lastIndexOf('?') + 1);

@@ -2,10 +2,6 @@ connection = require('../connection');
 let today = new Date();
 
 exports.commentOnComment = (req, res, next) => {
-    console.log('komentar na komentar')
-    console.log('1');
-    console.log(req.body);
-    console.log(req.params.id);
     let mmcomment = {
         'userId': req.session.userId,
         'mmPostId': req.body.postId,
@@ -27,10 +23,6 @@ exports.commentOnComment = (req, res, next) => {
 }
 
 exports.modifyComment2nd = (req, res, next) => {
-    console.log('modify 2nd comment');
-    console.log('2');
-    console.log(req.body);
-    console.log(req.params.id);
     let comment = {
         'comSecLevText': req.body.comment,
         'edited': '1',
@@ -48,10 +40,6 @@ exports.modifyComment2nd = (req, res, next) => {
 }
 
 exports.deleteComment2nd = (req, res, next) => {
-    console.log('delete 2nd com')
-    console.log('3');
-    console.log(req.body);
-    console.log(req.params.id);
     connection.query('DELETE FROM mmcomseclevel WHERE mmComSecLevId = ?', req.params.id, (error) => {
         if (!error) {
             res.status(200).json({
@@ -66,10 +54,6 @@ exports.deleteComment2nd = (req, res, next) => {
 }
 
 exports.likeComment2nd = (req, res, next) => {
-    console.log('com 2nd likes')
-    console.log('4');
-    console.log(req.body);
-    console.log(req.params.id);
     commentId = req.params.id;
     userId = req.session.userId;
     if (req.body.like === 1) {

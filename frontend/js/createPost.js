@@ -83,8 +83,6 @@ createPostButton.addEventListener('click', ($event) => {
     postImgLabel1.textContent = 'Select a file to upload';
     let postImgInput = document.createElement('input');
     postImgInput.setAttribute('type', 'file');
-    //postImgInput.setAttribute('name', 'upimg');
-    //postImgInput.setAttribute('value', 'fileupload');
     postImgInput.setAttribute('id', 'fileupload');
     postImgInput.setAttribute('class', 'btn btn-secondary');
 
@@ -123,7 +121,6 @@ createPostButton.addEventListener('click', ($event) => {
             if (image !== undefined || image !== null) {
                 submitCreate.append('file', image)
             }
-            console.log(image)
             submitContent = getCreatePost()
             submitContent = JSON.stringify(submitContent)
 

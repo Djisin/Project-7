@@ -28,10 +28,8 @@ onload = async function submitCheckData() {
         responseId = (JSON.parse(response));
         if (responseId.loggedIn = true) {
             window.location.replace("/frontend/home.html");
-            console.log(responseId)
         }
         else {
-            console.log(responseId)
             window.location.replace("/frontend/index.html");
         }
 

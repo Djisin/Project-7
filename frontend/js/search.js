@@ -11,7 +11,6 @@ searchInput.addEventListener('input', ($event) => {
     $event.preventDefault();
     searchInputVal = searchInput.value.trim();
     searchAreaOption = searchArea.options[searchArea.selectedIndex].value
-    console.log(searchAreaOption)
 });
 
 searchInput.addEventListener('keyup', () => {

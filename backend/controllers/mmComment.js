@@ -2,10 +2,6 @@ connection = require('../connection');
 let today = new Date();
 
 exports.createMMComment = (req, res, next) => {
-    console.log('komentar na post')
-    console.log('1');
-    console.log(req.body);
-    console.log(req.params.id);
     let mmcomment = {
         'userId': req.session.userId,
         'mmPostId': req.body.mmCommentId,
@@ -26,10 +22,6 @@ exports.createMMComment = (req, res, next) => {
 }
 
 exports.modifyMMComment = (req, res, next) => {
-    console.log('modify comment');
-    console.log('2');
-    console.log(req.body);
-    console.log(req.params.id);
     let comment = {
         'commentText': req.body.comment,
         'edited': '1',
@@ -47,11 +39,6 @@ exports.modifyMMComment = (req, res, next) => {
 }
 
 exports.deleteMMComment = (req, res, next) => {
-    console.log('delete com')
-    console.log('3');
-    console.log(req.body);
-    console.log(req.params.id);
-    //let comSecLevId = { 'comSecLevId': req.body.reqComId2nd }
     connection.query('DELETE FROM mmcomment WHERE mmCommentId = ?', req.params.id, (error) => {
         if (!error) {
             res.status(200).json({
@@ -66,10 +53,6 @@ exports.deleteMMComment = (req, res, next) => {
 }
 
 exports.likeMMComment = (req, res, next) => {
-    console.log('mmcoment likes');
-    console.log('4');
-    console.log(req.body);
-    console.log(req.params.id);
     commentId = req.params.id;
     userId = req.session.userId;
     if (req.body.like === 1) {
@@ -180,9 +163,6 @@ exports.likeMMComment = (req, res, next) => {
 }
 
 exports.getAllSubComments = (req, res, next) => {
-    console.log('5');
-    console.log(req.body);
-    console.log(req.params.id);
     connection.query(`SELECT mmcomseclevel.*, user.userPicture, user.username
         FROM mmcomseclevel 
         INNER JOIN user 

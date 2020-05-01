@@ -1,8 +1,6 @@
 
 function editMMPostFunction(divOnTop, editButton, mmText, multimedia, embeding, editingPostId) {
 
-    //let editMMPost = document.getElementsByClassName('editMMPost')[0];
-
     editButton.addEventListener('click', ($event) => {
         $event.preventDefault();
 
@@ -92,9 +90,6 @@ function editMMPostFunction(divOnTop, editButton, mmText, multimedia, embeding, 
 
         const mmLabel = document.createElement('label');
         mmLabel.setAttribute('class', 'input-group-addon');
-        /*mmLabel.setAttribute('data-toggle', 'tooltip');
-        mmLabel.setAttribute('data-placement', 'top');
-        mmLabel.setAttribute('title', 'Click here to remove')*/
         mmLabel.setAttribute('id', 'mmLabel');
         mmLabel.style.border = '0';
         buttonGroup.appendChild(mmLabel);
@@ -324,5 +319,4 @@ function editMMPostFunction(divOnTop, editButton, mmText, multimedia, embeding, 
         contDiv.appendChild(errorParagOnTop);
         preventJs()
     }, { once: true });
-
 }

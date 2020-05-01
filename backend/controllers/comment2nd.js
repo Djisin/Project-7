@@ -5,8 +5,8 @@ exports.commentOnComment = (req, res, next) => {
     let comOnComent = {
         'userId': req.session.userId,
         'postId': req.body.postId,
-        'commentId': req.body.commentId,
-        'comSecLevText': req.body.comOnComText
+        'commentId': req.body.mmCommentId,
+        'comSecLevText': req.body.comment
     }
     connection.query('INSERT INTO comseclevel SET ?', comOnComent, (error) => {
         if (!error) {
@@ -23,11 +23,11 @@ exports.commentOnComment = (req, res, next) => {
 
 exports.modifyComment2nd = (req, res, next) => {
     let comment2nd = {
-        'comSecLevText': req.body.comment2nd,
+        'comSecLevText': req.body.comment,
         'edited': '1',
         'timeEdited': today
     }
-    connection.query('UPDATE comseclevel SET ? WHERE comSecLevId = ' + req.body.reqComId2nd, comment2nd, (error) => {
+    connection.query('UPDATE comseclevel SET ? WHERE comSecLevId = ' + req.params.id, comment2nd, (error) => {
         if (!error) {
             res.status(200).json({
                 message: 'Comment on second level successfully updated'
@@ -41,7 +41,7 @@ exports.modifyComment2nd = (req, res, next) => {
 }
 
 exports.deleteComment2nd = (req, res, next) => {
-    let comSecLevId = { 'comSecLevId': req.body.reqComId2nd }
+    let comSecLevId = { 'comSecLevId': req.params.id }
     connection.query('DELETE FROM comseclevel WHERE ?', comSecLevId, (error) => {
         if (!error) {
             res.status(200).json({
@@ -82,7 +82,7 @@ exports.likeComment2nd = (req, res, next) => {
                         }
                     });
                 } else if (!usersLiked.usersLiked.includes(userId) && usersDisliked.usersDisliked.includes(userId)) {
-                    res.status(403).json({
+                    res.status(200).json({
                         message: 'Remove your dislike before liking'
                     })
                 } else {
@@ -134,7 +134,7 @@ exports.likeComment2nd = (req, res, next) => {
                         }
                     });
                 } else if (usersLiked.usersLiked.includes(userId) && !usersDisliked.usersDisliked.includes(userId)) {
-                    res.status(403).json({
+                    res.status(200).json({
                         message: 'Remove your like before disliking'
                     });
                 } else {

@@ -1,4 +1,3 @@
-
 let api = 'http://127.0.0.1:3000/api/posts';
 
 const showAllPosts = document.getElementById('showAllPosts');
@@ -74,7 +73,6 @@ request.onload = function () {
                 creatorDiv.appendChild(createdBy);
                 
                 const postTimeCreated = document.createElement('p');
-               // postTimeCreated.setAttribute('class', 'timeCreatedClass');
                 postTimeCreated.textContent = countTime(data.posts[i].postTimeCreated);
                 creatorDiv.appendChild(postTimeCreated)
 
@@ -103,82 +101,6 @@ request.onload = function () {
         }
     } else {
         window.location.href = '/frontend/index.html'
-        //alert('There is an error');
     }
-
 }
 request.send();
-
-logoutApi = 'http://127.0.0.1:3000'
-logoutButton = document.getElementById('logoutButton')
-logoutButton.addEventListener('click', () => {
-
-    logoutButton.setAttribute('method', 'POST')
-    submitFormData()
-
-    function makeRequest() {
-        return new Promise((resolve, reject) => {
-            let request = new XMLHttpRequest();
-            request.open('POST', logoutApi + '/logout');
-            request.withCredentials = true;
-            request.onreadystatechange = () => {
-                if (request.readyState === 4) {
-                    if (request.status >= 200 && request.status < 400) {
-                        resolve(request.response);
-                    } else {
-                        reject(request.response);
-                    }
-                }
-            };
-            request.setRequestHeader('Content-Type', 'application/json');
-            request.send();
-        });
-    }
-    async function submitFormData() {
-        try {
-            const requestPromise = makeRequest();
-            const response = await requestPromise;
-            responseId = (JSON.parse(response));
-            if (responseId.loggedOut = true) {
-                window.location.replace("index.html");
-            } else {
-                console.log('response id nije dobar')
-            }
-
-        }
-        catch (errorResponse) {
-            alert(errorResponse);
-        };
-    }
-});
-function countTime(timeToCount) {
-    today = new Date();
-    d1 = new Date(today.toISOString());
-    d2 = new Date(timeToCount);
-    let diffTime
-    diff = d1 - d2
-    if (diff < 60e3) {
-        diffTime = Math.floor(diff / 1000) + 'sec ago';
-        return diffTime;
-    }
-    else if (diff >= 60e3 && diff < 3.6e+6) {
-        diffTime = Math.floor(diff / 60e3) + 'min ago'
-    }
-    else if (diff >= 3.6e+6 && diff < 8.64e+7) {
-        diffTime = Math.floor(diff / 3.6e+6) + 'h ago';
-        return diffTime;
-    }
-    else if (diff >= 8.64e+7 && diff < 2.628e+9) {
-        diffTime = Math.floor(diff / 8.64e+7) + 'd ago';
-    }
-    else if (diff >= 2.628e+9 && diff < 3.154e+10) {
-        diffTime = Math.floor(diff / 2.628e+9) + `m'th ago`;
-    }
-    else if (diff >= 3.154e+10) {
-        diffTime = Math.floor(diff / 3.154e+10) + 'y ago';
-    }
-    else {
-        console.log('Problem with times in the function');
-    }
-    return diffTime;
-}

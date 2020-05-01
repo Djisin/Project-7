@@ -1,232 +1,3 @@
-
-function submitEditedCommentFormData() {
-    comment = document.getElementById('editedCommentData').value;
-
-    if (document.getElementById('editedCommentData').value.trim().length > 1) {
-        let submitComment = { comment, reqComId };
-        submitFormData(submitComment);
-    } else {
-        document.getElementById('editedCommentData').setAttribute('placeholder', 'You can not submit empty comment');
-        document.getElementById('editedCommentData').focus();
-        return
-    }
-
-    function makeRequest(submitComment) {
-        return new Promise((resolve, reject) => {
-            let request = new XMLHttpRequest();
-            request.withCredentials = true;
-            request.open('PUT', api + '/comment/:id');
-            request.onreadystatechange = () => {
-                if (request.readyState === 4) {
-                    if (request.status >= 200 && request.status < 400) {
-                        resolve(request.response);
-                    } else {
-                        reject(request.response);
-                    }
-                }
-            };
-            request.setRequestHeader('Content-Type', 'application/json');
-            request.send(JSON.stringify(submitComment));
-        });
-    }
-
-    async function submitFormData(submitComment) {
-        try {
-            const requestPromise = makeRequest(submitComment);
-            const response = await requestPromise;
-            responseId = (JSON.parse(response));
-            location.reload()
-        }
-        catch (errorResponse) {
-            alert(errorResponse);
-        };
-    }
-}
-
-function submitReport(submitReportData) {
-    submitFormData(submitReportData);
-    function makeRequest(submitReportData) {
-        return new Promise((resolve, reject) => {
-            let request = new XMLHttpRequest();
-            request.withCredentials = true;
-            request.open('POST', api + '/report');
-            request.onreadystatechange = () => {
-                if (request.readyState === 4) {
-                    if (request.status >= 200 && request.status < 400) {
-                        resolve(request.response);
-                    } else {
-                        reject(request.response);
-                    }
-                }
-            };
-            request.setRequestHeader('Content-Type', 'application/json');
-            request.send(JSON.stringify(submitReportData));
-        });
-    }
-    async function submitFormData(submitReportData) {
-        try {
-            const requestPromise = makeRequest(submitReportData);
-            const response = await requestPromise;
-            responseId = (JSON.parse(response));
-            location.reload()
-        }
-        catch (errorResponse) {
-            alert(errorResponse);
-        };
-    }
-}
-
-function submitDeleteComment() {
-    let submitComment = { reqComId };
-
-    submitFormData(submitComment);
-
-    function makeRequest(submitComment) {
-        return new Promise((resolve, reject) => {
-            let request = new XMLHttpRequest();
-            request.withCredentials = true;
-            request.open('DELETE', api + '/comment/:id');
-            request.onreadystatechange = () => {
-                if (request.readyState === 4) {
-                    if (request.status >= 200 && request.status < 400) {
-                        resolve(request.response);
-                    } else {
-                        reject(request.response);
-                    }
-                }
-            };
-            request.setRequestHeader('Content-Type', 'application/json');
-            request.send(JSON.stringify(submitComment));
-        });
-    }
-
-    async function submitFormData(submitComment) {
-        try {
-            const requestPromise = makeRequest(submitComment);
-            const response = await requestPromise;
-            responseId = (JSON.parse(response));
-            location.reload()
-        }
-        catch (errorResponse) {
-            alert(errorResponse);
-        };
-    }
-}
-
-function submit2ndComFormData(submit2ndComment) {
-    submit2ndFormData(submit2ndComment);
-    function make2ndRequest(submit2ndComment) {
-        return new Promise((resolve, reject) => {
-            let request = new XMLHttpRequest();
-            request.withCredentials = true;
-            request.open('POST', api + '/commentOnComment');
-            request.onreadystatechange = () => {
-                if (request.readyState === 4) {
-                    if (request.status >= 200 && request.status < 400) {
-                        resolve(request.response);
-                    } else {
-                        reject(request.response);
-                    }
-                }
-            };
-            request.setRequestHeader('Content-Type', 'application/json');
-            request.send(JSON.stringify(submit2ndComment));
-        });
-    }
-    async function submit2ndFormData(submit2ndComment) {
-        try {
-            const requestPromise = make2ndRequest(submit2ndComment);
-            const response = await requestPromise;
-            responseId = (JSON.parse(response));
-            location.reload()
-        }
-        catch (errorResponse) {
-            alert(errorResponse);
-        };
-    }
-}
-
-function submitDeleteComment2nd() {
-    let submitComment2nd = { reqComId2nd };
-
-    submitFormData2nd(submitComment2nd);
-
-    function makeRequest2nd(submitComment2nd) {
-        return new Promise((resolve, reject) => {
-            let request = new XMLHttpRequest();
-            request.withCredentials = true;
-            request.open('DELETE', api + '/comment2nd/:id');
-            request.onreadystatechange = () => {
-                if (request.readyState === 4) {
-                    if (request.status >= 200 && request.status < 400) {
-                        resolve(request.response);
-                    } else {
-                        reject(request.response);
-                    }
-                }
-            };
-            request.setRequestHeader('Content-Type', 'application/json');
-            request.send(JSON.stringify(submitComment2nd));
-        });
-    }
-
-    async function submitFormData2nd(submitComment2nd) {
-        try {
-            const requestPromise = makeRequest2nd(submitComment2nd);
-            const response = await requestPromise;
-            responseId = (JSON.parse(response));
-            location.reload()
-        }
-        catch (errorResponse) {
-            alert(errorResponse);
-        };
-    }
-}
-
-function submitEditedCommentFormData2nd() {
-    comment2nd = document.getElementsByClassName('editedCommentData2nd')[0].value;
-
-    if (document.getElementsByClassName('editedCommentData2nd')[0].value.trim().length > 1) {
-        let submitComment2nd = { comment2nd, reqComId2nd };
-        submitEditedFormData2nd(submitComment2nd);
-    } else {
-        document.getElementsByClassName('editedCommentData2nd')[0].setAttribute('placeholder', 'You can not submit empty comment');
-        document.getElementsByClassName('editedCommentData2nd')[0].focus();
-        return
-    }
-
-    function makeEditedRequest2nd(submitComment2nd) {
-        return new Promise((resolve, reject) => {
-            let request = new XMLHttpRequest();
-            request.withCredentials = true;
-            request.open('PUT', api + '/comment2nd/:id');
-            request.onreadystatechange = () => {
-                if (request.readyState === 4) {
-                    if (request.status >= 200 && request.status < 400) {
-                        resolve(request.response);
-                    } else {
-                        reject(request.response);
-                    }
-                }
-            };
-            request.setRequestHeader('Content-Type', 'application/json');
-            request.send(JSON.stringify(submitComment2nd));
-        });
-    }
-
-    async function submitEditedFormData2nd(submitComment2nd) {
-        try {
-            const requestPromise = makeEditedRequest2nd(submitComment2nd);
-            const response = await requestPromise;
-            responseId = (JSON.parse(response));
-            location.reload()
-        }
-        catch (errorResponse) {
-            alert(errorResponse);
-        };
-    }
-}
-
 function createCommentForm(addComment, mmCommentId, subCom, postId) {
     const commentForm = document.createElement('form');
     commentForm.setAttribute('class', 'form-inline');
@@ -295,33 +66,37 @@ function createCommentForm(addComment, mmCommentId, subCom, postId) {
             commentInput.style.display = 'block';
             commentInput.focus();
         }
-    })
+    });
+    let keyWord = 'POST';
     commentButtonDiv.lastChild.addEventListener('click', ($event) => {
         $event.preventDefault()
         if (commentInput.value.trim().length > 0) {
             if ((window.location.pathname).split('/')[2].split('?')[0] === 'post.html') {
-
-                comment = document.getElementsByClassName('commentTextInput')[0].value;
-                let submitComment = { comment, reqPostId };
-                let keyWord = 'POST';
-                let apiLink = api + '/comment';
-                submitMMComment1st(submitComment, keyWord, apiLink);
-            } else if ((window.location.pathname).split('/')[2] === 'profile.html' || (window.location.pathname).split('/')[2] === 'posts.html') {
                 if (subCom === true) {
-
                     comment = addComment.getElementsByClassName('commentTextInput')[0].value;
                     let submitComment = { comment, mmCommentId, postId };
-                    let keyWord = 'POST';
-                    let apiLink = mmApi + '/commentOnComment';
-                    submitMMComment1st(submitComment, keyWord, apiLink);
+                    let apiLink = api + '/commentOnComment';
+                    submitMMFormData(submitComment, keyWord, apiLink).then(() => { window.location.reload() });
                     commentForm.reset();
                 } else {
-
                     comment = addComment.getElementsByClassName('commentTextInput')[0].value;
                     let submitComment = { comment, mmCommentId };
-                    let keyWord = 'POST';
+                    let apiLink = api + '/comment';
+                    submitMMFormData(submitComment, keyWord, apiLink).then(() => { window.location.reload() });
+                    commentForm.reset();
+                }
+            } else if ((window.location.pathname).split('/')[2] === 'profile.html' || (window.location.pathname).split('/')[2] === 'posts.html') {
+                if (subCom === true) {
+                    comment = addComment.getElementsByClassName('commentTextInput')[0].value;
+                    let submitComment = { comment, mmCommentId, postId };
+                    let apiLink = mmApi + '/commentOnComment';
+                    submitMMFormData(submitComment, keyWord, apiLink).then(() => { window.location.reload() });
+                    commentForm.reset();
+                } else {
+                    comment = addComment.getElementsByClassName('commentTextInput')[0].value;
+                    let submitComment = { comment, mmCommentId };
                     let apiLink = mmApi + '/comment';
-                    submitMMComment1st(submitComment, keyWord, apiLink);
+                    submitMMFormData(submitComment, keyWord, apiLink).then(() => { window.location.reload() });
                     commentForm.reset();
                 }
             }
@@ -438,42 +213,6 @@ function createReportDiv(comRepForm, divToReplace, comRepReason, replace) {
     comRepCol2.appendChild(comRepCancel)
     preventJs();
 }
-// mmComments
-function submitMMComment1st(submitComment, keyWord, apiLink) {
-
-    submitFormData(submitComment);
-
-    function makeRequest(submitComment) {
-        return new Promise((resolve, reject) => {
-            let request = new XMLHttpRequest();
-            request.withCredentials = true;
-            request.open(keyWord, apiLink);
-            request.onreadystatechange = () => {
-                if (request.readyState === 4) {
-                    if (request.status >= 200 && request.status < 400) {
-                        resolve(request.response);
-                    } else {
-                        reject(request.response);
-                    }
-                }
-            };
-            request.setRequestHeader('Content-Type', 'application/json');
-            request.send(JSON.stringify(submitComment));
-        });
-    }
-
-    async function submitFormData(submitComment) {
-        try {
-            const requestPromise = makeRequest(submitComment);
-            const response = await requestPromise;
-            responseId = (JSON.parse(response));
-            location.reload()
-        }
-        catch (errorResponse) {
-            alert(errorResponse);
-        };
-    }
-};
 
 function makeMMRequest(submitMMData, keyWord, apiLink) {
     return new Promise((resolve, reject) => {
@@ -500,7 +239,6 @@ async function submitMMFormData(submitMMData, keyWord, reqOpen) {
         const response = await requestPromise;
         responseId = (JSON.parse(response));
         return responseId
-        //location.reload()
     }
     catch (errorResponse) {
         alert(errorResponse);
@@ -621,6 +359,49 @@ function constructRPRecCreated(attachTo, recentPosts) {
         }
     }
 }
+function hamburgerMenu(attachTo, listItems) {
+
+    const container = document.createElement('div');
+    container.setAttribute('class', 'dropdown hamburger-dropdown');
+    attachTo.appendChild(container);
+
+    const collapseButton = document.createElement('button');
+    collapseButton.setAttribute('class', 'btn btn-link dropdown-toggle');
+    collapseButton.setAttribute('type', 'button');
+    collapseButton.setAttribute('data-toggle', 'dropdown');
+    collapseButton.setAttribute('aria-label', 'Additional options');
+    container.appendChild(collapseButton);
+
+    const buttonSpan = document.createElement('i');
+    buttonSpan.setAttribute('class', 'fas fa-bars fa-1x');
+    collapseButton.appendChild(buttonSpan);
+
+    const ul = document.createElement('div');
+    ul.setAttribute('class', 'dropdown-menu');
+    container.appendChild(ul);
+
+    for (let i = 0; i < listItems.length; i++) {
+        listItems[i].classList.add('dropdown-item')
+        ul.appendChild(listItems[i]);
+    }
+}
+
+function replaceParagWTextArea(comBodyParag) {
+    comBodyParag2 = document.createElement('textarea');
+    comBodyParag2.setAttribute('class', 'form-control editedCommentData');
+    comBodyParag2.oninput = function () {
+        comBodyParag2.style.height = "20px";
+        comBodyParag2.style.height = Math.min(comBodyParag2.scrollHeight, 200) + "px";
+        if (comBodyParag2.scrollHeight > 200) {
+            comBodyParag2.style.overflowY = 'scroll';
+        } else {
+            comBodyParag2.style.overflowY = '';
+        }
+    };
+    comBodyParag.replaceWith(comBodyParag2);
+    comBodyParag2.innerText = comBodyParag.innerText;
+    comBodyParag2.focus();
+}
 
 function countTime(timeToCount) {
     today = new Date();
@@ -652,4 +433,19 @@ function countTime(timeToCount) {
         console.log('Problem with times in the function');
     }
     return diffTime;
+}
+logoutFunction()
+function logoutFunction() {
+    logoutApi = 'http://127.0.0.1:3000'
+    logoutButton = document.getElementById('logoutButton');
+
+    logoutButton.addEventListener('click', () => {
+        submitMMFormData(logout = undefined, ('POST'), ('http://127.0.0.1:3000/logout')).then(resp => {
+            if (resp.loggedOut === true) {
+                window.location.href = 'http://127.0.0.1:5500/frontend/index.html'
+            } else {
+                console.log('Unable to log out, contact support')
+            }
+        });
+    });
 }
