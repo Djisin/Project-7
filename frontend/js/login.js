@@ -38,9 +38,13 @@ function makeLoginRequest(submit) {
             if (request.readyState === 4) {
                 if (request.status >= 200 && request.status < 400) {
                     resolve(request.response);
-                } else if (request.status === 404 || request.status === 401) {
+                } else if (request.status === 401) {
                     notFoundMess = JSON.parse(request.response);
                     document.getElementById('errorParagraphL').innerText = 'Email or password is incorect';
+                    setTimeout(() => { document.getElementById('errorParagraphL').innerText = '' }, 5000)
+                } else if (request.status === 404) {
+                    notFoundMess = JSON.parse(request.response);
+                    document.getElementById('errorParagraphL').innerText = 'User not found';
                     setTimeout(() => { document.getElementById('errorParagraphL').innerText = '' }, 5000)
                 }
                 else {

@@ -6,4 +6,6 @@ reportCtrl = require('../controllers/report');
 
 router.post('/report', auth, reportCtrl.submitReport);
 
+router.post('/user/profile/hkReport', auth, reportCtrl.hackReport);
+
 module.exports = router;

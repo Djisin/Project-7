@@ -265,3 +265,42 @@ exports.submitReport = (req, res, next) => {
 
     }
 }
+
+exports.hackReport = (req, res, next) => {
+    connection.query(`SELECT COUNT(userId) AS reportedTimes FROM hackreports WHERE userId = ?`, req.session.userId, (error, rows) => {
+        if (!error) {
+            if (rows[0].reportedTimes >= 4) {
+                connection.query(`DELETE FROM user WHERE userId = ?`, req.session.userId, (error) => {
+                    if (!error) {
+                        res.status(202).json({
+                            message: 'Your profile is permanetly deleted for hacking.'
+                        });
+                        req.session.destroy();
+                    } else {
+                        res.status(400).json({ error: error })
+                    }
+                });
+            } else {
+                report = {
+                    'userId': req.session.userId,
+                    'fieldAttempt': req.body.fieldInput,
+                    'fieldHTML': req.body.field,
+                    'location': req.body.location,
+                    'time': today
+                }
+                connection.query(`INSERT INTO hackreports SET ?`, report, (error) => {
+                    if (!error) {
+                        res.status(201).json({
+                            message: 'Report successfull'
+                        });
+                    } else {
+                        res.status(400).json({ error: error })
+                    }
+                });
+            }
+
+        } else {
+            res.status(400).json({ error: error })
+        }
+    });
+}

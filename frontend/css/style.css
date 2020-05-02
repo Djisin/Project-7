@@ -4,14 +4,14 @@ body {
   display: flex;
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
-      -ms-flex-flow: column wrap;
-          flex-flow: column wrap;
+      -ms-flex-flow: column;
+          flex-flow: column;
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
-  -webkit-box-align: center stretch;
-      -ms-flex-align: center stretch;
-          align-items: center stretch;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
   padding: 0;
   font-family: "Trebuchet MS", sans-serif;
   text-align: center;
@@ -138,29 +138,11 @@ body {
   height: 33px;
 }
 
-#footerB {
-  font-size: 16px;
-  bottom: 0px;
-  -webkit-box-sizing: border-box;
-          box-sizing: border-box;
-  margin: 0px;
-  display: block;
-  height: auto;
-  background: radial-gradient(circle, rgba(78, 149, 211, 0.1) 0%, rgba(49, 109, 194, 0.6) 0%, rgba(78, 149, 211, 0.1) 100%);
-  position: absolute;
-  width: 100%;
-}
-
-#footerB p {
-  padding-top: 5px;
-  margin-top: 5px;
-  line-height: 16px;
-}
-
 footer {
-  bottom: 0px;
-  font-size: 14px;
-  background: radial-gradient(circle, rgba(78, 149, 211, 0.1) 0%, rgba(49, 109, 194, 0.6) 0%, rgba(78, 149, 211, 0.1) 100%);
+  text-align: center !important;
+  padding: 5px !important;
+  width: 100%;
+  margin-top: 15px;
 }
 
 #searchOption {
@@ -613,6 +595,7 @@ nav img {
 }
 
 #showPost .mainContainer .divMainContent .postPictureClass {
+  max-height: 800px;
   max-width: 100%;
   margin: 10px 10px 0 0;
   -webkit-box-shadow: 3px 3px 5px 0px rgba(0, 0, 0, 0.75);
@@ -1113,8 +1096,8 @@ nav img {
       align-self: center;
   max-width: 200px;
   margin-top: 10px;
-  -webkit-box-shadow: 3px 3px 5px 0px rgba(0, 0, 0, 0.75);
-          box-shadow: 3px 3px 5px 0px rgba(0, 0, 0, 0.75);
+  -webkit-box-shadow: 2px 2px 5px 1px rgba(0, 0, 0, 0.75);
+          box-shadow: 2px 2px 5px 1px rgba(0, 0, 0, 0.75);
   overflow: hidden;
   -o-object-fit: cover;
      object-fit: cover;
@@ -1203,6 +1186,7 @@ nav img {
   opacity: 0;
   -webkit-animation: slide-in-fwd-center 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
           animation: slide-in-fwd-center 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+  min-height: 98vh;
 }
 
 #leftPart {

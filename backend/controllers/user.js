@@ -329,48 +329,7 @@ exports.editProfile = (req, res, next) => {
         })
     }
 }
-exports.hackReport = (req, res, next) => {
-    console.log('hackreport')
-    console.log('4');
-    console.log(req.body);
-    console.log(req.params.id);
-    connection.query(`SELECT COUNT(userId) AS reportedTimes FROM hackreports WHERE userId = ?`, req.session.userId, (error, rows) => {
-        if (!error) {
-            if (rows[0].reportedTimes >= 4) {
-                connection.query(`DELETE FROM user WHERE userId = ?`, req.session.userId, (error) => {
-                    if (!error) {
-                        res.status(202).json({
-                            message: 'Your profile is permanetly deleted for hacking.'
-                        });
-                        req.session.destroy();
-                    } else {
-                        res.status(400).json({ error: error })
-                    }
-                });
-            } else {
-                report = {
-                    'userId': req.session.userId,
-                    'fieldAttempt': req.body.fieldInput,
-                    'fieldHTML': req.body.field,
-                    'location': req.body.location,
-                    'time': today
-                }
-                connection.query(`INSERT INTO hackreports SET ?`, report, (error) => {
-                    if (!error) {
-                        res.status(201).json({
-                            message: 'Report successfull'
-                        });
-                    } else {
-                        res.status(400).json({ error: error })
-                    }
-                });
-            }
 
-        } else {
-            res.status(400).json({ error: error })
-        }
-    });
-}
 exports.deleteProfile = (req, res, next) => {
     console.log('delete profile req')
     console.log(req.body);
@@ -390,15 +349,69 @@ exports.deleteProfile = (req, res, next) => {
                             message: 'Incorrect password!'
                         });
                     }
-                    connection.query('DELETE FROM user WHERE userId=?', req.params.id, (error) => {
+                    connection.query('SELECT userPicture FROM user WHERE userId = ?', req.params.id, (error, userPicture) => {
                         if (!error) {
-                            res.status(200).json({
-                                success: true
+                            if (userPicture[0].userPicture !== 'img/userDef.jpg') {
+                                const filename = userPicture[0].userPicture.split('/images/')[1];
+                                fs.unlink('images/' + filename, (error) => {
+                                    if (!error) {
+                                        console.log('Picture deleted successfully.');
+                                    } else {
+                                        console.log('Previous picture not found');
+                                    }
+                                });
+                            }
+                            connection.query('SELECT postPicture FROM post WHERE userId =?', req.params.id, (error, postPictures) => {
+                                if (!error) {
+                                    for (let i = 0; i < postPictures.length; i++) {
+                                        const filename1 = postPictures[i].postPicture.split('/images/')[1];
+                                        fs.unlink('images/' + filename1, (error) => {
+                                            if (!error) {
+                                                console.log('Picture deleted successfully.');
+                                            } else {
+                                                console.log('Previous picture not found');
+                                            }
+                                        });
+                                    }
+                                    connection.query('SELECT postMMField FROM mmpost WHERE embed=0 AND userId = ?', req.params.id, (error, postMMFields) => {
+                                        if (!error) {
+                                            for (let j = 0; j < postMMFields.length; j++) {
+                                                const filename2 = postMMFields[j].postMMField.split('/images/')[1];
+                                                fs.unlink('images/' + filename2, (error) => {
+                                                    if (!error) {
+                                                        console.log('Picture deleted successfully.');
+                                                    } else {
+                                                        console.log('Previous picture not found');
+                                                    }
+                                                });
+                                            }
+                                            connection.query('DELETE FROM user WHERE userId=?', req.params.id, (error) => {
+                                                if (!error) {
+                                                    res.status(200).json({
+                                                        success: true
+                                                    });
+                                                } else {
+                                                    return res.status(404).json({
+                                                        error: error
+                                                    });
+                                                }
+                                            });
+                                        } else {
+                                            return res.status(404).json({
+                                                error: error
+                                            });
+                                        }
+                                    });
+                                } else {
+                                    return res.status(404).json({
+                                        error: error
+                                    });
+                                }
                             });
                         } else {
                             return res.status(404).json({
                                 error: error
-                            })
+                            });
                         }
                     });
                 }

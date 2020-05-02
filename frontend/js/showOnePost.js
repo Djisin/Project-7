@@ -89,13 +89,12 @@ request.onload = function () {
             likesTip
         );
         likes.append(postLikes, likesTip, postDislikes);
-        
+
         const buttonDiv = document.createElement('div');
         buttonDiv.setAttribute('class', 'btn-group');
         createdByMain.appendChild(buttonDiv);
 
         if (data.userCreatedThisPost) {
-
             const modifyButton = document.createElement('button');
             modifyButton.setAttribute('class', 'btn btn-link');
             modifyButton.innerHTML = 'Modify';
@@ -113,40 +112,9 @@ request.onload = function () {
 
             deleteButton.addEventListener('click', ($event) => {
                 $event.preventDefault();
-                submitDeleteFormData()
-                function makeDeleteRequest() {
-                    return new Promise((resolve, reject) => {
-                        let request = new XMLHttpRequest();
-                        request.open('DELETE', api + '/' + reqPostId);
-                        request.withCredentials = true;
-                        request.onreadystatechange = () => {
-                            if (request.readyState === 4) {
-                                if (request.status >= 200 && request.status < 400) {
-                                    resolve(request.response);
-                                } else {
-                                    reject(request.response);
-                                }
-                            }
-                        };
-                        request.withCredentials = true;
-                        request.setRequestHeader('Content-Type', 'application/json');
-                        request.send();
-                    });
-                };
-                async function submitDeleteFormData() {
-                    try {
-                        const requestPromise = makeDeleteRequest();
-                        let response = await requestPromise;
-                        response = (JSON.parse(response));
-                        if (response.deleted === true) {
-
-                            window.location.href = '/frontend/home.html'
-                        }
-                    }
-                    catch (errorResponse) {
-                        alert(errorResponse);
-                    };
-                }
+                submitMMFormData({ 'delete': 'delete' }, ('DELETE'), (api + '/' + reqPostId)).then(() => {
+                    window.location.href = 'http://127.0.0.1:5500/frontend/home.html';
+                });
             });
         };
         let timePeriods = document.createElement('div');
@@ -158,41 +126,7 @@ request.onload = function () {
             postReport.setAttribute('class', 'btn btn-link')
             postReport.innerText = 'report';
             buttonDiv.appendChild(postReport)
-
-            postReport.addEventListener('click', ($event) => {
-                $event.preventDefault();
-                const comRepReason = document.createElement('div');
-                comRepReason.setAttribute('class', 'col-md-12');
-                comRepReason.setAttribute('id', 'comRepReasonDiv')
-
-                if (document.getElementById('comRepReasonDiv') !== null) {
-                    document.getElementById('comRepReasonDiv').parentElement.removeChild(document.getElementById('comRepReasonDiv'));
-                }
-                container.appendChild(comRepReason);
-
-                const comRepForm = document.createElement('form');
-                comRepForm.setAttribute('class', '');
-                comRepReason.appendChild(comRepForm);
-
-                createReportDiv(comRepForm);
-
-                comRepSubmit = document.createElement('button');
-                comRepSubmit.setAttribute('class', 'btn btn-info')
-                comRepSubmit.innerText = 'Submit'
-                comRepForm.lastChild.appendChild(comRepSubmit)
-
-                comRepSubmit.addEventListener('click', ($event) => {
-                    $event.preventDefault();
-                    let repReasonData = document.querySelector('input[name="reportOptions"]:checked').value;
-
-                    let submitReportData = {
-                        'postId': data.post[0].postId,
-                        'reportReason': repReasonData,
-                        'whoCreatedPost': data.post[0].userId
-                    };
-                    submitReport(submitReportData);
-                });
-            });
+            reportEventListener(postReport, timePeriods, data.post[0].postId, data.post[0].userId, (undefined))
         }
 
         let timeEdited

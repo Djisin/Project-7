@@ -38,10 +38,17 @@ searchInput.addEventListener('keydown', () => {
     clearTimeout(delayTimer);
 });
 
-searchInput.addEventListener('focusout', () => {
-    for (let i = 2; i < document.getElementById('searchInputDiv').children.length; i++) {
-        document.getElementById('searchInputDiv').removeChild(document.getElementById('searchInputDiv').lastChild)
-    }
+$(function () {
+    $("body").click(function (e) {
+        if (e.target.id == "searchInputDiv" || $(e.target).parents("#searchInputDiv").length) {
+            //alert("Inside div");
+        } else {
+            searchInput.value = '';
+            for (let i = 2; i < document.getElementById('searchInputDiv').children.length; i++) {
+                document.getElementById('searchInputDiv').removeChild(document.getElementById('searchInputDiv').lastChild)
+            }
+        }
+    });
 });
 
 function searchResult(resultResponse) {

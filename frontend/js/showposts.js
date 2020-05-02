@@ -44,12 +44,16 @@ request.onload = function () {
                     postPicture = document.createElement('img');
                     postPicture.setAttribute('class', 'postPictureClass');
                     postPicture.setAttribute('src', data.posts[i].postPicture);
+                    postPicture.onerror = () => {
+                        postPicture.setAttribute('src', 'img/picPH.jpg')
+                    }
                     contentDiv.appendChild(postPicture);
                     console.log(data.posts[i].postText.length)
                     if (data.posts[i].postText.length < 170) {
                         postPicture.style.maxWidth = '100%';
-                        postPicture.style.maxHeight = '210px';
+                        postPicture.style.maxHeight = '190px';
                         postPicture.style.marginBottom = '9px';
+                        postPicture.style.float = 'initial';
                     }
                 }
                 let postText

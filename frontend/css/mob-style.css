@@ -230,6 +230,58 @@
 }
 
 @media only screen and (max-width: 767px) {
+  #sectionB {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+  }
+  #sectionB #logoDiv {
+    width: 100%;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+  }
+  #sectionB #logoDiv img {
+    margin-top: 0;
+    left: 0;
+  }
+  #sectionB #rightSideB {
+    width: 100%;
+  }
+  #sectionB #rightSideB form {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+  }
+  #sectionB #rightSideB form #errorParagraphL {
+    margin-top: 0;
+    text-align: center;
+    margin-left: 0;
+  }
+  #sectionB #rightSideB button {
+    margin: 5px;
+    font-size: 14px;
+  }
+  #sectionB #aditionalB {
+    width: 98%;
+    padding: 10px;
+    margin-top: 10px;
+  }
+  #sectionB #aditionalB h3 {
+    font-size: 20px;
+  }
   #userProfile {
     width: 100%;
     margin-top: 0px;
@@ -320,6 +372,70 @@
   }
   #comRepReasonDiv {
     width: 100%;
+  }
+}
+
+@media only screen and (max-width: 991px) and (min-width: 767px) {
+  #sectionB {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+  }
+  #sectionB #logoDiv {
+    width: 100%;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+  }
+  #sectionB #logoDiv img {
+    margin-top: 0;
+    left: 0;
+  }
+  #sectionB #rightSideB {
+    width: 100%;
+    margin: 0;
+  }
+  #sectionB #rightSideB form {
+    display: -ms-grid;
+    display: grid;
+    -ms-grid-columns: 2fr 2fr 1fr;
+        grid-template-columns: 2fr 2fr 1fr;
+  }
+  #sectionB #rightSideB form div:last-child {
+    -webkit-box-flex: 5;
+        -ms-flex-positive: 5;
+            flex-grow: 5;
+    -ms-grid-column: 1;
+        grid-column-start: 1;
+    grid-column-end: 5;
+    -ms-grid-row: 2;
+        grid-row-start: 2;
+    grid-row-end: 2;
+  }
+  #sectionB #rightSideB form #errorParagraphL {
+    margin-top: 0;
+    text-align: center;
+    margin-left: 0;
+    height: 20px;
+  }
+  #sectionB #rightSideB button {
+    width: 120px;
+  }
+  #sectionB #aditionalB {
+    width: 50%;
+    padding: 10px;
+    margin-top: 10px;
+  }
+  #sectionB #aditionalB h3 {
+    font-size: 20px;
   }
 }
 /*# sourceMappingURL=mob-style.css.map */

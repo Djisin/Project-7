@@ -231,6 +231,9 @@ function constructMMPost(attachTo, mmContent, whoIsLoggedIn) {
         const userPic = document.createElement('img');
         userPic.setAttribute('alt', 'User picture')
         userPic.setAttribute('src', mmContent[i].userPicture);
+        userPic.onerror = () => {
+            userPic.setAttribute('src', 'img/userDef.jpg')
+        }
         singlePostHeader.appendChild(userPic);
 
         const userName = document.createElement('a');

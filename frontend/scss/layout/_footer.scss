@@ -1,21 +1,6 @@
-#footerB {
-  font-size: 16px;
-  bottom: 0px;
-  box-sizing: border-box;
-  margin: 0px;
-  display: block;
-  height: auto;
-  background: radial-gradient(circle, rgba(78, 149, 211, 0.1) 0%, rgba(49, 109, 194, 0.6) 0%, rgba(78, 149, 211, 0.1) 100%);
-  position: absolute;
-  width: 100%;
-  & p {
-    padding-top: 5px;
-    margin-top: 5px;
-    line-height: 16px;
-  }
-}
 footer{
-  bottom:0px;
-  font-size: 14px;
-  background: radial-gradient(circle, rgba(78, 149, 211, 0.1) 0%, rgba(49, 109, 194, 0.6) 0%, rgba(78, 149, 211, 0.1) 100%);
+  text-align: center !important;
+  padding: 5px!important;
+  width: 100%;
+  margin-top: 15px;
 }

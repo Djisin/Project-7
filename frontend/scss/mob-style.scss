@@ -110,8 +110,8 @@
                 font-size: 12px;
             }
         }
-        & .tooltiptext{
-            width: auto!important;
+        & .tooltiptext {
+            width: auto !important;
         }
     }
     #rightPart {
@@ -201,6 +201,46 @@
     }
 }
 @media only screen and (max-width: 767px) {
+    #sectionB {
+        flex-direction: column;
+        & #logoDiv {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+
+            & img {
+                margin-top: 0;
+                left: 0;
+            }
+        }
+        & #rightSideB {
+            width: 100%;
+
+            & form {
+                display: flex;
+                flex-direction: column;
+                & #errorParagraphL {
+                    margin-top: 0;
+                    text-align: center;
+                    margin-left: 0;
+                }
+            }
+            & button {
+                margin: 5px;
+                font-size: 14px;
+                //width: auto;
+            }
+        }
+        & #aditionalB {
+            width: 98%;
+            padding: 10px;
+            margin-top: 10px;
+            & h3 {
+                font-size: 20px;
+            }
+        }
+    }
     #userProfile {
         width: 100%;
         margin-top: 0px;
@@ -235,7 +275,7 @@
         & #profRankDiv {
             align-self: center;
         }
-        & #moreUserProf{
+        & #moreUserProf {
             & a {
                 max-width: 200px;
             }
@@ -254,8 +294,8 @@
                 font-size: 12px;
             }
         }
-        & .tooltiptext{
-            width: auto!important;
+        & .tooltiptext {
+            width: auto !important;
         }
     }
     #rightPart {
@@ -291,5 +331,56 @@
     }
     #comRepReasonDiv {
         width: 100%;
+    }
+}
+@media only screen and (max-width: 991px) and (min-width: 767px) {
+    #sectionB {
+        flex-direction: column;
+        & #logoDiv {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+
+            & img {
+                margin-top: 0;
+                left: 0;
+            }
+        }
+        & #rightSideB {
+            width: 100%;
+            margin: 0;
+            & form {
+                display: grid;
+                grid-template-columns: 2fr 2fr 1fr;
+                & div{
+                    &:last-child{
+                        flex-grow: 5;
+                        grid-column-start: 1;
+                        grid-column-end: 5;
+                        grid-row-start: 2;
+                        grid-row-end: 2;
+                        
+                    }
+                }
+                & #errorParagraphL {
+                    margin-top: 0;
+                    text-align: center;
+                    margin-left: 0;
+                    height: 20px;
+                }
+            }
+            & button {
+                width: 120px;
+            }
+        }
+        & #aditionalB {
+            width: 50%;
+            padding: 10px;
+            margin-top: 10px;
+            & h3 {
+                font-size: 20px;
+            }
+        }
     }
 }

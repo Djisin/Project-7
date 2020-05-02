@@ -20,7 +20,6 @@ request.onload = function () {
             document.getElementsByClassName('prof')[0].classList.add('active');
         }
 
-
         const userCredentials = document.getElementById('credentials');
         userCredentials.innerText = data.userInfo[0].firstName + ' ' + data.userInfo[0].lastName
         //Profile structure
@@ -28,7 +27,7 @@ request.onload = function () {
         profileSection.setAttribute('class', 'col-md-12');
         setTimeout(() => {
             profileSection.style.display = 'block'
-        }, 1000);
+        }, 750);
 
         const leftPart = document.createElement('section');
         leftPart.setAttribute('id', 'leftPart');
@@ -52,6 +51,9 @@ request.onload = function () {
         profPic.setAttribute('alt', 'Users profile picture');
         profPic.setAttribute('src', data.userData[0].userPicture);
         profPicDiv.appendChild(profPic);
+        profPic.onerror = () => {
+            profPic.setAttribute('src', 'img/userDef.jpg')
+        }
         if (data.userInfo[0].userId === data.userData[0].userId) {
             const ripSpan = document.createElement('span');
             ripSpan.setAttribute('class', 'ripple-1');
@@ -274,15 +276,37 @@ request.onload = function () {
                             'personalLine': null,
                         }
 
-                        editedData = JSON.stringify(editedData);
-                        submitData.append('editedData', editedData);
-
-                        submitFormDataProfEdit(submitData);
-
-                        setTimeout(() => {
-                            window.location.reload()
-                        }, 1000);
-                    })
+                        if (editWs.value.trim().includes('https://') || editWs.value.trim().includes('http://') || editWs.value.trim().length < 1) {
+                            if (!editFb.value.trim().includes('https://www.facebook.com/')) {
+                                if (!editTw.value.trim().includes('https://twitter.com/')) {
+                                    if (!editLi.value.trim().includes('https://www.linkedin.com/in/')) {
+                                        editedData = JSON.stringify(editedData);
+                                        submitData.append('editedData', editedData);
+                                        submitFormDataProfEdit(submitData);
+                                        setTimeout(() => {
+                                            window.location.reload()
+                                        }, 1000);
+                                    } else {
+                                        editLi.value = ''
+                                        editLi.placeholder = 'Provide your profile link';
+                                        return
+                                    }
+                                } else {
+                                    editTw.value = ''
+                                    editTw.placeholder = 'Provide your profile link';
+                                    return
+                                }
+                            } else {
+                                editFb.value = ''
+                                editFb.placeholder = 'Provide your profile link';
+                                return
+                            }
+                        } else {
+                            editWs.value = ''
+                            editWs.placeholder = 'Incorrect link';
+                            return
+                        }
+                    });
                 });
             }
         }

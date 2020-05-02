@@ -16,7 +16,7 @@ request.onload = function () {
         communitySection.setAttribute('class', 'col-md-12');
         setTimeout(() => {
             communitySection.style.display = 'block'
-        }, 1000);
+        }, 750);
 
         const leftPart = document.createElement('section');
         leftPart.setAttribute('id', 'leftPart');
@@ -53,12 +53,15 @@ request.onload = function () {
         fdLabel2.setAttribute('for', '');
         fdLabel2.innerText = 'The most successfull writer of our community?';
         const fdPic2 = document.createElement('img');
-        fdPic2.setAttribute('src',data.mostSuccUser.userPicture);
+        fdPic2.setAttribute('src', data.mostSuccUser.userPicture);
         fdPic2.setAttribute('alt', 'The most successfull user picture')
+        fdPic2.onerror = () => {
+            fdPic2.setAttribute('src', 'img/userDef.jpg')
+        }
         const fdlink2 = document.createElement('a');
         fdlink2.setAttribute('href', 'http://127.0.0.1:5500/frontend/profile.html?' + data.mostSuccUser.userId)
         fdlink2.innerText = data.mostSuccUser.username;
-        mostSuccWriter.append(fdLabel2,fdPic2, fdlink2);
+        mostSuccWriter.append(fdLabel2, fdPic2, fdlink2);
 
         const mostSuccArticle = document.createElement('div');
         mostSuccArticle.setAttribute('class', 'standing-out');
@@ -71,12 +74,12 @@ request.onload = function () {
         fdlink.setAttribute('href', 'http://127.0.0.1:5500/frontend/post.html?' + data.mostReadArticle.postId)
         fdlink.innerText = data.mostReadArticle.postTitle;
         const fdParag3 = document.createElement('p');
-        if (data.mostReadArticle.count === data.numberOfUsers){
-           fdParag3.innerText = 'and it was read by all users!' 
-        }else{
+        if (data.mostReadArticle.count === data.numberOfUsers) {
+            fdParag3.innerText = 'and it was read by all users!'
+        } else {
             fdParag3.innerText = 'and it was read ' + data.mostReadArticle.count + ' times.'
         }
-        
+
         mostSuccArticle.append(fdLabel3, fdlink, fdParag3);
 
         const mostLikedArticle = document.createElement('div');
@@ -91,8 +94,8 @@ request.onload = function () {
         fdlink4.setAttribute('href', 'http://127.0.0.1:5500/frontend/post.html?' + data.mostLikedArticle.postId)
         fdlink4.innerText = data.mostLikedArticle.postTitle;
         const fdParag4 = document.createElement('p');
-        fdParag4.innerHTML = 'By: <a href=http://127.0.0.1:5500/frontend/profile.html?'+data.mostLikedArticle.userId+'>'+data.mostLikedArticle.username+'</a>'
-        mostLikedArticle.append(fdLabel4,fdlink4, fdParag4);
+        fdParag4.innerHTML = 'By: <a href=http://127.0.0.1:5500/frontend/profile.html?' + data.mostLikedArticle.userId + '>' + data.mostLikedArticle.username + '</a>'
+        mostLikedArticle.append(fdLabel4, fdlink4, fdParag4);
         //MiddlePart
         //Located in js/mmPosts.js
         constructCreateMMPost(middlePart);
