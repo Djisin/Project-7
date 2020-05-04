@@ -6,7 +6,7 @@ if ((window.location.pathname).split('/')[2].split('?')[0] === 'post.html') {
     mmApi = 'http://127.0.0.1:3000/api/mmposts';
 }
 
-function inputLabelCommentsSpan(addComment, inputLabel, postId, numberOfComments, singlePost, whoIsLoggedIn) {
+function inputLabelCommentsSpan(addComment, inputLabel, postId, numberOfComments, singlePost, whoIsLoggedIn, admin) {
     //Click once to call the function
     inputLabel.addEventListener('click', () => {
         let submitComment = [];
@@ -33,7 +33,8 @@ function inputLabelCommentsSpan(addComment, inputLabel, postId, numberOfComments
                                     (resp.postComments[j].comUserDislikes),
                                     (resp.postComments[j].numberOfSubComments),
                                     postId,
-                                    j
+                                    j,
+                                    admin
                                 )
                             } else {
                                 commentBuilder(
@@ -53,7 +54,8 @@ function inputLabelCommentsSpan(addComment, inputLabel, postId, numberOfComments
                                     (resp.postComments[j].comUserDislikes),
                                     (resp.postComments[j].numberOfSubComments),
                                     postId,
-                                    j
+                                    j,
+                                    admin
                                 )
                             }
                         }
@@ -86,7 +88,7 @@ function inputLabelCommentsSpan(addComment, inputLabel, postId, numberOfComments
     inputLabel.appendChild(commentSpan);
 }
 
-function inputLabel2ndCommentsSpan(add2ndComment, inputLabel2nd, mmCommentId, numberOfSubComments, singleCommentDiv, whoIsLoggedIn) {
+function inputLabel2ndCommentsSpan(add2ndComment, inputLabel2nd, mmCommentId, numberOfSubComments, singleCommentDiv, whoIsLoggedIn, admin) {
     inputLabel2nd.addEventListener('click', () => {
         let submitComment = [];
         submitMMFormData(submitComment, ('GET'), (mmApi + '/comment/' + mmCommentId))
@@ -183,7 +185,7 @@ function commentBuilder(
     usersWhoDisliked,
     amountOfSubComments,
     postId,
-    j) {
+    j, admin) {
 
     let singleCommentDiv = document.createElement('div');
     singleCommentDiv.setAttribute('class', 'col-md-12 single-comment-div slide-in-top');
@@ -243,13 +245,16 @@ function commentBuilder(
     }
 
     const comReport = document.createElement('button');
-    if (whoCreatedComment !== whoIsLoggedIn) {
+    if ((whoCreatedComment !== whoIsLoggedIn) || admin === 1) {
 
         comReport.setAttribute('class', 'btn btn-link')
         comReport.innerText = 'report';
-        hamburgerMenu(whoAndWhen, [comReport]);
+        if (admin === 0) {
+            hamburgerMenu(whoAndWhen, [comReport]);
+        }
+
     }
-    if (whoCreatedComment === whoIsLoggedIn) {
+    if ((whoCreatedComment === whoIsLoggedIn) || admin === 1) {
         const comEdit = document.createElement('button');
         comEdit.setAttribute('class', 'btn btn-link');
         comEdit.innerText = 'edit';
@@ -281,7 +286,7 @@ function commentBuilder(
                 editComOrSubComSubmit((mmApi + '/comment2nd/' + mmCommentId), singleCommentDiv, comBodyParag, comEdit, comEditCancel);
             } else {
                 editComOrSubComSubmit((mmApi + '/comment/' + mmCommentId), singleCommentDiv, comBodyParag, comEdit, comEditCancel);
-            } 
+            }
         });
 
         const comDelete = document.createElement('button');
@@ -297,7 +302,12 @@ function commentBuilder(
             }
 
         }, { once: true })
-        hamburgerMenu(whoAndWhen, [comEdit, comDelete]);
+        if(admin ===0){
+         hamburgerMenu(whoAndWhen, [comEdit, comDelete]);   
+        } else if(admin ===1){
+            hamburgerMenu(whoAndWhen, [comEdit, comDelete, comReport]);
+        }
+        
     }
     const likesDiv = document.createElement('div');
     likesDiv.setAttribute('class', 'likesDiv');
@@ -351,6 +361,7 @@ function commentBuilder(
         amountOfSubComments,
         singleCommentDiv,
         whoIsLoggedIn,
+        admin
     );
     if (amountOfSubComments === 'disable' && postId === undefined) {
         reportEventListener(comReport, mainComment, mmCommentId, whoCreatedComment, postId, ('2nd'))

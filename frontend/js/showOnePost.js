@@ -38,9 +38,9 @@ request.onload = function () {
 
         let postText;
         if (!data.post[0].postText == null || !data.post[0].postText == '') {
-            postText = document.createElement('p');
+            postText = document.createElement('div');
             postText.setAttribute('class', 'postTextClass');
-            postText.textContent = data.post[0].postText;
+            postText.innerHTML = data.post[0].postText;
             divMainContent.appendChild(postText);
         }
 
@@ -94,10 +94,10 @@ request.onload = function () {
         buttonDiv.setAttribute('class', 'btn-group');
         createdByMain.appendChild(buttonDiv);
 
-        if (data.userCreatedThisPost) {
+        if (data.userCreatedThisPost || data.userInfo[0].admin ===1) {
             const modifyButton = document.createElement('button');
             modifyButton.setAttribute('class', 'btn btn-link');
-            modifyButton.innerHTML = 'Modify';
+            modifyButton.innerHTML = 'modify';
             buttonDiv.appendChild(modifyButton);
 
             modifyButton.addEventListener('click', () => {
@@ -107,7 +107,7 @@ request.onload = function () {
 
             const deleteButton = document.createElement('button');
             deleteButton.setAttribute('class', 'btn btn-link');
-            deleteButton.innerHTML = 'Delete';
+            deleteButton.innerHTML = 'delete';
             buttonDiv.appendChild(deleteButton);
 
             deleteButton.addEventListener('click', ($event) => {
@@ -121,7 +121,7 @@ request.onload = function () {
         timePeriods.setAttribute('class', 'col-md-12 timePeriods');
         container.appendChild(timePeriods);
 
-        if (data.post[0].userId !== data.userInfo[0].userId) {
+        if ((data.post[0].userId !== data.userInfo[0].userId) || data.userInfo[0].admin ===1 ) {
             const postReport = document.createElement('button');
             postReport.setAttribute('class', 'btn btn-link')
             postReport.innerText = 'report';
@@ -157,7 +157,8 @@ request.onload = function () {
             (data.post[0].postId),
             (data.post[0].numberOfComments),
             container,
-            (data.userInfo[0].userId)
+            (data.userInfo[0].userId),
+            (data.userInfo[0].admin)
         );
 
     } else {

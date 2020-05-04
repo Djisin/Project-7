@@ -37,7 +37,7 @@ request.onload = function () {
                 }
 
                 const contentDiv = document.createElement('div');
-                contentDiv.setAttribute('class', 'col-md-12 contentDiv');
+                contentDiv.setAttribute('class', 'col-md-12 col-sm-12 contentDiv');
                 postDiv.appendChild(contentDiv);
                 let postPicture
                 if (!data.posts[i].postPicture == null || !data.posts[i].postPicture == '') {
@@ -48,19 +48,23 @@ request.onload = function () {
                         postPicture.setAttribute('src', 'img/picPH.jpg')
                     }
                     contentDiv.appendChild(postPicture);
-                    console.log(data.posts[i].postText.length)
+                    
                     if (data.posts[i].postText.length < 170) {
+                        contentDiv.style.display = 'flex'
+                        contentDiv.style.flexWrap = 'wrap'
+                        postPicture.style.marginLeft = 'auto';
+                        postPicture.style.marginRight = 'auto';
                         postPicture.style.maxWidth = '100%';
                         postPicture.style.maxHeight = '190px';
-                        postPicture.style.marginBottom = '9px';
-                        postPicture.style.float = 'initial';
+                        postPicture.style.marginBottom = '7px';
+                        //postPicture.style.float = 'right';
                     }
                 }
                 let postText
                 if (!data.posts[i].postText == null || !data.posts[i].postText == '') {
-                    postText = document.createElement('p');
+                    postText = document.createElement('div');
                     postText.setAttribute('class', 'postTextClass');
-                    postText.textContent = data.posts[i].postText;
+                    postText.innerHTML = data.posts[i].postText;
                     contentDiv.appendChild(postText);
                 }
 

@@ -4,7 +4,7 @@
   align-items: center;
   justify-content: center;
   position: fixed;
-  z-index: 9999;
+  z-index: 20;
   padding-top: 50px;
   left: 0;
   top: 0;
@@ -29,7 +29,7 @@
     width: auto;
     overflow-y: auto;
     & label {
-      margin-top: 20px;
+      margin-top: 10px;
       &#fileuploadLabel {
         display: block;
         text-align: left;
@@ -38,17 +38,28 @@
     }
     & input {
       border-radius: 7px;
+      &#fileupload{
+        max-width: 250px;
+        text-align: left;
+      }
+    }
+    & span{
+      /*text-align: left;
+      font-size: 12px;
+      padding-left: 10px;
+      height: 15px;*/
     }
     & #uploadDiv {
       display: flex !important;
       flex-direction: column;
       justify-content: flex-start;
+      padding-left: 0;
       padding-top: 20px;
-      padding-right: 0;
+      
       display: inline-block;
     }
     & #picDiv {
-      padding: 20px;
+      padding-top: 10px;
       display: inline-block;
       min-height: 150px;
     }
@@ -62,22 +73,28 @@
       box-shadow: 5px 5px rgba(160, 160, 160, 0.5);
     }
     & textarea {
-      border-radius: 7px;
-      max-width: 540px !important;
-      min-width: 540px !important;
+     /* border-radius: 7px;
+      max-width: 100% ;
+      min-width:100%;
       max-height: 250px;
       min-height: 120px;
-      overflow-y: scroll;
+      overflow-y: scroll;*/
     }
+   // @include normal-style-button;
     & button {
-      width: 100px;
+      /*width: 100px;
       font-size: 15px;
-      border-radius: 7px;
+      border-radius: 7px;*/
       &#removeImgButton {
         margin-top: 10px;
         font-size: 14px;
         border-radius: 6px;
+        align-self: center;
       }
+      &#submitPostButton{
+        margin-top: 10px;
+      }
+      
     }
   }
 }
@@ -86,5 +103,12 @@
   & #closeButton {
     @include close-button;
     top: 45px;
+  }
+}
+@mixin hide-scroll-bar {
+  -ms-overflow-style: none; /* Internet Explorer 10+ */
+  scrollbar-width: none; /* Firefox */
+  &::-webkit-scrollbar {
+    display: none; /* Safari and Chrome */
   }
 }

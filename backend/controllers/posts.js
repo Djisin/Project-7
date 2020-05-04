@@ -45,7 +45,7 @@ exports.getOnePost = (req, res, next) => {
     connection.query(`SELECT postId FROM post WHERE postId = ?`, req.params.id, (error, dbresp) => {
         if (!error) {
             if (dbresp.length !== 0) {
-                connection.query('SELECT firstName, lastName, userId FROM user WHERE userId = ?', userId, (error, userInfo) => {
+                connection.query('SELECT firstName, lastName, userId, admin FROM user WHERE userId = ?', userId, (error, userInfo) => {
                     if (!error) {
                         let postId = { postId: req.params.id }
                         connection.query(`

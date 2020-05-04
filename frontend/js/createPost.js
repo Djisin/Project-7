@@ -2,7 +2,7 @@ let createPostButton = document.getElementById('createPost');
 let createPostSection = document.getElementById('createPostSection');
 
 createPostButton.addEventListener('click', ($event) => {
-    if (document.getElementById('divOnTop')!==null){
+    if (document.getElementById('divOnTop') !== null) {
         document.getElementById('divOnTop').style.display = 'none';
     }
 
@@ -13,7 +13,7 @@ createPostButton.addEventListener('click', ($event) => {
 
     let postForm = document.createElement('form');
     postForm.setAttribute('method', 'POST');
-    postForm.setAttribute('class', 'col-md-12')
+    postForm.setAttribute('class', 'col-md-12 col-sm-12, col-xs-12')
     postForm.setAttribute('id', 'createPostForm')
     postForm.setAttribute('enctype', 'multipart/form-data')
     createPostSection.appendChild(postForm);
@@ -23,7 +23,7 @@ createPostButton.addEventListener('click', ($event) => {
     postForm.appendChild(header);
 
     let formRow1 = document.createElement('div');
-    formRow1.setAttribute('class', 'form-row col-md-12');
+    formRow1.setAttribute('class', 'col-md-12 col-xs-12 col-sm-12');
     let formDiv1 = document.createElement('div');
     formDiv1.setAttribute('class', 'md-col-12')
     postForm.appendChild(formRow1);
@@ -39,13 +39,17 @@ createPostButton.addEventListener('click', ($event) => {
     postCreateTitleInput.setAttribute('class', 'form-control');
     postCreateTitleInput.setAttribute('placeholder', 'Post Title');
     postCreateTitleInput.required = true;
-    formDiv1.append(postCreateTitle, postCreateTitleInput);
+    let titleSpan = document.createElement('span');
+    titleSpan.setAttribute('class', 'help-block');
+    titleSpan.innerText = '';
+    formDiv1.append(postCreateTitle, postCreateTitleInput, titleSpan);
 
     let formRow2 = document.createElement('div');
-    formRow2.setAttribute('class', 'form-row col-md-12');
+    formRow2.setAttribute('class', ' col-md-12 col-xs-12 col-sm-12');
 
     let formDiv2 = document.createElement('div');
-    formDiv2.setAttribute('class', 'md-col-6');
+    formDiv2.setAttribute('class', 'col-xs-12 col-sm-12 col-md-12');
+    formDiv2.style.padding = '0';
     formRow2.appendChild(formDiv2);
 
     let postTextLabel = document.createElement('label');
@@ -57,15 +61,32 @@ createPostButton.addEventListener('click', ($event) => {
     postTextArea.setAttribute('type', 'text-area');
     postTextArea.setAttribute('class', 'form-control');
     postTextArea.setAttribute('placeholder', 'Write here...');
-    formDiv2.append(postTextLabel, postTextArea);
+    let textAreaSpan = document.createElement('span');
+    textAreaSpan.setAttribute('class', 'help-block');
+    textAreaSpan.innerText = '';
+    tinymce.init({
+        height: 500,
+        menubar: false,
+        plugins: [
+            'advlist autolink lists link image charmap print preview anchor',
+            'searchreplace visualblocks code fullscreen',
+            'insertdatetime media table paste code help wordcount'
+        ],
+        toolbar: ' formatselect | ' +
+            'bold italic backcolor | alignleft aligncenter ' +
+            'alignright alignjustify | bullist numlist outdent indent | ' +
+            'removeformat | help',
+    });
+    tinymce.EditorManager.execCommand('mceAddEditor', false, postTextArea);
+    formDiv2.append(postTextLabel, postTextArea, textAreaSpan);
 
     let formDiv3 = document.createElement('div');
-    formDiv3.setAttribute('class', 'md-col-6');
+    formDiv3.setAttribute('class', 'col-md-12');
     postForm.appendChild(formRow2);
     formRow2.appendChild(formDiv3);
 
     let picDiv = document.createElement('div');
-    picDiv.setAttribute('class', 'col-md-5')
+    picDiv.setAttribute('class', 'col-md-6 col-sm-6 col-xs-12')
     picDiv.setAttribute('id', 'picDiv');
     formDiv3.appendChild(picDiv);
     let postCreateImg = document.createElement('img');
@@ -75,7 +96,7 @@ createPostButton.addEventListener('click', ($event) => {
 
     let uploadDiv = document.createElement('div');
     uploadDiv.setAttribute('id', 'uploadDiv')
-    uploadDiv.setAttribute('class', 'col-md-7')
+    uploadDiv.setAttribute('class', 'col-md-6 col-sm-6 col-xs-12')
     formDiv3.appendChild(uploadDiv);
     let postImgLabel1 = document.createElement('label');
     postImgLabel1.setAttribute('for', 'fileupload');
@@ -88,9 +109,9 @@ createPostButton.addEventListener('click', ($event) => {
 
     uploadDiv.append(postImgLabel1, postImgInput)
 
-    let errReportPar = document.createElement('p');
+    /*let errReportPar = document.createElement('p');
     errReportPar.setAttribute('id', 'errReportPar');
-    postForm.appendChild(errReportPar)
+    postForm.appendChild(errReportPar)*/
 
     let submitPostButton = document.createElement('button');
     submitPostButton.setAttribute('class', 'btn btn-primary');
@@ -102,21 +123,40 @@ createPostButton.addEventListener('click', ($event) => {
     submitPostButton.addEventListener('click', ($event) => {
 
         $event.preventDefault();
-        if (postCreateTitleInput.value === '' || postCreateTitleInput.value === null) {
-            errReportPar.innerText = 'You can not create post without title.';
-            setTimeout(() => { errReportPar.innerText = '' }, 5000);
+        if (postCreateTitleInput.value === '' || postCreateTitleInput.value.trim().length <= 5) {
+            titleSpan.innerText = 'You can not create article without title of a least 6 letters';
+            formDiv1.classList.add('has-error');
+            setTimeout(() => {
+                titleSpan.innerText = '';
+                formDiv1.classList.remove('has-error');
+            }, 6000);
             postCreateTitleInput.focus();
             return false;
         }
-        else if (!textAlphanumeric(postCreateTitleInput, "You may use only numbers, letters, spaces, dashes and underscores")) {
+        else if (!textAlphanumeric(postCreateTitleInput, "You may use only numbers, letters, spaces, dashes and underscores", titleSpan)) {
             postCreateTitleInput.focus();
             return false;
-        } else if ((postTextArea.value === '' || postTextArea.value === null) && (postImgInput.value === '' || postImgInput.value === null)) {
-            errReportPar.innerText = 'Post should be created with picture, text or both.'
-            setTimeout(() => { errReportPar.innerText = '' }, 5000);
+        } else if (tinyMCE.activeEditor.getContent().length === 0) {
+            textAreaSpan.innerText = 'You can not create article without any text'
+            textAreaSpan.parentElement.classList.add('has-error');
+            setTimeout(() => {
+                textAreaSpan.innerText = '';
+                textAreaSpan.parentElement.classList.remove('has-error');
+            }, 5000);
             postTextArea.focus();
             return false;
-        } else {
+        }
+
+    /*else if ((postTextArea.value === '' || postTextArea.value === null) /*&& (postImgInput.value === '' || postImgInput.value === null)) {
+        textAreaSpan.innerText = 'You can not create article without any text'
+        textAreaSpan.parentElement.classList.add('has-error');
+        setTimeout(() => {
+            textAreaSpan.innerText = '';
+            textAreaSpan.parentElement.classList.remove('has-error');
+        }, 5000);
+        postTextArea.focus();
+        return false;
+    }*/ else {
             image = document.getElementById('fileupload').files[0];
             if (image !== undefined || image !== null) {
                 submitCreate.append('file', image)
@@ -146,13 +186,17 @@ createPostButton.addEventListener('click', ($event) => {
     createPostSection.appendChild(closeButton);
 }, { once: true });
 
-function textAlphanumeric(inputtext, alertMsg) {
+function textAlphanumeric(inputtext, alertMsg, titleSpan) {
     let alphaExp = /^(?=.{5,50}$)([a-zA-Z])(_?-?\s?[A-Za-z\d])+$/;
     if (inputtext.value.match(alphaExp)) {
         return true;
     } else {
-        errReportPar.innerText = alertMsg;
-        setTimeout(() => { errReportPar.innerText = '' }, 5000);
+        titleSpan.innerText = alertMsg;
+        titleSpan.parentElement.classList.add('has-error');
+        setTimeout(() => {
+            titleSpan.innerText = '';
+            titleSpan.parentElement.classList.remove('has-error');
+        }, 6000);
         inputtext.focus();
         return false;
     }
@@ -162,8 +206,8 @@ apiCreate = 'http://127.0.0.1:3000'
 
 function getCreatePost() {
     postTitle = document.getElementById('postTitle').value;
-    postText = document.getElementById('postText').value;
-
+    //postText = document.getElementById('postText').value;
+    postText = tinyMCE.activeEditor.getContent()
     post = { postTitle, postText }
     return post
 

@@ -4,14 +4,11 @@ body {
   display: flex;
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
-      -ms-flex-flow: column;
-          flex-flow: column;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
   padding: 0;
   font-family: "Trebuchet MS", sans-serif;
   text-align: center;
@@ -27,6 +24,10 @@ body {
   width: 100%;
 }
 
+#indexB {
+  min-height: 100vh;
+}
+
 #indexB #divOnTop {
   display: none;
   -webkit-box-orient: vertical;
@@ -40,7 +41,7 @@ body {
       -ms-flex-pack: center;
           justify-content: center;
   position: fixed;
-  z-index: 9999;
+  z-index: 20;
   padding-top: 50px;
   left: 0;
   top: 0;
@@ -143,6 +144,14 @@ footer {
   padding: 5px !important;
   width: 100%;
   margin-top: 15px;
+  color: #888;
+}
+
+footer i {
+  font-size: 18px;
+  color: #888;
+  margin-right: 25px;
+  margin-top: 5px;
 }
 
 #searchOption {
@@ -162,30 +171,23 @@ footer {
   -webkit-box-direction: normal;
       -ms-flex-direction: row;
           flex-direction: row;
-  max-width: 100wv;
+  margin: 0;
 }
 
 #logoDiv {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   margin-top: 4%;
-  display: inline-block;
-  width: 50%;
 }
 
 #logoDiv img {
-  position: absolute;
-  display: block;
-  max-width: 40vw;
-  height: auto;
-  position: relative;
-  margin-top: 100px;
-  left: 10%;
-}
-
-#rightSideB {
-  margin-top: 1%;
-  margin-right: 5%;
-  display: inline-block;
-  width: 50%;
+  width: auto;
+  max-height: 50vh;
+  max-width: 90vw;
 }
 
 #rightSideB #loginInfo {
@@ -193,20 +195,18 @@ footer {
 }
 
 #rightSideB #loginInfo label {
-  display: inline-block;
   margin-top: 10px;
   color: #fff;
-  font-size: 16px;
+  font-size: 15px;
+  font-weight: 500;
 }
 
 #rightSideB #loginInfo input {
-  border-radius: 7px;
-  display: inline-block;
+  border-radius: 6px;
 }
 
 #rightSideB #loginInfo input:focus {
   border-color: #000;
-  border-width: 2px;
 }
 
 #rightSideB #loginInfo button {
@@ -279,7 +279,7 @@ nav img {
       -ms-flex-pack: center;
           justify-content: center;
   position: fixed;
-  z-index: 9999;
+  z-index: 20;
   padding-top: 50px;
   left: 0;
   top: 0;
@@ -327,7 +327,7 @@ nav img {
 }
 
 #createPostSection #createPostForm label {
-  margin-top: 20px;
+  margin-top: 10px;
 }
 
 #createPostSection #createPostForm label#fileuploadLabel {
@@ -338,6 +338,18 @@ nav img {
 
 #createPostSection #createPostForm input {
   border-radius: 7px;
+}
+
+#createPostSection #createPostForm input#fileupload {
+  max-width: 250px;
+  text-align: left;
+}
+
+#createPostSection #createPostForm span {
+  /*text-align: left;
+      font-size: 12px;
+      padding-left: 10px;
+      height: 15px;*/
 }
 
 #createPostSection #createPostForm #uploadDiv {
@@ -351,13 +363,13 @@ nav img {
   -webkit-box-pack: start;
       -ms-flex-pack: start;
           justify-content: flex-start;
+  padding-left: 0;
   padding-top: 20px;
-  padding-right: 0;
   display: inline-block;
 }
 
 #createPostSection #createPostForm #picDiv {
-  padding: 20px;
+  padding-top: 10px;
   display: inline-block;
   min-height: 150px;
 }
@@ -374,24 +386,31 @@ nav img {
 }
 
 #createPostSection #createPostForm textarea {
-  border-radius: 7px;
-  max-width: 540px !important;
-  min-width: 540px !important;
-  max-height: 250px;
-  min-height: 120px;
-  overflow-y: scroll;
+  /* border-radius: 7px;
+      max-width: 100% ;
+      min-width:100%;
+      max-height: 250px;
+      min-height: 120px;
+      overflow-y: scroll;*/
 }
 
 #createPostSection #createPostForm button {
-  width: 100px;
-  font-size: 15px;
-  border-radius: 7px;
+  /*width: 100px;
+      font-size: 15px;
+      border-radius: 7px;*/
 }
 
 #createPostSection #createPostForm button#removeImgButton {
   margin-top: 10px;
   font-size: 14px;
   border-radius: 6px;
+  -ms-flex-item-align: center;
+      -ms-grid-row-align: center;
+      align-self: center;
+}
+
+#createPostSection #createPostForm button#submitPostButton {
+  margin-top: 10px;
 }
 
 #showAllPosts {
@@ -408,6 +427,7 @@ nav img {
   -ms-flex-item-align: center;
       align-self: center;
   max-width: 1024px;
+  margin-bottom: -15px;
 }
 
 #showAllPosts #unreadPosts {
@@ -424,8 +444,10 @@ nav img {
       -ms-flex-pack: space-evenly;
           justify-content: space-evenly;
   max-width: 1024px;
-  margin-top: 60px;
+  margin-top: 50px;
   background-color: rgba(208, 214, 232, 0.4);
+  padding-top: 15px;
+  padding-bottom: 15px;
 }
 
 #showAllPosts .onePostDiv {
@@ -442,7 +464,7 @@ nav img {
       -ms-flex-align: center;
           align-items: center;
   background: #fff;
-  margin: 5px;
+  margin: 4px;
   width: 240px;
   height: 300px;
   -webkit-box-shadow: 4px 2px 4px 0 rgba(73, 73, 73, 0.6);
@@ -490,7 +512,6 @@ nav img {
 }
 
 #showAllPosts .onePostDiv .contentDiv img {
-  float: left;
   margin: 10px 10px 0 0;
   max-width: 120px;
   max-height: 110px;
@@ -503,6 +524,7 @@ nav img {
           box-shadow: 0px -2px 4px -1px rgba(95, 131, 165, 0.75);
   -ms-flex-item-align: end;
       align-self: flex-end;
+  margin-top: 16px;
   height: 47px;
   width: 100%;
   padding: 0 10px 0 10px;
@@ -758,7 +780,7 @@ nav img {
       -ms-flex-pack: center;
           justify-content: center;
   position: fixed;
-  z-index: 9999;
+  z-index: 20;
   padding-top: 50px;
   left: 0;
   top: 0;
@@ -806,7 +828,7 @@ nav img {
 }
 
 #showPost #divOnTop #createPostForm label {
-  margin-top: 20px;
+  margin-top: 10px;
 }
 
 #showPost #divOnTop #createPostForm label#fileuploadLabel {
@@ -817,6 +839,18 @@ nav img {
 
 #showPost #divOnTop #createPostForm input {
   border-radius: 7px;
+}
+
+#showPost #divOnTop #createPostForm input#fileupload {
+  max-width: 250px;
+  text-align: left;
+}
+
+#showPost #divOnTop #createPostForm span {
+  /*text-align: left;
+      font-size: 12px;
+      padding-left: 10px;
+      height: 15px;*/
 }
 
 #showPost #divOnTop #createPostForm #uploadDiv {
@@ -830,13 +864,13 @@ nav img {
   -webkit-box-pack: start;
       -ms-flex-pack: start;
           justify-content: flex-start;
+  padding-left: 0;
   padding-top: 20px;
-  padding-right: 0;
   display: inline-block;
 }
 
 #showPost #divOnTop #createPostForm #picDiv {
-  padding: 20px;
+  padding-top: 10px;
   display: inline-block;
   min-height: 150px;
 }
@@ -853,24 +887,31 @@ nav img {
 }
 
 #showPost #divOnTop #createPostForm textarea {
-  border-radius: 7px;
-  max-width: 540px !important;
-  min-width: 540px !important;
-  max-height: 250px;
-  min-height: 120px;
-  overflow-y: scroll;
+  /* border-radius: 7px;
+      max-width: 100% ;
+      min-width:100%;
+      max-height: 250px;
+      min-height: 120px;
+      overflow-y: scroll;*/
 }
 
 #showPost #divOnTop #createPostForm button {
-  width: 100px;
-  font-size: 15px;
-  border-radius: 7px;
+  /*width: 100px;
+      font-size: 15px;
+      border-radius: 7px;*/
 }
 
 #showPost #divOnTop #createPostForm button#removeImgButton {
   margin-top: 10px;
   font-size: 14px;
   border-radius: 6px;
+  -ms-flex-item-align: center;
+      -ms-grid-row-align: center;
+      align-self: center;
+}
+
+#showPost #divOnTop #createPostForm button#submitPostButton {
+  margin-top: 10px;
 }
 
 #showPost button {
@@ -2675,7 +2716,7 @@ nav img {
       -ms-flex-pack: center;
           justify-content: center;
   position: fixed;
-  z-index: 9999;
+  z-index: 20;
   padding-top: 50px;
   left: 0;
   top: 0;
@@ -2927,6 +2968,6 @@ nav img {
   margin: 0;
   margin-top: 6px;
   padding: 0;
-  z-index: 1;
+  z-index: 2;
 }
 /*# sourceMappingURL=style.css.map */

@@ -43,6 +43,20 @@ function modifyUserPost() {
     } else {
         modifyTextInput.innerText = data.post[0].postText;
     }
+    tinymce.init({
+        height: 500,
+        menubar: false,
+        plugins: [
+            'advlist autolink lists link image charmap print preview anchor',
+            'searchreplace visualblocks code fullscreen',
+            'insertdatetime media table paste code help wordcount'
+        ],
+        toolbar: ' formatselect | ' +
+            'bold italic backcolor | alignleft aligncenter ' +
+            'alignright alignjustify | bullist numlist outdent indent | ' +
+            'removeformat | help',
+    });
+    tinymce.EditorManager.execCommand('mceAddEditor', false, modifyTextInput);
     modifyFormDiv2.append(modifyTextLabel, modifyTextInput);
     modifyFormRow2.appendChild(modifyFormDiv2);
 
@@ -143,7 +157,7 @@ function modifyUserPost() {
 
     function getModifiedPost() {
         let postTitleModified = document.getElementById('postTitle').value;
-        let postTextModified = document.getElementById('postText').value;
+        let postTextModified = tinyMCE.activeEditor.getContent();
         post = { postTitleModified, postTextModified }
         return post
     };

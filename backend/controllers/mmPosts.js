@@ -43,7 +43,7 @@ exports.createMMPost = (req, res, next) => {
 }
 
 exports.getAllMMPosts = (req, res, next) => {
-    connection.query('SELECT firstName, lastName, userId FROM user WHERE userId = ?', req.session.userId, (error, userInfo) => {
+    connection.query('SELECT firstName, lastName, userId, admin FROM user WHERE userId = ?', req.session.userId, (error, userInfo) => {
         if (!error) {
             connection.query(`
                 SELECT COUNT(postId) AS number

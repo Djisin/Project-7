@@ -99,7 +99,7 @@ request.onload = function () {
         //MiddlePart
         //Located in js/mmPosts.js
         constructCreateMMPost(middlePart);
-        constructMMPost(middlePart, (data.mmContent), (data.userInfo[0].userId));
+        constructMMPost(middlePart, (data.mmContent), (data.userInfo[0].userId),(data.userInfo[0].admin));
 
         //rightPart
         //Located in js/comments.js

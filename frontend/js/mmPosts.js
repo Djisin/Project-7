@@ -211,7 +211,7 @@ function constructCreateMMPost(attachTo) {
     contentDiv.appendChild(errorParag);
 }
 
-function constructMMPost(attachTo, mmContent, whoIsLoggedIn) {
+function constructMMPost(attachTo, mmContent, whoIsLoggedIn, admin) {
 
     const contentDivMM = document.createElement('div');
     contentDivMM.setAttribute('class', 'col-md-12 content-div');
@@ -302,13 +302,16 @@ function constructMMPost(attachTo, mmContent, whoIsLoggedIn) {
         singlePostFooter.appendChild(edited);
 
         const comReport = document.createElement('button');
-        if (mmContent[i].userId !== whoIsLoggedIn) {
+        if ((mmContent[i].userId !== whoIsLoggedIn)||admin===1) {
             comReport.setAttribute('class', 'btn btn-link')
             comReport.innerText = 'report';
-            hamburgerMenu(singlePostHeader, [comReport]);
+            if (admin===0){
+             hamburgerMenu(singlePostHeader, [comReport]);   
+            }
+            
         }
 
-        if (mmContent[i].userId === whoIsLoggedIn) {
+        if ((mmContent[i].userId === whoIsLoggedIn)|| admin===1) {
             const editButton = document.createElement('button');
             editButton.setAttribute('class', 'btn btn-link editMMPost');
             editButton.innerText = 'edit';
@@ -323,7 +326,12 @@ function constructMMPost(attachTo, mmContent, whoIsLoggedIn) {
             const deleteButton = document.createElement('button');
             deleteButton.setAttribute('class', 'btn btn-link');
             deleteButton.innerText = 'delete';
-            hamburgerMenu(singlePostHeader, [editButton, deleteButton])
+            if(admin ===0){
+                 hamburgerMenu(singlePostHeader, [editButton, deleteButton])
+            } else if(admin===1){
+                hamburgerMenu(singlePostHeader, [editButton, deleteButton, comReport])
+            }
+           
             deleteButton.addEventListener('click', ($event) => {
                 $event.preventDefault();
                 delPostComOrSubCom((mmApi + '/' + mmContent[i].mmPostId), singlePost)
@@ -384,7 +392,8 @@ function constructMMPost(attachTo, mmContent, whoIsLoggedIn) {
             (mmContent[i].mmPostId),
             (mmContent[i].numberOfComments),
             singlePost,
-            (whoIsLoggedIn)
+            (whoIsLoggedIn),
+            admin
         );
         reportEventListener(comReport, singlePostFooter, (mmContent[i].mmPostId), (mmContent[i].userId), (undefined))
     }

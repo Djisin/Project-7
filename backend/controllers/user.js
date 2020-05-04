@@ -127,7 +127,7 @@ exports.profile = (req, res, next) => {
     connection.query(`SELECT userId FROM user WHERE userId = ?`, profId, (error, foundUser) => {
         if (!error) {
             if (foundUser.length !== 0) {
-                connection.query('SELECT firstName, lastName, userId FROM user WHERE userId = ?', userId, (error, userInfo) => {
+                connection.query('SELECT firstName, lastName, userId, admin FROM user WHERE userId = ?', userId, (error, userInfo) => {
                     if (!error) {
                         connection.query(`
                             SELECT user.userId, user.firstName, user.lastName, user.username, user.userPicture, user.timeCreated, moreuserinfo.personalLine, usersocnetws.userWebSite, usersocnetws.facebook, usersocnetws.linkendIn, usersocnetws.twitter

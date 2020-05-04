@@ -54,7 +54,7 @@ request.onload = function () {
         profPic.onerror = () => {
             profPic.setAttribute('src', 'img/userDef.jpg')
         }
-        if (data.userInfo[0].userId === data.userData[0].userId) {
+        if ((data.userInfo[0].userId === data.userData[0].userId) || data.userInfo[0].admin === 1) {
             const ripSpan = document.createElement('span');
             ripSpan.setAttribute('class', 'ripple-1');
             profPicDiv.appendChild(ripSpan)
@@ -66,7 +66,7 @@ request.onload = function () {
         const editPicBtnDiv = document.createElement('div');
         editPicBtnDiv.setAttribute('class', 'btn-group')
         profPicDiv.appendChild(editPicBtnDiv);
-        if (data.userInfo[0].userId === data.userData[0].userId) {
+        if ((data.userInfo[0].userId === data.userData[0].userId) || data.userInfo[0].admin===1) {
             let editPicBtn = document.createElement('button');
             editPicBtn.setAttribute('class', 'btn btn-default');
             editPicBtn.innerText = 'Change';
@@ -192,7 +192,7 @@ request.onload = function () {
                 userLiIn.innerText = 'none';
                 moreUserProf.appendChild(userLiIn);
             }
-            if (data.userInfo[0].userId === data.userData[0].userId) {
+            if ((data.userInfo[0].userId === data.userData[0].userId) || data.userInfo[0].admin === 1) {
                 const editUserNetws = document.createElement('div');
                 editUserNetws.setAttribute('class', 'btn-group');
                 moreUserProf.appendChild(editUserNetws)
@@ -335,7 +335,7 @@ request.onload = function () {
         }
         headerDiv.appendChild(usersThoughts);
 
-        if (data.userInfo[0].userId === data.userData[0].userId) {
+        if ((data.userInfo[0].userId === data.userData[0].userId) || data.userInfo[0].admin === 1) {
             usersThoughts.style.cursor = 'pointer';
             usersThoughts.addEventListener('click', ($event) => {
                 $event.preventDefault();
@@ -418,7 +418,7 @@ request.onload = function () {
         }
 
         //Located in js/mmPost.js
-        constructMMPost(middlePart, (data.mmContent), (data.userInfo[0].userId));
+        constructMMPost(middlePart, (data.mmContent), (data.userInfo[0].userId), (data.userInfo[0].admin));
 
         //Right part
         //Numbers

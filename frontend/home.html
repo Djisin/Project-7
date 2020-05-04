@@ -21,15 +21,19 @@
         }
     </script>
     <script defer src="https://kit.fontawesome.com/ef6b1b88f1.js" crossorigin="anonymous"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script defer src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script defer type="text/javascript" src='js/scrollToTop.js'></script>
     <script defer type="text/javascript" src="js/bootstrap.min.js"></script>
+    <script defer  src="https://cdn.tiny.cloud/1/8ckjio4rd9mfac7820kzad7ef8n51hxtry2abc2m896c5xfo/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
     <script defer type="text/javascript" src="js/createPost.js"></script>
     <script async type="text/javascript" src="js/comments.js"></script>
 </head>
 
 <body>
-    <div class="lds-ripple"><div></div><div></div></div>
+    <div class="lds-ripple">
+        <div></div>
+        <div></div>
+    </div>
     <nav class="navbar navbar-fixed-top navbar-inverse">
         <div class="container-fluid">
             <div class="navbar-header">
@@ -71,11 +75,17 @@
             </div>
         </div>
     </nav>
-    <section id="createPostSection"></section>
+    <section id="createPostSection" class='col-sm-12 col-xs-12 col-md-12'></section>
     <main id="showAllPosts">
-        <section id='unreadPosts'></section>
+        <section id='unreadPosts' class='col-xs-12 col-sm-12'></section>
     </main>
-    <footer class="modal-footer">
+    <footer class="modal-footer navbar-inverse">
+        <div>
+            <a href='#'><i class="fab fa-facebook-square"></i></a>
+            <a href='#'><i class="fab fa-twitter-square"></i></a>
+            <a href='#'><i class="fab fa-linkedin"></i></a>
+            <a href='#'><i class="fas fa-globe"></i></a>
+        </div>
         <p>© 2020 Groupmania • All rights reserved • Designed by Miloš Radivojević » Freelance Web Developer</p>
     </footer>
     <script async type="text/javascript" src='js/search.js'></script>

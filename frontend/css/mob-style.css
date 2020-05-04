@@ -236,34 +236,10 @@
         -ms-flex-direction: column;
             flex-direction: column;
   }
-  #sectionB #logoDiv {
-    width: 100%;
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-orient: vertical;
-    -webkit-box-direction: normal;
-        -ms-flex-direction: column;
-            flex-direction: column;
-    -webkit-box-align: center;
-        -ms-flex-align: center;
-            align-items: center;
-  }
   #sectionB #logoDiv img {
-    margin-top: 0;
+    margin-top: 20px;
+    margin-bottom: 10px;
     left: 0;
-  }
-  #sectionB #rightSideB {
-    width: 100%;
-  }
-  #sectionB #rightSideB form {
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-orient: vertical;
-    -webkit-box-direction: normal;
-        -ms-flex-direction: column;
-            flex-direction: column;
   }
   #sectionB #rightSideB form #errorParagraphL {
     margin-top: 0;
@@ -280,7 +256,7 @@
     margin-top: 10px;
   }
   #sectionB #aditionalB h3 {
-    font-size: 20px;
+    font-size: 16px;
   }
   #userProfile {
     width: 100%;
@@ -293,15 +269,38 @@
 }
 
 @media only screen and (max-width: 1142px) and (min-width: 991px) {
+  #sectionB {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+  }
+  #sectionB #rightSideB form #errorParagraphL {
+    margin-top: 0;
+    text-align: center;
+    margin-left: 0;
+  }
+  #sectionB #aditionalB {
+    margin-top: 10px;
+  }
+  #sectionB #aditionalB h3 {
+    font-size: 22px;
+  }
   #userProfile {
     margin-top: 80px;
   }
   #community-section {
     margin-top: 80px;
   }
+  #unreadPosts {
+    margin-top: 80px !important;
+  }
 }
 
 @media only screen and (max-width: 480px) {
+  #rightSideB form #errorParagraphL {
+    height: 20px;
+  }
   #userProfile {
     width: 100%;
   }
@@ -375,29 +374,33 @@
   }
 }
 
+@media only screen and (max-width: 526px) {
+  /*#uploadDiv > textarea #postText {
+        
+    }*/
+  #unreadPosts {
+    width: 100vw;
+  }
+  #unreadPosts .onePostDiv {
+    width: 95vw;
+  }
+}
+
+@media only screen and (max-width: 773px) and (min-width: 526px) {
+  #unreadPosts {
+    width: 100vw;
+  }
+  #unreadPosts .onePostDiv {
+    width: 46vw;
+  }
+}
+
 @media only screen and (max-width: 991px) and (min-width: 767px) {
   #sectionB {
     -webkit-box-orient: vertical;
     -webkit-box-direction: normal;
         -ms-flex-direction: column;
             flex-direction: column;
-  }
-  #sectionB #logoDiv {
-    width: 100%;
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-orient: vertical;
-    -webkit-box-direction: normal;
-        -ms-flex-direction: column;
-            flex-direction: column;
-    -webkit-box-align: center;
-        -ms-flex-align: center;
-            align-items: center;
-  }
-  #sectionB #logoDiv img {
-    margin-top: 0;
-    left: 0;
   }
   #sectionB #rightSideB {
     width: 100%;
@@ -436,6 +439,15 @@
   }
   #sectionB #aditionalB h3 {
     font-size: 20px;
+  }
+  #unreadPosts {
+    margin-top: 90px !important;
+  }
+}
+
+@media only screen and (max-width: 767px) and (min-width: 480px) {
+  .onePostDiv {
+    width: 50%;
   }
 }
 /*# sourceMappingURL=mob-style.css.map */

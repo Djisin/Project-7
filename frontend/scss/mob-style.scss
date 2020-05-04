@@ -204,22 +204,14 @@
     #sectionB {
         flex-direction: column;
         & #logoDiv {
-            width: 100%;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-
             & img {
-                margin-top: 0;
+                margin-top: 20px;
+                margin-bottom: 10px;
                 left: 0;
             }
         }
         & #rightSideB {
-            width: 100%;
-
             & form {
-                display: flex;
-                flex-direction: column;
                 & #errorParagraphL {
                     margin-top: 0;
                     text-align: center;
@@ -229,7 +221,6 @@
             & button {
                 margin: 5px;
                 font-size: 14px;
-                //width: auto;
             }
         }
         & #aditionalB {
@@ -237,7 +228,7 @@
             padding: 10px;
             margin-top: 10px;
             & h3 {
-                font-size: 20px;
+                font-size: 16px;
             }
         }
     }
@@ -251,14 +242,42 @@
     }
 }
 @media only screen and (max-width: 1142px) and (min-width: 991px) {
+    #sectionB {
+        flex-direction: column;
+        & #rightSideB {
+            & form {
+                & #errorParagraphL {
+                    margin-top: 0;
+                    text-align: center;
+                    margin-left: 0;
+                }
+            }
+        }
+        & #aditionalB {
+            margin-top: 10px;
+            & h3 {
+                font-size: 22px;
+            }
+        }
+    }
     #userProfile {
         margin-top: 80px;
     }
     #community-section {
         margin-top: 80px;
     }
+    #unreadPosts {
+        margin-top: 80px !important;
+    }
 }
 @media only screen and (max-width: 480px) {
+    & #rightSideB {
+        & form {
+            & #errorParagraphL {
+                height: 20px;
+            }
+        }
+    }
     #userProfile {
         width: 100%;
     }
@@ -333,34 +352,41 @@
         width: 100%;
     }
 }
+@media only screen and(max-width:526px) {
+    /*#uploadDiv > textarea #postText {
+        
+    }*/
+    #unreadPosts {
+        width: 100vw;
+        & .onePostDiv {
+            width: 95vw;
+        }
+    }
+}
+@media only screen and(max-width:773px) and (min-width: 526px) {
+    #unreadPosts {
+        width: 100vw;
+        & .onePostDiv {
+            width: 46vw;
+        }
+    }
+}
 @media only screen and (max-width: 991px) and (min-width: 767px) {
     #sectionB {
         flex-direction: column;
-        & #logoDiv {
-            width: 100%;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-
-            & img {
-                margin-top: 0;
-                left: 0;
-            }
-        }
         & #rightSideB {
             width: 100%;
             margin: 0;
             & form {
                 display: grid;
                 grid-template-columns: 2fr 2fr 1fr;
-                & div{
-                    &:last-child{
+                & div {
+                    &:last-child {
                         flex-grow: 5;
                         grid-column-start: 1;
                         grid-column-end: 5;
                         grid-row-start: 2;
                         grid-row-end: 2;
-                        
                     }
                 }
                 & #errorParagraphL {
@@ -382,5 +408,13 @@
                 font-size: 20px;
             }
         }
+    }
+    #unreadPosts {
+        margin-top: 90px !important;
+    }
+}
+@media only screen and (max-width: 767px) and (min-width: 480px) {
+    .onePostDiv {
+        width: 50%;
     }
 }

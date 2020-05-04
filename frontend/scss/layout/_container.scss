@@ -4,9 +4,8 @@
 
 body {
   display: flex;
-  flex-flow: column;
-  justify-content: center;
-  align-items: center;
+  flex-direction: column;
+  justify-content: space-between;
   padding: 0;
   font-family: "Trebuchet MS", sans-serif;
   text-align: center;
@@ -22,6 +21,7 @@ body {
 }
 
 #indexB {
+  min-height: 100vh;
   & #divOnTop {
     @include floatingDiv;
     & #closeButton {

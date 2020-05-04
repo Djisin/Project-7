@@ -1,42 +1,32 @@
 #sectionB {
   display: flex;
   flex-direction: row;
-  max-width: 100wv;
+  margin:0;
 }
 
 #logoDiv {
+  display: flex;
+  justify-content: center;
   margin-top: 4%;
-  display: inline-block;
-  width: 50%;
   & img {
-    position: absolute;
-    display: block;
-    max-width: 40vw;
-    height: auto;
-    position: relative;
-    margin-top: 100px;
-    left: 10%;
+    width: auto;
+    max-height: 50vh;
+    max-width: 90vw;
   }
 }
 #rightSideB {
-  margin-top: 1%;
-  margin-right: 5%;
-  display: inline-block;
-  width: 50%;
   & #loginInfo {
     width: 100%;
     & label {
-      display: inline-block;
       margin-top: 10px;
       color: #fff;
-      font-size: 16px;
+      font-size: 15px;
+      font-weight: 500;
     }
     & input {
-      border-radius: 7px;
-      display: inline-block;
+      border-radius: 6px;
       &:focus {
         border-color: #000;
-        border-width: 2px;
       }
     }
     & button {

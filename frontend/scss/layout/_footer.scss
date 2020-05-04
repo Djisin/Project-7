@@ -1,6 +1,13 @@
-footer{
+footer {
   text-align: center !important;
-  padding: 5px!important;
+  padding: 5px !important;
   width: 100%;
   margin-top: 15px;
+  color: #888;
+  & i {
+    font-size: 18px;
+    color: #888;
+    margin-right: 25px;
+    margin-top: 5px;
+  }
 }
