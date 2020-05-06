@@ -25,7 +25,7 @@ createPostButton.addEventListener('click', ($event) => {
     let formRow1 = document.createElement('div');
     formRow1.setAttribute('class', 'col-md-12 col-xs-12 col-sm-12');
     let formDiv1 = document.createElement('div');
-    formDiv1.setAttribute('class', 'md-col-12')
+    formDiv1.setAttribute('class', 'col-md-12')
     postForm.appendChild(formRow1);
     formRow1.appendChild(formDiv1);
 
@@ -45,7 +45,7 @@ createPostButton.addEventListener('click', ($event) => {
     formDiv1.append(postCreateTitle, postCreateTitleInput, titleSpan);
 
     let formRow2 = document.createElement('div');
-    formRow2.setAttribute('class', ' col-md-12 col-xs-12 col-sm-12');
+    formRow2.setAttribute('class', 'mce-div col-md-12 col-xs-12 col-sm-12');
 
     let formDiv2 = document.createElement('div');
     formDiv2.setAttribute('class', 'col-xs-12 col-sm-12 col-md-12');
@@ -109,10 +109,6 @@ createPostButton.addEventListener('click', ($event) => {
 
     uploadDiv.append(postImgLabel1, postImgInput)
 
-    /*let errReportPar = document.createElement('p');
-    errReportPar.setAttribute('id', 'errReportPar');
-    postForm.appendChild(errReportPar)*/
-
     let submitPostButton = document.createElement('button');
     submitPostButton.setAttribute('class', 'btn btn-primary');
     submitPostButton.setAttribute('id', 'submitPostButton');
@@ -174,8 +170,8 @@ createPostButton.addEventListener('click', ($event) => {
     postForm.appendChild(displayImgScript)
 
     let closeButton = document.createElement('span');
-    closeButton.textContent = "x";
-    closeButton.setAttribute('id', 'closeButton');
+    closeButton.innerHTML = '<i class="fas fa-times"></i>'
+    closeButton.setAttribute('id', 'closeButtonP');
 
     closeButton.addEventListener('click', (e) => {
         window.location.reload()

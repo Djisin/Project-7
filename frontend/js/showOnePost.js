@@ -17,7 +17,7 @@ request.onload = function () {
         userCredentials.innerText = data.userInfo[0].firstName + ' ' + data.userInfo[0].lastName
 
         const container = document.createElement('div');
-        container.setAttribute('class', 'col-md-12 mainContainer');
+        container.setAttribute('class', 'col-xs-12 col-sm-12 col-md-12 mainContainer');
 
         const postTitle = document.createElement('h3');
         postTitle.setAttribute('class', 'postTitleClass');
@@ -25,7 +25,7 @@ request.onload = function () {
         container.appendChild(postTitle);
 
         const divMainContent = document.createElement('div');
-        divMainContent.setAttribute('class', 'col-md-12 divMainContent');
+        divMainContent.setAttribute('class', 'col-xs-12 col-sm-12 col-md-12 divMainContent');
         container.appendChild(divMainContent);
 
         let postPicture;
@@ -94,11 +94,27 @@ request.onload = function () {
         buttonDiv.setAttribute('class', 'btn-group');
         createdByMain.appendChild(buttonDiv);
 
-        if (data.userCreatedThisPost || data.userInfo[0].admin ===1) {
+        let timePeriods = document.createElement('div');
+        timePeriods.setAttribute('class', 'col-md-12 timePeriods');
+        container.appendChild(timePeriods);
+
+        const postReport = document.createElement('button');
+        if ((data.post[0].userId !== data.userInfo[0].userId) || data.userInfo[0].admin === 1) {
+            postReport.setAttribute('class', 'btn btn-link')
+            postReport.innerText = 'report';
+            if (screen.width > 600) {
+                buttonDiv.appendChild(postReport)
+            } else if(data.userInfo[0].admin !== 1) {
+                hamburgerMenu(buttonDiv, [postReport])
+            }
+
+            reportEventListener(postReport, timePeriods, data.post[0].postId, data.post[0].userId, (undefined))
+        }
+        if (data.userCreatedThisPost || data.userInfo[0].admin === 1) {
             const modifyButton = document.createElement('button');
             modifyButton.setAttribute('class', 'btn btn-link');
             modifyButton.innerHTML = 'modify';
-            buttonDiv.appendChild(modifyButton);
+            // buttonDiv.appendChild(modifyButton);
 
             modifyButton.addEventListener('click', () => {
                 showPost.removeChild(container)
@@ -108,7 +124,14 @@ request.onload = function () {
             const deleteButton = document.createElement('button');
             deleteButton.setAttribute('class', 'btn btn-link');
             deleteButton.innerHTML = 'delete';
-            buttonDiv.appendChild(deleteButton);
+            //buttonDiv.appendChild(deleteButton);
+            if (screen.width > 600) {
+                buttonDiv.append(modifyButton, deleteButton)
+            } else if (data.userInfo[0].admin === 1) {
+                hamburgerMenu(buttonDiv, [modifyButton, deleteButton, postReport])
+            } else {
+                hamburgerMenu(buttonDiv, [modifyButton, deleteButton])
+            }
 
             deleteButton.addEventListener('click', ($event) => {
                 $event.preventDefault();
@@ -117,17 +140,7 @@ request.onload = function () {
                 });
             });
         };
-        let timePeriods = document.createElement('div');
-        timePeriods.setAttribute('class', 'col-md-12 timePeriods');
-        container.appendChild(timePeriods);
-
-        if ((data.post[0].userId !== data.userInfo[0].userId) || data.userInfo[0].admin ===1 ) {
-            const postReport = document.createElement('button');
-            postReport.setAttribute('class', 'btn btn-link')
-            postReport.innerText = 'report';
-            buttonDiv.appendChild(postReport)
-            reportEventListener(postReport, timePeriods, data.post[0].postId, data.post[0].userId, (undefined))
-        }
+        
 
         let timeEdited
         if (!data.post[0].timeEdited == null || !data.post[0].timeEdited == '') {
@@ -146,6 +159,7 @@ request.onload = function () {
 
         let addComment = document.createElement('div');
         addComment.setAttribute('class', 'col-md-12 addCommentDiv');
+        addComment.style.width = '100%';
         container.appendChild(addComment);
 
         createCommentForm(addComment, data.post[0].postId)

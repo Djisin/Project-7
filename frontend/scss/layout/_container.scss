@@ -3,7 +3,7 @@
 @import "../layout/buttons";
 
 body {
-  display: flex;
+  display: flex!important;
   flex-direction: column;
   justify-content: space-between;
   padding: 0;
@@ -31,28 +31,36 @@ body {
   & #registerInfo {
     display: flex;
     flex-direction: column;
-    width: 600px;
+    //width: 50%;
+    height: auto;
     background: $formBackground;
-    border-radius: 20px;
-    margin-top: -15vh;
-    padding: 20px;
+    border-radius: 6px;
+   // margin-top: -15vh;
+   padding: 15px;
+   /* padding-left: 10px;
+    padding-right: 10px;*/
     & label {
       margin-top: 10px;
       margin-bottom: 10px;
-      font-size: 16px;
+      font-size: 14px;
+    }
+    & div{
+      margin-bottom: 5px;
     }
     & input {
-      margin-bottom: 20px;
-      border-radius: 7px;
+      //margin-bottom: 20px;
+      border-radius: 6px;
     }
     & button {
-      align-self: center;
+      margin-bottom: 30px;
+    }
+      /*align-self: center;
       margin-top: 30px;
       margin-bottom: 30px;
       width: 120px;
       font-size: 18px;
       border-radius: 10px;
-    }
+    }*/
   }
 }
 #searchInputDiv {

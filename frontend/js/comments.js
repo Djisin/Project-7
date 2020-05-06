@@ -1,3 +1,40 @@
+let footer = document.getElementsByClassName('modal-footer')[0]
+let navbar = document.getElementsByClassName('navbar-fixed-top')[0]
+let measureContentHeight
+if ((window.location.pathname).split('/')[2].split('?')[0] === 'post.html' || (window.location.pathname).split('/')[2].split('?')[0] === 'home.html') {
+    window.addEventListener('load', () => {
+        if ((window.location.pathname).split('/')[2].split('?')[0] === 'post.html') {
+            measureContentHeight = document.getElementById('showPost');
+        } else if ((window.location.pathname).split('/')[2].split('?')[0] === 'home.html') {
+            measureContentHeight = document.getElementById('unreadPosts')
+        }
+        setTimeout(() => {
+            if (screen.height - navbar.offsetHeight - footer.offsetHeight > measureContentHeight.offsetHeight) {
+                footer.style.position = 'absolute'
+            }
+        }, 50);
+
+    })
+    let clicks = 0
+    window.addEventListener('click', () => {
+        if (clicks % 2 === 0) {
+            setTimeout(() => {
+                if (screen.height - navbar.offsetHeight - footer.offsetHeight > measureContentHeight.offsetHeight) {
+                    footer.style.position = 'absolute'
+                } else {
+                    footer.style.position = 'relative'
+                }
+            }, 50);
+        } else {
+            if (screen.height - navbar.offsetHeight - footer.offsetHeight > measureContentHeight.offsetHeight - 20) {
+                footer.style.position = 'absolute'
+            } else {
+                footer.style.position = 'relative'
+            }
+        }
+        clicks++
+    });
+}
 function createCommentForm(addComment, mmCommentId, subCom, postId) {
     const commentForm = document.createElement('form');
     commentForm.setAttribute('class', 'form-inline');

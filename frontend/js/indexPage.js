@@ -43,24 +43,21 @@ let divOnTop = document.getElementById('divOnTop');
 
 let openFormF = function openFormFunction() {
 
-    document.getElementById('loginInfo').reset()
+    document.getElementById('loginInfo').reset();
     document.getElementById('registerInfo').reset();
     divOnTop.style.display = 'flex';
 
     let closeButton = document.createElement('span');
-    closeButton.textContent = "x";
+    closeButton.innerHTML = '<i class="fas fa-times"></i>';
     closeButton.setAttribute('id', 'closeButton');
 
     closeButton.addEventListener('click', () => {
         document.getElementById('registerInfo').reset();
-        document.getElementById('errorParagraph').innerText = '';
         divOnTop.style.display = 'none';
-        divOnTop.removeChild(AddScript);
+        for (let i = 0; i < document.getElementsByClassName('help-block').length; i++) {
+            document.getElementsByClassName('help-block')[i].innerText = '';
+            document.getElementsByClassName('help-block')[i].parentElement.classList.remove('has-error');
+        }
     });
-
-    divOnTop.appendChild(closeButton)
-
-    let AddScript = document.createElement('script');
-    AddScript.setAttribute('src', 'js/register.js')
-    divOnTop.appendChild(AddScript)
+    divOnTop.appendChild(closeButton);
 }

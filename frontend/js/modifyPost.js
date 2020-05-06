@@ -4,11 +4,12 @@ function modifyUserPost() {
     divOnTop.style.display = 'flex'
 
     const modifyForm = document.createElement('form');
-    modifyForm.setAttribute('id', 'createPostForm')
-    modifyForm.setAttribute('enctype', 'multipart/form-data')
+    modifyForm.setAttribute('class', 'col-md-12 col-sm-12, col-xs-12');
+    modifyForm.setAttribute('id', 'createPostForm');
+    modifyForm.setAttribute('enctype', 'multipart/form-data');
 
     const modifyFormRow1 = document.createElement('div')
-    modifyFormRow1.setAttribute('class', 'form-row col-md-12')
+    modifyFormRow1.setAttribute('class', 'col-md-12 col-xs-12 col-sm-12')
     const modifyFormDiv1 = document.createElement('div');
     modifyFormDiv1.setAttribute('class', 'col-md-12')
 
@@ -26,9 +27,9 @@ function modifyUserPost() {
     modifyFormRow1.appendChild(modifyFormDiv1);
 
     const modifyFormRow2 = document.createElement('div')
-    modifyFormRow2.setAttribute('class', 'form-row col-md-12')
+    modifyFormRow2.setAttribute('class', 'mce-div col-md-12 col-xs-12 col-sm-12')
     const modifyFormDiv2 = document.createElement('div');
-    modifyFormDiv2.setAttribute('class', 'col-md-12');
+    modifyFormDiv2.setAttribute('class', 'col-xs-12 col-sm-12 col-md-12');
 
     const modifyTextLabel = document.createElement('label');
     modifyTextLabel.setAttribute('for', 'postText');
@@ -66,11 +67,11 @@ function modifyUserPost() {
     modifyFormDiv3.setAttribute('class', 'col-md-12');
 
     const picDiv = document.createElement('div');
-    picDiv.setAttribute('class', 'col-md-5')
+    picDiv.setAttribute('class', 'col-md-6 col-sm-6 col-xs-12')
     picDiv.setAttribute('id', 'picDiv')
     let uploadDiv = document.createElement('div');
     uploadDiv.setAttribute('id', 'uploadDiv')
-    uploadDiv.setAttribute('class', 'col-md-7');
+    uploadDiv.setAttribute('class', 'col-md-6 col-sm-6 col-xs-12');
 
     const imgPreview = document.createElement('img');
     imgPreview.setAttribute('id', 'img-preview');
@@ -99,9 +100,9 @@ function modifyUserPost() {
         imgPreview.setAttribute('src', data.post[0].postPicture);
 
         removeImgButton = document.createElement('button');
-        removeImgButton.setAttribute('class', 'btn btn-danger');
+        removeImgButton.setAttribute('class', 'btn btn-link');
         removeImgButton.setAttribute('id', 'removeImgButton');
-        removeImgButton.innerText = 'Remove';
+        removeImgButton.innerText = 'remove';
         uploadDiv.appendChild(removeImgButton)
 
         if (document.getElementById('removeImgButton') === null) {
@@ -123,12 +124,12 @@ function modifyUserPost() {
     const submitButton = document.createElement('button');
     submitButton.setAttribute('id', 'submit-button');
     submitButton.setAttribute('type', 'submit');
-    submitButton.setAttribute('class', 'btn btn-warning');
-    submitButton.innerText = 'Modify post';
+    submitButton.setAttribute('class', 'btn btn-link');
+    submitButton.innerText = 'modify';
 
     let closeButton = document.createElement('span');
-    closeButton.textContent = "x";
-    closeButton.setAttribute('id', 'closeButton');
+    closeButton.innerHTML = '<i class="fas fa-times"></i>'
+    closeButton.setAttribute('id', 'closeButtonP');
 
     closeButton.addEventListener('click', (e) => {
         window.location.reload()

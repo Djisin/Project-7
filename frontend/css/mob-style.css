@@ -230,6 +230,9 @@
 }
 
 @media only screen and (max-width: 767px) {
+  #showPost {
+    margin-top: 0.5vw;
+  }
   #sectionB {
     -webkit-box-orient: vertical;
     -webkit-box-direction: normal;
@@ -266,9 +269,21 @@
     width: 100%;
     margin-top: 0px;
   }
+  #registerInfo {
+    overflow-y: auto;
+  }
 }
 
 @media only screen and (max-width: 1142px) and (min-width: 991px) {
+  #createPostForm {
+    margin-top: 80px !important;
+  }
+  #closeButtonP {
+    top: 100px !important;
+  }
+  #showPost {
+    margin-top: 55px;
+  }
   #sectionB {
     -webkit-box-orient: vertical;
     -webkit-box-direction: normal;
@@ -298,6 +313,22 @@
 }
 
 @media only screen and (max-width: 480px) {
+  #registerInfo {
+    padding-left: 15px;
+    padding-right: 15px;
+    height: 100%;
+    padding-bottom: 15px;
+    border-radius: 2px !important;
+    margin-bottom: 10px;
+    margin-top: 10px;
+  }
+  #registerInfo .help-block {
+    font-size: 11px;
+  }
+  #closeButton {
+    right: 15px;
+    top: -15px;
+  }
   #rightSideB form #errorParagraphL {
     height: 20px;
   }
@@ -375,9 +406,6 @@
 }
 
 @media only screen and (max-width: 526px) {
-  /*#uploadDiv > textarea #postText {
-        
-    }*/
   #unreadPosts {
     width: 100vw;
   }
@@ -396,6 +424,9 @@
 }
 
 @media only screen and (max-width: 991px) and (min-width: 767px) {
+  #showPost {
+    margin-top: 55px;
+  }
   #sectionB {
     -webkit-box-orient: vertical;
     -webkit-box-direction: normal;
@@ -443,11 +474,50 @@
   #unreadPosts {
     margin-top: 90px !important;
   }
+  #createPostForm {
+    margin-top: 80px !important;
+  }
+  #closeButtonP {
+    top: 100px !important;
+  }
 }
 
 @media only screen and (max-width: 767px) and (min-width: 480px) {
+  #registerInfo {
+    padding-top: 10px;
+    padding-bottom: 10px;
+  }
+  #closeButton {
+    right: 50px !important;
+  }
   .onePostDiv {
     width: 50%;
+  }
+}
+
+@media only screen and (max-width: 1024px) {
+  .mce-div {
+    width: 100%;
+  }
+  #showPost {
+    width: 99vw;
+  }
+  #showPost .mainContainer {
+    width: 100%;
+  }
+}
+
+@media only screen and (max-height: 480px) {
+  #registerInfo {
+    margin-top: 10px;
+    overflow-y: auto;
+    margin-bottom: 10px;
+  }
+}
+
+@media only screen and (max-height: 1024px) {
+  .tox {
+    height: 250px !important;
   }
 }
 /*# sourceMappingURL=mob-style.css.map */

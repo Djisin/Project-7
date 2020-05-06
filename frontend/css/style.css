@@ -1,7 +1,7 @@
 body {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
+  display: -webkit-box !important;
+  display: -ms-flexbox !important;
+  display: flex !important;
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
@@ -42,7 +42,6 @@ body {
           justify-content: center;
   position: fixed;
   z-index: 20;
-  padding-top: 50px;
   left: 0;
   top: 0;
   width: 100%;
@@ -55,21 +54,21 @@ body {
 
 #indexB #divOnTop #closeButton {
   position: absolute;
-  top: 15px;
-  right: 35px;
+  right: 25px;
   color: #f1f1f1;
   font-size: 40px;
   font-weight: bold;
   -webkit-transition: 0.3s;
   transition: 0.3s;
+  text-shadow: 1px 1px 1px #666;
 }
 
 #indexB #divOnTop #closeButton:hover {
   color: black;
   text-decoration: none;
   cursor: pointer;
-  -webkit-transform: scale3d(1.4, 1.4, 1.4) translate3d(-5px, 5px, 0) rotate(1080deg);
-          transform: scale3d(1.4, 1.4, 1.4) translate3d(-5px, 5px, 0) rotate(1080deg);
+  -webkit-transform: scale3d(1.1, 1.1, 1.1) rotate(1080deg);
+          transform: scale3d(1.1, 1.1, 1.1) rotate(1080deg);
 }
 
 #indexB #divOnTop #closeButton:focus {
@@ -86,33 +85,37 @@ body {
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
-  width: 600px;
+  height: auto;
   background: rgba(255, 255, 255, 0.8);
-  border-radius: 20px;
-  margin-top: -15vh;
-  padding: 20px;
+  border-radius: 6px;
+  padding: 15px;
+  /* padding-left: 10px;
+    padding-right: 10px;*/
+  /*align-self: center;
+      margin-top: 30px;
+      margin-bottom: 30px;
+      width: 120px;
+      font-size: 18px;
+      border-radius: 10px;
+    }*/
 }
 
 #indexB #registerInfo label {
   margin-top: 10px;
   margin-bottom: 10px;
-  font-size: 16px;
+  font-size: 14px;
+}
+
+#indexB #registerInfo div {
+  margin-bottom: 5px;
 }
 
 #indexB #registerInfo input {
-  margin-bottom: 20px;
-  border-radius: 7px;
+  border-radius: 6px;
 }
 
 #indexB #registerInfo button {
-  -ms-flex-item-align: center;
-      -ms-grid-row-align: center;
-      align-self: center;
-  margin-top: 30px;
   margin-bottom: 30px;
-  width: 120px;
-  font-size: 18px;
-  border-radius: 10px;
 }
 
 #searchInputDiv #searchInput {
@@ -141,8 +144,8 @@ body {
 
 footer {
   text-align: center !important;
-  padding: 5px !important;
   width: 100%;
+  bottom: 0;
   margin-top: 15px;
   color: #888;
 }
@@ -262,6 +265,15 @@ footer i {
   border-color: #fff;
 }
 
+.help-block {
+  height: 18px;
+  text-align: left;
+  padding-left: 5px;
+  font-size: 12px;
+  margin-top: 0 !important;
+  margin-bottom: 12px;
+}
+
 nav img {
   margin-top: -10px;
 }
@@ -280,7 +292,6 @@ nav img {
           justify-content: center;
   position: fixed;
   z-index: 20;
-  padding-top: 50px;
   left: 0;
   top: 0;
   width: 100%;
@@ -291,27 +302,27 @@ nav img {
           animation: zoom 0.2s linear;
 }
 
-#createPostSection #closeButton {
+#createPostSection #closeButtonP {
   position: absolute;
-  top: 15px;
-  right: 35px;
+  right: 25px;
   color: #f1f1f1;
   font-size: 40px;
   font-weight: bold;
   -webkit-transition: 0.3s;
   transition: 0.3s;
+  text-shadow: 1px 1px 1px #666;
   top: 45px;
 }
 
-#createPostSection #closeButton:hover {
+#createPostSection #closeButtonP:hover {
   color: black;
   text-decoration: none;
   cursor: pointer;
-  -webkit-transform: scale3d(1.4, 1.4, 1.4) translate3d(-5px, 5px, 0) rotate(1080deg);
-          transform: scale3d(1.4, 1.4, 1.4) translate3d(-5px, 5px, 0) rotate(1080deg);
+  -webkit-transform: scale3d(1.1, 1.1, 1.1) rotate(1080deg);
+          transform: scale3d(1.1, 1.1, 1.1) rotate(1080deg);
 }
 
-#createPostSection #closeButton:focus {
+#createPostSection #closeButtonP:focus {
   color: #bbb;
   text-decoration: none;
   cursor: pointer;
@@ -319,11 +330,23 @@ nav img {
 
 #createPostSection #createPostForm {
   padding-bottom: 20px;
-  border-radius: 15px;
+  border-radius: 3px;
   background-color: rgba(255, 255, 255, 0.8);
+  margin-top: 50px;
   max-width: 600px;
-  width: auto;
+  width: 100%;
+  overflow-x: hidden;
   overflow-y: auto;
+  max-height: 98vh;
+  -ms-overflow-style: none;
+  /* Internet Explorer 10+ */
+  scrollbar-width: none;
+  /* Firefox */
+}
+
+#createPostSection #createPostForm::-webkit-scrollbar {
+  display: none;
+  /* Safari and Chrome */
 }
 
 #createPostSection #createPostForm label {
@@ -343,13 +366,6 @@ nav img {
 #createPostSection #createPostForm input#fileupload {
   max-width: 250px;
   text-align: left;
-}
-
-#createPostSection #createPostForm span {
-  /*text-align: left;
-      font-size: 12px;
-      padding-left: 10px;
-      height: 15px;*/
 }
 
 #createPostSection #createPostForm #uploadDiv {
@@ -385,19 +401,26 @@ nav img {
           box-shadow: 5px 5px rgba(160, 160, 160, 0.5);
 }
 
-#createPostSection #createPostForm textarea {
-  /* border-radius: 7px;
-      max-width: 100% ;
-      min-width:100%;
-      max-height: 250px;
-      min-height: 120px;
-      overflow-y: scroll;*/
+#createPostSection #createPostForm button {
+  margin-left: 5px;
+  margin-bottom: 3px;
+  padding: 2px 8px 2px 8px;
+  font-style: italic;
+  font-size: 13px;
+  color: #000;
 }
 
-#createPostSection #createPostForm button {
-  /*width: 100px;
-      font-size: 15px;
-      border-radius: 7px;*/
+#createPostSection #createPostForm button:hover {
+  -webkit-transform: scale(1.2);
+          transform: scale(1.2);
+  -webkit-transition-duration: 0.25s;
+          transition-duration: 0.25s;
+  text-decoration: none;
+  color: #5989d1;
+}
+
+#createPostSection #createPostForm button#submitPostButton {
+  margin-bottom: 20px;
 }
 
 #createPostSection #createPostForm button#removeImgButton {
@@ -581,10 +604,12 @@ nav img {
           align-items: stretch;
   -ms-flex-line-pack: center;
       align-content: center;
-  overflow: hidden;
+  overflow-x: hidden;
+  overflow-y: hidden;
   max-width: 1024px;
   -ms-flex-item-align: center;
       align-self: center;
+  margin-top: 5px;
 }
 
 #showPost .mainContainer {
@@ -631,10 +656,6 @@ nav img {
   text-align: justify;
 }
 
-#showPost .mainContainer i {
-  font-size: 18px;
-}
-
 #showPost .mainContainer .timePeriods {
   -ms-flex-item-align: center;
       align-self: center;
@@ -646,8 +667,7 @@ nav img {
   -webkit-box-direction: normal;
       -ms-flex-direction: row;
           flex-direction: row;
-  -ms-flex-wrap: wrap;
-      flex-wrap: wrap;
+  width: 100%;
 }
 
 #showPost .mainContainer .timePeriods .editedClass {
@@ -767,6 +787,24 @@ nav img {
   border-color: black transparent transparent transparent;
 }
 
+#showPost .mainContainer .dropdown-menu {
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  left: -100px;
+  right: 100px;
+  top: -20px;
+}
+
+#showPost .mainContainer .dropdown-menu > button:first-child {
+  margin-left: 5px !important;
+}
+
+#showPost .mainContainer .single-comment-div {
+  width: 100%;
+}
+
 #showPost #divOnTop {
   display: none;
   -webkit-box-orient: vertical;
@@ -781,7 +819,6 @@ nav img {
           justify-content: center;
   position: fixed;
   z-index: 20;
-  padding-top: 50px;
   left: 0;
   top: 0;
   width: 100%;
@@ -792,27 +829,27 @@ nav img {
           animation: zoom 0.2s linear;
 }
 
-#showPost #divOnTop #closeButton {
+#showPost #divOnTop #closeButtonP {
   position: absolute;
-  top: 15px;
-  right: 35px;
+  right: 25px;
   color: #f1f1f1;
   font-size: 40px;
   font-weight: bold;
   -webkit-transition: 0.3s;
   transition: 0.3s;
+  text-shadow: 1px 1px 1px #666;
   top: 45px;
 }
 
-#showPost #divOnTop #closeButton:hover {
+#showPost #divOnTop #closeButtonP:hover {
   color: black;
   text-decoration: none;
   cursor: pointer;
-  -webkit-transform: scale3d(1.4, 1.4, 1.4) translate3d(-5px, 5px, 0) rotate(1080deg);
-          transform: scale3d(1.4, 1.4, 1.4) translate3d(-5px, 5px, 0) rotate(1080deg);
+  -webkit-transform: scale3d(1.1, 1.1, 1.1) rotate(1080deg);
+          transform: scale3d(1.1, 1.1, 1.1) rotate(1080deg);
 }
 
-#showPost #divOnTop #closeButton:focus {
+#showPost #divOnTop #closeButtonP:focus {
   color: #bbb;
   text-decoration: none;
   cursor: pointer;
@@ -820,11 +857,23 @@ nav img {
 
 #showPost #divOnTop #createPostForm {
   padding-bottom: 20px;
-  border-radius: 15px;
+  border-radius: 3px;
   background-color: rgba(255, 255, 255, 0.8);
+  margin-top: 50px;
   max-width: 600px;
-  width: auto;
+  width: 100%;
+  overflow-x: hidden;
   overflow-y: auto;
+  max-height: 98vh;
+  -ms-overflow-style: none;
+  /* Internet Explorer 10+ */
+  scrollbar-width: none;
+  /* Firefox */
+}
+
+#showPost #divOnTop #createPostForm::-webkit-scrollbar {
+  display: none;
+  /* Safari and Chrome */
 }
 
 #showPost #divOnTop #createPostForm label {
@@ -844,13 +893,6 @@ nav img {
 #showPost #divOnTop #createPostForm input#fileupload {
   max-width: 250px;
   text-align: left;
-}
-
-#showPost #divOnTop #createPostForm span {
-  /*text-align: left;
-      font-size: 12px;
-      padding-left: 10px;
-      height: 15px;*/
 }
 
 #showPost #divOnTop #createPostForm #uploadDiv {
@@ -886,19 +928,26 @@ nav img {
           box-shadow: 5px 5px rgba(160, 160, 160, 0.5);
 }
 
-#showPost #divOnTop #createPostForm textarea {
-  /* border-radius: 7px;
-      max-width: 100% ;
-      min-width:100%;
-      max-height: 250px;
-      min-height: 120px;
-      overflow-y: scroll;*/
+#showPost #divOnTop #createPostForm button {
+  margin-left: 5px;
+  margin-bottom: 3px;
+  padding: 2px 8px 2px 8px;
+  font-style: italic;
+  font-size: 13px;
+  color: #000;
 }
 
-#showPost #divOnTop #createPostForm button {
-  /*width: 100px;
-      font-size: 15px;
-      border-radius: 7px;*/
+#showPost #divOnTop #createPostForm button:hover {
+  -webkit-transform: scale(1.2);
+          transform: scale(1.2);
+  -webkit-transition-duration: 0.25s;
+          transition-duration: 0.25s;
+  text-decoration: none;
+  color: #5989d1;
+}
+
+#showPost #divOnTop #createPostForm button#submitPostButton {
+  margin-bottom: 20px;
 }
 
 #showPost #divOnTop #createPostForm button#removeImgButton {
@@ -2717,7 +2766,6 @@ nav img {
           justify-content: center;
   position: fixed;
   z-index: 20;
-  padding-top: 50px;
   left: 0;
   top: 0;
   width: 100%;
@@ -2730,22 +2778,21 @@ nav img {
 
 #divOnTop #closeButton {
   position: absolute;
-  top: 15px;
-  right: 35px;
+  right: 25px;
   color: #f1f1f1;
   font-size: 40px;
   font-weight: bold;
   -webkit-transition: 0.3s;
   transition: 0.3s;
-  top: 45px;
+  text-shadow: 1px 1px 1px #666;
 }
 
 #divOnTop #closeButton:hover {
   color: black;
   text-decoration: none;
   cursor: pointer;
-  -webkit-transform: scale3d(1.4, 1.4, 1.4) translate3d(-5px, 5px, 0) rotate(1080deg);
-          transform: scale3d(1.4, 1.4, 1.4) translate3d(-5px, 5px, 0) rotate(1080deg);
+  -webkit-transform: scale3d(1.1, 1.1, 1.1) rotate(1080deg);
+          transform: scale3d(1.1, 1.1, 1.1) rotate(1080deg);
 }
 
 #divOnTop #closeButton:focus {

@@ -5,7 +5,7 @@
   justify-content: center;
   position: fixed;
   z-index: 20;
-  padding-top: 50px;
+  //padding-top: 50px;
   left: 0;
   top: 0;
   width: 100%;
@@ -17,17 +17,22 @@
 
 @mixin postSection {
   @include floatingDiv;
-  & #closeButton {
+  & #closeButtonP {
     @include close-button;
     top: 45px;
   }
   & #createPostForm {
     padding-bottom: 20px;
-    border-radius: 15px;
+    border-radius: 3px;
     background-color: $formBackground;
+    margin-top: 50px;
+    //margin-bottom:30px;
     max-width: 600px;
-    width: auto;
+    width: 100%;
+    overflow-x: hidden;
     overflow-y: auto;
+    max-height: 98vh;
+    @include hide-scroll-bar;
     & label {
       margin-top: 10px;
       &#fileuploadLabel {
@@ -42,12 +47,6 @@
         max-width: 250px;
         text-align: left;
       }
-    }
-    & span{
-      /*text-align: left;
-      font-size: 12px;
-      padding-left: 10px;
-      height: 15px;*/
     }
     & #uploadDiv {
       display: flex !important;
@@ -72,19 +71,11 @@
       border: 2px 2px solid #fff;
       box-shadow: 5px 5px rgba(160, 160, 160, 0.5);
     }
-    & textarea {
-     /* border-radius: 7px;
-      max-width: 100% ;
-      min-width:100%;
-      max-height: 250px;
-      min-height: 120px;
-      overflow-y: scroll;*/
-    }
-   // @include normal-style-button;
+    @include normal-style-button;
     & button {
-      /*width: 100px;
-      font-size: 15px;
-      border-radius: 7px;*/
+      &#submitPostButton{
+        margin-bottom: 20px;
+      }
       &#removeImgButton {
         margin-top: 10px;
         font-size: 14px;
@@ -102,7 +93,7 @@
   @include floatingDiv;
   & #closeButton {
     @include close-button;
-    top: 45px;
+    //top: 45px;
   }
 }
 @mixin hide-scroll-bar {
