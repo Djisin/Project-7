@@ -23,7 +23,6 @@ exports.createPost = (req, res, next) => {
             'userId': req.session.userId,
             'postTitle': req.body.post.postTitle,
             'postText': req.body.post.postText,
-            'postPicture': '',
             'postLikes': '0',
             'postDislikes': '0',
             'postTimeCreated': today,
@@ -185,8 +184,8 @@ exports.modifyPost = (req, res, next) => {
             }
         })
         post = {
-            'postTitle': req.body.post.postTitleModified,
-            'postText': req.body.post.postTextModified,
+            'postTitle': req.body.post.postTitle,
+            'postText': req.body.post.postText,
             'postPicture': url + '/images/' + req.file.filename,
             'edited': true,
             'timeEdited': today,
@@ -209,16 +208,16 @@ exports.modifyPost = (req, res, next) => {
             }
         })
         post = {
-            'postTitle': req.body.post.postTitleModified,
-            'postText': req.body.post.postTextModified,
+            'postTitle': req.body.post.postTitle,
+            'postText': req.body.post.postText,
             'postPicture': null,
             'edited': true,
             'timeEdited': today,
         };
     } else {
         post = {
-            'postTitle': req.body.post.postTitleModified,
-            'postText': req.body.post.postTextModified,
+            'postTitle': req.body.post.postTitle,
+            'postText': req.body.post.postText,
             'edited': true,
             'timeEdited': today,
         };
@@ -235,14 +234,16 @@ exports.modifyPost = (req, res, next) => {
 exports.deletePost = (req, res, next) => {
     connection.query(`SELECT postPicture FROM post WHERE postId = ?`, req.params.id, (error, dbpicture) => {
         if (!error) {
-            const filename = dbpicture[0].postPicture.split('/images/')[1];
-            fs.unlink('images/' + filename, (error) => {
-                if (!error) {
-                    console.log('Picture replaced successfully.');
-                } else {
-                    console.log('Previous picture not found, picture saved.');
-                }
-            });
+            if (dbpicture[0].postPicture !== null) {
+                const filename = dbpicture[0].postPicture.split('/images/')[1];
+                fs.unlink('images/' + filename, (error) => {
+                    if (!error) {
+                        console.log('Picture replaced successfully.');
+                    } else {
+                        console.log('Previous picture not found, picture saved.');
+                    }
+                });
+            }
             connection.query('DELETE FROM post WHERE postId = ?', req.params.id, (error) => {
                 if (!error) {
                     connection.query('DELETE FROM comment WHERE postId = ?', req.params.id, (error) => {
@@ -390,7 +391,7 @@ exports.likesPost = (req, res, next) => {
                 }
             } else {
                 res.status(404).json({
-                    error:error
+                    error: error
                 })
             }
         })

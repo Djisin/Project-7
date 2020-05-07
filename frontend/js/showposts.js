@@ -15,6 +15,10 @@ request.onload = function () {
             for (let i = 0; i < data.posts.length; i++) {
                 const container = document.getElementById('unreadPosts');
 
+                setTimeout(() => {
+                    container.style.opacity = '1';
+                    document.getElementsByTagName('footer')[0].style.opacity = '1';
+                }, 750);
                 const postDiv = document.createElement('div');
                 postDiv.setAttribute('class', 'onePostDiv');
                 container.appendChild(postDiv);
@@ -40,6 +44,7 @@ request.onload = function () {
                 contentDiv.setAttribute('class', 'col-md-12 col-sm-12 contentDiv');
                 postDiv.appendChild(contentDiv);
                 let postPicture
+                let postText = document.createElement('div');
                 if (!data.posts[i].postPicture == null || !data.posts[i].postPicture == '') {
                     postPicture = document.createElement('img');
                     postPicture.setAttribute('class', 'postPictureClass');
@@ -48,21 +53,22 @@ request.onload = function () {
                         postPicture.setAttribute('src', 'img/picPH.jpg')
                     }
                     contentDiv.appendChild(postPicture);
-                    
+
                     if (data.posts[i].postText.length < 170) {
                         contentDiv.style.display = 'flex'
                         contentDiv.style.flexWrap = 'wrap'
+                        contentDiv.style.flexDirection = ''
                         postPicture.style.marginLeft = 'auto';
                         postPicture.style.marginRight = 'auto';
                         postPicture.style.maxWidth = '100%';
                         postPicture.style.maxHeight = '190px';
                         postPicture.style.marginBottom = '7px';
-                        //postPicture.style.float = 'right';
+                        postPicture.style.float = 'none';
+                        postText.style.minWidth = '100%'
                     }
                 }
-                let postText
+
                 if (!data.posts[i].postText == null || !data.posts[i].postText == '') {
-                    postText = document.createElement('div');
                     postText.setAttribute('class', 'postTextClass');
                     postText.innerHTML = data.posts[i].postText;
                     contentDiv.appendChild(postText);
@@ -73,34 +79,30 @@ request.onload = function () {
                 postDiv.appendChild(createdByDiv);
 
                 const creatorDiv = document.createElement('div');
-                creatorDiv.setAttribute('class','creatorDiv');
+                creatorDiv.setAttribute('class', 'creatorDiv');
                 createdByDiv.appendChild(creatorDiv);
 
                 const createdBy = document.createElement('h5');
                 createdBy.innerText = data.posts[i].username;
                 creatorDiv.appendChild(createdBy);
-                
+
                 const postTimeCreated = document.createElement('p');
                 postTimeCreated.textContent = countTime(data.posts[i].postTimeCreated);
                 creatorDiv.appendChild(postTimeCreated)
 
                 likesDiv = document.createElement('div');
-                likesDiv.setAttribute('class','likesDiv');
+                likesDiv.setAttribute('class', 'likesDiv');
                 createdByDiv.appendChild(likesDiv);
 
                 likes = document.createElement('i');
                 likes.setAttribute('class', 'far fa-thumbs-up');
-                if (data.posts[i].postLikes > 0) {
-                    likes.style.color = '#639a67'
-                }
+
                 likes.innerText = '' + data.posts[i].postLikes;
                 likesDiv.appendChild(likes);
 
                 dislikes = document.createElement('i');
                 dislikes.setAttribute('class', 'far fa-thumbs-down');
-                if (data.posts[i].postDislikes > 0) {
-                    dislikes.style.color = '#da2d2d';
-                }
+
                 dislikes.innerText = '' + data.posts[i].postDislikes;
                 likesDiv.appendChild(dislikes);
 

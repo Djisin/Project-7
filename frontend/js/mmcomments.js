@@ -208,6 +208,9 @@ function commentBuilder(
     const userImg = document.createElement('img');
     userImg.setAttribute('src', ImgSrc)
     userImg.setAttribute('alt', 'User picture')
+    userImg.onerror = () => {
+        userImg.setAttribute('src', 'img/userDef.jpg')
+    }
     whoAndWhen.appendChild(userImg)
 
     let byWho

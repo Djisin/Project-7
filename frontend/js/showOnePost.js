@@ -4,7 +4,7 @@ const showPost = document.getElementById('showPost');
 
 let url = window.location.href
 let reqPostId = url.substring(url.lastIndexOf('?') + 1)
-
+reqPostId = reqPostId.replace(/[^0-9]/g,'');
 let request = new XMLHttpRequest();
 
 request.open('GET', api + '/' + reqPostId + '/post', true);
@@ -14,10 +14,15 @@ request.onload = function () {
     data = JSON.parse(this.response);
     if (request.status >= 200 && request.status < 400) {
         const userCredentials = document.getElementById('credentials');
-        userCredentials.innerText = data.userInfo[0].firstName + ' ' + data.userInfo[0].lastName
+        userCredentials.innerText = data.userInfo[0].firstName + ' ' + data.userInfo[0].lastName;
 
         const container = document.createElement('div');
         container.setAttribute('class', 'col-xs-12 col-sm-12 col-md-12 mainContainer');
+
+        setTimeout(() => {
+            container.style.opacity = '1';
+            document.getElementsByTagName('footer')[0].style.opacity = '1';
+        }, 750);
 
         const postTitle = document.createElement('h3');
         postTitle.setAttribute('class', 'postTitleClass');
@@ -104,27 +109,26 @@ request.onload = function () {
             postReport.innerText = 'report';
             if (screen.width > 600) {
                 buttonDiv.appendChild(postReport)
-            } else if(data.userInfo[0].admin !== 1) {
+            } else if (data.userInfo[0].admin !== 1) {
                 hamburgerMenu(buttonDiv, [postReport])
             }
-
             reportEventListener(postReport, timePeriods, data.post[0].postId, data.post[0].userId, (undefined))
         }
         if (data.userCreatedThisPost || data.userInfo[0].admin === 1) {
             const modifyButton = document.createElement('button');
+            modifyButton.setAttribute('id', 'modifyButton')
             modifyButton.setAttribute('class', 'btn btn-link');
             modifyButton.innerHTML = 'modify';
-            // buttonDiv.appendChild(modifyButton);
-
-            modifyButton.addEventListener('click', () => {
-                showPost.removeChild(container)
-                modifyUserPost()
-            });
+            createOrEditArticle(('modify'), (data.post[0].postTitle), (data.post[0].postText), (data.post[0].postPicture), (data.post[0].postId), modifyButton)
+            /*modifyButton.addEventListener('click', () => {
+                //showPost.removeChild(container)
+                
+                //modifyUserPost()
+            }, { once: true });*/
 
             const deleteButton = document.createElement('button');
             deleteButton.setAttribute('class', 'btn btn-link');
             deleteButton.innerHTML = 'delete';
-            //buttonDiv.appendChild(deleteButton);
             if (screen.width > 600) {
                 buttonDiv.append(modifyButton, deleteButton)
             } else if (data.userInfo[0].admin === 1) {
@@ -135,12 +139,14 @@ request.onload = function () {
 
             deleteButton.addEventListener('click', ($event) => {
                 $event.preventDefault();
-                submitMMFormData({ 'delete': 'delete' }, ('DELETE'), (api + '/' + reqPostId)).then(() => {
-                    window.location.href = 'http://127.0.0.1:5500/frontend/home.html';
-                });
+                let result = confirm('Do you really want to delete your Article?');
+                if (result) {
+                    submitMMFormData({ 'delete': 'delete' }, ('DELETE'), (api + '/' + reqPostId)).then(() => {
+                        window.location.href = 'http://127.0.0.1:5500/frontend/home.html';
+                    });
+                }
             });
         };
-        
 
         let timeEdited
         if (!data.post[0].timeEdited == null || !data.post[0].timeEdited == '') {

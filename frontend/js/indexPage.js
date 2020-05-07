@@ -1,3 +1,4 @@
+document.getElementsByTagName('footer')[0].style.opacity = '1'
 let checkApi = 'http://127.0.0.1:3000'
 function makeCheckRequest() {
     return new Promise((resolve, reject) => {

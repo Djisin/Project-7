@@ -11,12 +11,11 @@ inputFile.addEventListener('change', () => {
             removeImgButton = document.createElement('button');
             removeImgButton.setAttribute('class', 'btn btn-link');
             removeImgButton.setAttribute('id', 'removeImgButton');
-            removeImgButton.innerText = 'Remove image';
-
+            removeImgButton.innerText = 'remove image';
 
             uploadDiv = document.getElementById('uploadDiv');
             if (document.getElementById('removeImgButton') === null) {
-                uploadDiv.appendChild(removeImgButton)
+                uploadDiv.appendChild(removeImgButton);
             }
 
             removeImgButton.addEventListener('click', ($event) => {

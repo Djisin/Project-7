@@ -25,11 +25,11 @@
     <script defer type="text/javascript" src='js/scrollToTop.js'></script>
     <script defer type="text/javascript" src="js/bootstrap.min.js"></script>
     <script defer  src="https://cdn.tiny.cloud/1/8ckjio4rd9mfac7820kzad7ef8n51hxtry2abc2m896c5xfo/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
-    <script defer type="text/javascript" src="js/createPost.js"></script>
+    <script async type="text/javascript" src="js/create-modify-article.js"></script>
     <script async type="text/javascript" src="js/comments.js"></script>
 </head>
 
-<body onload="delayAppear">
+<body>
     <div class="lds-ripple">
         <div></div>
         <div></div>
@@ -48,8 +48,8 @@
             </div>
             <div class="collapse navbar-collapse" id="myNavbar">
                 <ul class="nav navbar-nav">
-                    <li class="active"><a href="#">Home</a></li>
-                    <li id='createPost'><a href="#">Create Article</a></li>
+                    <li class="active"><a href="/frontend/home.html">Home</a></li>
+                    <li id='createPost'><a href="#" onclick="createOrEditArticle('create')">Create Article</a></li>
                     <li><a href="/frontend/posts.html">Community</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
@@ -88,7 +88,7 @@
         </div>
         <p>© 2020 Groupmania • All rights reserved • Designed by Miloš Radivojević » Freelance Web Developer</p>
     </footer>
-    <script async type="text/javascript" src='js/search.js'></script>
+    <script defer type="text/javascript" src='js/search.js'></script>
     <script async type="text/javascript" src='js/showposts.js'></script>
 </body>
 

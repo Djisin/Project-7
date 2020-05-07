@@ -1,7 +1,7 @@
 body {
-  display: -webkit-box !important;
-  display: -ms-flexbox !important;
-  display: flex !important;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
@@ -54,13 +54,13 @@ body {
 
 #indexB #divOnTop #closeButton {
   position: absolute;
+  top: 0px;
   right: 25px;
   color: #f1f1f1;
   font-size: 40px;
   font-weight: bold;
   -webkit-transition: 0.3s;
   transition: 0.3s;
-  text-shadow: 1px 1px 1px #666;
 }
 
 #indexB #divOnTop #closeButton:hover {
@@ -118,6 +118,13 @@ body {
   margin-bottom: 30px;
 }
 
+#credentials {
+  max-width: 120px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
 #searchInputDiv #searchInput {
   height: 33px;
   border-radius: 0px;
@@ -142,15 +149,22 @@ body {
   height: 33px;
 }
 
-footer {
+.tox {
+  height: 250px !important;
+}
+
+body > footer {
+  opacity: 0;
   text-align: center !important;
   width: 100%;
   bottom: 0;
   margin-top: 15px;
   color: #888;
+  -webkit-transition: 1s ease-out;
+  transition: 1s ease-out;
 }
 
-footer i {
+body > footer i {
   font-size: 18px;
   color: #888;
   margin-right: 25px;
@@ -244,7 +258,7 @@ footer i {
           justify-content: center;
   height: auto;
   width: 400px;
-  margin-top: 20vh;
+  margin-top: 15vh;
   max-height: 500px;
   background-color: rgba(255, 255, 255, 0.4);
   border-radius: 20px;
@@ -279,6 +293,7 @@ nav img {
 }
 
 #createPostSection {
+  padding-bottom: 5px;
   display: none;
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
@@ -304,13 +319,13 @@ nav img {
 
 #createPostSection #closeButtonP {
   position: absolute;
+  top: 0px;
   right: 25px;
   color: #f1f1f1;
   font-size: 40px;
   font-weight: bold;
   -webkit-transition: 0.3s;
   transition: 0.3s;
-  text-shadow: 1px 1px 1px #666;
   top: 45px;
 }
 
@@ -332,7 +347,7 @@ nav img {
   padding-bottom: 20px;
   border-radius: 3px;
   background-color: rgba(255, 255, 255, 0.8);
-  margin-top: 50px;
+  margin-top: 55px;
   max-width: 600px;
   width: 100%;
   overflow-x: hidden;
@@ -419,6 +434,10 @@ nav img {
   color: #5989d1;
 }
 
+#createPostSection #createPostForm button {
+  font-size: 14px;
+}
+
 #createPostSection #createPostForm button#submitPostButton {
   margin-bottom: 20px;
 }
@@ -457,6 +476,9 @@ nav img {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  opacity: 0;
+  -webkit-transition: 1s ease-out;
+  transition: 1s ease-out;
   -webkit-box-orient: horizontal;
   -webkit-box-direction: normal;
       -ms-flex-direction: row;
@@ -613,6 +635,7 @@ nav img {
 }
 
 #showPost .mainContainer {
+  opacity: 0;
   border: 4px double rgba(95, 131, 165, 0.75);
   border-radius: 6px;
   margin-top: 50px;
@@ -631,6 +654,8 @@ nav img {
   padding: 0;
   -ms-flex-item-align: center;
       align-self: center;
+  -webkit-transition: 1s ease-out;
+  transition: 1s ease-out;
 }
 
 #showPost .mainContainer h3 {
@@ -803,9 +828,15 @@ nav img {
 
 #showPost .mainContainer .single-comment-div {
   width: 100%;
+  z-index: 2;
+}
+
+#showPost .mainContainer .single-comment-div .single-comment-div {
+  width: 95%;
 }
 
 #showPost #divOnTop {
+  padding-bottom: 5px;
   display: none;
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
@@ -831,13 +862,13 @@ nav img {
 
 #showPost #divOnTop #closeButtonP {
   position: absolute;
+  top: 0px;
   right: 25px;
   color: #f1f1f1;
   font-size: 40px;
   font-weight: bold;
   -webkit-transition: 0.3s;
   transition: 0.3s;
-  text-shadow: 1px 1px 1px #666;
   top: 45px;
 }
 
@@ -859,7 +890,7 @@ nav img {
   padding-bottom: 20px;
   border-radius: 3px;
   background-color: rgba(255, 255, 255, 0.8);
-  margin-top: 50px;
+  margin-top: 55px;
   max-width: 600px;
   width: 100%;
   overflow-x: hidden;
@@ -944,6 +975,10 @@ nav img {
           transition-duration: 0.25s;
   text-decoration: none;
   color: #5989d1;
+}
+
+#showPost #divOnTop #createPostForm button {
+  font-size: 14px;
 }
 
 #showPost #divOnTop #createPostForm button#submitPostButton {
@@ -2778,13 +2813,13 @@ nav img {
 
 #divOnTop #closeButton {
   position: absolute;
+  top: 0px;
   right: 25px;
   color: #f1f1f1;
   font-size: 40px;
   font-weight: bold;
   -webkit-transition: 0.3s;
   transition: 0.3s;
-  text-shadow: 1px 1px 1px #666;
 }
 
 #divOnTop #closeButton:hover {

@@ -11,29 +11,20 @@ if ((window.location.pathname).split('/')[2].split('?')[0] === 'post.html' || (w
         setTimeout(() => {
             if (screen.height - navbar.offsetHeight - footer.offsetHeight > measureContentHeight.offsetHeight) {
                 footer.style.position = 'absolute'
-            }
-        }, 50);
-
-    })
-    let clicks = 0
-    window.addEventListener('click', () => {
-        if (clicks % 2 === 0) {
-            setTimeout(() => {
-                if (screen.height - navbar.offsetHeight - footer.offsetHeight > measureContentHeight.offsetHeight) {
-                    footer.style.position = 'absolute'
-                } else {
-                    footer.style.position = 'relative'
-                }
-            }, 50);
-        } else {
-            if (screen.height - navbar.offsetHeight - footer.offsetHeight > measureContentHeight.offsetHeight - 20) {
-                footer.style.position = 'absolute'
             } else {
                 footer.style.position = 'relative'
             }
-        }
-        clicks++
-    });
+            window.addEventListener('click', () => {
+                setTimeout(() => {
+                    if (screen.height - navbar.offsetHeight - footer.offsetHeight > measureContentHeight.offsetHeight + 20) {
+                        footer.style.position = 'absolute'
+                    } else {
+                        footer.style.position = 'relative'
+                    }
+                }, 30);
+            });
+        }, 50);
+    })
 }
 function createCommentForm(addComment, mmCommentId, subCom, postId) {
     const commentForm = document.createElement('form');

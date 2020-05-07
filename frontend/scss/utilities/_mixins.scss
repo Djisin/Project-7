@@ -16,6 +16,7 @@
 }
 
 @mixin postSection {
+  padding-bottom: 5px;
   @include floatingDiv;
   & #closeButtonP {
     @include close-button;
@@ -25,7 +26,7 @@
     padding-bottom: 20px;
     border-radius: 3px;
     background-color: $formBackground;
-    margin-top: 50px;
+    margin-top: 55px;
     //margin-bottom:30px;
     max-width: 600px;
     width: 100%;
@@ -73,6 +74,7 @@
     }
     @include normal-style-button;
     & button {
+      font-size: 14px;
       &#submitPostButton{
         margin-bottom: 20px;
       }
@@ -85,7 +87,6 @@
       &#submitPostButton{
         margin-top: 10px;
       }
-      
     }
   }
 }
@@ -93,7 +94,6 @@
   @include floatingDiv;
   & #closeButton {
     @include close-button;
-    //top: 45px;
   }
 }
 @mixin hide-scroll-bar {

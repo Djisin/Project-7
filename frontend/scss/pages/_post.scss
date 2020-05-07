@@ -9,6 +9,7 @@
     align-self: center;
     margin-top: 5px;
     .mainContainer {
+        opacity: 0;
         border: 4px double $postShadows;
         border-radius: 6px;
         margin-top: 50px;
@@ -20,6 +21,7 @@
         min-height: auto;
         padding: 0;
         align-self: center;
+        transition: 1s ease-out;
         & h3 {
             font-style: italic;
         }
@@ -111,6 +113,10 @@
         }
         & .single-comment-div{
             width: 100%;
+            z-index: 2;
+            .single-comment-div{
+                width: 95%;
+            }
         }
     }
     & #divOnTop {

@@ -25,10 +25,9 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script defer type="text/javascript" src='js/scrollToTop.js'></script>
     <script defer type="text/javascript" src="js/bootstrap.min.js"></script>
-    <script defer type="text/javascript" src="js/createPost.js"></script>
+    <script async type="text/javascript" src="js/create-modify-article.js"></script>
     <script defer type="text/javascript" src="js/comments.js"></script>
     <script async type="text/javascript" src="js/mmcomments.js"></script>
-    <script defer type="text/javascript" src="js/modifyPost.js"></script>
 </head>
 
 <body>
@@ -51,7 +50,7 @@
             <div class="collapse navbar-collapse" id="myNavbar">
                 <ul class="nav navbar-nav">
                     <li><a href="/frontend/home.html">Home</a></li>
-                    <li id='createPost'><a href="#">Create Article</a></li>
+                    <li id='createPost'><a href="#" onclick="createOrEditArticle('create')">Create Article</a></li>
                     <li><a href="/frontend/posts.html">Community</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
@@ -81,8 +80,8 @@
 
     <section id='createPostSection'></section>
     <section id='showPost'></section>
-    <script async type="text/javascript" src='js/search.js'></script>
-    <script async type="text/javascript" src="js/showOnePost.js"></script>
+    <script defer type="text/javascript" src='js/search.js'></script>
+    <script defer type="text/javascript" src="js/showOnePost.js"></script>
 
     <footer class="modal-footer navbar-inverse">
         <div>

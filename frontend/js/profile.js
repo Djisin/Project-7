@@ -27,6 +27,7 @@ request.onload = function () {
         profileSection.setAttribute('class', 'col-md-12');
         setTimeout(() => {
             profileSection.style.display = 'block'
+            document.getElementsByTagName('footer')[0].style.opacity = '1'
         }, 750);
 
         const leftPart = document.createElement('section');

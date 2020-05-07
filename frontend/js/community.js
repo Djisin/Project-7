@@ -15,7 +15,8 @@ request.onload = function () {
         const communitySection = document.getElementById('community-section');
         communitySection.setAttribute('class', 'col-md-12');
         setTimeout(() => {
-            communitySection.style.display = 'block'
+            communitySection.style.display = 'block';
+            document.getElementsByTagName('footer')[0].style.opacity = '1';
         }, 750);
 
         const leftPart = document.createElement('section');
@@ -99,7 +100,7 @@ request.onload = function () {
         //MiddlePart
         //Located in js/mmPosts.js
         constructCreateMMPost(middlePart);
-        constructMMPost(middlePart, (data.mmContent), (data.userInfo[0].userId),(data.userInfo[0].admin));
+        constructMMPost(middlePart, (data.mmContent), (data.userInfo[0].userId), (data.userInfo[0].admin));
 
         //rightPart
         //Located in js/comments.js

@@ -3,7 +3,7 @@
 @import "../layout/buttons";
 
 body {
-  display: flex!important;
+  display: flex;
   flex-direction: column;
   justify-content: space-between;
   padding: 0;
@@ -35,16 +35,16 @@ body {
     height: auto;
     background: $formBackground;
     border-radius: 6px;
-   // margin-top: -15vh;
-   padding: 15px;
-   /* padding-left: 10px;
+    // margin-top: -15vh;
+    padding: 15px;
+    /* padding-left: 10px;
     padding-right: 10px;*/
     & label {
       margin-top: 10px;
       margin-bottom: 10px;
       font-size: 14px;
     }
-    & div{
+    & div {
       margin-bottom: 5px;
     }
     & input {
@@ -54,7 +54,7 @@ body {
     & button {
       margin-bottom: 30px;
     }
-      /*align-self: center;
+    /*align-self: center;
       margin-top: 30px;
       margin-bottom: 30px;
       width: 120px;
@@ -63,6 +63,13 @@ body {
     }*/
   }
 }
+#credentials {
+  max-width: 120px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
 #searchInputDiv {
   & #searchInput {
     height: 33px;
@@ -71,7 +78,7 @@ body {
   & ul {
     position: absolute;
     width: 266px;
-    top:33px;
+    top: 33px;
     & li {
       text-align: left;
       width: 100%;
@@ -80,7 +87,11 @@ body {
       }
     }
   }
-  & select{
+  & select {
     height: 33px;
   }
+}
+.tox{
+  height:250px!important;
+  //border: 1px solid rgb(114, 8, 8)!important;
 }

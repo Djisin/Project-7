@@ -514,10 +514,4 @@
     margin-bottom: 10px;
   }
 }
-
-@media only screen and (max-height: 1024px) {
-  .tox {
-    height: 250px !important;
-  }
-}
 /*# sourceMappingURL=mob-style.css.map */
