@@ -304,7 +304,7 @@ request.onload = function () {
                             }
                         } else {
                             editWs.value = ''
-                            editWs.placeholder = 'Incorrect link';
+                            editWs.placeholder = 'Link must contain http or https';
                             return
                         }
                     });

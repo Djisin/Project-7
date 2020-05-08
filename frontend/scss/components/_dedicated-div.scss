@@ -41,7 +41,7 @@
     & .div-on-top-content {
         display: flex;
         flex-direction: column;
-        background-color: #fff;
+        background-color: $bgColor;
         width: 500px;
         padding: 0px 10px 10px 10px;
         @include content-boxes;

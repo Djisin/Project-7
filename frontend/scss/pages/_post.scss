@@ -17,7 +17,7 @@
         flex-direction: column;
         align-content: center;
         width: 1024px;
-        background-color: #fff;
+        background-color: $bgColor;
         min-height: auto;
         padding: 0;
         align-self: center;
@@ -78,6 +78,14 @@
                     }
                 }
             }
+            & a {
+                color: #000;
+                &:hover {
+                    transition-duration: 0.25s;
+                    text-decoration: none;
+                    color: $normalStyleButton;
+                }
+            }
         }
         .likes {
             margin: 0;
@@ -100,21 +108,21 @@
                 @include tooltiptext;
             }
         }
-        & .dropdown-menu{
+        & .dropdown-menu {
             //display: flex;
             //align-items: center;
             flex-direction: column;
-            left:-100px;
+            left: -100px;
             right: 100px;
-            top:-20px;
-            &> button:first-child{
-                margin-left: 5px!important;
+            top: -20px;
+            & > button:first-child {
+                margin-left: 5px !important;
             }
         }
-        & .single-comment-div{
+        & .single-comment-div {
             width: 100%;
             z-index: 2;
-            .single-comment-div{
+            .single-comment-div {
                 width: 95%;
             }
         }
@@ -126,8 +134,8 @@
 }
 .addCommentDiv {
     box-shadow: inset 0px 1px 5px -2px $postShadows, 0px 4px 3px -2px $postShadows;
-    height: 30px; 
-    background-color: #fff;
+    height: 30px;
+    background-color: $bgColor;
     align-self: center;
     padding: 0;
     z-index: 1;

@@ -41,7 +41,6 @@ searchInput.addEventListener('keydown', () => {
 $(function () {
     $("body").click(function (e) {
         if (e.target.id == "searchInputDiv" || $(e.target).parents("#searchInputDiv").length) {
-            //alert("Inside div");
         } else {
             searchInput.value = '';
             for (let i = 2; i < document.getElementById('searchInputDiv').children.length; i++) {

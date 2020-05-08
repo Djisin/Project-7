@@ -56,11 +56,12 @@ body {
   position: absolute;
   top: 0px;
   right: 25px;
-  color: #f1f1f1;
+  color: #fff;
   font-size: 40px;
   font-weight: bold;
   -webkit-transition: 0.3s;
   transition: 0.3s;
+  z-index: 1;
 }
 
 #indexB #divOnTop #closeButton:hover {
@@ -119,10 +120,10 @@ body {
 }
 
 #credentials {
-  max-width: 120px;
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
+  text-align: center;
 }
 
 #searchInputDiv #searchInput {
@@ -149,7 +150,7 @@ body {
   height: 33px;
 }
 
-.tox {
+.tox.tox-tinymce {
   height: 250px !important;
 }
 
@@ -321,11 +322,12 @@ nav img {
   position: absolute;
   top: 0px;
   right: 25px;
-  color: #f1f1f1;
+  color: #fff;
   font-size: 40px;
   font-weight: bold;
   -webkit-transition: 0.3s;
   transition: 0.3s;
+  z-index: 1;
   top: 45px;
 }
 
@@ -491,6 +493,8 @@ nav img {
   max-width: 1024px;
   margin-top: 50px;
   background-color: rgba(208, 214, 232, 0.4);
+  -webkit-box-shadow: 2px 2px 2px 0 rgba(73, 73, 73, 0.6);
+          box-shadow: 2px 2px 2px 0 rgba(73, 73, 73, 0.6);
   padding-top: 15px;
   padding-bottom: 15px;
 }
@@ -512,8 +516,8 @@ nav img {
   margin: 4px;
   width: 240px;
   height: 300px;
-  -webkit-box-shadow: 4px 2px 4px 0 rgba(73, 73, 73, 0.6);
-          box-shadow: 4px 2px 4px 0 rgba(73, 73, 73, 0.6);
+  -webkit-box-shadow: 2px 2px 2px 0 rgba(73, 73, 73, 0.6);
+          box-shadow: 2px 2px 2px 0 rgba(73, 73, 73, 0.6);
   border-radius: 5px;
   padding-bottom: 2px;
 }
@@ -525,14 +529,17 @@ nav img {
           box-shadow: 0px 2px 4px -1px rgba(95, 131, 165, 0.75);
   margin: 0 0 5px 0;
   padding: 8px;
-  border-radius: 0 0px 0 0;
+  border-radius: 5px 5px 0 0;
   font-size: 16px;
   height: auto;
   max-height: 50px;
 }
 
 #showAllPosts .onePostDiv .postTitleClass.SeenPost {
-  background-color: rgba(12, 128, 236, 0.9);
+  background-color: rgba(17, 81, 141, 0.6);
+  -webkit-box-shadow: 0px 1px 3px -1px rgba(0, 0, 0, 0.9);
+          box-shadow: 0px 1px 3px -1px rgba(0, 0, 0, 0.9);
+  color: rgba(255, 255, 255, 0.75);
 }
 
 #showAllPosts .onePostDiv .contentDiv {
@@ -543,7 +550,6 @@ nav img {
   overflow: hidden;
   -ms-flex-item-align: start;
       align-self: flex-start;
-  padding-bottom: 5px;
 }
 
 #showAllPosts .onePostDiv .contentDiv .postTextClass {
@@ -556,9 +562,14 @@ nav img {
   height: inherit;
 }
 
+#showAllPosts .onePostDiv .contentDiv .postTextClass h1, #showAllPosts .onePostDiv .contentDiv .postTextClass h2, #showAllPosts .onePostDiv .contentDiv .postTextClass h3, #showAllPosts .onePostDiv .contentDiv .postTextClass h4, #showAllPosts .onePostDiv .contentDiv .postTextClass h5, #showAllPosts .onePostDiv .contentDiv .postTextClass h6, #showAllPosts .onePostDiv .contentDiv .postTextClass em {
+  font-size: 16px;
+  margin: 0;
+}
+
 #showAllPosts .onePostDiv .contentDiv img {
-  margin: 10px 10px 0 0;
-  max-width: 120px;
+  margin: 10px 0px 0 0;
+  max-width: 100%;
   max-height: 110px;
   -webkit-box-shadow: 3px 2px 3px 0 rgba(73, 73, 73, 0.75);
           box-shadow: 3px 2px 3px 0 rgba(73, 73, 73, 0.75);
@@ -569,7 +580,7 @@ nav img {
           box-shadow: 0px -2px 4px -1px rgba(95, 131, 165, 0.75);
   -ms-flex-item-align: end;
       align-self: flex-end;
-  margin-top: 16px;
+  margin-top: 18px;
   height: 47px;
   width: 100%;
   padding: 0 10px 0 10px;
@@ -754,6 +765,17 @@ nav img {
   margin-left: auto;
 }
 
+#showPost .mainContainer .createdByMain a {
+  color: #000;
+}
+
+#showPost .mainContainer .createdByMain a:hover {
+  -webkit-transition-duration: 0.25s;
+          transition-duration: 0.25s;
+  text-decoration: none;
+  color: #5989d1;
+}
+
 #showPost .mainContainer .likes {
   margin: 0;
   padding: 5px;
@@ -864,11 +886,12 @@ nav img {
   position: absolute;
   top: 0px;
   right: 25px;
-  color: #f1f1f1;
+  color: #fff;
   font-size: 40px;
   font-weight: bold;
   -webkit-transition: 0.3s;
   transition: 0.3s;
+  z-index: 1;
   top: 45px;
 }
 
@@ -2815,11 +2838,12 @@ nav img {
   position: absolute;
   top: 0px;
   right: 25px;
-  color: #f1f1f1;
+  color: #fff;
   font-size: 40px;
   font-weight: bold;
   -webkit-transition: 0.3s;
   transition: 0.3s;
+  z-index: 1;
 }
 
 #divOnTop #closeButton:hover {

@@ -9,20 +9,29 @@ if ((window.location.pathname).split('/')[2].split('?')[0] === 'post.html' || (w
             measureContentHeight = document.getElementById('unreadPosts')
         }
         setTimeout(() => {
-            if (screen.height - navbar.offsetHeight - footer.offsetHeight > measureContentHeight.offsetHeight) {
+            if (window.innerHeight - navbar.offsetHeight - footer.offsetHeight > measureContentHeight.offsetHeight) {
                 footer.style.position = 'absolute'
             } else {
                 footer.style.position = 'relative'
             }
             window.addEventListener('click', () => {
                 setTimeout(() => {
-                    if (screen.height - navbar.offsetHeight - footer.offsetHeight > measureContentHeight.offsetHeight + 20) {
+                    if (window.innerHeight - navbar.offsetHeight - footer.offsetHeight > measureContentHeight.offsetHeight + 20) {
                         footer.style.position = 'absolute'
                     } else {
                         footer.style.position = 'relative'
                     }
                 }, 30);
             });
+            window.addEventListener('click', () => {
+                setTimeout(() => {
+                    if (window.innerHeight - navbar.offsetHeight - footer.offsetHeight > measureContentHeight.offsetHeight + 20) {
+                        footer.style.position = 'absolute'
+                    } else {
+                        footer.style.position = 'relative'
+                    }
+                }, 150);
+            },{once:true});
         }, 50);
     })
 }

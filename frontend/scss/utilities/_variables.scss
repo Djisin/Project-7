@@ -1,10 +1,14 @@
 //Background color for register and create post bg
 $formBackground: rgba(255, 255, 255, 0.8);
 //Section titles on home page
-$sectionTitles: #fff;
-//Individual post Titles
+$bgColor: #fff;
+//Individual unread post Titles (seen/read titles have 20% lighten bg of $postShadows)
 $postTitles: rgba(189, 189, 189, 0.6);
 //Post shadows:
-$postShadows:rgba(95, 131, 165, 0.75);
+$postShadows: rgba(95, 131, 165, 0.75);
 //Normal style button hover color:
-$normalStyleButton :rgb(89, 137, 209);
+$normalStyleButton: rgb(89, 137, 209);
+//Bg radial building colors
+$websiteBgColor1: #3c84cc;
+$websiteBgColor2: #4e95d3;
+$websiteBgColor3: #316dc2;

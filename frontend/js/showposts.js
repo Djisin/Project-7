@@ -19,7 +19,7 @@ request.onload = function () {
                     container.style.opacity = '1';
                     document.getElementsByTagName('footer')[0].style.opacity = '1';
                 }, 750);
-                const postDiv = document.createElement('div');
+                const postDiv = document.createElement('article');
                 postDiv.setAttribute('class', 'onePostDiv');
                 container.appendChild(postDiv);
                 postDiv.addEventListener('click', () => {

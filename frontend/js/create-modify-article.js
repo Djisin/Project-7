@@ -17,6 +17,8 @@ function createOrEditArticle(createOrModify, editingTitle, editingText, editingP
     });
     if (createOrModify === 'modify')
         placeholderDiv.appendChild(closeButton);
+    if (createOrModify === 'create' && (window.location.pathname).split('/')[2] !== 'post.html')
+        placeholderDiv.appendChild(closeButton);
 
     pressingButton.addEventListener('click', ($event) => {
         if (createOrModify === 'modify') {
@@ -209,7 +211,7 @@ function createOrEditArticle(createOrModify, editingTitle, editingText, editingP
     }, { once: true });
     function textAlphanumeric(inputtext, alertMsg, titleSpan) {
         let alphaExp = /^(?=.{5,50}$)([a-zA-Z])(_?-?\s?[A-Za-z\d])+$/;
-        if (inputtext.value.match(alphaExp)) {
+        if (inputtext.value.trim().match(alphaExp)) {
             return true;
         } else {
             titleSpan.innerText = alertMsg;
@@ -224,7 +226,7 @@ function createOrEditArticle(createOrModify, editingTitle, editingText, editingP
     }
 
     function getCreatePost() {
-        postTitle = document.getElementById('postTitle').value;
+        postTitle = document.getElementById('postTitle').value.trim();
         postText = tinyMCE.activeEditor.getContent()
         post = { postTitle, postText }
         return post

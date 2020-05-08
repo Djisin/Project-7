@@ -1,5 +1,5 @@
 #userProfile {
-    background-color: #fff;
+    background-color: $bgColor;
     margin-top: 40px;
     align-self: center;
     max-width: 1024px;
@@ -473,7 +473,7 @@
     @include commentFormFormat;
     & .mainComment {
         box-shadow: 0px 2px 4px 0px $postShadows;
-        background-color: #fff;
+        background-color: $bgColor;
         width: 95%;
         align-self: flex-end;
         & .comRightPart {

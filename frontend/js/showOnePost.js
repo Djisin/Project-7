@@ -43,7 +43,7 @@ request.onload = function () {
 
         let postText;
         if (!data.post[0].postText == null || !data.post[0].postText == '') {
-            postText = document.createElement('div');
+            postText = document.createElement('article');
             postText.setAttribute('class', 'postTextClass');
             postText.innerHTML = data.post[0].postText;
             divMainContent.appendChild(postText);
@@ -120,12 +120,7 @@ request.onload = function () {
             modifyButton.setAttribute('class', 'btn btn-link');
             modifyButton.innerHTML = 'modify';
             createOrEditArticle(('modify'), (data.post[0].postTitle), (data.post[0].postText), (data.post[0].postPicture), (data.post[0].postId), modifyButton)
-            /*modifyButton.addEventListener('click', () => {
-                //showPost.removeChild(container)
-                
-                //modifyUserPost()
-            }, { once: true });*/
-
+        
             const deleteButton = document.createElement('button');
             deleteButton.setAttribute('class', 'btn btn-link');
             deleteButton.innerHTML = 'delete';

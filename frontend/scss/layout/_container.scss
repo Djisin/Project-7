@@ -11,7 +11,7 @@ body {
   text-align: center;
   box-sizing: border-box;
   background-repeat: no-repeat;
-  background-image: radial-gradient(ellipse farthest-corner at 0 110%, #3c84cc 0%, #4e95d3 71.5%, #316dc2 70%);
+  background-image: radial-gradient(ellipse farthest-corner at 0 110%, $websiteBgColor1 0%, $websiteBgColor2 71.5%, $websiteBgColor3 70%);
   background-color: rgba(74, 148, 214, 0.9);
   background-attachment: fixed;
   overflow-x: hidden;
@@ -64,10 +64,11 @@ body {
   }
 }
 #credentials {
-  max-width: 120px;
+  //max-width: 120px;
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
+  text-align: center;
 }
 
 #searchInputDiv {
@@ -91,7 +92,6 @@ body {
     height: 33px;
   }
 }
-.tox{
+.tox.tox-tinymce{
   height:250px!important;
-  //border: 1px solid rgb(114, 8, 8)!important;
 }
