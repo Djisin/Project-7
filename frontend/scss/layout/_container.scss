@@ -3,95 +3,87 @@
 @import "../layout/buttons";
 
 body {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  padding: 0;
-  font-family: "Trebuchet MS", sans-serif;
-  text-align: center;
-  box-sizing: border-box;
-  background-repeat: no-repeat;
-  background-image: radial-gradient(ellipse farthest-corner at 0 110%, $websiteBgColor1 0%, $websiteBgColor2 71.5%, $websiteBgColor3 70%);
-  background-color: rgba(74, 148, 214, 0.9);
-  background-attachment: fixed;
-  overflow-x: hidden;
-  overflow-y: auto;
-  min-height: 100%;
-  width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 0;
+    font-family: "Trebuchet MS", sans-serif;
+    text-align: center;
+    box-sizing: border-box;
+    background-repeat: no-repeat;
+    background-image: radial-gradient(
+        ellipse farthest-corner at 0 110%,
+        $websiteBgColor1 0%,
+        $websiteBgColor2 71.5%,
+        $websiteBgColor3 70%
+    );
+    background-color: rgba(74, 148, 214, 0.9);
+    background-attachment: fixed;
+    overflow-x: hidden;
+    overflow-y: auto;
+    min-height: 100%;
+    width: 100%;
 }
 
 #indexB {
-  min-height: 100vh;
-  & #divOnTop {
-    @include floatingDiv;
-    & #closeButton {
-      @include close-button;
+    min-height: 100vh;
+    & #divOnTop {
+        @include floatingDiv;
+        & #closeButton {
+            @include close-button;
+        }
     }
-  }
-  & #registerInfo {
-    display: flex;
-    flex-direction: column;
-    //width: 50%;
-    height: auto;
-    background: $formBackground;
-    border-radius: 6px;
-    // margin-top: -15vh;
-    padding: 15px;
-    /* padding-left: 10px;
-    padding-right: 10px;*/
-    & label {
-      margin-top: 10px;
-      margin-bottom: 10px;
-      font-size: 14px;
+    & #registerInfo {
+        display: flex;
+        flex-direction: column;
+        height: auto;
+        background: $formBackground;
+        border-radius: 6px;
+        padding: 15px;
+        & label {
+            margin-top: 10px;
+            margin-bottom: 10px;
+            font-size: 14px;
+        }
+        & div {
+            margin-bottom: 5px;
+        }
+        & input {
+            border-radius: 6px;
+        }
+        & button {
+            margin-bottom: 30px;
+        }
     }
-    & div {
-      margin-bottom: 5px;
-    }
-    & input {
-      //margin-bottom: 20px;
-      border-radius: 6px;
-    }
-    & button {
-      margin-bottom: 30px;
-    }
-    /*align-self: center;
-      margin-top: 30px;
-      margin-bottom: 30px;
-      width: 120px;
-      font-size: 18px;
-      border-radius: 10px;
-    }*/
-  }
 }
 #credentials {
-  //max-width: 120px;
-  text-overflow: ellipsis;
-  overflow: hidden;
-  white-space: nowrap;
-  text-align: center;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    text-align: center;
 }
 
 #searchInputDiv {
-  & #searchInput {
-    height: 33px;
-    border-radius: 0px;
-  }
-  & ul {
-    position: absolute;
-    width: 266px;
-    top: 33px;
-    & li {
-      text-align: left;
-      width: 100%;
-      &:hover {
-        background-color: papayawhip;
-      }
+    & #searchInput {
+        height: 33px;
+        border-radius: 0px;
     }
-  }
-  & select {
-    height: 33px;
-  }
+    & ul {
+        position: absolute;
+        width: 266px;
+        top: 33px;
+        & li {
+            text-align: left;
+            width: 100%;
+            &:hover {
+                background-color: papayawhip;
+            }
+        }
+    }
+    & select {
+        height: 33px;
+    }
 }
-.tox.tox-tinymce{
-  height:250px!important;
+.tox.tox-tinymce {
+    height: 250px !important;
 }

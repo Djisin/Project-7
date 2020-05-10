@@ -1,11 +1,11 @@
 let footer = document.getElementsByClassName('modal-footer')[0]
 let navbar = document.getElementsByClassName('navbar-fixed-top')[0]
 let measureContentHeight
-if ((window.location.pathname).split('/')[2].split('?')[0] === 'post.html' || (window.location.pathname).split('/')[2].split('?')[0] === 'home.html') {
+if ((window.location.pathname).split('/')[1].split('?')[0] === 'post.html' || (window.location.pathname).split('/')[1].split('?')[0] === 'home.html') {
     window.addEventListener('load', () => {
-        if ((window.location.pathname).split('/')[2].split('?')[0] === 'post.html') {
+        if ((window.location.pathname).split('/')[1].split('?')[0] === 'post.html') {
             measureContentHeight = document.getElementById('showPost');
-        } else if ((window.location.pathname).split('/')[2].split('?')[0] === 'home.html') {
+        } else if ((window.location.pathname).split('/')[1].split('?')[0] === 'home.html') {
             measureContentHeight = document.getElementById('unreadPosts')
         }
         setTimeout(() => {
@@ -31,7 +31,7 @@ if ((window.location.pathname).split('/')[2].split('?')[0] === 'post.html' || (w
                         footer.style.position = 'relative'
                     }
                 }, 150);
-            },{once:true});
+            }, { once: true });
         }, 50);
     })
 }
@@ -108,7 +108,7 @@ function createCommentForm(addComment, mmCommentId, subCom, postId) {
     commentButtonDiv.lastChild.addEventListener('click', ($event) => {
         $event.preventDefault()
         if (commentInput.value.trim().length > 0) {
-            if ((window.location.pathname).split('/')[2].split('?')[0] === 'post.html') {
+            if ((window.location.pathname).split('/')[1].split('?')[0] === 'post.html') {
                 if (subCom === true) {
                     comment = addComment.getElementsByClassName('commentTextInput')[0].value;
                     let submitComment = { comment, mmCommentId, postId };
@@ -122,7 +122,7 @@ function createCommentForm(addComment, mmCommentId, subCom, postId) {
                     submitMMFormData(submitComment, keyWord, apiLink).then(() => { window.location.reload() });
                     commentForm.reset();
                 }
-            } else if ((window.location.pathname).split('/')[2] === 'profile.html' || (window.location.pathname).split('/')[2] === 'posts.html') {
+            } else if ((window.location.pathname).split('/')[1] === 'profile.html' || (window.location.pathname).split('/')[1] === 'posts.html') {
                 if (subCom === true) {
                     comment = addComment.getElementsByClassName('commentTextInput')[0].value;
                     let submitComment = { comment, mmCommentId, postId };
@@ -348,7 +348,7 @@ function constructRightPartSuccArticles(attachTo, succPosts) {
             const sucArtListItem1 = document.createElement('li');
 
             const succLink = document.createElement('a');
-            succLink.setAttribute('href', '/frontend/post.html?' + succPosts[j].postId)
+            succLink.setAttribute('href', './post.html?' + succPosts[j].postId)
             succLink.innerText = succPosts[j].postTitle;
             sucArtListItem1.appendChild(succLink)
 
@@ -385,7 +385,7 @@ function constructRPRecCreated(attachTo, recentPosts) {
             const recArtListItem = document.createElement('li');
 
             const recLink = document.createElement('a');
-            recLink.setAttribute('href', '/frontend/post.html?' + recentPosts[j].postId);
+            recLink.setAttribute('href', './post.html?' + recentPosts[j].postId);
             recLink.innerText = recentPosts[j].postTitle;
             recArtListItem.appendChild(recLink);
 
@@ -470,19 +470,4 @@ function countTime(timeToCount) {
         console.log('Problem with times in the function');
     }
     return diffTime;
-}
-logoutFunction()
-function logoutFunction() {
-    logoutApi = 'http://127.0.0.1:3000'
-    logoutButton = document.getElementById('logoutButton');
-
-    logoutButton.addEventListener('click', () => {
-        submitMMFormData(logout = undefined, ('POST'), ('http://127.0.0.1:3000/logout')).then(resp => {
-            if (resp.loggedOut === true) {
-                window.location.href = 'http://127.0.0.1:5500/frontend/index.html'
-            } else {
-                console.log('Unable to log out, contact support')
-            }
-        });
-    });
 }

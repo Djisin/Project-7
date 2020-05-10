@@ -1,12 +1,12 @@
 .hamburger-dropdown {
     @include normal-style-button;
-    margin:3px;
-    & button{
+    margin: 3px;
+    & button {
         display: block;
         margin-left: auto;
         margin-right: auto;
     }
-    & .dropdown-menu{
+    & .dropdown-menu {
         display: none;
         min-width: 100px;
         text-align: center;
@@ -15,7 +15,7 @@
         justify-content: center;
     }
 }
-.whoAndWhen>.hamburger-dropdown{
+.whoAndWhen > .hamburger-dropdown {
     margin: 0;
     margin-top: 6px;
     padding: 0;

@@ -4,7 +4,7 @@ const showPost = document.getElementById('showPost');
 
 let url = window.location.href
 let reqPostId = url.substring(url.lastIndexOf('?') + 1)
-reqPostId = reqPostId.replace(/[^0-9]/g,'');
+reqPostId = reqPostId.replace(/[^0-9]/g, '');
 let request = new XMLHttpRequest();
 
 request.open('GET', api + '/' + reqPostId + '/post', true);
@@ -56,7 +56,7 @@ request.onload = function () {
         const createdBy = document.createElement('h4');
         createdBy.setAttribute('class', 'createdByClass');
         const createdByLink = document.createElement('a');
-        createdByLink.setAttribute('href', 'http://127.0.0.1:5500/frontend/profile.html?' + data.post[0].userId);
+        createdByLink.setAttribute('href', 'http://127.0.0.1:5500/profile.html?' + data.post[0].userId);
         createdByLink.innerText = data.post[0].username;
         createdBy.appendChild(createdByLink);
         createdByMain.appendChild(createdBy);
@@ -120,7 +120,7 @@ request.onload = function () {
             modifyButton.setAttribute('class', 'btn btn-link');
             modifyButton.innerHTML = 'modify';
             createOrEditArticle(('modify'), (data.post[0].postTitle), (data.post[0].postText), (data.post[0].postPicture), (data.post[0].postId), modifyButton)
-        
+
             const deleteButton = document.createElement('button');
             deleteButton.setAttribute('class', 'btn btn-link');
             deleteButton.innerHTML = 'delete';
@@ -137,7 +137,7 @@ request.onload = function () {
                 let result = confirm('Do you really want to delete your Article?');
                 if (result) {
                     submitMMFormData({ 'delete': 'delete' }, ('DELETE'), (api + '/' + reqPostId)).then(() => {
-                        window.location.href = 'http://127.0.0.1:5500/frontend/home.html';
+                        window.location.href = 'http://127.0.0.1:5500/home.html';
                     });
                 }
             });
@@ -177,7 +177,7 @@ request.onload = function () {
         );
 
     } else {
-        window.location.href = '/frontend/home.html';
+        window.location.href = 'home.html';
     }
 }
 request.send();

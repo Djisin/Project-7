@@ -16,7 +16,7 @@ function redWrap(field, errorMessage) {
 }
 //Validate First Name
 function validateFirstName() {
-    
+
     if (firstName.value.trim().length === 0) {
         redWrap(firstName, 'Please enter your First Name.');
         return false

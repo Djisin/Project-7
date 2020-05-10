@@ -1,105 +1,105 @@
 @mixin floatingDiv {
-  display: none;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  position: fixed;
-  z-index: 20;
-  //padding-top: 50px;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  overflow: auto;
-  background-color: rgba(160, 160, 160, 0.7);
-  animation: zoom 0.2s linear;
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    z-index: 20;
+    //padding-top: 50px;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(160, 160, 160, 0.7);
+    animation: zoom 0.2s linear;
 }
 
 @mixin postSection {
-  padding-bottom: 5px;
-  @include floatingDiv;
-  & #closeButtonP {
-    @include close-button;
-    top: 45px;
-  }
-  & #createPostForm {
-    padding-bottom: 20px;
-    border-radius: 3px;
-    background-color: $formBackground;
-    margin-top: 55px;
-    //margin-bottom:30px;
-    max-width: 600px;
-    width: 100%;
-    overflow-x: hidden;
-    overflow-y: auto;
-    max-height: 98vh;
-    @include hide-scroll-bar;
-    & label {
-      margin-top: 10px;
-      &#fileuploadLabel {
-        display: block;
-        text-align: left;
-        margin-top: 0;
-      }
+    padding-bottom: 5px;
+    @include floatingDiv;
+    & #closeButtonP {
+        @include close-button;
+        top: 45px;
     }
-    & input {
-      border-radius: 7px;
-      &#fileupload{
-        max-width: 250px;
-        text-align: left;
-      }
+    & #createPostForm {
+        padding-bottom: 20px;
+        border-radius: 3px;
+        background-color: $formBackground;
+        margin-top: 55px;
+        //margin-bottom:30px;
+        max-width: 600px;
+        width: 100%;
+        overflow-x: hidden;
+        overflow-y: auto;
+        max-height: 98vh;
+        @include hide-scroll-bar;
+        & label {
+            margin-top: 10px;
+            &#fileuploadLabel {
+                display: block;
+                text-align: left;
+                margin-top: 0;
+            }
+        }
+        & input {
+            border-radius: 7px;
+            &#fileupload {
+                max-width: 250px;
+                text-align: left;
+            }
+        }
+        & #uploadDiv {
+            display: flex !important;
+            flex-direction: column;
+            justify-content: flex-start;
+            padding-left: 0;
+            padding-top: 20px;
+
+            display: inline-block;
+        }
+        & #picDiv {
+            padding-top: 10px;
+            display: inline-block;
+            min-height: 150px;
+        }
+        & img {
+            max-width: 200px;
+            height: auto;
+            max-height: 200px;
+            margin: 0;
+            padding: 0;
+            border: 2px 2px solid $bgColor;
+            box-shadow: 5px 5px rgba(160, 160, 160, 0.5);
+        }
+        @include normal-style-button;
+        & button {
+            font-size: 14px;
+            &#submitPostButton {
+                margin-bottom: 20px;
+            }
+            &#removeImgButton {
+                margin-top: 10px;
+                font-size: 14px;
+                border-radius: 6px;
+                align-self: center;
+            }
+            &#submitPostButton {
+                margin-top: 10px;
+            }
+        }
     }
-    & #uploadDiv {
-      display: flex !important;
-      flex-direction: column;
-      justify-content: flex-start;
-      padding-left: 0;
-      padding-top: 20px;
-      
-      display: inline-block;
-    }
-    & #picDiv {
-      padding-top: 10px;
-      display: inline-block;
-      min-height: 150px;
-    }
-    & img {
-      max-width: 200px;
-      height: auto;
-      max-height: 200px;
-      margin: 0;
-      padding: 0;
-      border: 2px 2px solid $bgColor;
-      box-shadow: 5px 5px rgba(160, 160, 160, 0.5);
-    }
-    @include normal-style-button;
-    & button {
-      font-size: 14px;
-      &#submitPostButton{
-        margin-bottom: 20px;
-      }
-      &#removeImgButton {
-        margin-top: 10px;
-        font-size: 14px;
-        border-radius: 6px;
-        align-self: center;
-      }
-      &#submitPostButton{
-        margin-top: 10px;
-      }
-    }
-  }
 }
 @mixin mm-post-section {
-  @include floatingDiv;
-  & #closeButton {
-    @include close-button;
-  }
+    @include floatingDiv;
+    & #closeButton {
+        @include close-button;
+    }
 }
 @mixin hide-scroll-bar {
-  -ms-overflow-style: none; /* Internet Explorer 10+ */
-  scrollbar-width: none; /* Firefox */
-  &::-webkit-scrollbar {
-    display: none; /* Safari and Chrome */
-  }
+    -ms-overflow-style: none; /* Internet Explorer 10+ */
+    scrollbar-width: none; /* Firefox */
+    &::-webkit-scrollbar {
+        display: none; /* Safari and Chrome */
+    }
 }

@@ -1,8 +1,8 @@
 
 let mmApi
-if ((window.location.pathname).split('/')[2].split('?')[0] === 'post.html') {
+if ((window.location.pathname).split('/')[1].split('?')[0] === 'post.html') {
     mmApi = 'http://127.0.0.1:3000/api/posts';
-} else if ((window.location.pathname).split('/')[2] === 'profile.html' || (window.location.pathname).split('/')[2] === 'posts.html') {
+} else if ((window.location.pathname).split('/')[1] === 'profile.html' || (window.location.pathname).split('/')[1] === 'posts.html') {
     mmApi = 'http://127.0.0.1:3000/api/mmposts';
 }
 
@@ -15,7 +15,7 @@ function inputLabelCommentsSpan(addComment, inputLabel, postId, numberOfComments
                 if (resp !== undefined) {
                     if (resp.postComments.length !== 0) {
                         for (let j = 0; j < resp.postComments.length; j++) {
-                            if ((window.location.pathname).split('/')[2].split('?')[0] === 'post.html') {
+                            if ((window.location.pathname).split('/')[1].split('?')[0] === 'post.html') {
                                 commentBuilder(
                                     singlePost,
                                     (resp.postComments[j].commentId),
@@ -96,7 +96,7 @@ function inputLabel2ndCommentsSpan(add2ndComment, inputLabel2nd, mmCommentId, nu
                 if (resp !== undefined) {
                     if (resp.postComments.length !== 0) {
                         for (let j = 0; j < resp.postComments.length; j++) {
-                            if ((window.location.pathname).split('/')[2].split('?')[0] === 'post.html') {
+                            if ((window.location.pathname).split('/')[1].split('?')[0] === 'post.html') {
                                 commentBuilder(
                                     singleCommentDiv,
                                     (resp.postComments[j].comSecLevId),
@@ -114,6 +114,8 @@ function inputLabel2ndCommentsSpan(add2ndComment, inputLabel2nd, mmCommentId, nu
                                     (resp.postComments[j].comUserDislikes),
                                     (resp.postComments[j].numberOfSubComments = 'disable'),
                                     (postId = undefined),
+                                    j,
+                                    admin
                                 )
                             } else {
                                 commentBuilder(
@@ -133,6 +135,8 @@ function inputLabel2ndCommentsSpan(add2ndComment, inputLabel2nd, mmCommentId, nu
                                     (resp.postComments[j].comUserDislikes),
                                     (resp.postComments[j].numberOfSubComments = 'disable'),
                                     (postId = undefined),
+                                    j,
+                                    admin
                                 )
                             }
 
@@ -216,7 +220,7 @@ function commentBuilder(
     let byWho
     if (whoCreatedComment !== whoIsLoggedIn) {
         byWho = document.createElement('a');
-        byWho.setAttribute('href', 'http://127.0.0.1:5500/frontend/profile.html?' + whoCreatedComment);
+        byWho.setAttribute('href', 'http://127.0.0.1:5500/profile.html?' + whoCreatedComment);
         byWho.innerText = byWhoInfo;
     } else {
         byWho = document.createElement('h5');
@@ -305,12 +309,12 @@ function commentBuilder(
             }
 
         }, { once: true })
-        if(admin ===0){
-         hamburgerMenu(whoAndWhen, [comEdit, comDelete]);   
-        } else if(admin ===1){
+        if (admin === 0) {
+            hamburgerMenu(whoAndWhen, [comEdit, comDelete]);
+        } else if (admin === 1) {
             hamburgerMenu(whoAndWhen, [comEdit, comDelete, comReport]);
         }
-        
+
     }
     const likesDiv = document.createElement('div');
     likesDiv.setAttribute('class', 'likesDiv');

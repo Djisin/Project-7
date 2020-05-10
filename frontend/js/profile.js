@@ -55,6 +55,9 @@ request.onload = function () {
         profPic.onerror = () => {
             profPic.setAttribute('src', 'img/userDef.jpg')
         }
+        const profPicParag = document.createElement('span');
+        profPicParag.setAttribute('class', 'help-block');
+        leftPart.appendChild(profPicParag)
         if ((data.userInfo[0].userId === data.userData[0].userId) || data.userInfo[0].admin === 1) {
             const ripSpan = document.createElement('span');
             ripSpan.setAttribute('class', 'ripple-1');
@@ -67,7 +70,7 @@ request.onload = function () {
         const editPicBtnDiv = document.createElement('div');
         editPicBtnDiv.setAttribute('class', 'btn-group')
         profPicDiv.appendChild(editPicBtnDiv);
-        if ((data.userInfo[0].userId === data.userData[0].userId) || data.userInfo[0].admin===1) {
+        if ((data.userInfo[0].userId === data.userData[0].userId) || data.userInfo[0].admin === 1) {
             let editPicBtn = document.createElement('button');
             editPicBtn.setAttribute('class', 'btn btn-default');
             editPicBtn.innerText = 'Change';
@@ -96,12 +99,28 @@ request.onload = function () {
                         'profPicture': true,
                         'personalLine': null,
                     };
+                    if (!['image/jpg', 'image/jpeg', 'image/png'].includes(changePicIn.type)) {
+                        profPicParag.innerText = 'Only .jpg, .jpeg or .png is allowed.'
+                        profPicParag.style.color = '#a94442'
+                        profPicDiv.style.borderColor = '#a94442'
+                        setTimeout(() => {
+                            profPicParag.innerText = '';
+                            profPicDiv.style.borderColor = '';
+                            profPicParag.style.color = '';
+                        }, 8000);
+                        return false
+                    }
+
                     editedData = JSON.stringify(editedData);
                     let newProfPic = changePicIn.files[0];
                     submitData.append('file', newProfPic);
                     submitData.append('editedData', editedData);
 
-                    submitFormDataProfEdit(submitData);
+                    submitFormDataProfEdit(submitData).then(() => {
+                        setTimeout(() => {
+                            window.location.reload();
+                        }, 250);
+                    });
                 }
             });
         }
@@ -278,15 +297,16 @@ request.onload = function () {
                         }
 
                         if (editWs.value.trim().includes('https://') || editWs.value.trim().includes('http://') || editWs.value.trim().length < 1) {
-                            if (!editFb.value.trim().includes('https://www.facebook.com/')) {
-                                if (!editTw.value.trim().includes('https://twitter.com/')) {
-                                    if (!editLi.value.trim().includes('https://www.linkedin.com/in/')) {
+                            if (editFb.value.trim().includes('https://www.facebook.com/') || editFb.value.trim().length === 0) {
+                                if (editTw.value.trim().includes('https://twitter.com/') || editTw.value.trim().length === 0) {
+                                    if (editLi.value.trim().includes('https://www.linkedin.com/in/') || editLi.value.trim().length === 0) {
                                         editedData = JSON.stringify(editedData);
                                         submitData.append('editedData', editedData);
-                                        submitFormDataProfEdit(submitData);
-                                        setTimeout(() => {
-                                            window.location.reload()
-                                        }, 1000);
+                                        submitFormDataProfEdit(submitData).then(() => {
+                                            setTimeout(() => {
+                                                window.location.reload()
+                                            }, 1000);
+                                        });
                                     } else {
                                         editLi.value = ''
                                         editLi.placeholder = 'Provide your profile link';
@@ -331,7 +351,7 @@ request.onload = function () {
         usersThoughts.innerText = data.userData[0].personalLine;
         if (data.userData[0].personalLine === null || data.userData[0].personalLine === '') {
             if (data.userInfo[0].userId === data.userData[0].userId) {
-                usersThoughts.innerText = 'Share your thoughts'
+                usersThoughts.innerText = 'Share your thoughts';
             }
         }
         headerDiv.appendChild(usersThoughts);
@@ -343,7 +363,11 @@ request.onload = function () {
                 headerDiv.removeChild(usersThoughts);
 
                 const editPersLineTArea = document.createElement('textarea');
-                editPersLineTArea.innerText = usersThoughts.innerText;
+                if (usersThoughts.innerText === 'Share your thoughts') {
+                    editPersLineTArea.innerText = ''
+                } else {
+                    editPersLineTArea.innerText = usersThoughts.innerText;
+                }
                 headerDiv.append(editPersLineTArea);
                 editPersLineTArea.focus();
 
@@ -384,6 +408,8 @@ request.onload = function () {
 
                 editPersLineBtnSub.addEventListener('click', ($event) => {
                     $event.preventDefault();
+                    if (editPersLineTArea.value.trim().length === 0)
+                        editPersLineTArea.value = 'Share your thoughts'
                     let editedData = {
                         'userNetws': null,
                         'profPicture': null,
@@ -549,6 +575,7 @@ request.onload = function () {
             try {
                 const requestPromise = makeRequestProfEdit(submitData);
                 const response = await requestPromise;
+                return response
             }
             catch (errorResponse) {
                 alert(errorResponse);
@@ -556,7 +583,7 @@ request.onload = function () {
         }
         preventJs()
     } else {
-        window.location.href = '/frontend/index.html';
+        window.location.href = 'index.html';
     }
 }
 request.send();

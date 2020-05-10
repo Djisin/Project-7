@@ -9,12 +9,12 @@
             flex-direction: row;
             z-index: 1;
             cursor: pointer;
-            & i{
+            & i {
                 margin-top: 3px;
                 margin-right: 10px;
             }
             @include normal-style-button;
-            & span{
+            & span {
                 align-self: flex-end;
                 margin-left: auto;
                 padding: 0;
@@ -23,7 +23,7 @@
         }
         & label {
             font-weight: 200;
-            &:hover{
+            &:hover {
                 cursor: pointer;
             }
         }
@@ -50,11 +50,10 @@
         }
     }
 }
-#searchOption{
+#searchOption {
     width: auto;
     float: left;
 }
-#searchInput{
+#searchInput {
     width: auto;
-    
 }

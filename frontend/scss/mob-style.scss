@@ -201,7 +201,7 @@
     }
 }
 @media only screen and (max-width: 767px) {
-    #showPost{
+    #showPost {
         margin-top: 0.5vw;
     }
     #sectionB {
@@ -248,13 +248,13 @@
     }
 }
 @media only screen and (max-width: 1142px) and (min-width: 991px) {
-    #createPostForm{
-        margin-top: 80px!important;
+    #createPostForm {
+        margin-top: 80px !important;
     }
-    #closeButtonP{
-        top:100px!important;
+    #closeButtonP {
+        top: 100px !important;
     }
-    #showPost{
+    #showPost {
         margin-top: 55px;
     }
     #sectionB {
@@ -385,7 +385,6 @@
     }
 }
 @media only screen and(max-width:526px) {
-
     #unreadPosts {
         width: 100vw;
         & .onePostDiv {
@@ -402,7 +401,7 @@
     }
 }
 @media only screen and (max-width: 991px) and (min-width: 767px) {
-    #showPost{
+    #showPost {
         margin-top: 55px;
     }
     #sectionB {
@@ -445,15 +444,15 @@
     #unreadPosts {
         margin-top: 90px !important;
     }
-    #createPostForm{
-        margin-top: 80px!important;
+    #createPostForm {
+        margin-top: 80px !important;
     }
-    #closeButtonP{
-        top:100px!important;
+    #closeButtonP {
+        top: 100px !important;
     }
 }
 @media only screen and (max-width: 767px) and (min-width: 480px) {
-    & #registerInfo{
+    & #registerInfo {
         padding-top: 10px;
         padding-bottom: 10px;
     }
@@ -465,19 +464,19 @@
         width: 50%;
     }
 }
-@media only screen and (max-width:1024px){
-    .mce-div{
+@media only screen and (max-width: 1024px) {
+    .mce-div {
         width: 100%;
     }
-    #showPost{
+    #showPost {
         width: 99vw;
-        
-        & .mainContainer{
+
+        & .mainContainer {
             width: 100%;
         }
     }
 }
-@media only screen and (max-height:480px) {
+@media only screen and (max-height: 480px) {
     #registerInfo {
         margin-top: 10px;
         overflow-y: auto;
@@ -485,7 +484,7 @@
     }
 }
 @media only screen and (min-width: 767px) {
-#credentials{
-    max-width: 120px;
-}
+    #credentials {
+        max-width: 120px;
+    }
 }

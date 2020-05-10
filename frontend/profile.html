@@ -10,21 +10,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="Description" content="OpenClassrooms Project 7 Groupomania">
 
-    <link href="../frontend/css/style.css" type="text/css" rel="stylesheet">
-    <link href="../frontend/css/mob-style.css" type="text/css" rel="stylesheet" media="screen and (max-width: 1142px)">
-    <link href="../frontend/css/bootstrap.min.css" type="text/css" rel="stylesheet">
-    <link href="../frontend/img/favico.ico" type="image/x-icon" rel="shourtcut icon">
+    <link href="./css/style.css" type="text/css" rel="stylesheet">
+    <link href="./css/mob-style.css" type="text/css" rel="stylesheet" media="screen and (max-width: 1142px)">
+    <link href="./css/bootstrap.min.css" type="text/css" rel="stylesheet">
+    <link href="./img/favico.ico" type="image/x-icon" rel="shourtcut icon">
 
     <script src="https://kit.fontawesome.com/ef6b1b88f1.js" crossorigin="anonymous"></script>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script defer type="text/javascript" src='js/scrollToTop.js'></script>
-    <script defer type="text/javascript" src='js/bootstrap.min.js'></script>
-    <script defer type="text/javascript" src="js/comments.js"></script>
-    <script async type="text/javascript" src="js/create-modify-article.js"></script>
-    <script defer type="text/javascript" src='js/editMMPost.js'></script>
-    <script defer type="text/javascript" src='js/mmcomments.js'></script>
-    <script defer type="text/javascript" src='js/mmPosts.js'></script>
+    <script defer type="text/javascript" src='./js/scrollToTop.js'></script>
+    <script defer type="text/javascript" src='./js/bootstrap.min.js'></script>
+    <script defer type="text/javascript" src="./js/comments.js"></script>
+    <script async type="text/javascript" src="./js/create-modify-article.js"></script>
+    <script defer type="text/javascript" src='./js/editMMPost.js'></script>
+    <script defer type="text/javascript" src='./js/mmcomments.js'></script>
+    <script defer type="text/javascript" src='./js/mmPosts.js'></script>
     <script>
         window.addEventListener("load", function () {
             $(document).ready(function () {
@@ -48,18 +48,18 @@
                     <span class="icon-bar"></span>
                 </button>
                 <a class="navbar-brand" href="#">
-                    <img src="img/icon-left-font.png" alt="Groupomania">
+                    <img src="./img/icon-left-font.png" alt="Groupomania">
                 </a>
             </div>
             <div class="collapse navbar-collapse" id="myNavbar">
                 <ul class="nav navbar-nav">
-                    <li><a href="/frontend/home.html">Home</a></li>
+                    <li><a href="./home.html">Home</a></li>
                     <li id='createPost'><a href="#" onclick="createOrEditArticle('create')">Create Article</a></li>
-                    <li><a href="/frontend/posts.html">Community</a></li>
+                    <li><a href="./posts.html">Community</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     <li><a id='credentials'></a></li>
-                    <li class='prof'><a href="/frontend/profile.html"><i class="fas fa-user"></i> Profile</a></li>
+                    <li class='prof'><a href="./profile.html"><i class="fas fa-user"></i> Profile</a></li>
                     <li><a href="#" id='logoutButton'><i class="fas fa-sign-in-alt"></i> Logout</a></li>
                 </ul>
 
@@ -82,7 +82,6 @@
     </nav>
     <section id='userProfile'></section>
     <section id='createPostSection'></section>
-    <section id='divOnTop'></section>
     <footer class="modal-footer navbar-inverse">
         <div>
             <a href='#'><i class="fab fa-facebook-square"></i></a>
@@ -92,9 +91,11 @@
         </div>
         <p>© 2020 Groupmania • All rights reserved • Designed by Miloš Radivojević » Freelance Web Developer</p>
     </footer>
-    <script defer type="text/javascript" src='js/search.js'></script>
-    <script async type="text/javascript" src='js/profile.js'></script>
-    <script defer  src="https://cdn.tiny.cloud/1/8ckjio4rd9mfac7820kzad7ef8n51hxtry2abc2m896c5xfo/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+    <script defer type="text/javascript" src='./js/search.js'></script>
+    <script defer type="text/javascript" src='./js/profile.js'></script>
+    <script defer
+        src="https://cdn.tiny.cloud/1/8ckjio4rd9mfac7820kzad7ef8n51hxtry2abc2m896c5xfo/tinymce/5/tinymce.min.js"
+        referrerpolicy="origin"></script>
 </body>
 
 </html>

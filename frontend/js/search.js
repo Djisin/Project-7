@@ -63,7 +63,7 @@ function searchResult(resultResponse) {
                 listItem.setAttribute('class', 'list-group-item');
                 searchListGroup.appendChild(listItem);
                 let listLink = document.createElement('a');
-                listLink.setAttribute('href', '/frontend/post.html?' + resultResponse.foundTitle[i].postId);
+                listLink.setAttribute('href', 'post.html?' + resultResponse.foundTitle[i].postId);
                 listLink.innerText = resultResponse.foundTitle[i].postTitle;
                 listItem.appendChild(listLink)
             }
@@ -80,7 +80,7 @@ function searchResult(resultResponse) {
                 listItem.setAttribute('class', 'list-group-item');
                 searchListGroup.appendChild(listItem);
                 let listLink = document.createElement('a');
-                listLink.setAttribute('href', '/frontend/profile.html?' + resultResponse.foundUser[i].userId);
+                listLink.setAttribute('href', 'profile.html?' + resultResponse.foundUser[i].userId);
                 listLink.innerText = resultResponse.foundUser[i].username;
                 listItem.appendChild(listLink)
             }

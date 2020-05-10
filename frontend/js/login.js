@@ -64,7 +64,7 @@ async function submitLoginFormData(submit) {
         const response = await requestPromise;
         responseId = (JSON.parse(response));
         if (responseId.loggedIn = true) {
-            window.location.href = '/frontend/home.html'
+            window.location.href = 'home.html'
         }
     }
     catch (errorResponse) {

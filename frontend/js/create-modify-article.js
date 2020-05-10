@@ -202,10 +202,14 @@ function createOrEditArticle(createOrModify, editingTitle, editingText, editingP
 
             submitCreate.append('post', submitContent);
             if (createOrModify === 'create')
-                submitCreateFormData(submitCreate, 'POST', 'http://127.0.0.1:3000/api/posts/createPost');
+                submitCreateFormData(submitCreate, 'POST', 'http://127.0.0.1:3000/api/posts/createPost').then(() => {
+                    window.location.href = 'home.html'
+                });
             if (createOrModify === 'modify') {
                 submitCreate.append('prevPic', prevPic);
-                submitCreateFormData(submitCreate, 'PUT', 'http://127.0.0.1:3000/api/posts/' + postId);
+                submitCreateFormData(submitCreate, 'PUT', 'http://127.0.0.1:3000/api/posts/' + postId).then(() => {
+                    window.location.reload();
+                });
             }
         });
     }, { once: true });
@@ -231,37 +235,47 @@ function createOrEditArticle(createOrModify, editingTitle, editingText, editingP
         post = { postTitle, postText }
         return post
     }
-
-    function makeCreateRequest(submitCreate, keyWord, apiLink) {
-        return new Promise((resolve, reject) => {
-            let request = new XMLHttpRequest();
-            request.withCredentials = true;
-            request.open(keyWord, apiLink);
-            request.onreadystatechange = () => {
-                if (request.readyState === 4) {
-                    if (request.status >= 200 && request.status < 400) {
-                        resolve(request.response);
-                    } else {
-                        reject(request.response);
-                    }
+}
+function makeCreateRequest(submitCreate, keyWord, apiLink) {
+    return new Promise((resolve, reject) => {
+        let request = new XMLHttpRequest();
+        request.withCredentials = true;
+        request.open(keyWord, apiLink);
+        request.onreadystatechange = () => {
+            if (request.readyState === 4) {
+                if (request.status >= 200 && request.status < 400) {
+                    resolve(request.response);
+                } else {
+                    reject(request.response);
                 }
-            };
-            request.send(submitCreate);
-        });
-    }
-
-    async function submitCreateFormData(submitCreate, keyWord, apiLink) {
-        try {
-            const requestPromise = makeCreateRequest(submitCreate, keyWord, apiLink);
-            const response = await requestPromise;
-            responseId = (JSON.parse(response));
-            if (createOrModify === 'create')
-                window.location.href = '/frontend/home.html';
-            if (createOrModify === 'modify')
-                window.location.reload();
-        }
-        catch (errorResponse) {
-            alert(errorResponse);
+            }
         };
+        request.send(submitCreate);
+    });
+}
+
+async function submitCreateFormData(submitCreate, keyWord, apiLink) {
+    try {
+        const requestPromise = makeCreateRequest(submitCreate, keyWord, apiLink);
+        const response = await requestPromise;
+        return response
     }
+    catch (errorResponse) {
+        alert(errorResponse);
+    };
+}
+logoutFunction()
+function logoutFunction() {
+    logoutApi = 'http://127.0.0.1:3000'
+    logoutButton = document.getElementById('logoutButton');
+
+    logoutButton.addEventListener('click', () => {
+        submitMMFormData(logout = undefined, ('POST'), ('http://127.0.0.1:3000/logout')).then(resp => {
+            if (resp.loggedOut === true) {
+                window.location.href = 'http://127.0.0.1:5500/index.html'
+            } else {
+                console.log('Unable to log out, contact support')
+            }
+        });
+    });
 }

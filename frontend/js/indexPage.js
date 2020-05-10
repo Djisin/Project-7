@@ -28,10 +28,10 @@ onload = async function submitCheckData() {
         const response = await requestPromise;
         responseId = (JSON.parse(response));
         if (responseId.loggedIn = true) {
-            window.location.replace("/frontend/home.html");
+            window.location.replace("home.html");
         }
         else {
-            window.location.replace("/frontend/index.html");
+            window.location.replace("index.html");
         }
 
     }

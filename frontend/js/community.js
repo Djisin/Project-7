@@ -60,7 +60,7 @@ request.onload = function () {
             fdPic2.setAttribute('src', 'img/userDef.jpg')
         }
         const fdlink2 = document.createElement('a');
-        fdlink2.setAttribute('href', 'http://127.0.0.1:5500/frontend/profile.html?' + data.mostSuccUser.userId)
+        fdlink2.setAttribute('href', 'http://127.0.0.1:5500/profile.html?' + data.mostSuccUser.userId)
         fdlink2.innerText = data.mostSuccUser.username;
         mostSuccWriter.append(fdLabel2, fdPic2, fdlink2);
 
@@ -72,7 +72,7 @@ request.onload = function () {
         fdLabel3.setAttribute('for', '');
         fdLabel3.innerText = 'The most times read?';
         const fdlink = document.createElement('a');
-        fdlink.setAttribute('href', 'http://127.0.0.1:5500/frontend/post.html?' + data.mostReadArticle.postId)
+        fdlink.setAttribute('href', 'http://127.0.0.1:5500/post.html?' + data.mostReadArticle.postId)
         fdlink.innerText = data.mostReadArticle.postTitle;
         const fdParag3 = document.createElement('p');
         if (data.mostReadArticle.count === data.numberOfUsers) {
@@ -92,10 +92,10 @@ request.onload = function () {
         fdLabel4.setAttribute('for', '');
         fdLabel4.innerText = 'Article rated the best by users of our community?';
         const fdlink4 = document.createElement('a');
-        fdlink4.setAttribute('href', 'http://127.0.0.1:5500/frontend/post.html?' + data.mostLikedArticle.postId)
+        fdlink4.setAttribute('href', 'http://127.0.0.1:5500/post.html?' + data.mostLikedArticle.postId)
         fdlink4.innerText = data.mostLikedArticle.postTitle;
         const fdParag4 = document.createElement('p');
-        fdParag4.innerHTML = 'By: <a href=http://127.0.0.1:5500/frontend/profile.html?' + data.mostLikedArticle.userId + '>' + data.mostLikedArticle.username + '</a>'
+        fdParag4.innerHTML = 'By: <a href=http://127.0.0.1:5500/profile.html?' + data.mostLikedArticle.userId + '>' + data.mostLikedArticle.username + '</a>'
         mostLikedArticle.append(fdLabel4, fdlink4, fdParag4);
         //MiddlePart
         //Located in js/mmPosts.js
@@ -111,7 +111,7 @@ request.onload = function () {
         rightPart.getElementsByClassName('numbersDiv')[0].classList.add('community-numbers-div')
         preventJs();
     } else {
-        window.location.href = '/frontend/index.html';
+        window.location.href = 'index.html';
     }
 }
 request.send();

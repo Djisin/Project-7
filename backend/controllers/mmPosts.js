@@ -1,8 +1,8 @@
 const connection = require('../connection');
 const fs = require('fs');
-let today = new Date();
 
 exports.createMMPost = (req, res, next) => {
+    const today = new Date();
     const url = req.protocol + '://' + req.get('host');
     let mmpost;
     if (req.body.mmPost === 'null') {
@@ -195,6 +195,7 @@ exports.getAllMMPosts = (req, res, next) => {
     });
 }
 exports.modifyMMPost = (req, res, next) => {
+    const today = new Date();
     const url = req.protocol + '://' + req.get('host');
     let mmPost;
     if (req.body.mmPost === 'null') {
@@ -292,6 +293,7 @@ exports.modifyMMPost = (req, res, next) => {
             'postText': req.body.mmPost,
         }
     } else {
+        console.log(req.body)
         console.log('Error on input, check')
     }
     connection.query(`UPDATE mmpost SET ? WHERE mmPostId = ` + req.params.id, mmPost, (error) => {

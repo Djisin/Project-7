@@ -1,10 +1,31 @@
-function constructCreateMMPost(attachTo) {
+function constructCreateMMPost(attachTo, checkIfModify, mmText, multimedia, embeding, editingPostId) {
     const contentDiv = document.createElement('div');
     contentDiv.setAttribute('id', 'create-content-div');
-    attachTo.appendChild(contentDiv);
+    if (checkIfModify === 'modify') {
+        document.getElementById('createPostSection').appendChild(contentDiv);
+        document.getElementById('createPostSection').style.display = 'flex';
+        document.getElementById('createPost').children[0].onclick = function () { }
+        document.getElementById('createPost').classList.add('disabled');
+        contentDiv.setAttribute('class', 'col-lg-4 col-md-6 col-sm-7 col-xs-11')
+        let closeButton = document.createElement('span');
+        closeButton.innerHTML = '<i class="fas fa-times"></i>';
+        closeButton.setAttribute('id', 'closeButtonP');
+
+        closeButton.addEventListener('click', () => {
+            window.location.reload();
+            createMMPostDiv.reset();
+        });
+        document.getElementById('createPostSection').appendChild(closeButton);
+    } else {
+        attachTo.appendChild(contentDiv);
+    }
 
     const contentHeader = document.createElement('h3');
-    contentHeader.innerText = 'Create post';
+    if (checkIfModify === 'modify') {
+        contentHeader.innerText = 'Modify post';
+    } else {
+        contentHeader.innerText = 'Create post';
+    }
     contentDiv.appendChild(contentHeader);
 
     const createMMPostDiv = document.createElement('form');
@@ -15,8 +36,13 @@ function constructCreateMMPost(attachTo) {
     createMMPostTxt.setAttribute('id', 'mmPostTxt');
     createMMPostTxt.setAttribute('class', 'form-control')
     createMMPostTxt.placeholder = 'Write something here...'
-    createMMPostDiv.appendChild(createMMPostTxt);
+    if (checkIfModify === 'modify') {
+        createMMPostTxt.innerText = mmText
+    }
     preventJ(createMMPostTxt);
+    const createMMPostTxtSpan = document.createElement('span');
+    createMMPostTxtSpan.setAttribute('class', 'help-block');
+    createMMPostDiv.append(createMMPostTxt, createMMPostTxtSpan);
 
     const buttonGroup = document.createElement('div');
     buttonGroup.setAttribute('class', 'btn-group');
@@ -24,6 +50,7 @@ function constructCreateMMPost(attachTo) {
 
     const addMMContent = document.createElement('input');
     addMMContent.setAttribute('type', 'file');
+    addMMContent.setAttribute('name', 'file');
     addMMContent.setAttribute('id', 'addMMContent');
 
     const mmButton = document.createElement('button');
@@ -86,7 +113,6 @@ function constructCreateMMPost(attachTo) {
         } else {
             hideLinkInput();
         }
-
     });
 
     function displayLinkInput() {
@@ -116,99 +142,140 @@ function constructCreateMMPost(attachTo) {
     createButton.setAttribute('class', 'btn btn-default');
     createButton.innerText = 'Post'
     buttonGroup.appendChild(createButton);
+
+    if (checkIfModify === 'modify') {
+        if (multimedia !== null) {
+            if (embeding === 0) {
+                showMMLabel();
+                multimedia = multimedia.toLowerCase()
+                firstPart = multimedia.indexOf('/images/') + 8;
+                pera = multimedia.substring(multimedia.length - 4)
+                secondPart = multimedia.indexOf(pera, firstPart)
+                multimedia = multimedia.substring(firstPart, secondPart)
+                mmLabel.innerText = multimedia;
+            } else if (embeding === 1) {
+                displayLinkInput();
+                linkInput.value = multimedia;
+            }
+        }
+
+        const checkDiv = document.createElement('div');
+        checkDiv.setAttribute('class', 'md-col-12 chk-div')
+        contentDiv.appendChild(checkDiv);
+        const checkBox = document.createElement('input');
+        checkBox.setAttribute('type', 'checkbox');
+        checkBox.setAttribute('name', 'deleteCheckbox');
+        checkDiv.appendChild(checkBox)
+        const labelCB = document.createElement('label');
+        labelCB.setAttribute('for', 'deleteCheckbox');
+        labelCB.innerHTML = 'Check ONLY if you want to remove attached media<br> (do not check when replacing)';
+        checkDiv.appendChild(labelCB);
+        preventJs()
+    }
     createButton.addEventListener('click', ($event) => {
         $event.preventDefault();
-
         let submitMMData = new FormData
         submitMMData.append('embedLink', null);
         submitMMData.append('mmPost', null);
-
-        if (addMMContent.files.length !== 0) {
-            if (linkInput.value.trim().length === 0) {
-                submitMMData.append('file', addMMContent.files[0]);
-                submitMMData.append('embed', false)
-            } else {
-                errorParag.innerText = 'You can only provide link, or upload video or picture.'
-                return
-            }
-        }
-        if (linkInput.value.trim().length !== 0) {
-            if (addMMContent.files.length === 0) {
-                submitMMData.delete('embedLink');
-                if (linkInput.value.indexOf('https://www.youtube.com') >= 0) {
-                    let newLink = linkInput.value.replace('/watch?v=', '/embed/');
-                    submitMMData.append('embedLink', newLink);
-                    submitMMData.append('embed', true);
-                } else if (linkInput.value.indexOf('https://youtu.be/') >= 0) {
-                    let newLink = linkInput.value.replace('youtu.be/', 'www.youtube.com/embed/');
-                    submitMMData.append('embedLink', newLink);
-                    submitMMData.append('embed', true);
-                } else if (linkInput.value.indexOf('youtube') && linkInput.value.trim().length < 25) {
-                    errorParag.innerText = 'Provide a valid youtube link video.'
-                    return
-                } else {
-                    submitMMData.append('embedLink', linkInput.value);
-                    submitMMData.append('embed', true);
-                }
-
-            } else {
-                errorParag.innerText = 'You can only provide link, or upload video or picture.'
-                return
-            }
-        }
-        if (createMMPostTxt.value.trim().length !== 0) {
+        function chkText() {
             if (createMMPostTxt.value.trim().length !== 0) {
-                dataForSubmit = createMMPostTxt.value
-                submitMMData.delete('mmPost');
-                submitMMData.append('mmPost', dataForSubmit);
+                if (createMMPostTxt.value.trim().length !== 0) {
+                    dataForSubmit = createMMPostTxt.value
+                    submitMMData.delete('mmPost');
+                    submitMMData.append('mmPost', dataForSubmit);
+                } else {
+                    dataForSubmit = null;
+                    if (checkIfModify === 'modify') {
+                        submitMMData.append('onlyText', null)
+                    }
+                }
+            }
+            if (checkIfModify === 'modify') {
+                if (linkInput.value.trim().length === 0 && (addMMContent.files.length === 0)) {
+                    submitMMData.append('onlyText', true)
+                }
+            }
+            return true
+        }
+        function chkFile() {
+            if (addMMContent.files.length !== 0) {
+                if (linkInput.value.trim().length === 0) {
+                    posibleImgExtensions = ['.jpg', '.png', 'apng', '.bmp', '.gif', '.svg', 'webp'];
+                    posibleVidExtensions = ['.flv', '.mp4', '.ts', '.3gp', '.mov', '.avi', '.wmv'];
+                    if (posibleImgExtensions.includes(addMMContent.files[0].name.toLowerCase().substring(addMMContent.files[0].name.length - 4)) || posibleVidExtensions.includes(addMMContent.files[0].name.toLowerCase().substring(addMMContent.files[0].name.length - 4))) {
+                        submitMMData.append('file', addMMContent.files[0]);
+                        submitMMData.append('embed', false)
+                        return true
+                    } else {
+                        mmErrorReport(createMMPostTxtSpan, 'Provided media is not supported.');
+                    }
+                } else {
+                    mmErrorReport(createMMPostTxtSpan, 'You can only provide link, or upload video or picture.');
+                }
             } else {
-                dataForSubmit = null;
+                return true
             }
         }
-        if (createMMPostTxt.value.trim().length === 0 && linkInput.value.trim().length === 0 && addMMContent.files.length === 0) {
-            errorParag.innerText = 'You can not create post without any content.'
-            createMMPostTxt.focus();
-            setTimeout(() => {
-                errorParag.innerText = '';
-            }, 5000);
-            return
-        } else {
-            submitMMpost(submitMMData);
-            setTimeout(() => {
-                window.location.reload();
-            }, 500);
+        function chkLink() {
+            if (linkInput.value.trim().length !== 0) {
+                if (addMMContent.files.length === 0) {
+                    submitMMData.delete('embedLink');
+                    if (linkInput.value.indexOf('https://www.youtube.com') >= 0) {
+                        let newLink = linkInput.value.replace('/watch?v=', '/embed/');
+                        submitMMData.append('embedLink', newLink);
+                        submitMMData.append('embed', true);
+                        return true
+                    } else if (linkInput.value.indexOf('https://youtu.be/') >= 0) {
+                        let newLink = linkInput.value.replace('youtu.be/', 'www.youtube.com/embed/');
+                        submitMMData.append('embedLink', newLink);
+                        submitMMData.append('embed', true);
+                        return true
+                    } else if (linkInput.value.indexOf('youtube') && linkInput.value.trim().length < 25) {
+                        mmErrorReport(createMMPostTxtSpan, 'Provide a valid youtube video link.');
+                    } else {
+                        submitMMData.append('embedLink', linkInput.value);
+                        submitMMData.append('embed', true);
+                        return true
+                    }
+                } else {
+                    mmErrorReport(createMMPostTxtSpan, 'You can only provide link, or upload video or picture.');
+                }
+            } else {
+                return true
+            }
+        }
+        if (checkIfModify === 'modify') {
+            let chkBoxValue = document.getElementsByName('deleteCheckbox')[0];
+            if (chkBoxValue.checked === true) {
+                submitMMData.append('checkBox', true);
+            } else if (chkBoxValue.checked === false) {
+                submitMMData.append('checkBox', false);
+            }
         }
 
-        function makeSubmitMMPost(submitMMData) {
-            return new Promise((resolve, reject) => {
-                let request = new XMLHttpRequest();
-                request.open('POST', mmApi + '/createPost', true);
-                request.withCredentials = true;
-                request.onreadystatechange = () => {
-                    if (request.readyState === 4) {
-                        if (request.status >= 200 && request.status < 400) {
-                            resolve(request.response);
-                        } else {
-                            reject(request.response);
-                        }
-                    }
-                };
-                request.send(submitMMData);
-            });
-        }
-        async function submitMMpost(submitMMData) {
-            try {
-                const requestPromise = makeSubmitMMPost(submitMMData);
-                const response = await requestPromise;
+        function chkIfAllEmpty() {
+            if (createMMPostTxt.value.trim().length === 0 && linkInput.value.trim().length === 0 && (addMMContent.files.length === 0 && mmLabel.innerText.trim().length === 0)) {
+                createMMPostTxt.focus();
+                mmErrorReport(createMMPostTxtSpan, 'You can not create post without any content.')
+            } else {
+                return true
             }
-            catch (errorResponse) {
-                alert(errorResponse);
-            };
         }
-    })
-    const errorParag = document.createElement('p');
-    errorParag.setAttribute('id', 'errorParag');
-    contentDiv.appendChild(errorParag);
+
+        if (chkText() && chkLink() && chkFile() && chkIfAllEmpty()) {
+            if (checkIfModify === 'modify') {
+                submitCreateFormData(submitMMData, 'PUT', (mmApi + '/' + editingPostId)).then(() => {
+                    window.location.reload();
+                });
+            } else {
+                submitCreateFormData(submitMMData, 'POST', (mmApi + '/createPost')).then(() => {
+                    window.location.reload();
+                });
+            }
+        } else {
+            return false
+        }
+    });
 }
 
 function constructMMPost(attachTo, mmContent, whoIsLoggedIn, admin) {
@@ -237,7 +304,7 @@ function constructMMPost(attachTo, mmContent, whoIsLoggedIn, admin) {
         singlePostHeader.appendChild(userPic);
 
         const userName = document.createElement('a');
-        userName.setAttribute('href', 'http://127.0.0.1:5500/frontend/profile.html?' + mmContent[i].userId)
+        userName.setAttribute('href', 'http://127.0.0.1:5500/profile.html?' + mmContent[i].userId)
         userName.innerText = mmContent[i].username;
         singlePostHeader.appendChild(userName);
 
@@ -302,36 +369,33 @@ function constructMMPost(attachTo, mmContent, whoIsLoggedIn, admin) {
         singlePostFooter.appendChild(edited);
 
         const comReport = document.createElement('button');
-        if ((mmContent[i].userId !== whoIsLoggedIn)||admin===1) {
+        if ((mmContent[i].userId !== whoIsLoggedIn) || admin === 1) {
             comReport.setAttribute('class', 'btn btn-link')
             comReport.innerText = 'report';
-            if (admin===0){
-             hamburgerMenu(singlePostHeader, [comReport]);   
+            if (admin === 0) {
+                hamburgerMenu(singlePostHeader, [comReport]);
             }
-            
         }
 
-        if ((mmContent[i].userId === whoIsLoggedIn)|| admin===1) {
+        if ((mmContent[i].userId === whoIsLoggedIn) || admin === 1) {
             const editButton = document.createElement('button');
             editButton.setAttribute('class', 'btn btn-link editMMPost');
             editButton.innerText = 'edit';
 
-            let multimedia = mmContent[i].postMMField;
-            let embeding = mmContent[i].embed;
-            let mmText = mmContent[i].postText;
-            let editingPostId = mmContent[i].mmPostId;
-            let divOnTop = document.getElementById('divOnTop');
-            editMMPostFunction(divOnTop, editButton, mmText, multimedia, embeding, editingPostId);
+            editButton.addEventListener('click', ($event) => {
+                $event.preventDefault();
+                constructCreateMMPost('undefined', 'modify', (mmContent[i].postText), (mmContent[i].postMMField), (mmContent[i].embed), (mmContent[i].mmPostId));
+            });
 
             const deleteButton = document.createElement('button');
             deleteButton.setAttribute('class', 'btn btn-link');
             deleteButton.innerText = 'delete';
-            if(admin ===0){
-                 hamburgerMenu(singlePostHeader, [editButton, deleteButton])
-            } else if(admin===1){
+            if (admin === 0) {
+                hamburgerMenu(singlePostHeader, [editButton, deleteButton])
+            } else if (admin === 1) {
                 hamburgerMenu(singlePostHeader, [editButton, deleteButton, comReport])
             }
-           
+
             deleteButton.addEventListener('click', ($event) => {
                 $event.preventDefault();
                 delPostComOrSubCom((mmApi + '/' + mmContent[i].mmPostId), singlePost)
@@ -397,4 +461,13 @@ function constructMMPost(attachTo, mmContent, whoIsLoggedIn, admin) {
         );
         reportEventListener(comReport, singlePostFooter, (mmContent[i].mmPostId), (mmContent[i].userId), (undefined))
     }
+}
+function mmErrorReport(errorSpan, message) {
+    errorSpan.innerText = message;
+    errorSpan.parentElement.classList.add('has-error');
+    setTimeout(() => {
+        errorSpan.innerText = '';
+        errorSpan.parentElement.classList.remove('has-error');
+    }, 6000);
+    return false
 }

@@ -1,0 +1,19 @@
+{
+  "name": "groupomania",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.html",
+  "scripts": {
+    "start": "run-script-os",
+    "start:linux:darwin": "concurrently \"node ./node_modules/.bin/http-server -a localhost -p 5500\"  \"sleep 1 && open http://127.0.0.1:5500/frontend/index.html\"",
+    "start:win32": "node node_modules/live-server/live-server --port=5500"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "concurrently": "^5.0.0",
+    "http-server": "^0.12.1",
+    "live-server": "^1.2.1",
+    "run-script-os": "^1.0.7"
+  }
+}

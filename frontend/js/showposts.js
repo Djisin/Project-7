@@ -23,7 +23,7 @@ request.onload = function () {
                 postDiv.setAttribute('class', 'onePostDiv');
                 container.appendChild(postDiv);
                 postDiv.addEventListener('click', () => {
-                    window.location.href = '/frontend/post.html?' + data.posts[i].postId
+                    window.location.href = 'post.html?' + data.posts[i].postId
                 });
 
                 postsSeen = JSON.parse(data.userInfo[0].postsSeen);
@@ -110,7 +110,7 @@ request.onload = function () {
             }
         }
     } else {
-        window.location.href = '/frontend/index.html'
+        window.location.href = 'index.html'
     }
 }
 request.send();
