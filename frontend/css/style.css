@@ -117,14 +117,23 @@ body {
   text-align: center;
 }
 
+#credentials:hover {
+  color: #9d9d9d;
+}
+
+#searchInputDiv div:first-child {
+  width: 39px;
+}
+
 #searchInputDiv #searchInput {
   height: 33px;
   border-radius: 0px;
+  width: 170px;
 }
 
 #searchInputDiv ul {
   position: absolute;
-  width: 266px;
+  width: 263px;
   top: 33px;
 }
 
@@ -133,11 +142,19 @@ body {
   width: 100%;
 }
 
-#searchInputDiv ul li:hover {
-  background-color: papayawhip;
+#searchInputDiv ul li a {
+  color: #000;
+}
+
+#searchInputDiv ul li a:hover {
+  -webkit-transition-duration: 0.25s;
+          transition-duration: 0.25s;
+  text-decoration: none;
+  color: #5989d1;
 }
 
 #searchInputDiv select {
+  width: 93px;
   height: 33px;
 }
 

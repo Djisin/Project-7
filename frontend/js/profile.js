@@ -99,7 +99,7 @@ request.onload = function () {
                         'profPicture': true,
                         'personalLine': null,
                     };
-                    if (!['image/jpg', 'image/jpeg', 'image/png'].includes(changePicIn.type)) {
+                    if (!['image/jpg', 'image/jpeg', 'image/png'].includes(changePicIn.files[0].type)) {
                         profPicParag.innerText = 'Only .jpg, .jpeg or .png is allowed.'
                         profPicParag.style.color = '#a94442'
                         profPicDiv.style.borderColor = '#a94442'

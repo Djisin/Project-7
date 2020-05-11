@@ -2,7 +2,6 @@ const connection = require('../connection');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const fs = require('fs')
-const today = new Date();
 
 exports.index = (req, res, next) => {
     if (!req.session.userId && !req.session.token) {
@@ -18,6 +17,7 @@ exports.index = (req, res, next) => {
 }
 
 exports.signup = (req, res, next) => {
+    const today = new Date();
     bcrypt.hash(req.body.password, 10).then(
         (hash) => {
             let users = {
@@ -331,9 +331,6 @@ exports.editProfile = (req, res, next) => {
 }
 
 exports.deleteProfile = (req, res, next) => {
-    console.log('delete profile req')
-    console.log(req.body);
-    console.log(req.params.id);
     connection.query('SELECT * FROM user WHERE userId=?', req.params.id,
         (error, result) => {
             if (result.length === 0) {

@@ -122,7 +122,7 @@ function createOrEditArticle(createOrModify, editingTitle, editingText, editingP
                 postCreateImg.setAttribute('src', editingPicture);
 
                 removeImgButton = document.createElement('button');
-                removeImgButton.setAttribute('class', 'btn btn-link');
+                removeImgButton.setAttribute('class', 'btn btn-default');
                 removeImgButton.setAttribute('id', 'removeImgButton');
                 removeImgButton.innerText = 'remove';
                 uploadDiv.appendChild(removeImgButton)
@@ -144,7 +144,7 @@ function createOrEditArticle(createOrModify, editingTitle, editingText, editingP
         }
 
         let submitPostButton = document.createElement('button');
-        submitPostButton.setAttribute('class', 'btn btn-link');
+        submitPostButton.setAttribute('class', 'btn btn-default');
         submitPostButton.setAttribute('id', 'submitPostButton');
         submitPostButton.innerText = createOrModify;
 

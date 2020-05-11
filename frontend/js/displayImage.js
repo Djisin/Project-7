@@ -9,7 +9,7 @@ inputFile.addEventListener('change', () => {
             previewImg.setAttribute('src', reader.result);
 
             removeImgButton = document.createElement('button');
-            removeImgButton.setAttribute('class', 'btn btn-link');
+            removeImgButton.setAttribute('class', 'btn btn-default');
             removeImgButton.setAttribute('id', 'removeImgButton');
             removeImgButton.innerText = 'remove image';
 

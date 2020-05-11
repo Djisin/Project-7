@@ -8,7 +8,7 @@ let confPassword = document.getElementById('confirmPwDivOnTop');
 function redWrap(field, errorMessage) {
     field.parentElement.classList.add('has-error');
     field.parentElement.children[2].innerText = errorMessage
-    field.focus();
+    //field.focus();
     field.addEventListener('input', () => {
         field.parentElement.classList.remove('has-error');
         field.parentElement.children[2].innerText = '';
@@ -167,6 +167,9 @@ regButton.addEventListener('click', ($event) => {
     if (!submitReg === false) {
         document.getElementById('registerInfo').reset();
         document.getElementById('errorParagraphL').innerText = 'Successfuly created';
+        setTimeout(() => {
+            document.getElementById('errorParagraphL').innerText = '';
+        }, 10000);
         divOnTop.style.display = 'none';
         submitFormData(submitReg);
     } else {

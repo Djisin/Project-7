@@ -246,6 +246,17 @@
     #registerInfo {
         overflow-y: auto;
     }
+    #searchInputDiv {
+        & div:first-child {
+            width: 39px;
+        }
+        & #searchInput {
+            width: calc(100vw - 93px - 39px - 32px);
+        }
+        & select{
+            width: 93px;
+        }
+    }
 }
 @media only screen and (max-width: 1142px) and (min-width: 991px) {
     #createPostForm {
@@ -287,7 +298,6 @@
 }
 @media only screen and (max-width: 480px) {
     #registerInfo {
-        //padding: 0;
         padding-left: 15px;
         padding-right: 15px;
         height: 100%;
@@ -383,6 +393,11 @@
     #comRepReasonDiv {
         width: 100%;
     }
+    #searchInputDiv {
+        & ul{
+            width: calc(100vw - 39px - 32px);
+        }
+    }
 }
 @media only screen and(max-width:526px) {
     #unreadPosts {
@@ -462,6 +477,16 @@
 
     .onePostDiv {
         width: 50%;
+    }
+    #searchInputDiv {
+        & ul{
+            width: calc(100vw - 39px - 93px - 32px);
+        }
+        & ul li{
+            &:last-child{
+                margin-bottom: 10px;
+            }
+        }
     }
 }
 @media only screen and (max-width: 1024px) {
