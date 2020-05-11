@@ -62,3 +62,8 @@ let openFormF = function openFormFunction() {
     });
     divOnTop.appendChild(closeButton);
 }
+let content = document.getElementById('sectionB');
+let footer = document.getElementsByTagName('footer')[0];
+if ((window.innerHeight - footer.offsetHeight) > content.offsetHeight + 20) {
+    footer.style.position = 'absolute';
+}
