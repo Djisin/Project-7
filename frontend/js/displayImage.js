@@ -11,7 +11,7 @@ inputFile.addEventListener('change', () => {
             removeImgButton = document.createElement('button');
             removeImgButton.setAttribute('class', 'btn btn-default');
             removeImgButton.setAttribute('id', 'removeImgButton');
-            removeImgButton.innerText = 'remove image';
+            removeImgButton.innerText = 'remove';
 
             uploadDiv = document.getElementById('uploadDiv');
             if (document.getElementById('removeImgButton') === null) {
