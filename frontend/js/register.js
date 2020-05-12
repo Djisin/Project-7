@@ -165,13 +165,14 @@ regButton.addEventListener('click', ($event) => {
     $event.preventDefault();
     submitReg = getUserInfo();
     if (!submitReg === false) {
-        document.getElementById('registerInfo').reset();
-        document.getElementById('errorParagraphL').innerText = 'Successfuly created';
-        setTimeout(() => {
-            document.getElementById('errorParagraphL').innerText = '';
-        }, 10000);
-        divOnTop.style.display = 'none';
-        submitFormData(submitReg);
+        submitFormData(submitReg).then(() => {
+            document.getElementById('registerInfo').reset();
+            document.getElementById('errorParagraphL').innerText = 'Successfuly created';
+            setTimeout(() => {
+                document.getElementById('errorParagraphL').innerText = '';
+            }, 10000);
+            divOnTop.style.display = 'none';
+        });
     } else {
         return false
     }
@@ -183,6 +184,10 @@ function makeRequest(submitReg) {
         request.open('POST', 'http://127.0.0.1:3000/signup');
         request.onreadystatechange = () => {
             if (request.readyState === 4) {
+                if (request.status === 403) {
+                    redWrap(email, 'User already exists')
+                    return false
+                }
                 if (request.status >= 200 && request.status < 400) {
                     resolve(request.response);
                 } else {
@@ -199,7 +204,7 @@ async function submitFormData(submitReg) {
     try {
         const requestPromise = makeRequest(submitReg);
         const response = await requestPromise;
-        responseId = (JSON.parse(response));
+        return response
     }
     catch (errorResponse) {
         alert(errorResponse);

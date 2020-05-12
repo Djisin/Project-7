@@ -39,13 +39,9 @@ exports.signup = (req, res, next) => {
                                     res.clearCookie('Groupomania')
                                     res.status(200).json({ message: 'User created!' })
                                 } else if (error) {
-                                    if (error.code === "ER_DUP_ENTRY") {
-                                        res.status(401).json({ message: 'User already exists' })
-                                    } else {
-                                        res.status(400).json({
-                                            error: error
-                                        })
-                                    }
+                                    res.status(400).json({
+                                        error: error
+                                    });
                                 }
                             });
                         } else {
@@ -55,9 +51,15 @@ exports.signup = (req, res, next) => {
                         }
                     });
                 } else {
-                    res.status(400).json({
-                        error: error
-                    });
+                    if (error.code === "ER_DUP_ENTRY") {
+                        res.status(403).json({ 
+                            success:false,
+                            message: 'User already exists' })
+                    } else {
+                        res.status(400).json({
+                            error: error
+                        })
+                    }
                 }
             });
         }
